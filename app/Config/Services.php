@@ -3,30 +3,60 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseService;
+use App\Services\PaginationService;
+use App\Services\ResponseFormatter;
 
 /**
  * Services Configuration file.
  *
- * Services are simply other classes/libraries that the system uses
- * to do its job. This is used by CodeIgniter to allow the core of the
- * framework to be swapped out easily without affecting the usage within
- * the rest of your application.
- *
- * This file holds any application-specific services, or service overrides
- * that you might need. An example has been included with the general
- * method format you should use for your service methods. For more examples,
- * see the core Services file at system/Config/Services.php.
+ * This file lets you define the dependency injection bindings for your app.
+ * You can extend the BaseService class to add custom services.
  */
 class Services extends BaseService
 {
-    /*
-     * public static function example($getShared = true)
-     * {
-     *     if ($getShared) {
-     *         return static::getSharedInstance('example');
-     *     }
-     *
-     *     return new \CodeIgniter\Example();
-     * }
+    /**
+     * Returns a shared instance of the PaginationService.
+     * 
+     * @param bool $getShared Whether to return a shared instance
+     * @return PaginationService
      */
+    public static function pagination(bool $getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('pagination');
+        }
+
+        $config = config('Pagination');
+        return new PaginationService($config);
+    }
+
+    /**
+     * Returns a shared instance of the ResponseFormatter.
+     * 
+     * @param bool $getShared Whether to return a shared instance
+     * @return ResponseFormatter
+     */
+    public static function responseFormatter(bool $getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('responseFormatter');
+        }
+
+        $config = config('App');
+        return new ResponseFormatter($config);
+    }
+
+    /**
+     * Register any custom services you need here.
+     * This method is automatically called by CodeIgniter's service registry.
+     */
+    public static function register()
+    {
+        // Bind custom services
+        static::pagination();
+        static::responseFormatter();
+
+        // You can also override core services here if needed
+        // parent::register();
+    }
 }
