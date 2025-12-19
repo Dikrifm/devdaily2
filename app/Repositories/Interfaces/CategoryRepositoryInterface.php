@@ -3,12 +3,11 @@
 namespace App\Repositories\Interfaces;
 
 use App\Entities\Category;
-use App\Exceptions\CategoryNotFoundException;
 
 interface CategoryRepositoryInterface
 {
     // ==================== BASIC CRUD OPERATIONS ====================
-    
+
     /**
      * Find category by ID
      *
@@ -17,7 +16,7 @@ interface CategoryRepositoryInterface
      * @return Category|null
      */
     public function find(int $id, bool $withTrashed = false): ?Category;
-    
+
     /**
      * Find category by slug
      *
@@ -26,7 +25,7 @@ interface CategoryRepositoryInterface
      * @return Category|null
      */
     public function findBySlug(string $slug, bool $withTrashed = false): ?Category;
-    
+
     /**
      * Find category by ID or slug
      *
@@ -35,7 +34,7 @@ interface CategoryRepositoryInterface
      * @return Category|null
      */
     public function findByIdOrSlug($identifier, bool $withTrashed = false): ?Category;
-    
+
     /**
      * Get all categories with filtering
      *
@@ -51,7 +50,7 @@ interface CategoryRepositoryInterface
         string $sortDirection = 'ASC',
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Save category (create or update)
      *
@@ -60,7 +59,7 @@ interface CategoryRepositoryInterface
      * @throws \RuntimeException
      */
     public function save(Category $category): Category;
-    
+
     /**
      * Delete category
      *
@@ -69,7 +68,7 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function delete(int $id, bool $force = false): bool;
-    
+
     /**
      * Restore soft deleted category
      *
@@ -77,7 +76,7 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function restore(int $id): bool;
-    
+
     /**
      * Check if category exists
      *
@@ -86,9 +85,9 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function exists(int $id, bool $withTrashed = false): bool;
-    
+
     // ==================== TREE & HIERARCHY OPERATIONS ====================
-    
+
     /**
      * Get category tree (nested hierarchy)
      *
@@ -104,7 +103,7 @@ interface CategoryRepositoryInterface
         ?int $maxDepth = null,
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Get flattened category tree (with depth indicator)
      *
@@ -116,7 +115,7 @@ interface CategoryRepositoryInterface
         bool $includeInactive = false,
         string $indicator = '--'
     ): array;
-    
+
     /**
      * Get child categories
      *
@@ -130,7 +129,7 @@ interface CategoryRepositoryInterface
         bool $activeOnly = true,
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Get parent categories (path to root)
      *
@@ -139,7 +138,7 @@ interface CategoryRepositoryInterface
      * @return array Ordered from immediate parent to root
      */
     public function getParentPath(int $categoryId, bool $includeSelf = false): array;
-    
+
     /**
      * Check if category is descendant of another
      *
@@ -148,7 +147,7 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function isDescendantOf(int $categoryId, int $parentId): bool;
-    
+
     /**
      * Check for circular reference
      *
@@ -157,7 +156,7 @@ interface CategoryRepositoryInterface
      * @return bool True if circular reference would occur
      */
     public function wouldCreateCircularReference(int $categoryId, int $newParentId): bool;
-    
+
     /**
      * Move category to new parent
      *
@@ -166,9 +165,9 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function moveToParent(int $categoryId, int $newParentId): bool;
-    
+
     // ==================== STATUS & ACTIVATION OPERATIONS ====================
-    
+
     /**
      * Activate category
      *
@@ -176,7 +175,7 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function activate(int $categoryId): bool;
-    
+
     /**
      * Deactivate category
      *
@@ -184,7 +183,7 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function deactivate(int $categoryId): bool;
-    
+
     /**
      * Archive category (soft delete with special handling)
      *
@@ -192,7 +191,7 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function archive(int $categoryId): bool;
-    
+
     /**
      * Bulk update category status
      *
@@ -201,9 +200,9 @@ interface CategoryRepositoryInterface
      * @return int Number of affected rows
      */
     public function bulkUpdateStatus(array $categoryIds, string $status): int;
-    
+
     // ==================== SORTING & ORDERING ====================
-    
+
     /**
      * Update category sort order
      *
@@ -212,7 +211,7 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function updateSortOrder(int $categoryId, int $newSortOrder): bool;
-    
+
     /**
      * Reorder sibling categories
      *
@@ -221,9 +220,9 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function reorderSiblings(int $parentId, array $orderData): bool;
-    
+
     // ==================== SEARCH & FILTER ====================
-    
+
     /**
      * Search categories by keyword
      *
@@ -241,7 +240,7 @@ interface CategoryRepositoryInterface
         int $limit = 50,
         int $offset = 0
     ): array;
-    
+
     /**
      * Find categories by IDs
      *
@@ -255,7 +254,7 @@ interface CategoryRepositoryInterface
         bool $activeOnly = true,
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Get categories with product count
      *
@@ -269,9 +268,9 @@ interface CategoryRepositoryInterface
         bool $includeEmpty = false,
         int $limit = 50
     ): array;
-    
+
     // ==================== STATISTICS & ANALYTICS ====================
-    
+
     /**
      * Get category statistics
      *
@@ -279,7 +278,7 @@ interface CategoryRepositoryInterface
      * @return array
      */
     public function getStatistics(?int $categoryId = null): array;
-    
+
     /**
      * Count categories by status
      *
@@ -287,7 +286,7 @@ interface CategoryRepositoryInterface
      * @return array [status => count]
      */
     public function countByStatus(bool $withTrashed = false): array;
-    
+
     /**
      * Count total categories
      *
@@ -295,23 +294,23 @@ interface CategoryRepositoryInterface
      * @return int
      */
     public function countAll(bool $withTrashed = false): int;
-    
+
     /**
      * Count active categories
      *
      * @return int
      */
     public function countActive(): int;
-    
+
     /**
      * Get category depth statistics
      *
      * @return array [depth => count]
      */
     public function getDepthStatistics(): array;
-    
+
     // ==================== VALIDATION & BUSINESS RULES ====================
-    
+
     /**
      * Check if category can be deleted
      *
@@ -319,7 +318,7 @@ interface CategoryRepositoryInterface
      * @return array [can_delete => bool, reasons => string[], affected_products => int]
      */
     public function canDelete(int $categoryId): array;
-    
+
     /**
      * Check if category can be archived
      *
@@ -327,7 +326,7 @@ interface CategoryRepositoryInterface
      * @return array [can_archive => bool, reasons => string[]]
      */
     public function canArchive(int $categoryId): array;
-    
+
     /**
      * Check if slug is unique
      *
@@ -336,7 +335,7 @@ interface CategoryRepositoryInterface
      * @return bool
      */
     public function isSlugUnique(string $slug, ?int $excludeId = null): bool;
-    
+
     /**
      * Validate category business rules
      *
@@ -344,9 +343,9 @@ interface CategoryRepositoryInterface
      * @return array [is_valid => bool, errors => string[]]
      */
     public function validate(Category $category): array;
-    
+
     // ==================== BATCH & BULK OPERATIONS ====================
-    
+
     /**
      * Bulk update categories
      *
@@ -355,7 +354,7 @@ interface CategoryRepositoryInterface
      * @return int Number of affected rows
      */
     public function bulkUpdate(array $categoryIds, array $updateData): int;
-    
+
     /**
      * Bulk delete categories
      *
@@ -364,7 +363,7 @@ interface CategoryRepositoryInterface
      * @return int Number of deleted rows
      */
     public function bulkDelete(array $categoryIds, bool $force = false): int;
-    
+
     /**
      * Bulk restore categories
      *
@@ -372,9 +371,9 @@ interface CategoryRepositoryInterface
      * @return int Number of restored rows
      */
     public function bulkRestore(array $categoryIds): int;
-    
+
     // ==================== CACHE MANAGEMENT ====================
-    
+
     /**
      * Clear category caches
      *
@@ -382,14 +381,14 @@ interface CategoryRepositoryInterface
      * @return void
      */
     public function clearCache(?int $categoryId = null): void;
-    
+
     /**
      * Get cache TTL setting
      *
      * @return int Cache TTL in seconds
      */
     public function getCacheTtl(): int;
-    
+
     /**
      * Set cache TTL
      *
@@ -397,9 +396,9 @@ interface CategoryRepositoryInterface
      * @return self
      */
     public function setCacheTtl(int $ttl): self;
-    
+
     // ==================== NAVIGATION & UI ====================
-    
+
     /**
      * Get navigation categories (optimized for menus)
      *
@@ -408,7 +407,7 @@ interface CategoryRepositoryInterface
      * @return array
      */
     public function getNavigation(int $maxDepth = 2, int $limitPerLevel = 15): array;
-    
+
     /**
      * Get breadcrumb trail for category
      *
@@ -417,7 +416,7 @@ interface CategoryRepositoryInterface
      * @return array
      */
     public function getBreadcrumbs(int $categoryId, bool $includeCurrent = true): array;
-    
+
     /**
      * Get category suggestions for dropdowns
      *

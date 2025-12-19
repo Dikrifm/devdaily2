@@ -6,39 +6,33 @@ use DateTimeImmutable;
 
 /**
  * MarketplaceBadge Entity
- * 
+ *
  * Represents a badge specific to marketplace stores/sellers.
  * Examples: "Official Store", "Top Seller", "Verified Seller", "Fast Delivery"
  * These badges are displayed next to store names in product links.
- * 
+ *
  * @package App\Entities
  */
 class MarketplaceBadge extends BaseEntity
 {
     /**
      * Badge label/name
-     * 
-     * @var string
      */
     private string $label;
 
     /**
      * Badge icon (FontAwesome class or custom icon)
-     * 
-     * @var string|null
      */
     private ?string $icon = null;
 
     /**
      * Badge color in hex format
-     * 
-     * @var string|null
      */
     private ?string $color = null;
 
     /**
      * Badge constructor
-     * 
+     *
      * @param string $label Badge display label
      */
     public function __construct(string $label)
@@ -71,7 +65,7 @@ class MarketplaceBadge extends BaseEntity
         if ($this->label === $label) {
             return $this;
         }
-        
+
         $this->trackChange('label', $this->label, $label);
         $this->label = $label;
         $this->markAsUpdated();
@@ -83,7 +77,7 @@ class MarketplaceBadge extends BaseEntity
         if ($this->icon === $icon) {
             return $this;
         }
-        
+
         $this->trackChange('icon', $this->icon, $icon);
         $this->icon = $icon;
         $this->markAsUpdated();
@@ -95,12 +89,12 @@ class MarketplaceBadge extends BaseEntity
         if ($color !== null && !preg_match('/^#[0-9A-F]{6}$/i', $color)) {
             throw new \InvalidArgumentException('Color must be a valid hex code (e.g., #10B981) or null');
         }
-        
+
         $normalizedColor = $color !== null ? strtoupper($color) : null;
         if ($this->color === $normalizedColor) {
             return $this;
         }
-        
+
         $this->trackChange('color', $this->color, $normalizedColor);
         $this->color = $normalizedColor;
         $this->markAsUpdated();
@@ -108,11 +102,8 @@ class MarketplaceBadge extends BaseEntity
     }
 
     // ==================== BUSINESS LOGIC METHODS ====================
-
     /**
      * Check if badge has an icon
-     * 
-     * @return bool
      */
     public function hasIcon(): bool
     {
@@ -121,8 +112,6 @@ class MarketplaceBadge extends BaseEntity
 
     /**
      * Check if badge has a custom color
-     * 
-     * @return bool
      */
     public function hasColor(): bool
     {
@@ -132,36 +121,33 @@ class MarketplaceBadge extends BaseEntity
     /**
      * Get CSS color style for badge display
      * Returns inline style if color is set, empty string otherwise
-     * 
-     * @return string
      */
     public function getColorStyle(): string
     {
         if (!$this->hasColor()) {
             return '';
         }
-        
+
         return sprintf('color: %s;', $this->color);
     }
 
     /**
      * Get HTML for badge display
      * Combines icon and label for consistent rendering
-     * 
-     * @return string
      */
     public function getDisplayHtml(): string
     {
         $iconHtml = '';
         $colorStyle = $this->getColorStyle();
-        
+
         if ($this->hasIcon()) {
-            $iconHtml = sprintf('<i class="%s mr-1" style="%s"></i>', 
-                $this->icon, 
+            $iconHtml = sprintf(
+                '<i class="%s mr-1" style="%s"></i>',
+                $this->icon,
                 $colorStyle
             );
         }
-        
+
         return sprintf(
             '<span class="inline-flex items-center text-xs font-medium" style="%s">%s%s</span>',
             $colorStyle,
@@ -173,18 +159,16 @@ class MarketplaceBadge extends BaseEntity
     /**
      * Get Tailwind CSS classes for badge display
      * Based on badge type for consistent styling
-     * 
-     * @return string
      */
     public function getTailwindClasses(): string
     {
         $baseClasses = 'inline-flex items-center text-xs font-medium';
-        
+
         if ($this->hasColor()) {
             // For custom colors, we'll use inline style
             return $baseClasses;
         }
-        
+
         // Default color scheme based on badge type
         $colorMap = [
             'Official Store' => 'text-emerald-600',
@@ -196,15 +180,13 @@ class MarketplaceBadge extends BaseEntity
             'Choice' => 'text-indigo-600',
             'Premium Seller' => 'text-yellow-600',
         ];
-        
+
         return $baseClasses . ' ' . ($colorMap[$this->label] ?? 'text-gray-600');
     }
 
     /**
      * Check if badge is currently assigned to any active link
      * Note: This check should be done at service level
-     * 
-     * @return bool
      */
     public function isAssigned(): bool
     {
@@ -216,22 +198,19 @@ class MarketplaceBadge extends BaseEntity
     /**
      * Check if badge can be archived
      * Business rule: badge assigned to active links cannot be archived
-     * 
-     * @return bool
      */
     public function canBeArchived(): bool
     {
         if (!parent::canBeArchived()) {
             return false;
         }
-        
+
         return !$this->isAssigned();
     }
 
     /**
      * Archive badge (soft delete) with assignment check
-     * 
-     * @return self
+     *
      * @throws \LogicException If badge cannot be archived
      */
     public function archive(): self
@@ -239,54 +218,52 @@ class MarketplaceBadge extends BaseEntity
         if (!$this->canBeArchived()) {
             throw new \LogicException('Marketplace badge cannot be archived because it is still assigned to active links.');
         }
-        
+
         $this->softDelete();
         return $this;
     }
 
     /**
      * Restore badge from archive
-     * 
-     * @return self
      */
     public function restore(): self
     {
         if (!$this->canBeRestored()) {
             throw new \LogicException('Marketplace badge cannot be restored.');
         }
-        
-        $this->restoreFromDelete();
+
+        $this->restore();
         return $this;
     }
 
     /**
      * Validate badge state
      * Override parent validation with marketplace badge-specific rules
-     * 
+     *
      * @return array{valid: bool, errors: string[]}
      */
     public function validate(): array
     {
         $parentValidation = parent::validate();
         $errors = $parentValidation['errors'];
-        
+
         // Marketplace badge-specific validation
-        if (empty($this->label)) {
+        if ($this->label === '' || $this->label === '0') {
             $errors[] = 'Marketplace badge label cannot be empty';
         }
-        
+
         if (strlen($this->label) > 100) {
             $errors[] = 'Marketplace badge label cannot exceed 100 characters';
         }
-        
+
         if ($this->icon !== null && strlen($this->icon) > 100) {
             $errors[] = 'Marketplace badge icon cannot exceed 100 characters';
         }
-        
+
         if ($this->color !== null && !preg_match('/^#[0-9A-F]{6}$/i', $this->color)) {
             $errors[] = 'Marketplace badge color must be a valid hex color code (e.g., #10B981) or null';
         }
-        
+
         return [
             'valid' => empty($errors),
             'errors' => $errors
@@ -350,50 +327,49 @@ class MarketplaceBadge extends BaseEntity
     /**
      * Create a common marketplace badge instance
      * Useful for default marketplace badges in the system
-     * 
+     *
      * @param string $type Type of common badge
-     * @return static|null
      */
     public static function createCommon(string $type): ?static
     {
         $commonBadges = [
             'official_store' => [
-                'label' => 'Official Store', 
+                'label' => 'Official Store',
                 'icon' => 'fas fa-check-circle',
                 'color' => '#059669'
             ],
             'top_seller' => [
-                'label' => 'Top Seller', 
+                'label' => 'Top Seller',
                 'icon' => 'fas fa-crown',
                 'color' => '#D97706'
             ],
             'verified_seller' => [
-                'label' => 'Verified Seller', 
+                'label' => 'Verified Seller',
                 'icon' => 'fas fa-shield-check',
                 'color' => '#2563EB'
             ],
             'fast_delivery' => [
-                'label' => 'Fast Delivery', 
+                'label' => 'Fast Delivery',
                 'icon' => 'fas fa-shipping-fast',
                 'color' => '#7C3AED'
             ],
             'recommended' => [
-                'label' => 'Recommended', 
+                'label' => 'Recommended',
                 'icon' => 'fas fa-thumbs-up',
                 'color' => '#DC2626'
             ],
             'trusted' => [
-                'label' => 'Trusted', 
+                'label' => 'Trusted',
                 'icon' => 'fas fa-award',
                 'color' => '#059669'
             ],
             'choice' => [
-                'label' => 'Choice', 
+                'label' => 'Choice',
                 'icon' => 'fas fa-star',
                 'color' => '#4F46E5'
             ],
             'premium_seller' => [
-                'label' => 'Premium Seller', 
+                'label' => 'Premium Seller',
                 'icon' => 'fas fa-gem',
                 'color' => '#F59E0B'
             ],
@@ -406,13 +382,13 @@ class MarketplaceBadge extends BaseEntity
         $badge = new self($commonBadges[$type]['label']);
         $badge->setIcon($commonBadges[$type]['icon']);
         $badge->setColor($commonBadges[$type]['color']);
-        
+
         return $badge;
     }
 
     /**
      * Create all common marketplace badges for system initialization
-     * 
+     *
      * @return static[]
      */
     public static function createAllCommon(): array
@@ -427,7 +403,7 @@ class MarketplaceBadge extends BaseEntity
             'choice',
             'premium_seller',
         ];
-        
+
         $badges = [];
         foreach ($types as $type) {
             $badge = self::createCommon($type);
@@ -435,14 +411,12 @@ class MarketplaceBadge extends BaseEntity
                 $badges[] = $badge;
             }
         }
-        
+
         return $badges;
     }
 
     /**
      * Create a sample marketplace badge for testing/demo
-     * 
-     * @return static
      */
     public static function createSample(): static
     {

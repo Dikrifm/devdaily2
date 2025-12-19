@@ -2,41 +2,39 @@
 
 namespace App\Entities;
 
+use DateTimeImmutable;
+
 /**
  * ProductBadge Entity
- * 
+ *
  * Represents a many-to-many relationship between Products and Badges.
  * This is a junction table entity without timestamps or soft delete.
- * 
+ *
  * @package App\Entities
  */
 class ProductBadge
 {
     /**
      * Product ID (foreign key, part of composite primary key)
-     * 
-     * @var int
      */
     private int $product_id;
 
     /**
      * Badge ID (foreign key, part of composite primary key)
-     * 
-     * @var int
      */
     private int $badge_id;
 
 
     private ?DateTimeImmutable $assigned_at = null;
-    private ?int $assigned_by = null;
-    
+
     // Add getters/setters
-    public function getAssignedAt(): ?DateTimeImmutable {
+    public function getAssignedAt(): ?DateTimeImmutable
+    {
         return $this->assigned_at;
     }
-    
-    public function assignedBy(int $adminId): self {
-        $this->assigned_by = $adminId;
+
+    public function assignedBy(int $adminId): self
+    {
         $this->assigned_at = new DateTimeImmutable();
         return $this;
     }
@@ -44,9 +42,6 @@ class ProductBadge
 
     /**
      * ProductBadge constructor
-     * 
-     * @param int $product_id
-     * @param int $badge_id
      */
     public function __construct(int $product_id, int $badge_id)
     {
@@ -56,8 +51,6 @@ class ProductBadge
 
     /**
      * Get product ID
-     * 
-     * @return int
      */
     public function getProductId(): int
     {
@@ -66,9 +59,6 @@ class ProductBadge
 
     /**
      * Set product ID
-     * 
-     * @param int $product_id
-     * @return void
      */
     public function setProductId(int $product_id): void
     {
@@ -77,8 +67,6 @@ class ProductBadge
 
     /**
      * Get badge ID
-     * 
-     * @return int
      */
     public function getBadgeId(): int
     {
@@ -87,9 +75,6 @@ class ProductBadge
 
     /**
      * Set badge ID
-     * 
-     * @param int $badge_id
-     * @return void
      */
     public function setBadgeId(int $badge_id): void
     {
@@ -98,9 +83,6 @@ class ProductBadge
 
     /**
      * Check if this association is for a specific product
-     * 
-     * @param int $product_id
-     * @return bool
      */
     public function isForProduct(int $product_id): bool
     {
@@ -109,9 +91,6 @@ class ProductBadge
 
     /**
      * Check if this association is for a specific badge
-     * 
-     * @param int $badge_id
-     * @return bool
      */
     public function isForBadge(int $badge_id): bool
     {
@@ -121,8 +100,6 @@ class ProductBadge
     /**
      * Get the composite key as an array
      * Useful for database operations
-     * 
-     * @return array
      */
     public function getCompositeKey(): array
     {
@@ -134,20 +111,15 @@ class ProductBadge
 
     /**
      * Check if another ProductBadge is equal to this one
-     * 
-     * @param ProductBadge $other
-     * @return bool
      */
     public function equals(ProductBadge $other): bool
     {
-        return $this->product_id === $other->getProductId() 
+        return $this->product_id === $other->getProductId()
             && $this->badge_id === $other->getBadgeId();
     }
 
     /**
      * Convert entity to array representation
-     * 
-     * @return array
      */
     public function toArray(): array
     {
@@ -160,9 +132,6 @@ class ProductBadge
 
     /**
      * Create ProductBadge from array data
-     * 
-     * @param array $data
-     * @return static
      */
     public static function fromArray(array $data): static
     {
@@ -174,8 +143,6 @@ class ProductBadge
 
     /**
      * Create a sample ProductBadge for testing/demo
-     * 
-     * @return static
      */
     public static function createSample(): static
     {

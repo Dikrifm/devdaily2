@@ -9,19 +9,19 @@ use App\DTOs\Responses\CategoryTreeResponse;
 use App\Entities\Category;
 use App\Entities\Product;
 use App\Exceptions\CategoryNotFoundException;
-use App\Exceptions\ValidationException;
 use App\Exceptions\DomainException;
+use App\Exceptions\ValidationException;
+use App\Models\AdminModel;
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use CodeIgniter\Database\ConnectionInterface;
-use CodeIgniter\Database\Exceptions\DatabaseException;
 use DateTimeImmutable;
 use Exception;
 use RuntimeException;
 
-/**
+/*
  * Enterprise-grade Category Service
- * 
+ *
  * Manages hierarchical category structure with nested set pattern,
  * provides efficient tree operations, caching, and bulk operations.
  */
@@ -33,25 +33,25 @@ class CategoryService
     private AuditService $auditService;
     private CacheService $cacheService;
     private ConnectionInterface $db;
-    
+
     // Configuration
     private array $config;
-    
+
     // Cache constants
     private const CACHE_TTL = 7200; // 2 hours
     private const CACHE_PREFIX = 'category_service_';
     private const TREE_CACHE_TTL = 3600;
     private const NAVIGATION_CACHE_TTL = 1800;
-    
+
     // Business rules
     private const MAX_CATEGORY_DEPTH = 5;
     private const MAX_CATEGORIES_PER_LEVEL = 50;
     private const MAX_CATEGORY_NAME_LENGTH = 100;
     private const MAX_CATEGORY_SLUG_LENGTH = 50;
-    
+
     // Nested set constants
     private const ROOT_PARENT_ID = 0;
-    
+
     public function __construct(
         CategoryModel $categoryModel,
         ProductModel $productModel,
@@ -68,11 +68,11 @@ class CategoryService
         $this->cacheService = $cacheService;
         $this->db = $db;
         $this->config = array_merge($this->getDefaultConfig(), $config);
-        
+
         // Set cache TTL from config
         $this->cacheService->setDefaultTtl($this->config['cache_ttl'] ?? self::CACHE_TTL);
     }
-    
+
     /**
      * Create a new category with hierarchical support
      */
@@ -84,7 +84,7 @@ class CategoryService
             ValidationService::CONTEXT_CREATE,
             $request->toArray()
         );
-        
+
         if (!empty($validationErrors)) {
             throw ValidationException::forBusinessRule(
                 'CATEGORY_CREATE_VALIDATION',
@@ -92,14 +92,14 @@ class CategoryService
                 ['errors' => $validationErrors]
             );
         }
-        
+
         // 2. Validate admin permissions
         $adminValidation = $this->validationService->validateAdminPermission(
             $adminId,
             ValidationService::CONTEXT_CREATE,
             'category'
         );
-        
+
         if (!empty($adminValidation)) {
             throw ValidationException::forBusinessRule(
                 'ADMIN_PERMISSION_DENIED',
@@ -107,7 +107,7 @@ class CategoryService
                 ['errors' => $adminValidation]
             );
         }
-        
+
         // 3. Check parent category if provided
         $parentId = $request->parentId ?? self::ROOT_PARENT_ID;
         if ($parentId !== self::ROOT_PARENT_ID) {
@@ -119,7 +119,7 @@ class CategoryService
                     ['parent_id' => $parentId]
                 );
             }
-            
+
             // Check max depth
             $parentDepth = $this->calculateCategoryDepth($parentId);
             if ($parentDepth >= self::MAX_CATEGORY_DEPTH) {
@@ -134,7 +134,7 @@ class CategoryService
                 );
             }
         }
-        
+
         // 4. Check sibling count
         $siblingCount = $this->countCategoriesByParent($parentId);
         if ($siblingCount >= self::MAX_CATEGORIES_PER_LEVEL) {
@@ -148,26 +148,26 @@ class CategoryService
                 ]
             );
         }
-        
+
         // 5. Create category entity
         $categoryData = $request->toArray();
         $category = Category::fromArray($categoryData);
-        
+
         // Set additional fields
         $category->setActive(true);
         $category->initializeTimestamps();
-        
+
         // Set sort order (append to end)
         $category->setSortOrder($siblingCount + 1);
-        
+
         // 6. Save with transaction (nested set updates)
         $this->db->transStart();
-        
+
         try {
             // For nested set, we need to handle left/right values
             // In MVP, we'll use simple parent_id approach
             $savedCategory = $this->categoryModel->save($category);
-            
+
             // 7. Log audit trail
             $admin = $this->getAdminModel()->find($adminId);
             $this->auditService->logCreate(
@@ -177,13 +177,13 @@ class CategoryService
                 $admin,
                 sprintf('Category created under parent ID: %s', $parentId)
             );
-            
+
             $this->db->transComplete();
-            
+
             // 8. Clear relevant caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // 9. Publish event
             $this->publishEvent('category.created', [
                 'category_id' => $savedCategory->getId(),
@@ -192,19 +192,19 @@ class CategoryService
                 'category_data' => $savedCategory->toArray(),
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return $savedCategory;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError('Category creation failed', [
                 'admin_id' => $adminId,
                 'request_data' => $request->toArray(),
                 'parent_id' => $parentId,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'CATEGORY_CREATION_FAILED',
                 'Failed to create category: ' . $e->getMessage(),
@@ -214,28 +214,28 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Update existing category
      */
     public function update(UpdateCategoryRequest $request, int $adminId): Category
     {
         $categoryId = $request->id;
-        
+
         // 1. Get existing category
         $existingCategory = $this->categoryModel->find($categoryId);
-        
+
         if (!$existingCategory) {
             throw CategoryNotFoundException::forId($categoryId);
         }
-        
+
         // 2. Validate update
         $validationErrors = $this->validationService->validateCategoryOperation(
             $categoryId,
             ValidationService::CONTEXT_UPDATE,
             $request->toArray()
         );
-        
+
         if (!empty($validationErrors)) {
             throw ValidationException::forBusinessRule(
                 'CATEGORY_UPDATE_VALIDATION',
@@ -243,7 +243,7 @@ class CategoryService
                 ['errors' => $validationErrors]
             );
         }
-        
+
         // 3. Check if parent change is requested
         $newParentId = $request->parentId ?? $existingCategory->getParentId();
         if ($newParentId !== $existingCategory->getParentId()) {
@@ -257,7 +257,7 @@ class CategoryService
                         ['new_parent_id' => $newParentId]
                     );
                 }
-                
+
                 // Check for circular reference
                 if ($this->isCircularReference($categoryId, $newParentId)) {
                     throw new DomainException(
@@ -269,7 +269,7 @@ class CategoryService
                         ]
                     );
                 }
-                
+
                 // Check max depth
                 $newParentDepth = $this->calculateCategoryDepth($newParentId);
                 $currentDepth = $this->calculateCategoryDepth($categoryId);
@@ -288,11 +288,11 @@ class CategoryService
                 }
             }
         }
-        
+
         // 4. Apply changes
         $updateData = $request->toArray();
         $updatedCategory = clone $existingCategory;
-        
+
         foreach ($updateData as $field => $value) {
             if ($value !== null) {
                 $setter = 'set' . str_replace('_', '', ucwords($field, '_'));
@@ -301,15 +301,15 @@ class CategoryService
                 }
             }
         }
-        
+
         $updatedCategory->markAsUpdated();
-        
+
         // 5. Save with transaction
         $this->db->transStart();
-        
+
         try {
             $savedCategory = $this->categoryModel->save($updatedCategory);
-            
+
             // 6. Log audit trail
             $admin = $this->getAdminModel()->find($adminId);
             $this->auditService->logUpdate(
@@ -320,13 +320,13 @@ class CategoryService
                 $admin,
                 'Category updated'
             );
-            
+
             $this->db->transComplete();
-            
+
             // 7. Clear caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // 8. Publish event
             $this->publishEvent('category.updated', [
                 'category_id' => $savedCategory->getId(),
@@ -336,18 +336,18 @@ class CategoryService
                 'new_category' => $savedCategory->toArray(),
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return $savedCategory;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError('Category update failed', [
                 'category_id' => $categoryId,
                 'admin_id' => $adminId,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'CATEGORY_UPDATE_FAILED',
                 'Failed to update category: ' . $e->getMessage(),
@@ -357,7 +357,7 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Delete category (soft delete with dependency check)
      */
@@ -368,7 +368,7 @@ class CategoryService
             $categoryId,
             ValidationService::CONTEXT_DELETE
         );
-        
+
         if (!empty($validationErrors) && !$force) {
             throw ValidationException::forBusinessRule(
                 'CATEGORY_DELETE_VALIDATION',
@@ -376,14 +376,14 @@ class CategoryService
                 ['errors' => $validationErrors]
             );
         }
-        
+
         // 2. Get existing category
         $existingCategory = $this->categoryModel->find($categoryId, true); // Include trashed
-        
+
         if (!$existingCategory) {
             throw CategoryNotFoundException::forId($categoryId);
         }
-        
+
         // 3. Check if already deleted
         if ($existingCategory->isDeleted() && !$force) {
             throw new DomainException(
@@ -392,7 +392,7 @@ class CategoryService
                 ['category_id' => $categoryId]
             );
         }
-        
+
         // 4. Check for child categories
         $childCategories = $this->getChildCategories($categoryId, true);
         if (!empty($childCategories) && !$force) {
@@ -405,7 +405,7 @@ class CategoryService
                 ]
             );
         }
-        
+
         // 5. Check for products in this category
         $productsInCategory = $this->productModel->findByCategory($categoryId, 1, 0);
         if (!empty($productsInCategory) && !$force) {
@@ -418,24 +418,24 @@ class CategoryService
                 ]
             );
         }
-        
+
         // 6. Perform deletion with transaction
         $this->db->transStart();
-        
+
         try {
-            $result = $force ? 
+            $result = $force ?
                 $this->categoryModel->delete($categoryId, true) : // Hard delete
                 $this->categoryModel->delete($categoryId); // Soft delete
-            
+
             if (!$result) {
                 throw new RuntimeException('Category deletion failed');
             }
-            
+
             // 7. If soft delete, update child categories' parent
             if (!$force && !empty($childCategories)) {
                 $this->reparentOrphanedCategories($categoryId, $existingCategory->getParentId());
             }
-            
+
             // 8. Log audit trail
             $admin = $this->getAdminModel()->find($adminId);
             $this->auditService->logDelete(
@@ -446,13 +446,13 @@ class CategoryService
                 !$force,
                 'Category ' . ($force ? 'permanently deleted' : 'soft deleted')
             );
-            
+
             $this->db->transComplete();
-            
+
             // 9. Clear caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // 10. Publish event
             $this->publishEvent('category.deleted', [
                 'category_id' => $categoryId,
@@ -462,19 +462,19 @@ class CategoryService
                 'had_products' => !empty($productsInCategory),
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return true;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError('Category deletion failed', [
                 'category_id' => $categoryId,
                 'admin_id' => $adminId,
                 'force' => $force,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'CATEGORY_DELETE_FAILED',
                 'Failed to delete category: ' . $e->getMessage(),
@@ -484,7 +484,7 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Archive category (deactivate)
      */
@@ -492,11 +492,11 @@ class CategoryService
     {
         // 1. Get existing category
         $existingCategory = $this->categoryModel->find($categoryId);
-        
+
         if (!$existingCategory) {
             throw CategoryNotFoundException::forId($categoryId);
         }
-        
+
         // 2. Check if already inactive
         if (!$existingCategory->isActive()) {
             throw new DomainException(
@@ -505,7 +505,7 @@ class CategoryService
                 ['category_id' => $categoryId]
             );
         }
-        
+
         // 3. Check for active child categories
         $activeChildren = $this->getChildCategories($categoryId, false);
         if (!empty($activeChildren)) {
@@ -518,7 +518,7 @@ class CategoryService
                 ]
             );
         }
-        
+
         // 4. Check for products in this category
         $productsInCategory = $this->productModel->findByCategory($categoryId, 1, 0);
         if (!empty($productsInCategory)) {
@@ -531,21 +531,21 @@ class CategoryService
                 ]
             );
         }
-        
+
         // 5. Prepare category for archiving
         $categoryToArchive = clone $existingCategory;
         $categoryToArchive->setActive(false);
         $categoryToArchive->markAsUpdated();
-        
+
         // 6. Save with transaction
         $this->db->transStart();
-        
+
         try {
             $archivedCategory = $this->categoryModel->save($categoryToArchive);
-            
+
             // 7. Log audit trail
             $admin = $this->getAdminModel()->find($adminId);
-            
+
             $this->auditService->logStateTransition(
                 AuditService::ENTITY_CATEGORY,
                 $categoryId,
@@ -555,13 +555,13 @@ class CategoryService
                 ['notes' => $notes],
                 $notes ?? 'Category archived'
             );
-            
+
             $this->db->transComplete();
-            
+
             // 8. Clear caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // 9. Publish event
             $this->publishEvent('category.archived', [
                 'category_id' => $categoryId,
@@ -569,18 +569,18 @@ class CategoryService
                 'notes' => $notes,
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return $archivedCategory;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError('Category archiving failed', [
                 'category_id' => $categoryId,
                 'admin_id' => $adminId,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'CATEGORY_ARCHIVE_FAILED',
                 'Failed to archive category: ' . $e->getMessage(),
@@ -590,7 +590,7 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Activate category
      */
@@ -598,11 +598,11 @@ class CategoryService
     {
         // 1. Get existing category
         $existingCategory = $this->categoryModel->find($categoryId);
-        
+
         if (!$existingCategory) {
             throw CategoryNotFoundException::forId($categoryId);
         }
-        
+
         // 2. Check if already active
         if ($existingCategory->isActive()) {
             throw new DomainException(
@@ -611,7 +611,7 @@ class CategoryService
                 ['category_id' => $categoryId]
             );
         }
-        
+
         // 3. Check parent category status
         $parentId = $existingCategory->getParentId();
         if ($parentId !== self::ROOT_PARENT_ID) {
@@ -627,21 +627,21 @@ class CategoryService
                 );
             }
         }
-        
+
         // 4. Prepare category for activation
         $categoryToActivate = clone $existingCategory;
         $categoryToActivate->setActive(true);
         $categoryToActivate->markAsUpdated();
-        
+
         // 5. Save with transaction
         $this->db->transStart();
-        
+
         try {
             $activatedCategory = $this->categoryModel->save($categoryToActivate);
-            
+
             // 6. Log audit trail
             $admin = $this->getAdminModel()->find($adminId);
-            
+
             $this->auditService->logStateTransition(
                 AuditService::ENTITY_CATEGORY,
                 $categoryId,
@@ -651,31 +651,31 @@ class CategoryService
                 null,
                 'Category activated'
             );
-            
+
             $this->db->transComplete();
-            
+
             // 7. Clear caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // 8. Publish event
             $this->publishEvent('category.activated', [
                 'category_id' => $categoryId,
                 'admin_id' => $adminId,
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return $activatedCategory;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError('Category activation failed', [
                 'category_id' => $categoryId,
                 'admin_id' => $adminId,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'CATEGORY_ACTIVATION_FAILED',
                 'Failed to activate category: ' . $e->getMessage(),
@@ -685,7 +685,7 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Restore deleted category
      */
@@ -693,11 +693,11 @@ class CategoryService
     {
         // 1. Get existing category (including trashed)
         $existingCategory = $this->categoryModel->find($categoryId, true);
-        
+
         if (!$existingCategory) {
             throw CategoryNotFoundException::forId($categoryId);
         }
-        
+
         // 2. Check if category is deleted
         if (!$existingCategory->isDeleted()) {
             throw new DomainException(
@@ -706,7 +706,7 @@ class CategoryService
                 ['category_id' => $categoryId]
             );
         }
-        
+
         // 3. Check parent category status
         $parentId = $existingCategory->getParentId();
         if ($parentId !== self::ROOT_PARENT_ID) {
@@ -722,23 +722,23 @@ class CategoryService
                 );
             }
         }
-        
+
         // 4. Restore with transaction
         $this->db->transStart();
-        
+
         try {
             $restored = $this->categoryModel->restore($categoryId);
-            
+
             if (!$restored) {
                 throw new RuntimeException('Category restoration failed');
             }
-            
+
             // Get the restored category
             $restoredCategory = $this->categoryModel->find($categoryId);
-            
+
             // 5. Log audit trail
             $admin = $this->getAdminModel()->find($adminId);
-            
+
             $this->auditService->logRestore(
                 AuditService::ENTITY_CATEGORY,
                 $categoryId,
@@ -746,31 +746,31 @@ class CategoryService
                 $admin,
                 'Category restored from deleted state'
             );
-            
+
             $this->db->transComplete();
-            
+
             // 6. Clear caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // 7. Publish event
             $this->publishEvent('category.restored', [
                 'category_id' => $categoryId,
                 'admin_id' => $adminId,
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return $restoredCategory;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError('Category restoration failed', [
                 'category_id' => $categoryId,
                 'admin_id' => $adminId,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'CATEGORY_RESTORE_FAILED',
                 'Failed to restore category: ' . $e->getMessage(),
@@ -780,7 +780,7 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Get category by ID or slug with caching
      */
@@ -791,59 +791,59 @@ class CategoryService
             is_int($identifier) ? 'id' : 'slug',
             md5((string) $identifier)
         ));
-        
-        return $this->cacheService->remember($cacheKey, function() use ($identifier, $withStatistics) {
+
+        return $this->cacheService->remember($cacheKey, function () use ($identifier, $withStatistics) {
             // 1. Find category
             $category = is_int($identifier) ?
                 $this->categoryModel->find($identifier) :
                 $this->categoryModel->findBySlug($identifier);
-            
+
             if (!$category || !$category->isActive()) {
                 throw CategoryNotFoundException::forId($identifier);
             }
-            
+
             // 2. Load statistics if requested
             $statistics = $withStatistics ? $this->getCategoryStatistics($category->getId()) : null;
-            
+
             // 3. Create response
             return CategoryResponse::fromEntity($category, [
                 'with_statistics' => $withStatistics,
                 'statistics' => $statistics
             ]);
-            
+
         }, $this->config['cache_ttl_find'] ?? self::CACHE_TTL);
     }
-    
+
     /**
      * Get category tree (hierarchical structure)
      */
-    public function getTree(bool $includeInactive = false, int $maxDepth = null): CategoryTreeResponse
+    public function getTree(bool $includeInactive = false, ?int $maxDepth = null): CategoryTreeResponse
     {
         $cacheKey = $this->getCacheKey(sprintf(
             'tree_%s_%s',
             $includeInactive ? 'all' : 'active',
             $maxDepth ?? 'full'
         ));
-        
-        return $this->cacheService->remember($cacheKey, function() use ($includeInactive, $maxDepth) {
+
+        return $this->cacheService->remember($cacheKey, function () use ($includeInactive, $maxDepth) {
             // 1. Get all categories
             $categories = $includeInactive ?
                 $this->categoryModel->findAll() :
                 $this->categoryModel->findActive();
-            
+
             // 2. Build tree structure
             $tree = $this->buildCategoryTree($categories, self::ROOT_PARENT_ID, 0, $maxDepth);
-            
+
             // 3. Create tree response
             return CategoryTreeResponse::fromTree($tree, [
                 'include_inactive' => $includeInactive,
                 'max_depth' => $maxDepth,
                 'total_categories' => count($categories)
             ]);
-            
+
         }, $this->config['cache_ttl_tree'] ?? self::TREE_CACHE_TTL);
     }
-    
+
     /**
      * Get flat category list with optional filtering
      */
@@ -864,19 +864,24 @@ class CategoryService
             $limit,
             $offset
         ));
-        
-        return $this->cacheService->remember($cacheKey, function() use (
-            $parentId, $activeOnly, $sortBy, $sortDirection, $limit, $offset
+
+        return $this->cacheService->remember($cacheKey, function () use (
+            $parentId,
+            $activeOnly,
+            $sortBy,
+            $sortDirection,
+            $limit,
+            $offset
         ) {
             // 1. Get categories based on filters
             $categories = $this->getCategoriesByParent($parentId, $activeOnly);
-            
+
             // 2. Sort categories
             $categories = $this->sortCategories($categories, $sortBy, $sortDirection);
-            
+
             // 3. Apply limit and offset
             $paginatedCategories = array_slice($categories, $offset, $limit);
-            
+
             // 4. Convert to responses
             $responses = [];
             foreach ($paginatedCategories as $category) {
@@ -885,7 +890,7 @@ class CategoryService
                     'with_children_count' => true
                 ]);
             }
-            
+
             return [
                 'data' => $responses,
                 'meta' => [
@@ -896,39 +901,39 @@ class CategoryService
                     'parent_id' => $parentId
                 ]
             ];
-            
+
         }, $this->config['cache_ttl_list'] ?? self::CACHE_TTL);
     }
-    
+
     /**
      * Get navigation tree (optimized for frontend)
      */
     public function getNavigation(int $maxDepth = 2, int $limit = 15): array
     {
         $cacheKey = $this->getCacheKey(sprintf('navigation_%s_%s', $maxDepth, $limit));
-        
-        return $this->cacheService->remember($cacheKey, function() use ($maxDepth, $limit) {
+
+        return $this->cacheService->remember($cacheKey, function () use ($maxDepth, $limit) {
             // 1. Get active categories with product counts
             $categories = $this->categoryModel->withProductCount($limit);
-            
+
             // 2. Build navigation tree
             $navigation = $this->buildNavigationTree($categories, self::ROOT_PARENT_ID, 0, $maxDepth);
-            
+
             // 3. Sort by product count (most popular first)
-            usort($navigation, function($a, $b) {
+            usort($navigation, function ($a, $b) {
                 return ($b['product_count'] ?? 0) <=> ($a['product_count'] ?? 0);
             });
-            
+
             return [
                 'navigation' => $navigation,
                 'max_depth' => $maxDepth,
                 'total_categories' => count($categories),
                 'generated_at' => (new DateTimeImmutable())->format('c')
             ];
-            
+
         }, $this->config['cache_ttl_navigation'] ?? self::NAVIGATION_CACHE_TTL);
     }
-    
+
     /**
      * Reorder categories (drag & drop support)
      */
@@ -942,41 +947,41 @@ class CategoryService
                 ['order_data' => $orderData]
             );
         }
-        
+
         $items = $orderData['items'];
         $parentId = $orderData['parent_id'] ?? self::ROOT_PARENT_ID;
-        
+
         // 2. Validate all category IDs exist
         $categoryIds = array_column($items, 'id');
         $existingCategories = $this->categoryModel->findByIds($categoryIds);
-        
+
         if (count($existingCategories) !== count($categoryIds)) {
-            $existingIds = array_map(fn($cat) => $cat->getId(), $existingCategories);
+            $existingIds = array_map(fn ($cat) => $cat->getId(), $existingCategories);
             $missingIds = array_diff($categoryIds, $existingIds);
-            
+
             throw new DomainException(
                 'INVALID_CATEGORY_IDS',
                 'Some category IDs are invalid',
                 ['missing_ids' => $missingIds]
             );
         }
-        
+
         // 3. Save original state for audit
         $originalCategories = [];
         foreach ($existingCategories as $category) {
             $originalCategories[$category->getId()] = clone $category;
         }
-        
+
         // 4. Reorder with transaction
         $this->db->transStart();
-        
+
         try {
             $success = $this->categoryModel->updateSortOrder($items);
-            
+
             if (!$success) {
                 throw new RuntimeException('Failed to update sort order');
             }
-            
+
             // 5. Update parent if changed
             if (isset($orderData['parent_id'])) {
                 foreach ($items as $item) {
@@ -988,17 +993,17 @@ class CategoryService
                     }
                 }
             }
-            
+
             // 6. Log audit trail for each category
             $admin = $this->getAdminModel()->find($adminId);
-            
+
             foreach ($items as $index => $item) {
                 $categoryId = $item['id'];
                 $newPosition = $index + 1;
-                
+
                 $category = $this->categoryModel->find($categoryId);
                 $originalCategory = $originalCategories[$categoryId] ?? null;
-                
+
                 if ($originalCategory && $category) {
                     $changes = [];
                     if ($originalCategory->getSortOrder() !== $newPosition) {
@@ -1007,7 +1012,7 @@ class CategoryService
                     if ($originalCategory->getParentId() !== $category->getParentId()) {
                         $changes[] = sprintf('parent: %d → %d', $originalCategory->getParentId(), $category->getParentId());
                     }
-                    
+
                     if (!empty($changes)) {
                         $this->auditService->logUpdate(
                             AuditService::ENTITY_CATEGORY,
@@ -1020,13 +1025,13 @@ class CategoryService
                     }
                 }
             }
-            
+
             $this->db->transComplete();
-            
+
             // 7. Clear caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // 8. Publish event
             $this->publishEvent('category.reordered', [
                 'items' => $items,
@@ -1034,18 +1039,18 @@ class CategoryService
                 'admin_id' => $adminId,
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return true;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError('Category reordering failed', [
                 'order_data' => $orderData,
                 'admin_id' => $adminId,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'CATEGORY_REORDER_FAILED',
                 'Failed to reorder categories: ' . $e->getMessage(),
@@ -1055,7 +1060,7 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Bulk update categories
      */
@@ -1068,7 +1073,7 @@ class CategoryService
             ValidationService::CONTEXT_UPDATE,
             $adminId
         );
-        
+
         if (!empty($validationErrors)) {
             throw ValidationException::forBusinessRule(
                 'BULK_CATEGORY_UPDATE_VALIDATION',
@@ -1076,20 +1081,20 @@ class CategoryService
                 ['errors' => $validationErrors]
             );
         }
-        
+
         $results = [
             'successful' => [],
             'failed' => [],
             'total' => count($categoryIds)
         ];
-        
+
         $this->db->transStart();
-        
+
         try {
             foreach ($categoryIds as $categoryId) {
                 try {
                     $existingCategory = $this->categoryModel->find($categoryId);
-                    
+
                     if (!$existingCategory) {
                         $results['failed'][] = [
                             'category_id' => $categoryId,
@@ -1097,14 +1102,14 @@ class CategoryService
                         ];
                         continue;
                     }
-                    
+
                     // Validate individual update
                     $categoryValidation = $this->validationService->validateCategoryOperation(
                         $categoryId,
                         ValidationService::CONTEXT_UPDATE,
                         $updateData
                     );
-                    
+
                     if (!empty($categoryValidation)) {
                         $results['failed'][] = [
                             'category_id' => $categoryId,
@@ -1113,10 +1118,10 @@ class CategoryService
                         ];
                         continue;
                     }
-                    
+
                     // Apply update
                     $updatedCategory = clone $existingCategory;
-                    
+
                     foreach ($updateData as $field => $value) {
                         if ($value !== null) {
                             $setter = 'set' . str_replace('_', '', ucwords($field, '_'));
@@ -1125,15 +1130,15 @@ class CategoryService
                             }
                         }
                     }
-                    
+
                     $updatedCategory->markAsUpdated();
-                    
+
                     // Save
                     $savedCategory = $this->categoryModel->save($updatedCategory);
-                    
+
                     // Log audit
                     $admin = $this->getAdminModel()->find($adminId);
-                    
+
                     $this->auditService->logUpdate(
                         AuditService::ENTITY_CATEGORY,
                         $categoryId,
@@ -1142,12 +1147,12 @@ class CategoryService
                         $admin,
                         'Bulk update: ' . implode(', ', array_keys($updateData))
                     );
-                    
+
                     $results['successful'][] = [
                         'category_id' => $categoryId,
                         'changes' => array_keys($updateData)
                     ];
-                    
+
                 } catch (Exception $e) {
                     $results['failed'][] = [
                         'category_id' => $categoryId,
@@ -1155,13 +1160,13 @@ class CategoryService
                     ];
                 }
             }
-            
+
             $this->db->transComplete();
-            
+
             // Clear caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // Publish event
             $this->publishEvent('category.bulk_updated', [
                 'category_ids' => $categoryIds,
@@ -1170,18 +1175,18 @@ class CategoryService
                 'results' => $results,
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return $results;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError('Bulk category update failed', [
                 'category_ids' => $categoryIds,
                 'admin_id' => $adminId,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'BULK_CATEGORY_UPDATE_FAILED',
                 'Bulk category update failed: ' . $e->getMessage(),
@@ -1191,7 +1196,7 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Bulk archive categories
      */
@@ -1201,13 +1206,13 @@ class CategoryService
             $categoryIds,
             $adminId,
             'archive',
-            function($categoryId, $adminId) {
+            function ($categoryId, $adminId) {
                 return $this->archive($categoryId, $adminId, 'Bulk archive');
             },
             'Bulk archive'
         );
     }
-    
+
     /**
      * Bulk activate categories
      */
@@ -1217,31 +1222,31 @@ class CategoryService
             $categoryIds,
             $adminId,
             'activate',
-            function($categoryId, $adminId) {
+            function ($categoryId, $adminId) {
                 return $this->activate($categoryId, $adminId);
             },
             'Bulk activation'
         );
     }
-    
+
     /**
      * Get category statistics
      */
     public function getCategoryStatistics(int $categoryId): array
     {
         $cacheKey = $this->getCacheKey(sprintf('stats_%s', $categoryId));
-        
-        return $this->cacheService->remember($cacheKey, function() use ($categoryId) {
+
+        return $this->cacheService->remember($cacheKey, function () use ($categoryId) {
             // 1. Count products in this category
             $productCount = count($this->productModel->findByCategory($categoryId, 1000, 0));
-            
+
             // 2. Count child categories
             $childCategories = $this->getChildCategories($categoryId, false);
             $childCount = count($childCategories);
-            
+
             // 3. Calculate depth
             $depth = $this->calculateCategoryDepth($categoryId);
-            
+
             // 4. Get sibling position
             $siblings = $this->getCategoriesByParent(
                 $this->categoryModel->find($categoryId)?->getParentId() ?? self::ROOT_PARENT_ID,
@@ -1249,14 +1254,14 @@ class CategoryService
             );
             $siblingCount = count($siblings);
             $currentPosition = 0;
-            
+
             foreach ($siblings as $index => $sibling) {
                 if ($sibling->getId() === $categoryId) {
                     $currentPosition = $index + 1;
                     break;
                 }
             }
-            
+
             return [
                 'product_count' => $productCount,
                 'child_category_count' => $childCount,
@@ -1267,28 +1272,28 @@ class CategoryService
                 'has_products' => $productCount > 0,
                 'calculated_at' => (new DateTimeImmutable())->format('c')
             ];
-            
+
         }, 300); // 5 minute cache for statistics
     }
-    
+
     /**
      * Get system-wide category statistics
      */
     public function getSystemStatistics(): array
     {
         $cacheKey = $this->getCacheKey('system_stats');
-        
-        return $this->cacheService->remember($cacheKey, function() {
+
+        return $this->cacheService->remember($cacheKey, function () {
             // 1. Get all categories
             $categories = $this->categoryModel->findAll();
-            
+
             // 2. Calculate statistics
             $activeCount = 0;
             $inactiveCount = 0;
             $deletedCount = 0;
             $maxDepth = 0;
             $categoryByDepth = [];
-            
+
             foreach ($categories as $category) {
                 if ($category->isDeleted()) {
                     $deletedCount++;
@@ -1297,23 +1302,23 @@ class CategoryService
                 } else {
                     $inactiveCount++;
                 }
-                
+
                 // Calculate depth for active categories
                 if (!$category->isDeleted()) {
                     $depth = $this->calculateCategoryDepth($category->getId());
                     $maxDepth = max($maxDepth, $depth);
-                    
+
                     if (!isset($categoryByDepth[$depth])) {
                         $categoryByDepth[$depth] = 0;
                     }
                     $categoryByDepth[$depth]++;
                 }
             }
-            
+
             // 3. Get category with most products
             $categoriesWithCounts = $this->categoryModel->withProductCount(10);
             $topCategories = [];
-            
+
             foreach ($categoriesWithCounts as $categoryData) {
                 $topCategories[] = [
                     'id' => $categoryData['id'],
@@ -1321,7 +1326,7 @@ class CategoryService
                     'product_count' => $categoryData['product_count'] ?? 0
                 ];
             }
-            
+
             return [
                 'total_categories' => count($categories),
                 'active_categories' => $activeCount,
@@ -1332,10 +1337,10 @@ class CategoryService
                 'top_categories_by_products' => $topCategories,
                 'calculated_at' => (new DateTimeImmutable())->format('c')
             ];
-            
+
         }, 600); // 10 minute cache for system stats
     }
-    
+
     /**
      * Search categories by keyword
      */
@@ -1347,16 +1352,16 @@ class CategoryService
             $includeInactive ? 'all' : 'active',
             $limit
         ));
-        
-        return $this->cacheService->remember($cacheKey, function() use ($keyword, $includeInactive, $limit) {
+
+        return $this->cacheService->remember($cacheKey, function () use ($keyword, $includeInactive, $limit) {
             $results = $this->categoryModel->search($keyword, $limit);
-            
+
             if (!$includeInactive) {
-                $results = array_filter($results, function($category) {
+                $results = array_filter($results, function ($category) {
                     return $category->isActive() && !$category->isDeleted();
                 });
             }
-            
+
             $responses = [];
             foreach ($results as $category) {
                 $responses[] = CategoryResponse::fromEntity($category, [
@@ -1364,17 +1369,17 @@ class CategoryService
                     'highlight_query' => $keyword
                 ]);
             }
-            
+
             return [
                 'data' => $responses,
                 'query' => $keyword,
                 'total' => count($responses),
                 'limit' => $limit
             ];
-            
+
         }, 300); // 5 minute cache for search results
     }
-    
+
     /**
      * Build hierarchical category tree
      */
@@ -1383,16 +1388,16 @@ class CategoryService
         if ($maxDepth !== null && $currentDepth >= $maxDepth) {
             return [];
         }
-        
+
         $tree = [];
-        
+
         foreach ($categories as $category) {
             if ($category->getParentId() == $parentId && !$category->isDeleted()) {
                 $node = CategoryResponse::fromEntity($category, [
                     'with_product_count' => true,
                     'with_children_count' => true
                 ])->toArray();
-                
+
                 $node['depth'] = $currentDepth;
                 $node['children'] = $this->buildCategoryTree(
                     $categories,
@@ -1400,19 +1405,19 @@ class CategoryService
                     $currentDepth + 1,
                     $maxDepth
                 );
-                
+
                 $tree[] = $node;
             }
         }
-        
+
         // Sort by sort_order
-        usort($tree, function($a, $b) {
+        usort($tree, function ($a, $b) {
             return $a['sort_order'] <=> $b['sort_order'];
         });
-        
+
         return $tree;
     }
-    
+
     /**
      * Build navigation tree with product counts
      */
@@ -1421,9 +1426,9 @@ class CategoryService
         if ($currentDepth >= $maxDepth) {
             return [];
         }
-        
+
         $tree = [];
-        
+
         foreach ($categories as $category) {
             if ($category->getParentId() == $parentId && $category->isActive() && !$category->isDeleted()) {
                 $node = [
@@ -1440,35 +1445,35 @@ class CategoryService
                         $maxDepth
                     )
                 ];
-                
+
                 $tree[] = $node;
             }
         }
-        
+
         // Sort by product count (descending)
-        usort($tree, function($a, $b) {
+        usort($tree, function ($a, $b) {
             return $b['product_count'] <=> $a['product_count'];
         });
-        
+
         return $tree;
     }
-    
+
     /**
      * Get child categories
      */
     private function getChildCategories(int $parentId, bool $includeInactive): array
     {
         $categories = $this->getCategoriesByParent($parentId, !$includeInactive);
-        
+
         if (!$includeInactive) {
-            $categories = array_filter($categories, function($category) {
+            $categories = array_filter($categories, function ($category) {
                 return $category->isActive();
             });
         }
-        
+
         return $categories;
     }
-    
+
     /**
      * Get categories by parent ID
      */
@@ -1476,16 +1481,16 @@ class CategoryService
     {
         // In a real implementation, this would query the database
         // For MVP, we'll fetch all and filter
-        
-        $allCategories = $activeOnly ? 
+
+        $allCategories = $activeOnly ?
             $this->categoryModel->findActive() :
             $this->categoryModel->findAll();
-        
-        return array_filter($allCategories, function($category) use ($parentId) {
+
+        return array_filter($allCategories, function ($category) use ($parentId) {
             return $category->getParentId() == $parentId && !$category->isDeleted();
         });
     }
-    
+
     /**
      * Count categories by parent
      */
@@ -1494,21 +1499,21 @@ class CategoryService
         $categories = $this->getCategoriesByParent($parentId, true);
         return count($categories);
     }
-    
+
     /**
      * Calculate category depth
      */
     private function calculateCategoryDepth(int $categoryId, int $currentDepth = 0): int
     {
         $category = $this->categoryModel->find($categoryId);
-        
+
         if (!$category || $category->getParentId() === self::ROOT_PARENT_ID) {
             return $currentDepth;
         }
-        
+
         return $this->calculateCategoryDepth($category->getParentId(), $currentDepth + 1);
     }
-    
+
     /**
      * Check for circular reference
      */
@@ -1517,56 +1522,56 @@ class CategoryService
         if ($categoryId === $potentialParentId) {
             return true;
         }
-        
+
         $parentCategory = $this->categoryModel->find($potentialParentId);
-        
+
         while ($parentCategory && $parentCategory->getParentId() !== self::ROOT_PARENT_ID) {
             if ($parentCategory->getParentId() === $categoryId) {
                 return true;
             }
             $parentCategory = $this->categoryModel->find($parentCategory->getParentId());
         }
-        
+
         return false;
     }
-    
+
     /**
      * Reparent orphaned categories when parent is deleted
      */
     private function reparentOrphanedCategories(int $deletedParentId, int $newParentId): void
     {
         $orphanedCategories = $this->getChildCategories($deletedParentId, true);
-        
+
         foreach ($orphanedCategories as $category) {
             $category->setParentId($newParentId);
             $category->markAsUpdated();
             $this->categoryModel->save($category);
         }
     }
-    
+
     /**
      * Sort categories by field
      */
     private function sortCategories(array $categories, string $sortBy, string $sortDirection): array
     {
-        usort($categories, function($a, $b) use ($sortBy, $sortDirection) {
+        usort($categories, function ($a, $b) use ($sortBy, $sortDirection) {
             $getter = 'get' . str_replace('_', '', ucwords($sortBy, '_'));
-            
+
             if (!method_exists($a, $getter) || !method_exists($b, $getter)) {
                 return 0;
             }
-            
+
             $valueA = $a->$getter();
             $valueB = $b->$getter();
-            
+
             $comparison = $valueA <=> $valueB;
-            
+
             return $sortDirection === 'DESC' ? -$comparison : $comparison;
         });
-        
+
         return $categories;
     }
-    
+
     /**
      * Execute bulk state change operation
      */
@@ -1584,7 +1589,7 @@ class CategoryService
             $operation === 'archive' ? ValidationService::CONTEXT_ARCHIVE : ValidationService::CONTEXT_UPDATE,
             $adminId
         );
-        
+
         if (!empty($validationErrors)) {
             throw ValidationException::forBusinessRule(
                 'BULK_' . strtoupper($operation) . '_VALIDATION',
@@ -1592,22 +1597,22 @@ class CategoryService
                 ['errors' => $validationErrors]
             );
         }
-        
+
         $results = [
             'successful' => [],
             'failed' => [],
             'total' => count($categoryIds)
         ];
-        
+
         $this->db->transStart();
-        
+
         try {
             $admin = $this->getAdminModel()->find($adminId);
-            
+
             foreach ($categoryIds as $categoryId) {
                 try {
                     $existingCategory = $this->categoryModel->find($categoryId);
-                    
+
                     if (!$existingCategory) {
                         $results['failed'][] = [
                             'category_id' => $categoryId,
@@ -1615,14 +1620,14 @@ class CategoryService
                         ];
                         continue;
                     }
-                    
+
                     // Execute the operation
                     $resultCategory = $operationCallback($categoryId, $adminId);
-                    
+
                     // Log audit for this category
                     $oldState = $existingCategory->isActive() ? 'ACTIVE' : 'INACTIVE';
                     $newState = $resultCategory->isActive() ? 'ACTIVE' : 'INACTIVE';
-                    
+
                     $this->auditService->logStateTransition(
                         AuditService::ENTITY_CATEGORY,
                         $categoryId,
@@ -1632,13 +1637,13 @@ class CategoryService
                         ['bulk_operation' => true],
                         $auditNote
                     );
-                    
+
                     $results['successful'][] = [
                         'category_id' => $categoryId,
                         'from_state' => $oldState,
                         'to_state' => $newState
                     ];
-                    
+
                 } catch (Exception $e) {
                     $results['failed'][] = [
                         'category_id' => $categoryId,
@@ -1646,13 +1651,13 @@ class CategoryService
                     ];
                 }
             }
-            
+
             $this->db->transComplete();
-            
+
             // Clear caches
             $this->clearCategoryCaches();
             $this->clearNavigationCaches();
-            
+
             // Publish bulk event
             $this->publishEvent("category.bulk_$operation", [
                 'category_ids' => $categoryIds,
@@ -1661,18 +1666,18 @@ class CategoryService
                 'results' => $results,
                 'timestamp' => new DateTimeImmutable()
             ]);
-            
+
             return $results;
-            
+
         } catch (Exception $e) {
             $this->db->transRollback();
-            
+
             $this->logError("Bulk $operation failed", [
                 'category_ids' => $categoryIds,
                 'admin_id' => $adminId,
                 'error' => $e->getMessage()
             ]);
-            
+
             throw new DomainException(
                 'BULK_' . strtoupper($operation) . '_FAILED',
                 "Bulk $operation failed: " . $e->getMessage(),
@@ -1682,7 +1687,7 @@ class CategoryService
             );
         }
     }
-    
+
     /**
      * Clear category caches
      */
@@ -1696,7 +1701,7 @@ class CategoryService
             $this->getCacheKey('search_*'),
         ]);
     }
-    
+
     /**
      * Clear navigation caches
      */
@@ -1706,7 +1711,7 @@ class CategoryService
             $this->getCacheKey('navigation_*'),
         ]);
     }
-    
+
     /**
      * Generate cache key
      */
@@ -1714,7 +1719,7 @@ class CategoryService
     {
         return self::CACHE_PREFIX . $suffix;
     }
-    
+
     /**
      * Publish event for loose coupling
      */
@@ -1723,7 +1728,7 @@ class CategoryService
         if (!$this->config['enable_events']) {
             return;
         }
-        
+
         try {
             $event = [
                 'event' => $eventType,
@@ -1731,12 +1736,12 @@ class CategoryService
                 'timestamp' => (new DateTimeImmutable())->format('c'),
                 'source' => 'CategoryService'
             ];
-            
+
             // Log event for debugging
             if ($this->config['log_events']) {
                 $this->logEvent($event);
             }
-            
+
         } catch (Exception $e) {
             $this->logError('Event publishing failed', [
                 'event_type' => $eventType,
@@ -1744,7 +1749,7 @@ class CategoryService
             ]);
         }
     }
-    
+
     /**
      * Lazy-load AdminModel
      */
@@ -1753,7 +1758,7 @@ class CategoryService
         // In a real implementation, inject via constructor
         return model(\App\Models\AdminModel::class);
     }
-    
+
     /**
      * Log error with context
      */
@@ -1765,7 +1770,7 @@ class CategoryService
             json_encode($context, JSON_PRETTY_PRINT)
         ));
     }
-    
+
     /**
      * Log event for debugging
      */
@@ -1776,7 +1781,7 @@ class CategoryService
             json_encode($event, JSON_PRETTY_PRINT)
         ));
     }
-    
+
     /**
      * Get default configuration
      */
@@ -1795,27 +1800,5 @@ class CategoryService
             'auto_reparent_orphans' => true,
             'validate_hierarchy' => true,
         ];
-    }
-    
-    /**
-     * Create CategoryService instance with default dependencies
-     */
-    public static function create(): self
-    {
-        $categoryModel = model(CategoryModel::class);
-        $productModel = model(ProductModel::class);
-        $validationService = ValidationService::create();
-        $auditService = AuditService::create();
-        $cacheService = CacheService::create();
-        $db = \Config\Database::connect();
-        
-        return new self(
-            $categoryModel,
-            $productModel,
-            $validationService,
-            $auditService,
-            $cacheService,
-            $db
-        );
     }
 }

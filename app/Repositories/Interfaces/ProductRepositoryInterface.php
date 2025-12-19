@@ -7,10 +7,10 @@ use App\Enums\ProductStatus;
 
 /**
  * Product Repository Interface
- * 
+ *
  * Contract for product data access operations.
  * Abstracts the data layer from business logic layer.
- * 
+ *
  * @package App\Repositories\Interfaces
  */
 interface ProductRepositoryInterface
@@ -19,7 +19,7 @@ interface ProductRepositoryInterface
 
     /**
      * Find product by ID
-     * 
+     *
      * @param int $id Product ID
      * @param bool $withTrashed Include soft-deleted products
      * @return Product|null
@@ -28,7 +28,7 @@ interface ProductRepositoryInterface
 
     /**
      * Find product by slug
-     * 
+     *
      * @param string $slug Product slug
      * @param bool $withTrashed Include soft-deleted products
      * @return Product|null
@@ -37,7 +37,7 @@ interface ProductRepositoryInterface
 
     /**
      * Find product by ID or slug (flexible lookup)
-     * 
+     *
      * @param int|string $identifier ID or slug
      * @param bool $adminMode If true, returns any status (for admin)
      * @param bool $withTrashed Include soft-deleted products
@@ -47,7 +47,7 @@ interface ProductRepositoryInterface
 
     /**
      * Get all products
-     * 
+     *
      * @param array $filters Filter criteria
      * @param array $sort Sorting criteria
      * @param int $limit Maximum results
@@ -65,7 +65,7 @@ interface ProductRepositoryInterface
 
     /**
      * Save product (create or update)
-     * 
+     *
      * @param Product $product Product entity
      * @return Product Saved product
      */
@@ -73,7 +73,7 @@ interface ProductRepositoryInterface
 
     /**
      * Delete product (soft delete if supported)
-     * 
+     *
      * @param int $id Product ID
      * @param bool $force Force permanent deletion
      * @return bool Success status
@@ -82,7 +82,7 @@ interface ProductRepositoryInterface
 
     /**
      * Restore soft-deleted product
-     * 
+     *
      * @param int $id Product ID
      * @return bool Success status
      */
@@ -90,7 +90,7 @@ interface ProductRepositoryInterface
 
     /**
      * Check if product exists
-     * 
+     *
      * @param int $id Product ID
      * @param bool $withTrashed Include soft-deleted products
      * @return bool
@@ -101,7 +101,7 @@ interface ProductRepositoryInterface
 
     /**
      * Find published products for public display
-     * 
+     *
      * @param int $limit Maximum results
      * @param int $offset Results offset
      * @return Product[]
@@ -110,7 +110,7 @@ interface ProductRepositoryInterface
 
     /**
      * Find product with its marketplace links (eager loading)
-     * 
+     *
      * @param int $productId Product ID
      * @param bool $activeOnly Only active links
      * @return Product|null
@@ -119,7 +119,7 @@ interface ProductRepositoryInterface
 
     /**
      * Increment product view count
-     * 
+     *
      * @param int $productId Product ID
      * @return bool Success status
      */
@@ -127,7 +127,7 @@ interface ProductRepositoryInterface
 
     /**
      * Update product status with validation
-     * 
+     *
      * @param int $productId Product ID
      * @param ProductStatus $newStatus New status
      * @param int|null $verifiedBy Admin ID for verification
@@ -137,7 +137,7 @@ interface ProductRepositoryInterface
 
     /**
      * Find products that need maintenance updates
-     * 
+     *
      * @param string $type 'price' or 'link' or 'both'
      * @param int $limit Maximum results
      * @return Product[]
@@ -146,7 +146,7 @@ interface ProductRepositoryInterface
 
     /**
      * Search products by keyword (public search)
-     * 
+     *
      * @param string $keyword Search keyword
      * @param int $limit Maximum results
      * @return Product[]
@@ -155,7 +155,7 @@ interface ProductRepositoryInterface
 
     /**
      * Get popular products based on view count
-     * 
+     *
      * @param int $limit Maximum results
      * @param string $period 'all', 'week', 'month'
      * @return Product[]
@@ -164,7 +164,7 @@ interface ProductRepositoryInterface
 
     /**
      * Find products by category
-     * 
+     *
      * @param int $categoryId Category ID
      * @param int $limit Maximum results
      * @param int $offset Results offset
@@ -174,7 +174,7 @@ interface ProductRepositoryInterface
 
     /**
      * Mark product price as checked
-     * 
+     *
      * @param int $productId Product ID
      * @return bool Success status
      */
@@ -182,7 +182,7 @@ interface ProductRepositoryInterface
 
     /**
      * Mark product links as checked
-     * 
+     *
      * @param int $productId Product ID
      * @return bool Success status
      */
@@ -192,7 +192,7 @@ interface ProductRepositoryInterface
 
     /**
      * Count products by status
-     * 
+     *
      * @param bool $withTrashed Include soft-deleted products
      * @return array [status => count]
      */
@@ -200,14 +200,14 @@ interface ProductRepositoryInterface
 
     /**
      * Count published products
-     * 
+     *
      * @return int
      */
     public function countPublished(): int;
 
     /**
      * Count total products
-     * 
+     *
      * @param bool $withTrashed Include soft-deleted products
      * @return int
      */
@@ -215,7 +215,7 @@ interface ProductRepositoryInterface
 
     /**
      * Get product statistics for dashboard
-     * 
+     *
      * @return array
      */
     public function getStats(): array;
@@ -224,7 +224,7 @@ interface ProductRepositoryInterface
 
     /**
      * Update multiple products in batch
-     * 
+     *
      * @param array $ids Product IDs
      * @param array $data Update data
      * @return int Number of affected rows
@@ -233,7 +233,7 @@ interface ProductRepositoryInterface
 
     /**
      * Archive multiple products in batch
-     * 
+     *
      * @param array $ids Product IDs
      * @return int Number of archived products
      */
@@ -241,7 +241,7 @@ interface ProductRepositoryInterface
 
     /**
      * Publish multiple products in batch
-     * 
+     *
      * @param array $ids Product IDs
      * @return int Number of published products
      */
@@ -251,7 +251,7 @@ interface ProductRepositoryInterface
 
     /**
      * Check if slug is unique
-     * 
+     *
      * @param string $slug Slug to check
      * @param int|null $excludeId Product ID to exclude from check
      * @return bool True if unique
@@ -260,7 +260,7 @@ interface ProductRepositoryInterface
 
     /**
      * Validate product before save
-     * 
+     *
      * @param Product $product Product entity
      * @return array Validation result [valid: bool, errors: string[]]
      */
@@ -268,7 +268,7 @@ interface ProductRepositoryInterface
 
     /**
      * Check business rule: maximum 300 products
-     * 
+     *
      * @return array [can_create: bool, current_count: int, max_allowed: int]
      */
     public function checkProductLimit(): array;

@@ -88,7 +88,7 @@ class Marketplace extends BaseEntity
         if ($this->name === $name) {
             return $this;
         }
-        
+
         $this->trackChange('name', $this->name, $name);
         $this->name = $name;
         $this->markAsUpdated();
@@ -100,7 +100,7 @@ class Marketplace extends BaseEntity
         if ($this->slug === $slug) {
             return $this;
         }
-        
+
         $this->trackChange('slug', $this->slug, $slug);
         $this->slug = $slug;
         $this->markAsUpdated();
@@ -112,7 +112,7 @@ class Marketplace extends BaseEntity
         if ($this->icon === $icon) {
             return $this;
         }
-        
+
         $this->trackChange('icon', $this->icon, $icon);
         $this->icon = $icon;
         $this->markAsUpdated();
@@ -124,12 +124,12 @@ class Marketplace extends BaseEntity
         if (!preg_match('/^#[0-9A-F]{6}$/i', $color)) {
             throw new \InvalidArgumentException('Color must be a valid hex code (e.g., #3b82f6)');
         }
-        
+
         $normalizedColor = strtoupper($color);
         if ($this->color === $normalizedColor) {
             return $this;
         }
-        
+
         $this->trackChange('color', $this->color, $normalizedColor);
         $this->color = $normalizedColor;
         $this->markAsUpdated();
@@ -141,7 +141,7 @@ class Marketplace extends BaseEntity
         if ($this->active === $active) {
             return $this;
         }
-        
+
         $this->trackChange('active', $this->active, $active);
         $this->active = $active;
         $this->markAsUpdated();
@@ -177,11 +177,11 @@ class Marketplace extends BaseEntity
     public function getCssClasses(): string
     {
         $classes = sprintf('marketplace marketplace-%s', $this->slug);
-        
+
         if (!$this->active) {
             $classes .= ' marketplace-inactive';
         }
-        
+
         return $classes;
     }
 
@@ -226,12 +226,12 @@ class Marketplace extends BaseEntity
         if (!parent::canBeArchived()) {
             return false;
         }
-        
+
         // Additional check: cannot archive if active (must deactivate first)
         if ($this->active) {
             return false;
         }
-        
+
         return !$this->isInUse();
     }
 
@@ -246,7 +246,7 @@ class Marketplace extends BaseEntity
         if (!$this->canBeArchived()) {
             throw new \LogicException('Marketplace cannot be archived. It may have active links or is already archived.');
         }
-        
+
         $this->softDelete();
         $this->deactivate();
         return $this;
@@ -261,8 +261,8 @@ class Marketplace extends BaseEntity
         if (!$this->canBeRestored()) {
             throw new \LogicException('Marketplace cannot be restored.');
         }
-        
-        $this->restoreFromDelete();
+
+        $this->restore();
         $this->activate();
         return $this;
     }
@@ -276,24 +276,24 @@ class Marketplace extends BaseEntity
     {
         $parentValidation = parent::validate();
         $errors = $parentValidation['errors'];
-        
+
         // Marketplace-specific validation
-        if (empty($this->name)) {
+        if ($this->name === '' || $this->name === '0') {
             $errors[] = 'Marketplace name cannot be empty';
         }
-        
-        if (empty($this->slug)) {
+
+        if ($this->slug === '' || $this->slug === '0') {
             $errors[] = 'Marketplace slug cannot be empty';
         }
-        
+
         if (!preg_match('/^[a-z0-9\-]+$/', $this->slug)) {
             $errors[] = 'Marketplace slug can only contain lowercase letters, numbers, and hyphens';
         }
-        
+
         if (!preg_match('/^#[0-9A-F]{6}$/i', $this->color)) {
             $errors[] = 'Marketplace color must be a valid hex color code (e.g., #3b82f6)';
         }
-        
+
         return [
             'valid' => empty($errors),
             'errors' => $errors
@@ -310,7 +310,7 @@ class Marketplace extends BaseEntity
             'slug' => $this->getSlug(),
             'icon' => $this->getIcon(),
             'color' => $this->getColor(),
-            'active' => $this->isActive(),           
+            'active' => $this->isActive(),
             'has_icon' => $this->hasIcon(),
             'css_classes' => $this->getCssClasses(),
             'color_style' => $this->getColorStyle(),
@@ -382,15 +382,15 @@ class Marketplace extends BaseEntity
             (new self('Tokopedia', 'tokopedia'))
                 ->setIcon('fas fa-store')
                 ->setColor('#42B549'),
-            
+
             (new self('Shopee', 'shopee'))
                 ->setIcon('fas fa-shopping-cart')
                 ->setColor('#FF5316'),
-            
+
             (new self('Lazada', 'lazada'))
                 ->setIcon('fas fa-bolt')
                 ->setColor('#0F146C'),
-            
+
             (new self('Blibli', 'blibli'))
                 ->setIcon('fas fa-box')
                 ->setColor('#E60012'),

@@ -2,9 +2,9 @@
 
 namespace Config;
 
-use CodeIgniter\Config\BaseService;
 use App\Services\PaginationService;
 use App\Services\ResponseFormatter;
+use CodeIgniter\Config\BaseService;
 
 /**
  * Services Configuration file.
@@ -16,7 +16,7 @@ class Services extends BaseService
 {
     /**
      * Returns a shared instance of the PaginationService.
-     * 
+     *
      * @param bool $getShared Whether to return a shared instance
      * @return PaginationService
      */
@@ -32,7 +32,7 @@ class Services extends BaseService
 
     /**
      * Returns a shared instance of the ResponseFormatter.
-     * 
+     *
      * @param bool $getShared Whether to return a shared instance
      * @return ResponseFormatter
      */

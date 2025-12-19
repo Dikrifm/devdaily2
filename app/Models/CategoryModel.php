@@ -6,38 +6,38 @@ use App\Entities\Category;
 
 /**
  * Category Model
- * 
+ *
  * Handles product categories with business rule: maximum 15 categories.
  * Simple navigation model for MVP with 5 core methods.
- * 
+ *
  * @package App\Models
  */
 class CategoryModel extends BaseModel
 {
     /**
      * Table name
-     * 
+     *
      * @var string
      */
     protected $table = 'categories';
 
     /**
      * Primary key
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'id';
 
     /**
      * Entity class for result objects
-     * 
+     *
      * @var string
      */
     protected $returnType = Category::class;
 
     /**
      * Allowed fields for mass assignment
-     * 
+     *
      * @var array
      */
     protected $allowedFields = [
@@ -50,7 +50,7 @@ class CategoryModel extends BaseModel
 
     /**
      * Validation rules for insert
-     * 
+     *
      * @var array
      */
     protected $validationRules = [
@@ -63,7 +63,7 @@ class CategoryModel extends BaseModel
 
     /**
      * Default ordering for queries
-     * 
+     *
      * @var array
      */
     protected $orderBy = [
@@ -77,17 +77,17 @@ class CategoryModel extends BaseModel
      * Find active categories for public display
      * Ordered by sort_order then name
      * Cached for 60 minutes as categories rarely change
-     * 
+     *
      * @param int $limit Maximum categories to return (business rule: max 15)
      * @return Category[]
      */
     public function findActive(int $limit = 15): array
     {
         $cacheKey = $this->cacheKey("active_{$limit}");
-        
-        return $this->cached($cacheKey, function() use ($limit) {
+
+        return $this->cached($cacheKey, function () use ($limit) {
             return $this->where('active', 1)
-                       ->where('deleted_at', null)
+                       ->where('deleted_at')
                        ->orderBy('sort_order', 'ASC')
                        ->orderBy('name', 'ASC')
                        ->limit($limit)
@@ -99,29 +99,29 @@ class CategoryModel extends BaseModel
      * Find categories with product count
      * Used for navigation with product counts
      * Only includes published products in count
-     * 
+     *
      * @param int $limit Maximum categories to return
      * @return array Categories with product_count property
      */
     public function withProductCount(int $limit = 15): array
     {
         $cacheKey = $this->cacheKey("with_product_count_{$limit}");
-        
-        return $this->cached($cacheKey, function() use ($limit) {
+
+        return $this->cached($cacheKey, function () use ($limit) {
             // Get active categories
             $categories = $this->findActive($limit);
-            
-            if (empty($categories)) {
+
+            if ($categories === []) {
                 return [];
             }
-            
+
             // Get product counts for each category
             $productModel = model(ProductModel::class);
-            $categoryIds = array_map(fn($cat) => $cat->getId(), $categories);
-            
+            $categoryIds = array_map(fn ($cat) => $cat->getId(), $categories);
+
             // Build a single query to get counts for all categories
             $counts = [];
-            if (!empty($categoryIds)) {
+            if ($categoryIds !== []) {
                 $builder = $productModel->builder();
                 $result = $builder->select('category_id, COUNT(*) as product_count')
                                   ->whereIn('category_id', $categoryIds)
@@ -130,21 +130,21 @@ class CategoryModel extends BaseModel
                                   ->groupBy('category_id')
                                   ->get()
                                   ->getResultArray();
-                
+
                 foreach ($result as $row) {
                     $counts[$row['category_id']] = (int) $row['product_count'];
                 }
             }
-            
+
             // Attach product counts to categories
             foreach ($categories as $category) {
                 $categoryId = $category->getId();
                 $category->product_count = $counts[$categoryId] ?? 0;
             }
-            
+
             // Filter out categories with 0 products (optional)
             // return array_filter($categories, fn($cat) => $cat->product_count > 0);
-            
+
             return $categories;
         }, 1800); // 30 minutes cache
     }
@@ -153,34 +153,33 @@ class CategoryModel extends BaseModel
      * Update category sort order
      * Used for manual ordering in admin interface
      * Business rule: sort_order is manually managed
-     * 
+     *
      * @param array $orderData Array of [category_id => sort_order]
-     * @return bool
      */
     public function updateSortOrder(array $orderData): bool
     {
-        if (empty($orderData)) {
+        if ($orderData === []) {
             return false;
         }
-        
+
         $this->db->transStart();
-        
+
         try {
             foreach ($orderData as $categoryId => $sortOrder) {
                 if (!is_numeric($categoryId) || !is_numeric($sortOrder)) {
                     continue;
                 }
-                
+
                 $this->update($categoryId, [
                     'sort_order' => (int) $sortOrder
                 ]);
             }
-            
+
             $this->db->transComplete();
-            
+
             // Clear all category caches since order changed
             $this->clearAllCategoryCaches();
-            
+
             return $this->db->transStatus();
         } catch (\Exception $e) {
             $this->db->transRollback();
@@ -192,26 +191,24 @@ class CategoryModel extends BaseModel
     /**
      * Find category by slug
      * Used for routing and URL resolution
-     * 
-     * @param string $slug
+     *
      * @param bool $activeOnly Only return active categories
-     * @return Category|null
      */
     public function findBySlug(string $slug, bool $activeOnly = true): ?Category
     {
         $cacheKey = $this->cacheKey("slug_{$slug}_" . ($activeOnly ? 'active' : 'all'));
-        
-        return $this->cached($cacheKey, function() use ($slug, $activeOnly) {
+
+        return $this->cached($cacheKey, function () use ($slug, $activeOnly) {
             $builder = $this->builder();
             $builder->where('slug', $slug)
-                    ->where('deleted_at', null);
-            
+                    ->where('deleted_at');
+
             if ($activeOnly) {
                 $builder->where('active', 1);
             }
-            
+
             $result = $builder->get()->getFirstRow($this->returnType);
-            
+
             return $result instanceof Category ? $result : null;
         }, 3600); // 60 minutes cache
     }
@@ -220,38 +217,34 @@ class CategoryModel extends BaseModel
      * Get navigation categories
      * Returns active categories that have at least one published product
      * Used for main navigation menu
-     * 
-     * @param int $limit
+     *
      * @return Category[]
      */
     public function getNavigation(int $limit = 10): array
     {
         $cacheKey = $this->cacheKey("navigation_{$limit}");
-        
-        return $this->cached($cacheKey, function() use ($limit) {
+
+        return $this->cached($cacheKey, function () use ($limit) {
             // Get categories with product counts
             $categories = $this->withProductCount($limit);
-            
+
             // Filter out categories with 0 products
-            return array_filter($categories, function($category) {
+            return array_filter($categories, function ($category) {
                 return $category->product_count > 0;
             });
         }, 1800); // 30 minutes cache
     }
 
     // ==================== HELPER METHODS ====================
-
     /**
      * Clear all category caches
      * Used when categories are updated
-     * 
-     * @return void
      */
     private function clearAllCategoryCaches(): void
     {
-        $cache = $this->getCache();
-        $prefix = $this->cacheKey('');
-        
+        $this->getCache();
+        $this->cacheKey('');
+
         // Get all cache items with category prefix
         // Note: This is a simple implementation for MVP
         // In production, you might want a more sophisticated cache invalidation
@@ -260,11 +253,11 @@ class CategoryModel extends BaseModel
             $this->cacheKey('with_product_count_15'),
             $this->cacheKey('navigation_10'),
         ];
-        
+
         foreach ($keysToDelete as $key) {
             $this->clearCache($key);
         }
-        
+
         // Also clear any slug-based caches (we don't know all slugs, so we can't clear them all)
         // In MVP, we rely on TTL for slug caches
     }
@@ -272,8 +265,7 @@ class CategoryModel extends BaseModel
     /**
      * Check if category can be deleted
      * Business rule: category with products cannot be deleted
-     * 
-     * @param int $categoryId
+     *
      * @return array [bool $canDelete, string $reason]
      */
     public function canDelete(int $categoryId): array
@@ -282,42 +274,40 @@ class CategoryModel extends BaseModel
         if (!$category) {
             return [false, 'Category not found'];
         }
-        
+
         // Check if category has any products
         $productModel = model(ProductModel::class);
         $productCount = $productModel->where('category_id', $categoryId)
                                     ->where('deleted_at', null)
                                     ->countAllResults();
-        
+
         if ($productCount > 0) {
             return [false, "Category has {$productCount} product(s). Remove products first."];
         }
-        
+
         return [true, ''];
     }
 
     /**
      * Get category statistics for admin dashboard
-     * 
-     * @return array
      */
     public function getStats(): array
     {
         $cacheKey = $this->cacheKey('stats');
-        
-        return $this->cached($cacheKey, function() {
+
+        return $this->cached($cacheKey, function () {
             $total = $this->countActive();
             $active = $this->where('active', 1)
-                          ->where('deleted_at', null)
+                          ->where('deleted_at')
                           ->countAllResults();
-            
+
             $inactive = $this->where('active', 0)
-                            ->where('deleted_at', null)
+                            ->where('deleted_at')
                             ->countAllResults();
-            
+
             $archived = $this->where('deleted_at IS NOT NULL')
                             ->countAllResults();
-            
+
             // Get category with most products
             $productModel = model(ProductModel::class);
             $builder = $productModel->builder();
@@ -330,7 +320,7 @@ class CategoryModel extends BaseModel
                                    ->limit(1)
                                    ->get()
                                    ->getRowArray();
-            
+
             return [
                 'total' => $total,
                 'active' => $active,
@@ -347,75 +337,67 @@ class CategoryModel extends BaseModel
 
     /**
      * Deactivate category (soft deactivation, not deletion)
-     * 
-     * @param int $categoryId
-     * @return bool
      */
     public function deactivate(int $categoryId): bool
     {
         $result = $this->update($categoryId, ['active' => 0]);
-        
+
         if ($result) {
             $this->clearAllCategoryCaches();
         }
-        
+
         return $result;
     }
 
     /**
      * Activate category
-     * 
-     * @param int $categoryId
-     * @return bool
      */
     public function activate(int $categoryId): bool
     {
         // Check business rule: maximum 15 active categories
         $activeCount = $this->where('active', 1)
-                           ->where('deleted_at', null)
+                           ->where('deleted_at')
                            ->countAllResults();
-        
+
         if ($activeCount >= 15) {
             log_message('error', 'Cannot activate category: maximum 15 active categories reached');
             return false;
         }
-        
+
         $result = $this->update($categoryId, ['active' => 1]);
-        
+
         if ($result) {
             $this->clearAllCategoryCaches();
         }
-        
+
         return $result;
     }
 
     /**
      * Find categories by IDs
-     * 
-     * @param array $categoryIds
-     * @param bool $activeOnly
+     *
      * @return Category[]
      */
     public function findByIds(array $categoryIds, bool $activeOnly = true): array
     {
-        if (empty($categoryIds)) {
+        if ($categoryIds === []) {
             return [];
         }
-        
+
         $cacheKey = $this->cacheKey('ids_' . md5(implode(',', $categoryIds)) . '_' . ($activeOnly ? 'active' : 'all'));
-        
-        return $this->cached($cacheKey, function() use ($categoryIds, $activeOnly) {
+
+        return $this->cached($cacheKey, function () use ($categoryIds, $activeOnly) {
             $builder = $this->builder();
             $builder->whereIn('id', $categoryIds)
-                    ->where('deleted_at', null);
-            
+                    ->where('deleted_at');
+
             if ($activeOnly) {
                 $builder->where('active', 1);
             }
-            
+
             $builder->orderBy('sort_order', 'ASC')
                     ->orderBy('name', 'ASC');
-            
+
             return $builder->get()->getResult($this->returnType);
         }, 3600);
     }
@@ -423,7 +405,7 @@ class CategoryModel extends BaseModel
     /**
      * Create default categories for system initialization
      * Business rule: Maximum 15 categories total
-     * 
+     *
      * @return array IDs of created categories
      */
     public function createDefaultCategories(): array
@@ -437,15 +419,15 @@ class CategoryModel extends BaseModel
             ['name' => 'Books', 'slug' => 'books', 'icon' => 'fas fa-book', 'sort_order' => 6],
             ['name' => 'Toys & Games', 'slug' => 'toys-games', 'icon' => 'fas fa-gamepad', 'sort_order' => 7],
         ];
-        
+
         $createdIds = [];
-        
+
         foreach ($defaultCategories as $categoryData) {
             // Check if category already exists by slug
             $existing = $this->where('slug', $categoryData['slug'])
-                            ->where('deleted_at', null)
+                            ->where('deleted_at')
                             ->first();
-            
+
             if (!$existing) {
                 $categoryData['active'] = 1;
                 if ($id = $this->insert($categoryData)) {
@@ -453,10 +435,10 @@ class CategoryModel extends BaseModel
                 }
             }
         }
-        
+
         // Clear caches after creating defaults
         $this->clearAllCategoryCaches();
-        
+
         return $createdIds;
     }
 }

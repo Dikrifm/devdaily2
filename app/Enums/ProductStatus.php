@@ -4,10 +4,10 @@ namespace App\Enums;
 
 /**
  * Product Status Enumeration
- * 
+ *
  * Defines all possible states in the product workflow lifecycle.
  * Business Rule: Two-level verification process (input → verify → publish)
- * 
+ *
  * @package App\Enums
  */
 enum ProductStatus: string
@@ -45,7 +45,7 @@ enum ProductStatus: string
     /**
      * Get all status values as array
      * Useful for validation and UI dropdowns
-     * 
+     *
      * @return array
      */
     public static function all(): array
@@ -53,10 +53,19 @@ enum ProductStatus: string
         return array_column(self::cases(), 'value');
     }
 
+
+    public static function valuesAsString(): string
+    {
+        return implode(', ', array_map(
+            fn ($case) => $case->value,
+            self::cases()
+        ));
+    }
+
     /**
      * Get statuses that are considered "active" in the system
      * Business Rule: Only PUBLISHED products are publicly visible
-     * 
+     *
      * @return array
      */
     public static function activeStatuses(): array
@@ -67,7 +76,7 @@ enum ProductStatus: string
     /**
      * Get statuses that require admin attention
      * Business Rule: PENDING_VERIFICATION needs second admin review
-     * 
+     *
      * @return array
      */
     public static function pendingActionStatuses(): array
@@ -78,7 +87,7 @@ enum ProductStatus: string
     /**
      * Get statuses that allow editing
      * Business Rule: Can edit DRAFT and PENDING_VERIFICATION
-     * 
+     *
      * @return array
      */
     public static function editableStatuses(): array
@@ -89,7 +98,7 @@ enum ProductStatus: string
     /**
      * Check if status allows publication
      * Business Rule: Only VERIFIED products can be published
-     * 
+     *
      * @return bool
      */
     public function canBePublished(): bool
@@ -100,7 +109,7 @@ enum ProductStatus: string
     /**
      * Check if status is considered "live"
      * Business Rule: PUBLISHED = visible to users
-     * 
+     *
      * @return bool
      */
     public function isLive(): bool
@@ -111,7 +120,7 @@ enum ProductStatus: string
     /**
      * Get next logical status in workflow
      * Business Rule: DRAFT → PENDING → VERIFIED → PUBLISHED
-     * 
+     *
      * @return ProductStatus|null
      */
     public function nextStatus(): ?ProductStatus
@@ -127,7 +136,7 @@ enum ProductStatus: string
 
     /**
      * Get previous logical status in workflow
-     * 
+     *
      * @return ProductStatus|null
      */
     public function previousStatus(): ?ProductStatus
@@ -143,7 +152,7 @@ enum ProductStatus: string
 
     /**
      * Get display label for UI
-     * 
+     *
      * @return string
      */
     public function label(): string
@@ -159,7 +168,7 @@ enum ProductStatus: string
 
     /**
      * Get Tailwind CSS color class for status badges
-     * 
+     *
      * @return string
      */
     public function colorClass(): string
@@ -175,7 +184,7 @@ enum ProductStatus: string
 
     /**
      * Get FontAwesome icon for status display
-     * 
+     *
      * @return string
      */
     public function icon(): string
@@ -192,7 +201,7 @@ enum ProductStatus: string
     /**
      * Validate if transition to target status is allowed
      * Business Rule: Strict workflow progression required
-     * 
+     *
      * @param ProductStatus $targetStatus
      * @return bool
      */
@@ -224,7 +233,7 @@ enum ProductStatus: string
 
     /**
      * Get all allowed transitions from current status
-     * 
+     *
      * @return array<ProductStatus>
      */
     public function allowedTransitions(): array

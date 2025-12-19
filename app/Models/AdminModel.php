@@ -8,31 +8,31 @@ use Exception;
 
 /**
  * Admin Model
- * 
+ *
  * Handles admin authentication, authorization, and management.
  * Core security model with brute force protection and audit logging.
- * 
+ *
  * @package App\Models
  */
 class AdminModel extends BaseModel
 {
     /**
      * Table name
-     * 
+     *
      * @var string
      */
     protected $table = 'admins';
 
     /**
      * Primary key
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'id';
 
     /**
      * Return type
-     * 
+     *
      * @var string
      */
     protected $returnType = Admin::class;
@@ -40,7 +40,7 @@ class AdminModel extends BaseModel
     /**
      * Allowed fields for mass assignment
      * Note: password_hash should only be set via setPassword() method
-     * 
+     *
      * @var array
      */
     protected $allowedFields = [
@@ -56,7 +56,7 @@ class AdminModel extends BaseModel
 
     /**
      * Validation rules for insert
-     * 
+     *
      * @var array
      */
     protected $validationRules = [
@@ -70,7 +70,7 @@ class AdminModel extends BaseModel
 
     /**
      * Validation messages
-     * 
+     *
      * @var array
      */
     protected $validationMessages = [
@@ -89,21 +89,21 @@ class AdminModel extends BaseModel
 
     /**
      * Maximum login attempts before lockout
-     * 
+     *
      * @var int
      */
     public const MAX_LOGIN_ATTEMPTS = 5;
 
     /**
      * Lockout duration in minutes
-     * 
+     *
      * @var int
      */
     public const LOCKOUT_DURATION = 15;
 
     /**
      * Password hash options (bcrypt)
-     * 
+     *
      * @var array
      */
     public const PASSWORD_OPTIONS = [
@@ -112,9 +112,6 @@ class AdminModel extends BaseModel
 
     /**
      * Before insert callback
-     * 
-     * @param array $data
-     * @return array
      */
     protected function beforeInsert(array $data): array
     {
@@ -137,9 +134,6 @@ class AdminModel extends BaseModel
 
     /**
      * Before update callback
-     * 
-     * @param array $data
-     * @return array
      */
     protected function beforeUpdate(array $data): array
     {
@@ -149,7 +143,7 @@ class AdminModel extends BaseModel
 
     /**
      * Authenticate admin by credentials
-     * 
+     *
      * @param string $identifier Username or email
      * @param string $password Plain text password
      * @param string $ipAddress Client IP for logging
@@ -183,28 +177,27 @@ class AdminModel extends BaseModel
         if (!$this->verifyPassword($password, $admin->password_hash)) {
             // Increment login attempts
             $this->incrementLoginAttempts($admin->id);
-            
+
             log_message('info', "Failed password for admin: {$admin->username} (ID: {$admin->id}) from IP {$ipAddress}");
             return false;
         }
 
         // Reset login attempts on successful login
         $this->resetLoginAttempts($admin->id);
-        
+
         // Update last login
         $this->updateLastLogin($admin->id);
-        
+
         log_message('info', "Successful login for admin: {$admin->username} (ID: {$admin->id}) from IP {$ipAddress}");
-        
+
         return $admin;
     }
 
     /**
      * Verify password against hash
-     * 
+     *
      * @param string $password Plain text password
      * @param string $hash Password hash
-     * @return bool
      */
     public function verifyPassword(string $password, string $hash): bool
     {
@@ -213,7 +206,7 @@ class AdminModel extends BaseModel
 
     /**
      * Create password hash
-     * 
+     *
      * @param string $password Plain text password
      * @return string Hashed password
      */
@@ -224,9 +217,8 @@ class AdminModel extends BaseModel
 
     /**
      * Check if password needs rehash
-     * 
+     *
      * @param string $hash Current password hash
-     * @return bool
      */
     public function passwordNeedsRehash(string $hash): bool
     {
@@ -235,15 +227,11 @@ class AdminModel extends BaseModel
 
     /**
      * Update admin password
-     * 
-     * @param int $adminId
-     * @param string $newPassword
-     * @return bool
      */
     public function updatePassword(int $adminId, string $newPassword): bool
     {
         $hash = $this->hashPassword($newPassword);
-        
+
         return $this->update($adminId, [
             'password_hash' => $hash,
             'updated_at' => date('Y-m-d H:i:s')
@@ -252,9 +240,6 @@ class AdminModel extends BaseModel
 
     /**
      * Increment login attempts
-     * 
-     * @param int $adminId
-     * @return bool
      */
     public function incrementLoginAttempts(int $adminId): bool
     {
@@ -264,7 +249,7 @@ class AdminModel extends BaseModel
         }
 
         $attempts = $admin->login_attempts + 1;
-        
+
         return $this->update($adminId, [
             'login_attempts' => $attempts,
             'updated_at' => date('Y-m-d H:i:s')
@@ -273,9 +258,6 @@ class AdminModel extends BaseModel
 
     /**
      * Reset login attempts
-     * 
-     * @param int $adminId
-     * @return bool
      */
     public function resetLoginAttempts(int $adminId): bool
     {
@@ -287,9 +269,6 @@ class AdminModel extends BaseModel
 
     /**
      * Update last login timestamp
-     * 
-     * @param int $adminId
-     * @return bool
      */
     public function updateLastLogin(int $adminId): bool
     {
@@ -301,9 +280,6 @@ class AdminModel extends BaseModel
 
     /**
      * Check if account is locked due to too many login attempts
-     * 
-     * @param Admin $admin
-     * @return bool
      */
     public function isAccountLocked(Admin $admin): bool
     {
@@ -312,10 +288,10 @@ class AdminModel extends BaseModel
         }
 
         // Check if lockout duration has passed
-        if ($admin->last_login) {
+        if ($admin->last_login instanceof \DateTimeImmutable) {
             $lastAttempt = strtotime($admin->updated_at);
             $lockoutUntil = $lastAttempt + (self::LOCKOUT_DURATION * 60);
-            
+
             if (time() > $lockoutUntil) {
                 // Lockout period expired, reset attempts
                 $this->resetLoginAttempts($admin->id);
@@ -328,8 +304,7 @@ class AdminModel extends BaseModel
 
     /**
      * Get lockout time remaining in minutes
-     * 
-     * @param Admin $admin
+     *
      * @return int|null Minutes remaining, null if not locked
      */
     public function getLockoutRemaining(Admin $admin): ?int
@@ -351,9 +326,6 @@ class AdminModel extends BaseModel
 
     /**
      * Find admin by username
-     * 
-     * @param string $username
-     * @return Admin|null
      */
     public function findByUsername(string $username): ?Admin
     {
@@ -362,9 +334,6 @@ class AdminModel extends BaseModel
 
     /**
      * Find admin by email
-     * 
-     * @param string $email
-     * @return Admin|null
      */
     public function findByEmail(string $email): ?Admin
     {
@@ -373,35 +342,28 @@ class AdminModel extends BaseModel
 
     /**
      * Find all active admins
-     * 
-     * @return array
      */
     public function findAllActive(): array
     {
         return $this->where('active', 1)
-                    ->where('deleted_at', null)
+                    ->where('deleted_at')
                     ->orderBy('name', 'ASC')
                     ->findAll();
     }
 
     /**
      * Find all super admins
-     * 
-     * @return array
      */
     public function findSuperAdmins(): array
     {
         return $this->where('role', 'super_admin')
                     ->where('active', 1)
-                    ->where('deleted_at', null)
+                    ->where('deleted_at')
                     ->findAll();
     }
 
     /**
      * Activate admin account
-     * 
-     * @param int $adminId
-     * @return bool
      */
     public function activate(int $adminId): bool
     {
@@ -413,9 +375,6 @@ class AdminModel extends BaseModel
 
     /**
      * Deactivate admin account
-     * 
-     * @param int $adminId
-     * @return bool
      */
     public function deactivate(int $adminId): bool
     {
@@ -427,9 +386,6 @@ class AdminModel extends BaseModel
 
     /**
      * Promote admin to super admin
-     * 
-     * @param int $adminId
-     * @return bool
      */
     public function promoteToSuperAdmin(int $adminId): bool
     {
@@ -441,9 +397,6 @@ class AdminModel extends BaseModel
 
     /**
      * Demote super admin to admin
-     * 
-     * @param int $adminId
-     * @return bool
      */
     public function demoteToAdmin(int $adminId): bool
     {
@@ -455,8 +408,7 @@ class AdminModel extends BaseModel
 
     /**
      * Check if admin can be deleted (business rules)
-     * 
-     * @param int $adminId
+     *
      * @return array [bool $canDelete, string $reason]
      */
     public function canDelete(int $adminId): array
@@ -489,7 +441,7 @@ class AdminModel extends BaseModel
 
     /**
      * Create new admin with password
-     * 
+     *
      * @param array $data Admin data including 'password'
      * @return int|false Insert ID or false on failure
      */
@@ -526,10 +478,6 @@ class AdminModel extends BaseModel
 
     /**
      * Update admin profile (excluding password)
-     * 
-     * @param int $adminId
-     * @param array $data
-     * @return bool
      */
     public function updateProfile(int $adminId, array $data): bool
     {
@@ -541,58 +489,47 @@ class AdminModel extends BaseModel
 
     /**
      * Count total admins
-     * 
-     * @return int
      */
     public function countTotal(): int
     {
-        return $this->where('deleted_at', null)->countAllResults();
+        return $this->where('deleted_at')->countAllResults();
     }
 
     /**
      * Count active admins
-     * 
-     * @return int
      */
     public function countActive(): int
     {
         return $this->where('active', 1)
-                    ->where('deleted_at', null)
+                    ->where('deleted_at')
                     ->countAllResults();
     }
 
     /**
      * Get admin statistics for dashboard
-     * 
-     * @return array
      */
     public function getDashboardStats(): array
     {
         $cacheKey = $this->cacheKey('dashboard_stats');
-        
-        return $this->cached($cacheKey, function() {
-            $stats = [
+
+        return $this->cached($cacheKey, function () {
+            return [
                 'total_admins' => $this->countTotal(),
                 'active_admins' => $this->countActive(),
                 'super_admins' => $this->where('role', 'super_admin')
-                                      ->where('deleted_at', null)
+                                      ->where('deleted_at')
                                       ->countAllResults(),
                 'recent_logins' => $this->where('last_login >=', date('Y-m-d H:i:s', strtotime('-7 days')))
-                                       ->where('deleted_at', null)
+                                       ->where('deleted_at')
                                        ->countAllResults(),
             ];
-
-            return $stats;
         }, 300); // 5 minutes cache
     }
 
     /**
      * Search admins with filters
-     * 
+     *
      * @param array $filters [search, role, active]
-     * @param int $limit
-     * @param int $offset
-     * @return array
      */
     public function searchAdmins(array $filters = [], int $limit = 50, int $offset = 0): array
     {
@@ -617,7 +554,7 @@ class AdminModel extends BaseModel
         }
 
         // Exclude deleted
-        $builder->where('deleted_at', null);
+        $builder->where('deleted_at');
 
         // Count total for pagination
         $total = $builder->countAllResults(false);
@@ -638,16 +575,15 @@ class AdminModel extends BaseModel
 
     /**
      * Override delete to prevent deleting certain admins
-     * 
+     *
      * @param mixed $id
-     * @param bool $purge
      * @return bool
      */
     public function delete($id = null, bool $purge = false)
     {
         if ($id !== null) {
             [$canDelete, $reason] = $this->canDelete($id);
-            
+
             if (!$canDelete) {
                 throw new ModelException("Cannot delete admin: {$reason}");
             }
@@ -658,40 +594,35 @@ class AdminModel extends BaseModel
 
     /**
      * Generate a secure random password
-     * 
-     * @param int $length
-     * @return string
      */
     public function generateRandomPassword(int $length = 12): string
     {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+';
         $password = '';
-        
+
         for ($i = 0; $i < $length; $i++) {
             $password .= $chars[random_int(0, strlen($chars) - 1)];
         }
-        
+
         return $password;
     }
 
     /**
      * Validate admin data for update
-     * 
-     * @param array $data
-     * @param int $adminId
+     *
      * @return array [bool $valid, array $errors]
      */
     public function validateAdminData(array $data, int $adminId): array
     {
         // Remove password from validation if present
         unset($data['password']);
-        
+
         // Temporarily set the ID for unique validation
         if (isset($data['username']) || isset($data['email'])) {
             $this->validationRules['username'] = "required|alpha_numeric_space|min_length[3]|max_length[50]|is_unique[admins.username,id,{$adminId}]";
             $this->validationRules['email'] = "required|valid_email|max_length[100]|is_unique[admins.email,id,{$adminId}]";
         }
-        
+
         return $this->validateData($data);
     }
 }

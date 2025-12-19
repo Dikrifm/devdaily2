@@ -7,31 +7,31 @@ use CodeIgniter\I18n\Time;
 
 /**
  * Audit Log Model
- * 
+ *
  * Tracks all administrative actions for security auditing and accountability.
  * Immutable log - entries cannot be modified or deleted (read-only).
- * 
+ *
  * @package App\Models
  */
 class AuditLogModel extends BaseModel
 {
     /**
      * Table name
-     * 
+     *
      * @var string
      */
     protected $table = 'admin_actions';
 
     /**
      * Primary key
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'id';
 
     /**
      * Return type
-     * 
+     *
      * @var string
      */
     protected $returnType = AuditLog::class;
@@ -39,7 +39,7 @@ class AuditLogModel extends BaseModel
     /**
      * Allowed fields for insertion only
      * This model is write-once, read-many
-     * 
+     *
      * @var array
      */
     protected $allowedFields = [
@@ -56,28 +56,28 @@ class AuditLogModel extends BaseModel
 
     /**
      * Use timestamps? NO - uses performed_at instead
-     * 
+     *
      * @var bool
      */
     protected $useTimestamps = false;
 
     /**
      * Use soft deletes? NO - audit logs are immutable
-     * 
+     *
      * @var bool
      */
     protected $useSoftDeletes = false;
 
     /**
      * Default ordering for queries
-     * 
+     *
      * @var string
      */
     protected $orderBy = 'performed_at DESC';
 
     /**
      * Action types constants
-     * 
+     *
      * @var array
      */
     public const ACTION_TYPES = [
@@ -101,7 +101,7 @@ class AuditLogModel extends BaseModel
 
     /**
      * Entity types from database
-     * 
+     *
      * @var array
      */
     public const ENTITY_TYPES = [
@@ -118,9 +118,6 @@ class AuditLogModel extends BaseModel
     /**
      * Before insert callback
      * Sets performed_at timestamp and validates data
-     * 
-     * @param array $data
-     * @return array
      */
     protected function beforeInsert(array $data): array
     {
@@ -148,8 +145,7 @@ class AuditLogModel extends BaseModel
 
     /**
      * Log an administrative action
-     * 
-     * @param array $logData
+     *
      * @return int|false Insert ID or false on failure
      */
     public function logAction(array $logData)
@@ -180,30 +176,30 @@ class AuditLogModel extends BaseModel
 
         try {
             $insertId = $this->insert($logData, true); // Return insert ID
-            
+
             if ($insertId) {
                 // Clear relevant caches
                 $this->clearAuditCache($logData);
-                
+
                 // Log to file for additional backup
                 $this->logToFile($insertId, $logData);
             }
-            
+
             return $insertId;
-            
+
         } catch (\Exception $e) {
             log_message('error', 'Failed to log audit action: ' . $e->getMessage());
-            
+
             // Emergency fallback: log to file only
             $this->logToFile(0, $logData, 'FAILED_DB: ' . $e->getMessage());
-            
+
             return false;
         }
     }
 
     /**
      * Log a CRUD operation with before/after states
-     * 
+     *
      * @param string $action      create|update|delete
      * @param string $entityType  Entity class name
      * @param int $entityId       Entity ID
@@ -250,12 +246,7 @@ class AuditLogModel extends BaseModel
 
     /**
      * Log a state transition (e.g., draft → pending_verification)
-     * 
-     * @param string $entityType
-     * @param int $entityId
-     * @param string $fromState
-     * @param string $toState
-     * @param int|null $adminId
+     *
      * @return int|false
      */
     public function logStateTransition(
@@ -280,9 +271,7 @@ class AuditLogModel extends BaseModel
 
     /**
      * Log admin login
-     * 
-     * @param int $adminId
-     * @param bool $success
+     *
      * @param string|null $reason Failure reason if unsuccessful
      * @return int|false
      */
@@ -298,8 +287,8 @@ class AuditLogModel extends BaseModel
                 'timestamp' => date('Y-m-d H:i:s'),
                 'ip_address' => service('request')->getIPAddress()
             ],
-            'changes_summary' => $success 
-                ? 'Successful login' 
+            'changes_summary' => $success
+                ? 'Successful login'
                 : 'Failed login attempt' . ($reason ? ': ' . $reason : '')
         ];
 
@@ -308,8 +297,7 @@ class AuditLogModel extends BaseModel
 
     /**
      * Log admin logout
-     * 
-     * @param int $adminId
+     *
      * @return int|false
      */
     public function logLogout(int $adminId)
@@ -327,18 +315,12 @@ class AuditLogModel extends BaseModel
 
     /**
      * Get logs for specific entity
-     * 
-     * @param string $entityType
-     * @param int $entityId
-     * @param int $limit
-     * @param int $offset
-     * @return array
      */
     public function getEntityLogs(string $entityType, int $entityId, int $limit = 50, int $offset = 0): array
     {
         $cacheKey = $this->cacheKey("entity_{$entityType}_{$entityId}_{$limit}_{$offset}");
-        
-        return $this->cached($cacheKey, function() use ($entityType, $entityId, $limit, $offset) {
+
+        return $this->cached($cacheKey, function () use ($entityType, $entityId, $limit, $offset) {
             return $this->where('entity_type', $entityType)
                         ->where('entity_id', $entityId)
                         ->orderBy('performed_at', 'DESC')
@@ -349,17 +331,12 @@ class AuditLogModel extends BaseModel
 
     /**
      * Get logs for specific admin
-     * 
-     * @param int $adminId
-     * @param int $limit
-     * @param int $offset
-     * @return array
      */
     public function getAdminLogs(int $adminId, int $limit = 50, int $offset = 0): array
     {
         $cacheKey = $this->cacheKey("admin_{$adminId}_{$limit}_{$offset}");
-        
-        return $this->cached($cacheKey, function() use ($adminId, $limit, $offset) {
+
+        return $this->cached($cacheKey, function () use ($adminId, $limit, $offset) {
             return $this->where('admin_id', $adminId)
                         ->orderBy('performed_at', 'DESC')
                         ->limit($limit, $offset)
@@ -369,41 +346,38 @@ class AuditLogModel extends BaseModel
 
     /**
      * Search logs with multiple filters
-     * 
-     * @param array $filters
-     * @param int $limit
-     * @param int $offset
+     *
      * @return array [total, results]
      */
     public function searchLogs(array $filters = [], int $limit = 50, int $offset = 0): array
     {
         $builder = $this->builder();
-        
+
         // Apply filters
         if (!empty($filters['admin_id'])) {
             $builder->where('admin_id', (int) $filters['admin_id']);
         }
-        
+
         if (!empty($filters['action_type'])) {
             $builder->where('action_type', $filters['action_type']);
         }
-        
+
         if (!empty($filters['entity_type'])) {
             $builder->where('entity_type', $filters['entity_type']);
         }
-        
+
         if (!empty($filters['entity_id'])) {
             $builder->where('entity_id', (int) $filters['entity_id']);
         }
-        
+
         if (!empty($filters['date_from'])) {
             $builder->where('performed_at >=', $filters['date_from']);
         }
-        
+
         if (!empty($filters['date_to'])) {
             $builder->where('performed_at <=', $filters['date_to'] . ' 23:59:59');
         }
-        
+
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $builder->groupStart()
@@ -411,16 +385,16 @@ class AuditLogModel extends BaseModel
                     ->orLike('ip_address', $search)
                     ->groupEnd();
         }
-        
+
         // Count total
         $total = $builder->countAllResults(false);
-        
+
         // Get results - FIXED: Removed $this->returnType parameter
         $results = $builder->orderBy('performed_at', 'DESC')
                           ->limit($limit, $offset)
                           ->get()
                           ->getResult(); // Changed from getResult($this->returnType)
-        
+
         return [
             'total' => $total,
             'results' => $results,
@@ -431,15 +405,12 @@ class AuditLogModel extends BaseModel
 
     /**
      * Get recent activity for dashboard
-     * 
-     * @param int $limit
-     * @return array
      */
     public function getRecentActivity(int $limit = 20): array
     {
         $cacheKey = $this->cacheKey("recent_{$limit}_" . date('YmdH'));
-        
-        return $this->cached($cacheKey, function() use ($limit) {
+
+        return $this->cached($cacheKey, function () use ($limit) {
             return $this->orderBy('performed_at', 'DESC')
                         ->limit($limit)
                         ->find(); // Changed from findAll() to find()
@@ -448,17 +419,16 @@ class AuditLogModel extends BaseModel
 
     /**
      * Get statistics for reporting
-     * 
+     *
      * @param string $period day|week|month|year
-     * @return array
      */
     public function getStatistics(string $period = 'month'): array
     {
         $cacheKey = $this->cacheKey("stats_{$period}_" . date('Ymd'));
-        
-        return $this->cached($cacheKey, function() use ($period) {
+
+        return $this->cached($cacheKey, function () use ($period) {
             $dateCondition = $this->getDateCondition($period);
-            
+
             $stats = [
                 'total_actions' => 0,
                 'actions_by_type' => [],
@@ -466,10 +436,10 @@ class AuditLogModel extends BaseModel
                 'top_admins' => [],
                 'activity_trend' => []
             ];
-            
+
             // Total actions
             $stats['total_actions'] = $this->where($dateCondition)->countAllResults();
-            
+
             // Actions by type
             $builder = $this->builder();
             $query = $builder->select('action_type, COUNT(*) as count')
@@ -478,7 +448,7 @@ class AuditLogModel extends BaseModel
                             ->orderBy('count', 'DESC')
                             ->get();
             $stats['actions_by_type'] = $query->getResultArray();
-            
+
             // Actions by entity
             $builder = $this->builder();
             $query = $builder->select('entity_type, COUNT(*) as count')
@@ -487,7 +457,7 @@ class AuditLogModel extends BaseModel
                             ->orderBy('count', 'DESC')
                             ->get();
             $stats['actions_by_entity'] = $query->getResultArray();
-            
+
             // Top admins
             $builder = $this->builder();
             $query = $builder->select('admin_id, COUNT(*) as count')
@@ -498,51 +468,50 @@ class AuditLogModel extends BaseModel
                             ->limit(10)
                             ->get();
             $stats['top_admins'] = $query->getResultArray();
-            
+
             return $stats;
         }, 300); // 5 minutes cache
     }
 
     /**
      * Clean up old logs (archival function)
-     * 
+     *
      * @param int $daysOld Keep logs newer than X days
      * @return int Number of rows affected
      */
     public function cleanupOldLogs(int $daysOld = 365): int
     {
         $dateLimit = date('Y-m-d H:i:s', strtotime("-{$daysOld} days"));
-        
+
         // For MVP: we don't delete, we archive to separate table
         // For now, just return count of old logs
         $count = $this->where('performed_at <', $dateLimit)->countAllResults();
-        
+
         log_message('info', "Found {$count} audit logs older than {$daysOld} days");
-        
+
         // In production, you might:
         // 1. Export to archive table
         // 2. Compress and store off-site
         // 3. Then delete from main table
-        
+
         return $count;
     }
 
     /**
      * Export logs to CSV
-     * 
-     * @param array $filters
+     *
      * @return string CSV content
      */
     public function exportToCsv(array $filters = []): string
     {
         $logs = $this->searchLogs($filters, 10000, 0)['results'];
-        
+
         $csv = "ID,Date,Time,Admin ID,Action Type,Entity Type,Entity ID,Changes Summary,IP Address\n";
-        
+
         foreach ($logs as $log) {
-            $date = $log->performed_at ? date('Y-m-d', strtotime($log->performed_at)) : '';
-            $time = $log->performed_at ? date('H:i:s', strtotime($log->performed_at)) : '';
-            
+            $date = $log->performed_at ? date('Y-m-d', strtotime((string) $log->performed_at)) : '';
+            $time = $log->performed_at ? date('H:i:s', strtotime((string) $log->performed_at)) : '';
+
             $csv .= sprintf(
                 '%d,%s,%s,%s,%s,%s,%d,"%s",%s' . "\n",
                 $log->id,
@@ -556,42 +525,37 @@ class AuditLogModel extends BaseModel
                 $log->ip_address
             );
         }
-        
+
         return $csv;
     }
 
     /**
      * Prepare entity data for JSON storage
-     * 
+     *
      * @param mixed $entity
-     * @return array
      */
     private function prepareEntityData($entity): array
     {
         if (is_object($entity) && method_exists($entity, 'toArray')) {
             return $entity->toArray();
         }
-        
+
         if (is_array($entity)) {
             return $entity;
         }
-        
+
         if (is_object($entity)) {
             return (array) $entity;
         }
-        
+
         return ['raw' => $entity];
     }
 
     /**
      * Generate human-readable changes summary
-     * 
-     * @param string $action
-     * @param string $entityType
-     * @param int $entityId
+     *
      * @param mixed $oldValues
      * @param mixed $newValues
-     * @return string
      */
     private function generateChangesSummary(
         string $action,
@@ -602,11 +566,11 @@ class AuditLogModel extends BaseModel
     ): string {
         $oldArray = is_string($oldValues) ? json_decode($oldValues, true) : $oldValues;
         $newArray = is_string($newValues) ? json_decode($newValues, true) : $newValues;
-        
+
         switch ($action) {
             case 'create':
                 return "Created {$entityType} #{$entityId}";
-                
+
             case 'update':
                 if (is_array($oldArray) && is_array($newArray)) {
                     $changes = [];
@@ -614,7 +578,7 @@ class AuditLogModel extends BaseModel
                         if (!isset($oldArray[$key]) || $oldArray[$key] != $value) {
                             $oldVal = $oldArray[$key] ?? '(empty)';
                             $newVal = $value;
-                            
+
                             // Truncate long values
                             if (is_string($oldVal) && strlen($oldVal) > 30) {
                                 $oldVal = substr($oldVal, 0, 27) . '...';
@@ -622,23 +586,23 @@ class AuditLogModel extends BaseModel
                             if (is_string($newVal) && strlen($newVal) > 30) {
                                 $newVal = substr($newVal, 0, 27) . '...';
                             }
-                            
+
                             $changes[] = "{$key}: {$oldVal} → {$newVal}";
                         }
                     }
-                    
-                    if (empty($changes)) {
+
+                    if ($changes === []) {
                         return "Updated {$entityType} #{$entityId} (no visible changes)";
                     }
-                    
-                    return "Updated {$entityType} #{$entityId}: " . implode(', ', array_slice($changes, 0, 3)) . 
+
+                    return "Updated {$entityType} #{$entityId}: " . implode(', ', array_slice($changes, 0, 3)) .
                            (count($changes) > 3 ? '...' : '');
                 }
                 return "Updated {$entityType} #{$entityId}";
-                
+
             case 'delete':
                 return "Deleted {$entityType} #{$entityId}";
-                
+
             default:
                 return ucfirst($action) . " {$entityType} #{$entityId}";
         }
@@ -646,9 +610,6 @@ class AuditLogModel extends BaseModel
 
     /**
      * Get date condition for period
-     * 
-     * @param string $period
-     * @return string
      */
     private function getDateCondition(string $period): string
     {
@@ -658,13 +619,13 @@ class AuditLogModel extends BaseModel
             'month' => 'Y-m',
             'year'  => 'Y'
         ];
-        
+
         if (!isset($formats[$period])) {
             $period = 'month';
         }
-        
+
         $date = date($formats[$period]);
-        
+
         switch ($period) {
             case 'day':
                 return "DATE(performed_at) = '{$date}'";
@@ -683,18 +644,13 @@ class AuditLogModel extends BaseModel
 
     /**
      * Log to file as backup
-     * 
-     * @param int $logId
-     * @param array $data
-     * @param string $note
-     * @return void
      */
     private function logToFile(int $logId, array $data, string $note = ''): void
     {
         $logMessage = sprintf(
             "[%s] Audit Log %s: %s | Admin: %s | Action: %s | Entity: %s #%s | IP: %s | %s\n",
             date('Y-m-d H:i:s'),
-            $logId ? '#' . $logId : 'FAILED',
+            $logId !== 0 ? '#' . $logId : 'FAILED',
             $data['changes_summary'] ?? 'No summary',
             $data['admin_id'] ?? 'SYSTEM',
             $data['action_type'] ?? 'unknown',
@@ -703,7 +659,7 @@ class AuditLogModel extends BaseModel
             $data['ip_address'] ?? '0.0.0.0',
             $note
         );
-        
+
         // Write to audit log file
         $logPath = WRITEPATH . 'logs/audit-' . date('Y-m-d') . '.log';
         file_put_contents($logPath, $logMessage, FILE_APPEND | LOCK_EX);
@@ -711,45 +667,40 @@ class AuditLogModel extends BaseModel
 
     /**
      * Clear relevant audit caches
-     * 
-     * @param array $logData
-     * @return void
      */
     private function clearAuditCache(array $logData): void
     {
         // Clear recent activity cache
         $this->clearCache($this->cacheKey('recent_*'));
-        
+
         // Clear entity-specific caches
         if (isset($logData['entity_type']) && isset($logData['entity_id'])) {
             $this->clearCache($this->cacheKey("entity_{$logData['entity_type']}_{$logData['entity_id']}_*"));
         }
-        
+
         // Clear admin-specific caches
         if (isset($logData['admin_id'])) {
             $this->clearCache($this->cacheKey("admin_{$logData['admin_id']}_*"));
         }
-        
+
         // Clear statistics caches
         $this->clearCache($this->cacheKey('stats_*'));
     }
 
     /**
      * Override delete method - audit logs are immutable
-     * 
+     *
      * @param mixed $id
-     * @param bool $purge
-     * @return never
      * @throws \RuntimeException
      */
-    public function delete($id = null, bool $purge = false)
+    public function delete($id = null, bool $purge = false): never
     {
         throw new \RuntimeException('Audit logs cannot be deleted. They are immutable for security reasons.');
     }
 
     /**
      * Override update method - audit logs are immutable
-     * 
+     *
      * @param mixed $id
      * @param array $data
      * @return never
@@ -762,9 +713,6 @@ class AuditLogModel extends BaseModel
 
     /**
      * Check if action type is valid
-     * 
-     * @param string $actionType
-     * @return bool
      */
     public function isValidActionType(string $actionType): bool
     {
@@ -773,9 +721,6 @@ class AuditLogModel extends BaseModel
 
     /**
      * Check if entity type is valid
-     * 
-     * @param string $entityType
-     * @return bool
      */
     public function isValidEntityType(string $entityType): bool
     {

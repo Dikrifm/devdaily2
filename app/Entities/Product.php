@@ -2,128 +2,98 @@
 
 namespace App\Entities;
 
-use App\Enums\ProductStatus;
 use App\Enums\ImageSourceType;
+use App\Enums\ProductStatus;
 use DateTimeImmutable;
 
 /**
  * Product Entity
- * 
+ *
  * Represents the core product in the system. Limited to 300 premium products.
  * Each product undergoes manual curation with strict quality control.
- * 
+ *
  * @package App\Entities
  */
 class Product extends BaseEntity
 {
     /**
      * Category ID (foreign key)
-     * 
-     * @var int|null
      */
     private ?int $category_id = null;
 
     /**
      * URL-friendly slug (unique)
-     * 
-     * @var string
      */
     private string $slug;
 
     /**
      * Main product image URL
-     * 
-     * @var string|null
      */
     private ?string $image = null;
 
     /**
      * Product name
-     * 
-     * @var string
      */
     private string $name;
 
     /**
      * Product description
-     * 
-     * @var string|null
      */
     private ?string $description = null;
 
     /**
      * Market reference price (decimal)
-     * 
-     * @var string
      */
     private float $market_price = '0.00';
 
     /**
      * View count for popularity tracking
-     * 
-     * @var int
      */
     private int $view_count = 0;
 
     /**
      * Local image path if uploaded
-     * 
-     * @var string|null
      */
     private ?string $image_path = null;
 
     /**
      * Image source type
-     * 
-     * @var ImageSourceType
      */
-    private ImageSourceType $image_source_type;
+    private ImageSourceType $image_source_type = ImageSourceType::URL;
 
     /**
      * Product workflow status
-     * 
-     * @var ProductStatus
      */
-    private ProductStatus $status;
+    private ProductStatus $status = ProductStatus::DRAFT;
 
     /**
      * Publication timestamp
-     * 
-     * @var DateTimeImmutable|null
      */
     private ?DateTimeImmutable $published_at = null;
 
     /**
      * Verification timestamp
-     * 
-     * @var DateTimeImmutable|null
      */
     private ?DateTimeImmutable $verified_at = null;
 
     /**
      * Admin ID who verified the product
-     * 
-     * @var int|null
      */
     private ?int $verified_by = null;
 
     /**
      * Last price check timestamp
-     * 
-     * @var DateTimeImmutable|null
      */
     private ?DateTimeImmutable $last_price_check = null;
 
     /**
      * Last link validation timestamp
-     * 
-     * @var DateTimeImmutable|null
      */
     private ?DateTimeImmutable $last_link_check = null;
 
     /**
      * Product constructor
-     * 
+     *
      * @param string $name Product name
      * @param string $slug URL slug
      */
@@ -131,8 +101,6 @@ class Product extends BaseEntity
     {
         $this->name = $name;
         $this->slug = $slug;
-        $this->status = ProductStatus::DRAFT;
-        $this->image_source_type = ImageSourceType::URL;
         $this->initialize();
     }
 
@@ -270,7 +238,7 @@ class Product extends BaseEntity
         if (!preg_match('/^\d+\.\d{2}$/', $market_price)) {
             throw new \InvalidArgumentException('Market price must be in decimal format with 2 decimal places (e.g., 1234.56)');
         }
-        
+
         if ($this->market_price === $market_price) {
             return $this;
         }
@@ -314,24 +282,25 @@ class Product extends BaseEntity
         if ($this->status === $status) {
             return $this;
         }
-        
+
         if (!$this->status->canTransitionTo($status)) {
             throw new \InvalidArgumentException(
-                sprintf('Cannot transition product status from %s to %s', 
-                    $this->status->label(), 
+                sprintf(
+                    'Cannot transition product status from %s to %s',
+                    $this->status->label(),
                     $status->label()
                 )
             );
         }
-        
+
         $this->status = $status;
         $this->markAsUpdated();
-        
+
         // Auto-set timestamps based on status transitions
-        if ($status === ProductStatus::PUBLISHED && $this->published_at === null) {
+        if ($status === ProductStatus::PUBLISHED && !$this->published_at instanceof \DateTimeImmutable) {
             $this->published_at = new DateTimeImmutable();
         }
-        
+
         return $this;
     }
 
@@ -411,7 +380,7 @@ class Product extends BaseEntity
         if ($this->status !== ProductStatus::VERIFIED) {
             throw new \LogicException('Only verified products can be published');
         }
-        
+
         $this->published_at = new DateTimeImmutable();
         return $this->setStatus(ProductStatus::PUBLISHED);
     }
@@ -426,7 +395,7 @@ class Product extends BaseEntity
         if ($this->status !== ProductStatus::ARCHIVED) {
             throw new \LogicException('Only archived products can be restored');
         }
-        
+
         // Restore to previous logical status or default to DRAFT
         return $this->setStatus(ProductStatus::DRAFT);
     }
@@ -470,10 +439,10 @@ class Product extends BaseEntity
 
     public function needsPriceUpdate(): bool
     {
-        if ($this->last_price_check === null) {
+        if (!$this->last_price_check instanceof \DateTimeImmutable) {
             return true;
         }
-        
+
         $now = new DateTimeImmutable();
         $interval = $now->diff($this->last_price_check);
         return $interval->days >= 7; // Business rule: 7 days
@@ -481,10 +450,10 @@ class Product extends BaseEntity
 
     public function needsLinkValidation(): bool
     {
-        if ($this->last_link_check === null) {
+        if (!$this->last_link_check instanceof \DateTimeImmutable) {
             return true;
         }
-        
+
         $now = new DateTimeImmutable();
         $interval = $now->diff($this->last_link_check);
         return $interval->days >= 14; // Business rule: 14 days
@@ -495,13 +464,13 @@ class Product extends BaseEntity
         if ($this->image_source_type === ImageSourceType::UPLOAD && $this->image_path !== null) {
             return '/uploads/products/' . $this->image_path;
         }
-        
+
         return $this->image;
     }
 
     public function getFormattedMarketPrice(): string
     {
-        return 'Rp ' . number_format((float) $this->market_price, 0, ',', '.');
+        return 'Rp ' . number_format($this->market_price, 0, ',', '.');
     }
 
     public function getStatusLabel(): string
@@ -642,13 +611,13 @@ class Product extends BaseEntity
             'Sample Premium Product',
             'sample-premium-product'
         );
-        
+
         $product->setDescription('This is a sample product description for testing purposes.');
         $product->setMarketPrice('1250000.00');
         $product->setImage('https://via.placeholder.com/400x300');
         $product->verify(1); // Admin ID 1
         $product->publish();
-        
+
         return $product;
     }
 }

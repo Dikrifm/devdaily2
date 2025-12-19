@@ -27,7 +27,7 @@ class ResponseFormatter
 
     /**
      * Constructor.
-     * 
+     *
      * @param array $config
      * @param PaginationService|null $paginationService
      */
@@ -40,7 +40,7 @@ class ResponseFormatter
 
     /**
      * Format successful response.
-     * 
+     *
      * @param mixed $data
      * @param string $message
      * @param int $code
@@ -63,7 +63,7 @@ class ResponseFormatter
 
     /**
      * Format error response.
-     * 
+     *
      * @param string $message
      * @param int $code
      * @param array $errors
@@ -86,7 +86,7 @@ class ResponseFormatter
 
     /**
      * Format validation error response.
-     * 
+     *
      * @param array $validationErrors
      * @param string $message
      * @return array
@@ -94,7 +94,7 @@ class ResponseFormatter
     public function validationError(array $validationErrors, string $message = 'Validation failed'): array
     {
         $errors = [];
-        
+
         foreach ($validationErrors as $field => $error) {
             $errors[] = [
                 'field' => $field,
@@ -108,16 +108,16 @@ class ResponseFormatter
 
     /**
      * Format not found response.
-     * 
+     *
      * @param string $message
      * @param string $resource
      * @param mixed $identifier
      * @return array
      */
-    public function notFound(string $message = 'Resource not found', string $resource = null, $identifier = null): array
+    public function notFound(string $message = 'Resource not found', ?string $resource = null, $identifier = null): array
     {
         $errors = [];
-        
+
         if ($resource && $identifier) {
             $errors[] = [
                 'resource' => $resource,
@@ -131,12 +131,12 @@ class ResponseFormatter
 
     /**
      * Format unauthorized response.
-     * 
+     *
      * @param string $message
      * @param string $reason
      * @return array
      */
-    public function unauthorized(string $message = 'Unauthorized', string $reason = null): array
+    public function unauthorized(string $message = 'Unauthorized', ?string $reason = null): array
     {
         $errors = $reason ? [['reason' => $reason, 'code' => 'UNAUTHORIZED']] : [];
 
@@ -145,12 +145,12 @@ class ResponseFormatter
 
     /**
      * Format forbidden response.
-     * 
+     *
      * @param string $message
      * @param string $permission
      * @return array
      */
-    public function forbidden(string $message = 'Forbidden', string $permission = null): array
+    public function forbidden(string $message = 'Forbidden', ?string $permission = null): array
     {
         $errors = $permission ? [['required_permission' => $permission, 'code' => 'FORBIDDEN']] : [];
 
@@ -159,7 +159,7 @@ class ResponseFormatter
 
     /**
      * Format paginated response.
-     * 
+     *
      * @param array $items
      * @param PaginationQuery $paginationQuery
      * @param int $totalItems
@@ -175,7 +175,7 @@ class ResponseFormatter
         array $additionalMeta = []
     ): array {
         $paginationData = $this->paginationService->createPagination($paginationQuery, $totalItems);
-        
+
         $meta = array_merge($additionalMeta, [
             'pagination' => $paginationData,
         ]);
@@ -185,16 +185,16 @@ class ResponseFormatter
 
     /**
      * Format created response.
-     * 
+     *
      * @param mixed $data
      * @param string $message
      * @param string $location
      * @return array
      */
-    public function created($data = null, string $message = 'Resource created successfully', string $location = null): array
+    public function created($data = null, string $message = 'Resource created successfully', ?string $location = null): array
     {
         $meta = [];
-        
+
         if ($location) {
             $meta['location'] = $location;
         }
@@ -204,7 +204,7 @@ class ResponseFormatter
 
     /**
      * Format updated response.
-     * 
+     *
      * @param mixed $data
      * @param string $message
      * @return array
@@ -216,7 +216,7 @@ class ResponseFormatter
 
     /**
      * Format deleted response.
-     * 
+     *
      * @param string $message
      * @return array
      */
@@ -227,7 +227,7 @@ class ResponseFormatter
 
     /**
      * Format no content response.
-     * 
+     *
      * @return array
      */
     public function noContent(): array
@@ -244,7 +244,7 @@ class ResponseFormatter
 
     /**
      * Send JSON response to client.
-     * 
+     *
      * @param ResponseInterface $response
      * @param array $formattedResponse
      * @param array $headers
@@ -262,7 +262,7 @@ class ResponseFormatter
 
     /**
      * Build metadata array.
-     * 
+     *
      * @param array $additionalMeta
      * @return array
      */
@@ -288,7 +288,7 @@ class ResponseFormatter
 
     /**
      * Get current timestamp in ISO 8601 format.
-     * 
+     *
      * @return string
      */
     protected function getTimestamp(): string
@@ -298,7 +298,7 @@ class ResponseFormatter
 
     /**
      * Generate unique request ID.
-     * 
+     *
      * @return string
      */
     protected function generateRequestId(): string
@@ -308,7 +308,7 @@ class ResponseFormatter
 
     /**
      * Get debug information.
-     * 
+     *
      * @return array
      */
     protected function getDebugInfo(): array
@@ -331,7 +331,7 @@ class ResponseFormatter
 
     /**
      * Get script execution time.
-     * 
+     *
      * @return float
      */
     protected function getExecutionTime(): float
@@ -342,7 +342,7 @@ class ResponseFormatter
 
     /**
      * Clean null values from response array.
-     * 
+     *
      * @param array $response
      * @return array
      */
@@ -358,15 +358,15 @@ class ResponseFormatter
 
     /**
      * Format exception response.
-     * 
+     *
      * @param \Throwable $exception
      * @param bool $includeStackTrace
      * @return array
      */
     public function exception(\Throwable $exception, bool $includeStackTrace = false): array
     {
-        $code = $exception->getCode() >= 400 && $exception->getCode() < 600 
-            ? $exception->getCode() 
+        $code = $exception->getCode() >= 400 && $exception->getCode() < 600
+            ? $exception->getCode()
             : 500;
 
         $errors = [
@@ -393,7 +393,7 @@ class ResponseFormatter
 
     /**
      * Format DTO collection response.
-     * 
+     *
      * @param array $dtos
      * @param string $message
      * @return array
@@ -412,7 +412,7 @@ class ResponseFormatter
 
     /**
      * Format single DTO response.
-     * 
+     *
      * @param mixed $dto
      * @param string $message
      * @return array
@@ -420,13 +420,13 @@ class ResponseFormatter
     public function item($dto, string $message = 'Item retrieved successfully'): array
     {
         $data = method_exists($dto, 'toArray') ? $dto->toArray() : $dto;
-        
+
         return $this->success($data, $message);
     }
 
     /**
      * Get current request ID.
-     * 
+     *
      * @return string
      */
     public function getRequestId(): string
@@ -436,7 +436,7 @@ class ResponseFormatter
 
     /**
      * Set custom request ID.
-     * 
+     *
      * @param string $requestId
      * @return self
      */

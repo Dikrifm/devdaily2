@@ -6,158 +6,116 @@ use App\Entities\Link;
 
 /**
  * Link Response DTO
- * 
+ *
  * Response format for Link data with reverse commission calculation.
  * Includes display-only fields like commission_rate_display derived from stored revenue.
- * 
+ *
  * @package App\DTOs\Responses
  */
 class LinkResponse
 {
     /**
      * Link ID
-     * 
-     * @var int
      */
     public int $id;
 
     /**
      * Product ID
-     * 
-     * @var int
      */
     public int $product_id;
 
     /**
      * Marketplace ID
-     * 
-     * @var int
      */
     public int $marketplace_id;
 
     /**
      * Store name
-     * 
-     * @var string
      */
     public string $store_name;
 
     /**
      * Product price (raw decimal)
-     * 
-     * @var string
      */
     public string $price;
 
     /**
      * Formatted price for display
-     * 
-     * @var string
      */
     public string $formatted_price;
 
     /**
      * Product URL
-     * 
-     * @var string|null
      */
     public ?string $url;
 
     /**
      * Product rating (0.00 - 5.00)
-     * 
-     * @var string
      */
     public string $rating;
 
     /**
      * Formatted rating for display
-     * 
-     * @var string
      */
     public string $formatted_rating;
 
     /**
      * Star rating HTML
-     * 
-     * @var string
      */
     public string $star_rating_html;
 
     /**
      * Active status
-     * 
-     * @var bool
      */
     public bool $active;
 
     /**
      * Sold count
-     * 
-     * @var int
      */
     public int $sold_count;
 
     /**
      * Formatted sold count for display
-     * 
-     * @var string
      */
     public string $formatted_sold_count;
 
     /**
      * Click count
-     * 
-     * @var int
      */
     public int $clicks;
 
     /**
      * Last price update timestamp
-     * 
-     * @var string|null
      */
     public ?string $last_price_update;
 
     /**
      * Last validation timestamp
-     * 
-     * @var string|null
      */
     public ?string $last_validation;
 
     /**
      * Affiliate revenue (raw decimal)
-     * 
-     * @var string
      */
     public string $affiliate_revenue;
 
     /**
      * Formatted revenue for display
-     * 
-     * @var string
      */
     public string $formatted_revenue;
 
     /**
      * Marketplace badge ID
-     * 
-     * @var int|null
      */
     public ?int $marketplace_badge_id;
 
     /**
      * Created at timestamp
-     * 
-     * @var string|null
      */
     public ?string $created_at;
 
     /**
      * Updated at timestamp
-     * 
-     * @var string|null
      */
     public ?string $updated_at;
 
@@ -165,43 +123,32 @@ class LinkResponse
      * DISPLAY ONLY: Commission rate percentage derived from revenue
      * Example: "5.00" for 5%
      * This is calculated from stored revenue, not persisted
-     * 
-     * @var string
      */
     public string $commission_rate_display;
 
     /**
      * DISPLAY ONLY: Commission rate with percent symbol
      * Example: "5.00%"
-     * 
-     * @var string
      */
     public string $commission_rate_percent;
 
     /**
      * DISPLAY ONLY: Whether commission rate is using default (2%)
-     * 
-     * @var bool
      */
     public bool $is_default_commission;
 
     /**
      * DISPLAY ONLY: Revenue per click
-     * 
-     * @var string
      */
     public string $revenue_per_click;
 
     /**
      * Create LinkResponse from Link entity
-     * 
-     * @param Link $link
-     * @return self
      */
     public static function fromEntity(Link $link): self
     {
         $response = new self();
-        
+
         // Basic properties
         $response->id = $link->getId() ?? 0;
         $response->product_id = $link->getProductId();
@@ -217,69 +164,67 @@ class LinkResponse
         $response->sold_count = $link->getSoldCount();
         $response->formatted_sold_count = $link->getFormattedSoldCount();
         $response->clicks = $link->getClicks();
-        
+
         // Timestamps
         $lastPriceUpdate = $link->getLastPriceUpdate();
-        $response->last_price_update = $lastPriceUpdate ? $lastPriceUpdate->format('Y-m-d H:i:s') : null;
-        
+        $response->last_price_update = $lastPriceUpdate instanceof \DateTimeImmutable ? $lastPriceUpdate->format('Y-m-d H:i:s') : null;
+
         $lastValidation = $link->getLastValidation();
-        $response->last_validation = $lastValidation ? $lastValidation->format('Y-m-d H:i:s') : null;
-        
+        $response->last_validation = $lastValidation instanceof \DateTimeImmutable ? $lastValidation->format('Y-m-d H:i:s') : null;
+
         // Revenue data
         $response->affiliate_revenue = $link->getAffiliateRevenue();
         $response->formatted_revenue = $link->getFormattedAffiliateRevenue();
-        
+
         // Marketplace badge
         $response->marketplace_badge_id = $link->getMarketplaceBadgeId();
-        
+
         // Timestamps from BaseEntity
         $createdAt = $link->getCreatedAt();
-        $response->created_at = $createdAt ? $createdAt->format('Y-m-d H:i:s') : null;
-        
+        $response->created_at = $createdAt instanceof \DateTimeImmutable ? $createdAt->format('Y-m-d H:i:s') : null;
+
         $updatedAt = $link->getUpdatedAt();
-        $response->updated_at = $updatedAt ? $updatedAt->format('Y-m-d H:i:s') : null;
-        
+        $response->updated_at = $updatedAt instanceof \DateTimeImmutable ? $updatedAt->format('Y-m-d H:i:s') : null;
+
         // ============================================
         // REVERSE CALCULATION FOR COMMISSION DISPLAY
         // ============================================
-        
+
         // Get implied commission rate from entity
         $impliedRate = $link->getImpliedCommissionRate();
-        
+
         // Format for display (2 decimal places)
         $response->commission_rate_display = number_format($impliedRate, 2, '.', '');
         $response->commission_rate_percent = number_format($impliedRate, 2) . '%';
-        
+
         // Check if using default commission (2%)
         $response->is_default_commission = abs($impliedRate - 2.0) < 0.01;
-        
+
         // Calculate revenue per click
         $response->revenue_per_click = $link->getRevenuePerClick();
-        
+
         return $response;
     }
 
     /**
      * Create collection of LinkResponse from array of Link entities
-     * 
+     *
      * @param array $links Array of Link entities
      * @return array Array of LinkResponse objects
      */
     public static function collection(array $links): array
     {
         $collection = [];
-        
+
         foreach ($links as $link) {
             $collection[] = self::fromEntity($link);
         }
-        
+
         return $collection;
     }
 
     /**
      * Convert response to array
-     * 
-     * @return array
      */
     public function toArray(): array
     {
@@ -314,25 +259,22 @@ class LinkResponse
 
     /**
      * Convert response to JSON
-     * 
+     *
      * @param bool $pretty Whether to format JSON for readability
-     * @return string
      */
     public function toJson(bool $pretty = false): string
     {
         $options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
-        
+
         if ($pretty) {
             $options |= JSON_PRETTY_PRINT;
         }
-        
+
         return json_encode($this->toArray(), $options);
     }
 
     /**
      * Get simplified summary for listing views
-     * 
-     * @return array
      */
     public function toSummary(): array
     {
@@ -351,8 +293,6 @@ class LinkResponse
 
     /**
      * Get detailed view for single item display
-     * 
-     * @return array
      */
     public function toDetail(): array
     {
@@ -397,59 +337,50 @@ class LinkResponse
 
     /**
      * Check if link needs price update
-     * 
-     * @return bool
      */
     public function needsPriceUpdate(): bool
     {
         if (!$this->last_price_update) {
             return true;
         }
-        
+
         $lastUpdate = strtotime($this->last_price_update);
         $now = time();
         $hoursSinceUpdate = ($now - $lastUpdate) / 3600;
-        
+
         return $hoursSinceUpdate > 24;
     }
 
     /**
      * Check if link needs validation
-     * 
-     * @return bool
      */
     public function needsValidation(): bool
     {
         if (!$this->last_validation) {
             return true;
         }
-        
+
         $lastValidation = strtotime($this->last_validation);
         $now = time();
         $hoursSinceValidation = ($now - $lastValidation) / 3600;
-        
+
         return $hoursSinceValidation > 48;
     }
 
     /**
      * Get click-through rate if total product views provided
-     * 
-     * @param float $totalProductViews
-     * @return float
      */
     public function getClickThroughRate(float $totalProductViews = 0): float
     {
         if ($totalProductViews <= 0 || $this->clicks <= 0) {
             return 0.0;
         }
-        
+
         return round(($this->clicks / $totalProductViews) * 100, 2);
     }
 
     /**
      * Get commission info for UI display
-     * 
-     * @return array
      */
     public function getCommissionInfo(): array
     {
@@ -458,16 +389,14 @@ class LinkResponse
             'percent' => $this->commission_rate_percent,
             'revenue' => $this->formatted_revenue,
             'is_default' => $this->is_default_commission,
-            'tooltip' => $this->is_default_commission 
-                ? 'Using default 2% commission rate' 
+            'tooltip' => $this->is_default_commission
+                ? 'Using default 2% commission rate'
                 : 'Custom commission rate applied',
         ];
     }
 
     /**
      * Get status badge info for UI
-     * 
-     * @return array
      */
     public function getStatusBadge(): array
     {
@@ -478,7 +407,7 @@ class LinkResponse
                 'icon' => 'fas fa-pause-circle',
             ];
         }
-        
+
         if ($this->needsValidation()) {
             return [
                 'text' => 'Needs Validation',
@@ -486,7 +415,7 @@ class LinkResponse
                 'icon' => 'fas fa-exclamation-triangle',
             ];
         }
-        
+
         if ($this->needsPriceUpdate()) {
             return [
                 'text' => 'Price Update Needed',
@@ -494,7 +423,7 @@ class LinkResponse
                 'icon' => 'fas fa-sync-alt',
             ];
         }
-        
+
         return [
             'text' => 'Active',
             'color' => 'bg-green-100 text-green-800',

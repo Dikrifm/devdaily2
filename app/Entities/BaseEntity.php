@@ -2,17 +2,17 @@
 
 namespace App\Entities;
 
-use App\Entities\Traits\TimestampableTrait;
 use App\Entities\Traits\SoftDeletableTrait;
+use App\Entities\Traits\TimestampableTrait;
 use DateTimeImmutable;
 
 /**
  * Base Entity Abstract Class
- * 
+ *
  * Foundation for all domain entities in the system.
  * Provides common properties (id) and traits (timestampable, soft deletable).
  * Enhanced with state validation and change tracking for immutable patterns.
- * 
+ *
  * @package App\Entities
  */
 abstract class BaseEntity
@@ -22,22 +22,18 @@ abstract class BaseEntity
 
     /**
      * Primary key identifier
-     * 
-     * @var int|null
      */
     protected ?int $id = null;
 
     /**
      * Track changes for auditing purposes
-     * 
+     *
      * @var array<string, array{old: mixed, new: mixed}>|null
      */
     private ?array $changes = null;
 
     /**
      * Get the entity's primary key
-     * 
-     * @return int|null
      */
     public function getId(): ?int
     {
@@ -47,9 +43,6 @@ abstract class BaseEntity
     /**
      * Set the entity's primary key
      * Should only be called by the repository/hydrator
-     * 
-     * @param int|null $id
-     * @return void
      */
     public function setId(?int $id): void
     {
@@ -58,8 +51,6 @@ abstract class BaseEntity
 
     /**
      * Check if entity is new (not persisted)
-     * 
-     * @return bool
      */
     public function isNew(): bool
     {
@@ -68,8 +59,6 @@ abstract class BaseEntity
 
     /**
      * Check if entity exists in database
-     * 
-     * @return bool
      */
     public function exists(): bool
     {
@@ -79,8 +68,6 @@ abstract class BaseEntity
     /**
      * Initialize entity with creation timestamps
      * Should be called when creating new entity
-     * 
-     * @return void
      */
     public function initialize(): void
     {
@@ -91,8 +78,6 @@ abstract class BaseEntity
 
     /**
      * Update entity's updated_at timestamp
-     * 
-     * @return void
      */
     public function markAsUpdated(): void
     {
@@ -100,12 +85,20 @@ abstract class BaseEntity
     }
 
     /**
+     * Kita timpa method restore() dari Trait/Parent
+     * agar return type-nya kompatibel dengan Child class (self/object).
+     */
+    public function restore(): self
+    {
+        // Jika Anda menggunakan soft deletes, logika restore biasanya:
+        $this->deleted_at = null;
+
+        // PENTING: Return $this agar sesuai dengan anak-anaknya
+        return $this;
+    }
+
+    /**
      * Track a property change for auditing
-     * 
-     * @param string $property
-     * @param mixed $oldValue
-     * @param mixed $newValue
-     * @return void
      */
     protected function trackChange(string $property, mixed $oldValue, mixed $newValue): void
     {
@@ -126,7 +119,7 @@ abstract class BaseEntity
 
     /**
      * Get all tracked changes since last reset
-     * 
+     *
      * @return array<string, array{old: mixed, new: mixed, changed_at: DateTimeImmutable}>
      */
     public function getChanges(): array
@@ -136,19 +129,15 @@ abstract class BaseEntity
 
     /**
      * Check if entity has any tracked changes
-     * 
-     * @return bool
      */
     public function hasChanges(): bool
     {
-        return !empty($this->changes);
+        return $this->changes !== null && $this->changes !== [];
     }
 
     /**
      * Clear tracked changes
      * Typically called after persisting to database
-     * 
-     * @return void
      */
     public function clearChanges(): void
     {
@@ -157,14 +146,14 @@ abstract class BaseEntity
 
     /**
      * Get a summary of changes for audit logging
-     * 
+     *
      * @return array{count: int, properties: array<string>, summary: string}
      */
     public function getChangesSummary(): array
     {
         $changes = $this->getChanges();
-        
-        if (empty($changes)) {
+
+        if ($changes === []) {
             return [
                 'count' => 0,
                 'properties' => [],
@@ -190,9 +179,6 @@ abstract class BaseEntity
 
     /**
      * Format a value for change summary
-     * 
-     * @param mixed $value
-     * @return string
      */
     private function formatChangeValue(mixed $value): string
     {
@@ -208,11 +194,11 @@ abstract class BaseEntity
             if ($value instanceof DateTimeImmutable) {
                 return $value->format('Y-m-d H:i:s');
             }
-            
+
             if (method_exists($value, '__toString')) {
                 return (string) $value;
             }
-            
+
             return get_class($value);
         }
 
@@ -221,7 +207,7 @@ abstract class BaseEntity
         }
 
         $stringValue = (string) $value;
-        
+
         // Truncate long values
         if (strlen($stringValue) > 50) {
             return substr($stringValue, 0, 47) . '...';
@@ -233,19 +219,16 @@ abstract class BaseEntity
     /**
      * Validate that a state transition is allowed
      * Generic method that can be overridden by child entities
-     * 
-     * @param string|object $currentState
-     * @param string|object $newState
+     *
      * @param array $allowedTransitions Map of current state to array of allowed next states
-     * @return bool
      */
     protected function validateStateTransition(
         string|object $currentState,
         string|object $newState,
         array $allowedTransitions
     ): bool {
-        $current = is_object($currentState) ? $currentState->value : (string) $currentState;
-        $new = is_object($newState) ? $newState->value : (string) $newState;
+        $current = is_object($currentState) ? $currentState->value : $currentState;
+        $new = is_object($newState) ? $newState->value : $newState;
 
         if ($current === $new) {
             return true; // No change is always allowed
@@ -258,9 +241,8 @@ abstract class BaseEntity
      * Prepare entity for database insertion/update
      * This method can be overridden by child entities
      * to add custom pre-save logic
-     * 
+     *
      * @param bool $isUpdate Whether this is an update operation
-     * @return void
      */
     public function prepareForSave(bool $isUpdate = false): void
     {
@@ -274,20 +256,20 @@ abstract class BaseEntity
     /**
      * Validate entity state before persistence
      * Override in child entities to add custom validation
-     * 
+     *
      * @return array{valid: bool, errors: string[]}
      */
     public function validate(): array
     {
         $errors = [];
-        
+
         // Basic validation that applies to all entities
-        if ($this->isDeleted() && $this->getDeletedAt() === null) {
+        if ($this->isDeleted() && !$this->getDeletedAt() instanceof \DateTimeImmutable) {
             $errors[] = 'Deleted entity must have deletion timestamp';
         }
-        
+
         return [
-            'valid' => empty($errors),
+            'valid' => $errors === [],
             'errors' => $errors
         ];
     }
@@ -295,8 +277,6 @@ abstract class BaseEntity
     /**
      * Check if entity can be archived/soft-deleted
      * Override in child entities to add business rules
-     * 
-     * @return bool
      */
     public function canBeArchived(): bool
     {
@@ -305,8 +285,6 @@ abstract class BaseEntity
 
     /**
      * Check if entity can be restored from archive
-     * 
-     * @return bool
      */
     public function canBeRestored(): bool
     {
@@ -315,8 +293,6 @@ abstract class BaseEntity
 
     /**
      * Get entity type for auditing purposes
-     * 
-     * @return string
      */
     public function getEntityType(): string
     {
@@ -326,8 +302,6 @@ abstract class BaseEntity
     /**
      * Get entity identifier for auditing
      * Combines type and ID for unique identification
-     * 
-     * @return string
      */
     public function getAuditIdentifier(): string
     {
@@ -336,8 +310,6 @@ abstract class BaseEntity
 
     /**
      * Create a snapshot of current state for auditing
-     * 
-     * @return array
      */
     public function createSnapshot(): array
     {
@@ -353,8 +325,7 @@ abstract class BaseEntity
 
     /**
      * Compare with another entity of same type
-     * 
-     * @param BaseEntity $other
+     *
      * @return array{equal: bool, differences: array<string, array{self: mixed, other: mixed}>}
      */
     public function compareWith(BaseEntity $other): array
@@ -365,9 +336,9 @@ abstract class BaseEntity
 
         $thisData = $this->toArray();
         $otherData = $other->toArray();
-        
+
         $differences = [];
-        
+
         foreach ($thisData as $key => $value) {
             if (!array_key_exists($key, $otherData) || $otherData[$key] != $value) {
                 $differences[$key] = [
@@ -376,7 +347,7 @@ abstract class BaseEntity
                 ];
             }
         }
-        
+
         // Check for keys in other that aren't in this
         foreach ($otherData as $key => $value) {
             if (!array_key_exists($key, $thisData)) {
@@ -388,7 +359,7 @@ abstract class BaseEntity
         }
 
         return [
-            'equal' => empty($differences),
+            'equal' => $differences === [],
             'differences' => $differences
         ];
     }
@@ -396,17 +367,12 @@ abstract class BaseEntity
     /**
      * Convert entity to array representation
      * Should be implemented by child entities
-     * 
-     * @return array
      */
     abstract public function toArray(): array;
 
     /**
      * Create entity from array data
      * Should be implemented as static factory in child entities
-     * 
-     * @param array $data
-     * @return static
      */
     abstract public static function fromArray(array $data): static;
 }

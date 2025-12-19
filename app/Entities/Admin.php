@@ -6,83 +6,61 @@ use DateTimeImmutable;
 
 /**
  * Admin Entity
- * 
+ *
  * Represents an administrator in the system with authentication capabilities.
  * Core entity for admin management, authentication, and role-based access control.
- * 
+ *
  * @package App\Entities
  */
 class Admin extends BaseEntity
 {
     /**
      * Unique username for login
-     * 
-     * @var string
      */
     private string $username;
 
     /**
      * Email address (unique)
-     * 
-     * @var string
      */
     private string $email;
 
     /**
      * Hashed password (bcrypt)
-     * 
-     * @var string
      */
-    private string $password_hash;
+    private string $password_hash = '';
 
     /**
      * Admin's full name
-     * 
-     * @var string
      */
     private string $name;
 
     /**
      * Role: admin or super_admin
-     * 
-     * @var string
      */
     private string $role = 'admin';
 
     /**
      * Whether admin account is active
-     * 
-     * @var bool
      */
     private bool $active = true;
 
     /**
      * Last login timestamp
-     * 
-     * @var DateTimeImmutable|null
      */
     private ?DateTimeImmutable $last_login = null;
 
     /**
      * Failed login attempts count
-     * 
-     * @var int
      */
     private int $login_attempts = 0;
 
     /**
      * Plain text password (temporary, not persisted)
-     * 
-     * @var string|null
      */
     private ?string $password = null;
 
     /**
      * Admin constructor
-     * 
-     * @param string $username
-     * @param string $email
-     * @param string $name
      */
     public function __construct(string $username, string $email, string $name)
     {
@@ -146,7 +124,7 @@ class Admin extends BaseEntity
         if ($this->username === $username) {
             return $this;
         }
-        
+
         $this->trackChange('username', $this->username, $username);
         $this->username = $username;
         $this->markAsUpdated();
@@ -158,7 +136,7 @@ class Admin extends BaseEntity
         if ($this->email === $email) {
             return $this;
         }
-        
+
         $this->trackChange('email', $this->email, $email);
         $this->email = $email;
         $this->markAsUpdated();
@@ -181,7 +159,7 @@ class Admin extends BaseEntity
         if ($this->name === $name) {
             return $this;
         }
-        
+
         $this->trackChange('name', $this->name, $name);
         $this->name = $name;
         $this->markAsUpdated();
@@ -193,11 +171,11 @@ class Admin extends BaseEntity
         if (!in_array($role, ['admin', 'super_admin'])) {
             throw new \InvalidArgumentException('Role must be either "admin" or "super_admin"');
         }
-        
+
         if ($this->role === $role) {
             return $this;
         }
-        
+
         $this->trackChange('role', $this->role, $role);
         $this->role = $role;
         $this->markAsUpdated();
@@ -209,7 +187,7 @@ class Admin extends BaseEntity
         if ($this->active === $active) {
             return $this;
         }
-        
+
         $this->trackChange('active', $this->active, $active);
         $this->active = $active;
         $this->markAsUpdated();
@@ -221,20 +199,20 @@ class Admin extends BaseEntity
         if (is_string($last_login)) {
             $last_login = new DateTimeImmutable($last_login);
         }
-        
+
         if ($last_login instanceof DateTimeImmutable) {
             if ($this->last_login && $this->last_login->format('Y-m-d H:i:s') === $last_login->format('Y-m-d H:i:s')) {
                 return $this;
             }
-            
-            $oldValue = $this->last_login ? $this->last_login->format('Y-m-d H:i:s') : null;
+
+            $oldValue = $this->last_login instanceof \DateTimeImmutable ? $this->last_login->format('Y-m-d H:i:s') : null;
             $newValue = $last_login->format('Y-m-d H:i:s');
-            
+
             $this->trackChange('last_login', $oldValue, $newValue);
             $this->last_login = $last_login;
             // Don't mark as updated for login timestamps
         }
-        
+
         return $this;
     }
 
@@ -243,7 +221,7 @@ class Admin extends BaseEntity
         if ($this->login_attempts === $login_attempts) {
             return $this;
         }
-        
+
         $this->trackChange('login_attempts', $this->login_attempts, $login_attempts);
         $this->login_attempts = $login_attempts;
         // Don't mark as updated for login attempts
@@ -257,11 +235,8 @@ class Admin extends BaseEntity
     }
 
     // ==================== BUSINESS LOGIC METHODS ====================
-
     /**
      * Check if admin is a super admin
-     * 
-     * @return bool
      */
     public function isSuperAdmin(): bool
     {
@@ -270,8 +245,6 @@ class Admin extends BaseEntity
 
     /**
      * Check if admin is a regular admin
-     * 
-     * @return bool
      */
     public function isRegularAdmin(): bool
     {
@@ -280,8 +253,6 @@ class Admin extends BaseEntity
 
     /**
      * Activate admin account
-     * 
-     * @return self
      */
     public function activate(): self
     {
@@ -290,8 +261,6 @@ class Admin extends BaseEntity
 
     /**
      * Deactivate admin account
-     * 
-     * @return self
      */
     public function deactivate(): self
     {
@@ -300,8 +269,6 @@ class Admin extends BaseEntity
 
     /**
      * Promote to super admin
-     * 
-     * @return self
      */
     public function promoteToSuperAdmin(): self
     {
@@ -310,8 +277,6 @@ class Admin extends BaseEntity
 
     /**
      * Demote to regular admin
-     * 
-     * @return self
      */
     public function demoteToAdmin(): self
     {
@@ -320,8 +285,6 @@ class Admin extends BaseEntity
 
     /**
      * Record successful login
-     * 
-     * @return self
      */
     public function recordLogin(): self
     {
@@ -332,8 +295,6 @@ class Admin extends BaseEntity
 
     /**
      * Record failed login attempt
-     * 
-     * @return self
      */
     public function recordFailedLogin(): self
     {
@@ -343,8 +304,6 @@ class Admin extends BaseEntity
 
     /**
      * Reset login attempts
-     * 
-     * @return self
      */
     public function resetLoginAttempts(): self
     {
@@ -353,9 +312,8 @@ class Admin extends BaseEntity
 
     /**
      * Check if account is locked due to too many failed attempts
-     * 
+     *
      * @param int $maxAttempts Maximum allowed attempts before lockout
-     * @return bool
      */
     public function isLocked(int $maxAttempts = 5): bool
     {
@@ -364,8 +322,6 @@ class Admin extends BaseEntity
 
     /**
      * Check if password needs rehash
-     * 
-     * @return bool
      */
     public function passwordNeedsRehash(): bool
     {
@@ -374,9 +330,6 @@ class Admin extends BaseEntity
 
     /**
      * Verify password against stored hash
-     * 
-     * @param string $password
-     * @return bool
      */
     public function verifyPassword(string $password): bool
     {
@@ -385,10 +338,8 @@ class Admin extends BaseEntity
 
     /**
      * Hash and set password
-     * 
-     * @param string $password
+     *
      * @param array $options Bcrypt options
-     * @return self
      */
     public function setPasswordWithHash(string $password, array $options = ['cost' => 12]): self
     {
@@ -400,7 +351,7 @@ class Admin extends BaseEntity
     /**
      * Check if admin can be archived
      * Business rule: Cannot archive own account, cannot archive last super admin
-     * 
+     *
      * @param int $currentAdminId The ID of admin performing the action
      * @param int $superAdminCount Total number of active super admins
      * @return array{can: bool, reason: string}
@@ -428,15 +379,13 @@ class Admin extends BaseEntity
     /**
      * Check if admin can be deleted
      * Business rule: Cannot delete own account, cannot delete last super admin
-     * 
-     * @param int $currentAdminId
-     * @param int $superAdminCount
+     *
      * @return array{can: bool, reason: string}
      */
     public function canBeDeletedBy(int $currentAdminId, int $superAdminCount = 1): array
     {
         $archiveCheck = $this->canBeArchivedBy($currentAdminId, $superAdminCount);
-        
+
         if (!$archiveCheck['can']) {
             return $archiveCheck;
         }
@@ -449,42 +398,36 @@ class Admin extends BaseEntity
 
     /**
      * Get admin initials for avatar
-     * 
-     * @return string
      */
     public function getInitials(): string
     {
         $names = explode(' ', $this->name);
         $initials = '';
-        
+
         foreach ($names as $name) {
-            if (!empty($name)) {
+            if ($name !== '' && $name !== '0') {
                 $initials .= strtoupper(substr($name, 0, 1));
                 if (strlen($initials) >= 2) {
                     break;
                 }
             }
         }
-        
+
         return $initials ?: strtoupper(substr($this->username, 0, 2));
     }
 
     /**
      * Get Tailwind CSS color class based on role
-     * 
-     * @return string
      */
     public function getRoleColorClass(): string
     {
-        return $this->isSuperAdmin() 
-            ? 'bg-purple-100 text-purple-800' 
+        return $this->isSuperAdmin()
+            ? 'bg-purple-100 text-purple-800'
             : 'bg-blue-100 text-blue-800';
     }
 
     /**
      * Get role display label
-     * 
-     * @return string
      */
     public function getRoleLabel(): string
     {
@@ -493,8 +436,6 @@ class Admin extends BaseEntity
 
     /**
      * Get status display label
-     * 
-     * @return string
      */
     public function getStatusLabel(): string
     {
@@ -503,30 +444,26 @@ class Admin extends BaseEntity
 
     /**
      * Get status color class
-     * 
-     * @return string
      */
     public function getStatusColorClass(): string
     {
-        return $this->active 
-            ? 'bg-green-100 text-green-800' 
+        return $this->active
+            ? 'bg-green-100 text-green-800'
             : 'bg-red-100 text-red-800';
     }
 
     /**
      * Format last login for display
-     * 
-     * @return string
      */
     public function getFormattedLastLogin(): string
     {
-        if (!$this->last_login) {
+        if (!$this->last_login instanceof \DateTimeImmutable) {
             return 'Never logged in';
         }
-        
+
         $now = new DateTimeImmutable();
         $diff = $now->diff($this->last_login);
-        
+
         if ($diff->days > 30) {
             return $this->last_login->format('Y-m-d');
         } elseif ($diff->days > 0) {
@@ -542,89 +479,87 @@ class Admin extends BaseEntity
 
     /**
      * Check if admin has logged in recently (within 24 hours)
-     * 
-     * @return bool
      */
     public function isRecentlyActive(): bool
     {
-        if (!$this->last_login) {
+        if (!$this->last_login instanceof \DateTimeImmutable) {
             return false;
         }
-        
+
         $now = new DateTimeImmutable();
         $diff = $now->diff($this->last_login);
-        
+
         return $diff->days === 0 && $diff->h < 24;
     }
 
     /**
      * Validate admin entity
      * Override parent validation with admin-specific rules
-     * 
+     *
      * @return array{valid: bool, errors: string[]}
      */
     public function validate(): array
     {
         $parentValidation = parent::validate();
         $errors = $parentValidation['errors'];
-        
+
         // Admin-specific validation
-        if (empty($this->username)) {
+        if ($this->username === '' || $this->username === '0') {
             $errors[] = 'Username cannot be empty';
         }
-        
-        if (!preg_match('/^[a-zA-Z0-9_]+$/', $this->username)) {
+
+        if (!preg_match('/^\w+$/', $this->username)) {
             $errors[] = 'Username can only contain letters, numbers, and underscores';
         }
-        
-        if (empty($this->email)) {
+
+        if ($this->email === '' || $this->email === '0') {
             $errors[] = 'Email cannot be empty';
         }
-        
+
         if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'Email address is not valid';
         }
-        
-        if (empty($this->name)) {
+
+        if ($this->name === '' || $this->name === '0') {
             $errors[] = 'Name cannot be empty';
         }
-        
+
         if (strlen($this->name) > 100) {
             $errors[] = 'Name cannot exceed 100 characters';
         }
-        
+
         if (!in_array($this->role, ['admin', 'super_admin'])) {
             $errors[] = 'Role must be either admin or super_admin';
         }
-        
+
         // Password validation (only if password is set)
         if ($this->password !== null) {
             if (strlen($this->password) < 8) {
                 $errors[] = 'Password must be at least 8 characters long';
             }
-            
+
             if (!preg_match('/[A-Z]/', $this->password)) {
                 $errors[] = 'Password must contain at least one uppercase letter';
             }
-            
+
             if (!preg_match('/[a-z]/', $this->password)) {
                 $errors[] = 'Password must contain at least one lowercase letter';
             }
-            
-            if (!preg_match('/[0-9]/', $this->password)) {
+
+            if (!preg_match('/\d/', $this->password)) {
                 $errors[] = 'Password must contain at least one number';
             }
         }
-        
+
         // Password hash validation (if set)
-        if (!empty($this->password_hash) && !password_get_info($this->password_hash)) {
+        if ($this->password_hash !== '' && $this->password_hash !== '0' && !password_get_info($this->password_hash)) {
             $errors[] = 'Password hash is not valid';
         }
-        
+
         if ($this->login_attempts < 0) {
             $errors[] = 'Login attempts cannot be negative';
         }
-        
+
         return [
             'valid' => empty($errors),
             'errors' => $errors
@@ -633,14 +568,11 @@ class Admin extends BaseEntity
 
     /**
      * Prepare for save with password hashing
-     * 
-     * @param bool $isUpdate
-     * @return void
      */
     public function prepareForSave(bool $isUpdate = false): void
     {
         parent::prepareForSave($isUpdate);
-        
+
         // Hash password if plain password is set
         if ($this->password !== null) {
             $this->setPasswordWithHash($this->password);
@@ -732,8 +664,6 @@ class Admin extends BaseEntity
 
     /**
      * Create system admin (super admin for initial setup)
-     * 
-     * @return static
      */
     public static function createSystemAdmin(): static
     {
@@ -742,18 +672,16 @@ class Admin extends BaseEntity
             'system@devdaily.local',
             'System Administrator'
         );
-        
+
         $admin->setRole('super_admin');
         $admin->setActive(true);
         $admin->setPasswordWithHash('SecureSystemPassword123!');
-        
+
         return $admin;
     }
 
     /**
      * Create sample admin for testing/demo
-     * 
-     * @return static
      */
     public static function createSample(): static
     {
@@ -762,13 +690,13 @@ class Admin extends BaseEntity
             'john@example.com',
             'John Doe'
         );
-        
+
         $admin->setRole('super_admin');
         $admin->setActive(true);
         $admin->setLastLogin(new DateTimeImmutable('-2 hours'));
         $admin->setLoginAttempts(0);
         $admin->setPasswordWithHash('Password123!');
-        
+
         return $admin;
     }
 }

@@ -2,33 +2,28 @@
 
 namespace App\Services;
 
-use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Repositories\Concrete\ProductRepository;
 use App\Models\ProductModel;
-use CodeIgniter\Config\Services as CodeIgniterServices;
+use App\Repositories\Concrete\ProductRepository;
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 use RuntimeException;
 
 /**
  * Repository Service Factory
- * 
- * Centralized factory for creating and managing repository instances.
+ * * Centralized factory for creating and managing repository instances.
  * Implements lazy loading and singleton pattern for performance.
- * 
- * @package App\Services
+ * * @package App\Services
  */
 class RepositoryService
 {
     /**
      * Repository instances cache
-     * 
-     * @var array
+     * * @var array
      */
     private static array $instances = [];
 
     /**
      * Configuration for repositories
-     * 
-     * @var array
+     * * @var array
      */
     private static array $config = [
         'product' => [
@@ -41,30 +36,28 @@ class RepositoryService
 
     /**
      * Get product repository instance
-     * 
-     * @param bool $fresh Create fresh instance (bypass singleton)
+     * * @param bool $fresh Create fresh instance (bypass singleton)
      * @return ProductRepositoryInterface
      */
     public static function product(bool $fresh = false): ProductRepositoryInterface
     {
         $key = 'product';
-        
+
         if ($fresh || !isset(self::$instances[$key])) {
             self::$instances[$key] = self::createProductRepository();
         }
-        
+
         return self::$instances[$key];
     }
 
     /**
      * Create product repository with dependencies
-     * 
-     * @return ProductRepositoryInterface
+     * * @return ProductRepositoryInterface
      */
     private static function createProductRepository(): ProductRepositoryInterface
     {
         $config = self::$config['product'];
-        
+
         // Resolve dependencies
         $dependencies = [];
         foreach ($config['dependencies'] as $dep) {
@@ -75,32 +68,32 @@ class RepositoryService
                 default => throw new RuntimeException("Unknown dependency: {$dep}")
             };
         }
-        
+
         // Create instance
         $repository = new $config['class'](...$dependencies);
-        
+
         // Apply configuration
         if (method_exists($repository, 'setCacheTtl') && isset($config['cache_ttl'])) {
             $repository->setCacheTtl($config['cache_ttl']);
         }
-        
+
         return $repository;
     }
 
     /**
      * Create product model instance
-     * 
-     * @return ProductModel
+     * * @return ProductModel
      */
     private static function createProductModel(): ProductModel
     {
-        return CodeIgniterServices::models()->get(ProductModel::class);
+        // PERBAIKAN LINE 97:
+        // Jangan pakai $class (variabel hantu). Langsung panggil Class-nya.
+        return new ProductModel();
     }
 
     /**
      * Create cache service instance
-     * 
-     * @return CacheService
+     * * @return CacheService
      */
     private static function createCacheService(): CacheService
     {
@@ -112,18 +105,16 @@ class RepositoryService
 
     /**
      * Create database connection
-     * 
-     * @return \CodeIgniter\Database\BaseConnection
+     * * @return \CodeIgniter\Database\BaseConnection
      */
     private static function createDatabaseConnection()
     {
-        return CodeIgniterServices::database();
+        return \Config\Database::connect();
     }
 
     /**
      * Register a custom repository
-     * 
-     * @param string $name Repository name
+     * * @param string $name Repository name
      * @param string $class Repository class
      * @param array $dependencies Required dependencies
      * @param array $config Additional configuration
@@ -136,7 +127,7 @@ class RepositoryService
             'dependencies' => $dependencies,
             ...$config,
         ];
-        
+
         // Clear cached instance if exists
         if (isset(self::$instances[$name])) {
             unset(self::$instances[$name]);
@@ -145,8 +136,7 @@ class RepositoryService
 
     /**
      * Get all registered repository names
-     * 
-     * @return array
+     * * @return array
      */
     public static function getRegisteredRepositories(): array
     {
@@ -155,8 +145,7 @@ class RepositoryService
 
     /**
      * Get repository configuration
-     * 
-     * @param string $name Repository name
+     * * @param string $name Repository name
      * @return array|null
      */
     public static function getConfig(string $name): ?array
@@ -166,8 +155,7 @@ class RepositoryService
 
     /**
      * Check if repository is registered
-     * 
-     * @param string $name Repository name
+     * * @param string $name Repository name
      * @return bool
      */
     public static function has(string $name): bool
@@ -177,8 +165,7 @@ class RepositoryService
 
     /**
      * Create a fresh instance of any registered repository
-     * 
-     * @param string $name Repository name
+     * * @param string $name Repository name
      * @return object|null
      * @throws RuntimeException If repository not found or creation fails
      */
@@ -187,59 +174,60 @@ class RepositoryService
         if (!self::has($name)) {
             throw new RuntimeException("Repository '{$name}' is not registered");
         }
-        
+
         $config = self::$config[$name];
-        
+
         // Resolve dependencies
         $dependencies = [];
         foreach ($config['dependencies'] as $dep) {
             $dependencies[] = self::resolveDependency($dep);
         }
-        
+
         // Create instance
         $instance = new $config['class'](...$dependencies);
-        
+
         // Apply configuration
         self::applyConfiguration($instance, $config);
-        
+
         return $instance;
     }
 
     /**
      * Resolve a dependency by name
-     * 
-     * @param string $dependency Dependency identifier
+     * * @param string $dependency Dependency identifier
      * @return mixed
      * @throws RuntimeException If dependency cannot be resolved
      */
     private static function resolveDependency(string $dependency)
     {
         $resolvers = [
-            'model' => fn() => self::resolveModel($dependency),
-            'cache' => fn() => self::createCacheService(),
-            'db'    => fn() => self::createDatabaseConnection(),
-            'config' => fn() => config('App'),
+            'model' => fn () => self::resolveModel($dependency),
+            'cache' => fn () => self::createCacheService(),
+            'db'    => fn () => self::createDatabaseConnection(),
+            'config' => fn () => config('App'),
         ];
-        
+
         // Check for specific model dependency (e.g., 'model:ProductModel')
         if (strpos($dependency, 'model:') === 0) {
             $modelName = substr($dependency, 6);
             return self::resolveSpecificModel($modelName);
         }
-        
+
         if (isset($resolvers[$dependency])) {
             return $resolvers[$dependency]();
         }
-        
+
         // Try to resolve as a CodeIgniter service
         if (class_exists($dependency) || interface_exists($dependency)) {
             try {
-                return CodeIgniterServices::get($dependency, false);
+                // PERBAIKAN LINE 239:
+                // Gunakan variable $dependency yang ada di parameter, bukan $name.
+                return \CodeIgniter\Config\BaseService::get($dependency);
             } catch (\Exception $e) {
                 // Continue to next attempt
             }
         }
-        
+
         // Try to create instance via reflection
         try {
             return new $dependency();
@@ -250,21 +238,19 @@ class RepositoryService
 
     /**
      * Resolve model dependency
-     * 
-     * @param string $modelIdentifier
+     * * @param string $modelIdentifier
      * @return object
      */
     private static function resolveModel(string $modelIdentifier): object
     {
-        // Default to generic model resolution
-        // In practice, you might want more sophisticated logic
-        return CodeIgniterServices::models()->get($modelIdentifier);
+        // PERBAIKAN LINE 263:
+        // Gunakan variable $modelIdentifier, bukan $class (variabel hantu).
+        return model($modelIdentifier);
     }
 
     /**
      * Resolve specific model by class name
-     * 
-     * @param string $modelClass
+     * * @param string $modelClass
      * @return object
      */
     private static function resolveSpecificModel(string $modelClass): object
@@ -278,8 +264,7 @@ class RepositoryService
 
     /**
      * Apply configuration to repository instance
-     * 
-     * @param object $instance
+     * * @param object $instance
      * @param array $config
      * @return void
      */
@@ -289,12 +274,12 @@ class RepositoryService
             if ($key === 'class' || $key === 'dependencies') {
                 continue;
             }
-            
+
             $method = 'set' . ucfirst($key);
             if (method_exists($instance, $method)) {
                 $instance->$method($value);
             }
-            
+
             // Try property access
             $property = $key;
             if (property_exists($instance, $property)) {
@@ -305,8 +290,7 @@ class RepositoryService
 
     /**
      * Clear all cached repository instances
-     * 
-     * @return void
+     * * @return void
      */
     public static function clearInstances(): void
     {
@@ -315,8 +299,7 @@ class RepositoryService
 
     /**
      * Clear specific repository instance
-     * 
-     * @param string $name Repository name
+     * * @param string $name Repository name
      * @return void
      */
     public static function clearInstance(string $name): void
@@ -326,8 +309,7 @@ class RepositoryService
 
     /**
      * Get all cached instances
-     * 
-     * @return array
+     * * @return array
      */
     public static function getCachedInstances(): array
     {
@@ -336,8 +318,7 @@ class RepositoryService
 
     /**
      * Preload repositories for better performance
-     * 
-     * @param array $repositories Repository names to preload
+     * * @param array $repositories Repository names to preload
      * @return void
      */
     public static function preload(array $repositories = []): void
@@ -345,7 +326,7 @@ class RepositoryService
         if (empty($repositories)) {
             $repositories = array_keys(self::$config);
         }
-        
+
         foreach ($repositories as $repo) {
             if (self::has($repo)) {
                 self::make($repo);
@@ -355,22 +336,21 @@ class RepositoryService
 
     /**
      * Health check for all repositories
-     * 
-     * @return array [repository_name => status]
+     * * @return array [repository_name => status]
      */
     public static function healthCheck(): array
     {
         $health = [];
-        
+
         foreach (self::$config as $name => $config) {
             try {
                 $instance = self::make($name);
-                
+
                 // Check if instance can perform a basic operation
-                $healthy = method_exists($instance, 'exists') 
+                $healthy = method_exists($instance, 'exists')
                     || method_exists($instance, 'countAll')
                     || true; // If no specific method, assume healthy
-                
+
                 $health[$name] = [
                     'status' => $healthy ? 'healthy' : 'warning',
                     'class' => $config['class'],
@@ -385,14 +365,13 @@ class RepositoryService
                 ];
             }
         }
-        
+
         return $health;
     }
 
     /**
      * Get repository statistics
-     * 
-     * @return array
+     * * @return array
      */
     public static function getStatistics(): array
     {
@@ -403,7 +382,7 @@ class RepositoryService
             'cached_instances' => self::getCachedInstances(),
             'config' => self::$config,
         ];
-        
+
         // Add cache statistics if available
         try {
             $cacheService = self::createCacheService();
@@ -413,30 +392,24 @@ class RepositoryService
         } catch (\Exception $e) {
             // Ignore cache errors for stats
         }
-        
+
         return $stats;
     }
 
     /**
      * Initialize with default repositories
-     * 
-     * @return void
+     * * @return void
      */
     public static function initialize(): void
     {
         // Product repository already registered in $config
         // Future repositories will be registered here
-        
-        // Example for future repositories:
-        // self::register('category', CategoryRepository::class, ['model:CategoryModel', 'cache', 'db']);
-        // self::register('link', LinkRepository::class, ['model:LinkModel', 'cache', 'db']);
     }
 
     /**
      * Magic static method for repository access
      * Example: RepositoryService::product()->find(1)
-     * 
-     * @param string $name
+     * * @param string $name
      * @param array $arguments
      * @return mixed
      */
@@ -447,12 +420,12 @@ class RepositoryService
             $fresh = !empty($arguments) && $arguments[0] === true;
             return self::make($name);
         }
-        
+
         // Try to call on product repository (backward compatibility)
         if ($name === 'productRepository') {
             return self::product(...$arguments);
         }
-        
+
         throw new RuntimeException("Unknown repository or method: {$name}");
     }
 }

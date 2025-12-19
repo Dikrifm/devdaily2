@@ -6,52 +6,42 @@ use DateTimeImmutable;
 
 /**
  * Category Entity
- * 
+ *
  * Represents a product category in the system.
  * Limited to 15 categories as per business constraints.
- * 
+ *
  * @package App\Entities
  */
 class Category extends BaseEntity
 {
     /**
      * Category name
-     * 
-     * @var string
      */
     private string $name;
 
     /**
      * URL-friendly slug (unique)
-     * 
-     * @var string
      */
     private string $slug;
 
     /**
      * FontAwesome or custom icon class
-     * 
-     * @var string
      */
     private string $icon = 'fas fa-folder';
 
     /**
      * Manual sorting order
-     * 
-     * @var int
      */
     private int $sort_order = 0;
 
     /**
      * Whether category is active and visible
-     * 
-     * @var bool
      */
     private bool $active = true;
 
     /**
      * Category constructor
-     * 
+     *
      * @param string $name Category name
      * @param string $slug URL slug
      */
@@ -96,7 +86,7 @@ class Category extends BaseEntity
         if ($this->name === $name) {
             return $this;
         }
-        
+
         $this->trackChange('name', $this->name, $name);
         $this->name = $name;
         $this->markAsUpdated();
@@ -108,7 +98,7 @@ class Category extends BaseEntity
         if ($this->slug === $slug) {
             return $this;
         }
-        
+
         $this->trackChange('slug', $this->slug, $slug);
         $this->slug = $slug;
         $this->markAsUpdated();
@@ -120,7 +110,7 @@ class Category extends BaseEntity
         if ($this->icon === $icon) {
             return $this;
         }
-        
+
         $this->trackChange('icon', $this->icon, $icon);
         $this->icon = $icon;
         $this->markAsUpdated();
@@ -132,7 +122,7 @@ class Category extends BaseEntity
         if ($this->sort_order === $sort_order) {
             return $this;
         }
-        
+
         $this->trackChange('sort_order', $this->sort_order, $sort_order);
         $this->sort_order = $sort_order;
         $this->markAsUpdated();
@@ -144,7 +134,7 @@ class Category extends BaseEntity
         if ($this->active === $active) {
             return $this;
         }
-        
+
         $this->trackChange('active', $this->active, $active);
         $this->active = $active;
         $this->markAsUpdated();
@@ -167,8 +157,6 @@ class Category extends BaseEntity
      * Check if category can be deleted
      * Based on business rule: category should not be deleted if it has products
      * Note: This check should be done at service level with product count
-     * 
-     * @return bool
      */
     public function canBeDeleted(): bool
     {
@@ -181,8 +169,6 @@ class Category extends BaseEntity
     /**
      * Check if category can be archived
      * Business rule: categories with active products cannot be archived
-     * 
-     * @return bool
      */
     public function canBeArchived(): bool
     {
@@ -190,20 +176,19 @@ class Category extends BaseEntity
         if (!parent::canBeArchived()) {
             return false;
         }
-        
+
         // Additional check: cannot archive if active (must deactivate first)
         if ($this->active) {
             return false;
         }
-        
+
         return $this->canBeDeleted(); // Same rules as deletion
     }
 
     /**
      * Archive category (soft delete)
      * Override to add custom logic with validation
-     * 
-     * @return self
+     *
      * @throws \LogicException If category cannot be archived
      */
     public function archive(): self
@@ -211,7 +196,7 @@ class Category extends BaseEntity
         if (!$this->canBeArchived()) {
             throw new \LogicException('Category cannot be archived. It may have active products or is already archived.');
         }
-        
+
         $this->softDelete();
         $this->deactivate();
         return $this;
@@ -219,16 +204,14 @@ class Category extends BaseEntity
 
     /**
      * Restore category from archive
-     * 
-     * @return self
      */
     public function restore(): self
     {
         if (!$this->canBeRestored()) {
             throw new \LogicException('Category cannot be restored.');
         }
-        
-        $this->restoreFromDelete();
+
+        $this->softdelete(false);
         $this->activate();
         return $this;
     }
@@ -237,8 +220,6 @@ class Category extends BaseEntity
      * Check if category is currently in use
      * Business rule: category is in use if it has any published products
      * Note: This check should be done at service level
-     * 
-     * @return bool
      */
     public function isInUse(): bool
     {
@@ -250,33 +231,33 @@ class Category extends BaseEntity
     /**
      * Validate category state
      * Override parent validation with category-specific rules
-     * 
+     *
      * @return array{valid: bool, errors: string[]}
      */
     public function validate(): array
     {
         $parentValidation = parent::validate();
         $errors = $parentValidation['errors'];
-        
+
         // Category-specific validation
-        if (empty($this->name)) {
+        if ($this->name === '' || $this->name === '0') {
             $errors[] = 'Category name cannot be empty';
         }
-        
-        if (empty($this->slug)) {
+
+        if ($this->slug === '' || $this->slug === '0') {
             $errors[] = 'Category slug cannot be empty';
         }
-        
+
         if (!preg_match('/^[a-z0-9\-]+$/', $this->slug)) {
             $errors[] = 'Category slug can only contain lowercase letters, numbers, and hyphens';
         }
-        
+
         if ($this->sort_order < 0) {
             $errors[] = 'Sort order cannot be negative';
         }
-        
+
         // Business rule: Maximum 15 categories (enforced at service level, not here)
-        
+
         return [
             'valid' => empty($errors),
             'errors' => $errors
@@ -285,8 +266,6 @@ class Category extends BaseEntity
 
     /**
      * Get display icon HTML
-     * 
-     * @return string
      */
     public function getIconHtml(): string
     {
@@ -295,21 +274,19 @@ class Category extends BaseEntity
 
     /**
      * Get Tailwind CSS classes for category display
-     * 
-     * @return string
      */
     public function getDisplayClasses(): string
     {
         $baseClasses = 'category-item';
-        
+
         if (!$this->active) {
             $baseClasses .= ' opacity-50';
         }
-        
+
         if ($this->isDeleted()) {
             $baseClasses .= ' line-through';
         }
-        
+
         return $baseClasses;
     }
 
@@ -376,8 +353,6 @@ class Category extends BaseEntity
 
     /**
      * Create a sample category for testing/demo
-     * 
-     * @return static
      */
     public static function createSample(): static
     {

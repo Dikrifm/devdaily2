@@ -3,12 +3,11 @@
 namespace App\Repositories\Interfaces;
 
 use App\Entities\Link;
-use App\Exceptions\LinkNotFoundException;
 
 interface LinkRepositoryInterface
 {
     // ==================== BASIC CRUD OPERATIONS ====================
-    
+
     /**
      * Find link by ID
      *
@@ -17,7 +16,7 @@ interface LinkRepositoryInterface
      * @return Link|null
      */
     public function find(int $id, bool $withTrashed = false): ?Link;
-    
+
     /**
      * Find link by product and marketplace
      *
@@ -27,11 +26,11 @@ interface LinkRepositoryInterface
      * @return Link|null
      */
     public function findByProductAndMarketplace(
-        int $productId, 
-        int $marketplaceId, 
+        int $productId,
+        int $marketplaceId,
         bool $activeOnly = true
     ): ?Link;
-    
+
     /**
      * Find link by URL (exact match)
      *
@@ -40,7 +39,7 @@ interface LinkRepositoryInterface
      * @return Link|null
      */
     public function findByUrl(string $url, bool $withTrashed = false): ?Link;
-    
+
     /**
      * Get all links with filtering
      *
@@ -66,7 +65,7 @@ interface LinkRepositoryInterface
         string $sortDirection = 'DESC',
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Save link (create or update)
      *
@@ -75,7 +74,7 @@ interface LinkRepositoryInterface
      * @throws \RuntimeException
      */
     public function save(Link $link): Link;
-    
+
     /**
      * Delete link
      *
@@ -84,7 +83,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function delete(int $id, bool $force = false): bool;
-    
+
     /**
      * Restore soft deleted link
      *
@@ -92,7 +91,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function restore(int $id): bool;
-    
+
     /**
      * Check if link exists
      *
@@ -101,9 +100,9 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function exists(int $id, bool $withTrashed = false): bool;
-    
+
     // ==================== PRODUCT-LINK RELATIONS ====================
-    
+
     /**
      * Find all links for a product
      *
@@ -121,7 +120,7 @@ interface LinkRepositoryInterface
         string $sortBy = 'price',
         string $sortDirection = 'ASC'
     ): array;
-    
+
     /**
      * Find active links for a product
      *
@@ -129,7 +128,7 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function findActiveByProduct(int $productId): array;
-    
+
     /**
      * Count links for a product
      *
@@ -138,7 +137,7 @@ interface LinkRepositoryInterface
      * @return int
      */
     public function countByProduct(int $productId, bool $activeOnly = true): int;
-    
+
     /**
      * Check if product has active links
      *
@@ -146,7 +145,10 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function productHasActiveLinks(int $productId): bool;
-    
+
+    public function validateUrl(string $url): array;
+
+
     /**
      * Get cheapest link for a product
      *
@@ -155,7 +157,7 @@ interface LinkRepositoryInterface
      * @return Link|null
      */
     public function findCheapestByProduct(int $productId, bool $activeOnly = true): ?Link;
-    
+
     /**
      * Get highest rated link for a product
      *
@@ -164,9 +166,9 @@ interface LinkRepositoryInterface
      * @return Link|null
      */
     public function findHighestRatedByProduct(int $productId, bool $activeOnly = true): ?Link;
-    
+
     // ==================== MARKETPLACE-LINK RELATIONS ====================
-    
+
     /**
      * Find all links for a marketplace
      *
@@ -184,7 +186,7 @@ interface LinkRepositoryInterface
         int $limit = 50,
         int $offset = 0
     ): array;
-    
+
     /**
      * Count links for a marketplace
      *
@@ -193,9 +195,9 @@ interface LinkRepositoryInterface
      * @return int
      */
     public function countByMarketplace(int $marketplaceId, bool $activeOnly = true): int;
-    
+
     // ==================== PRICE MANAGEMENT ====================
-    
+
     /**
      * Update link price
      *
@@ -205,7 +207,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function updatePrice(int $linkId, string $newPrice, bool $autoUpdateTimestamp = true): bool;
-    
+
     /**
      * Update price and track price history
      *
@@ -221,7 +223,7 @@ interface LinkRepositoryInterface
         string $changeReason = 'manual_update',
         ?int $adminId = null
     ): array;
-    
+
     /**
      * Get price history for a link
      *
@@ -231,7 +233,7 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function getPriceHistory(int $linkId, int $limit = 50, string $period = 'all'): array;
-    
+
     /**
      * Find links that need price update
      *
@@ -241,7 +243,7 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function findNeedsPriceUpdate(int $maxAgeHours = 24, int $limit = 100, bool $activeOnly = true): array;
-    
+
     /**
      * Mark price as checked/updated
      *
@@ -249,7 +251,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function markPriceChecked(int $linkId): bool;
-    
+
     /**
      * Get price statistics for a product
      *
@@ -258,9 +260,9 @@ interface LinkRepositoryInterface
      * @return array [min, max, avg, median, count]
      */
     public function getPriceStatisticsByProduct(int $productId, bool $activeOnly = true): array;
-    
+
     // ==================== VALIDATION & STATUS MANAGEMENT ====================
-    
+
     /**
      * Validate link URL and status
      *
@@ -269,17 +271,17 @@ interface LinkRepositoryInterface
      * @return array [is_valid => bool, status_code => int, message => string, last_validation => string]
      */
     public function validate(int $linkId, bool $force = false): array;
-    
+
     /**
      * Mark link as validated
-     *
+
      * @param int $linkId Link ID
      * @param bool $isValid Validation result
      * @param string|null $validationNotes
      * @return bool
      */
     public function markAsValidated(int $linkId, bool $isValid = true, ?string $validationNotes = null): bool;
-    
+
     /**
      * Find links that need validation
      *
@@ -289,7 +291,7 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function findNeedsValidation(int $maxAgeHours = 48, int $limit = 100, bool $activeOnly = true): array;
-    
+
     /**
      * Set link active status
      *
@@ -299,7 +301,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function setActiveStatus(int $linkId, bool $active, ?string $reason = null): bool;
-    
+
     /**
      * Activate link
      *
@@ -308,7 +310,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function activate(int $linkId, ?string $reason = null): bool;
-    
+
     /**
      * Deactivate link
      *
@@ -317,7 +319,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function deactivate(int $linkId, ?string $reason = null): bool;
-    
+
     /**
      * Check if link is valid and accessible
      *
@@ -325,9 +327,9 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function isValid(int $linkId): bool;
-    
+
     // ==================== CLICK & AFFILIATE TRACKING ====================
-    
+
     /**
      * Increment click count
      *
@@ -336,7 +338,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function incrementClicks(int $linkId, int $increment = 1): bool;
-    
+
     /**
      * Record affiliate click
      *
@@ -352,7 +354,7 @@ interface LinkRepositoryInterface
         ?string $userAgent = null,
         array $metadata = []
     ): bool;
-    
+
     /**
      * Increment sold count
      *
@@ -361,7 +363,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function incrementSoldCount(int $linkId, int $increment = 1): bool;
-    
+
     /**
      * Add affiliate revenue
      *
@@ -379,7 +381,7 @@ interface LinkRepositoryInterface
         ?string $transactionId = null,
         array $metadata = []
     ): bool;
-    
+
     /**
      * Get click statistics
      *
@@ -388,7 +390,7 @@ interface LinkRepositoryInterface
      * @return array [clicks, unique_clicks, conversion_rate, revenue]
      */
     public function getClickStats(int $linkId, string $period = '30d'): array;
-    
+
     /**
      * Calculate click-through rate
      *
@@ -398,7 +400,7 @@ interface LinkRepositoryInterface
      * @return float CTR percentage
      */
     public function calculateClickThroughRate(int $linkId, int $productViews = 0, string $period = '30d'): float;
-    
+
     /**
      * Get revenue statistics
      *
@@ -407,9 +409,9 @@ interface LinkRepositoryInterface
      * @return array [revenue, commission, transactions]
      */
     public function getRevenueStats(int $linkId, string $period = '30d'): array;
-    
+
     // ==================== MARKETPLACE BADGE MANAGEMENT ====================
-    
+
     /**
      * Assign marketplace badge to link
      *
@@ -418,7 +420,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function assignBadge(int $linkId, int $badgeId): bool;
-    
+
     /**
      * Remove marketplace badge from link
      *
@@ -426,7 +428,7 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function removeBadge(int $linkId): bool;
-    
+
     /**
      * Get links with specific badge
      *
@@ -436,9 +438,9 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function findByBadge(int $badgeId, bool $activeOnly = true, int $limit = 50): array;
-    
+
     // ==================== SEARCH & FILTER ====================
-    
+
     /**
      * Search links by store name or URL
      *
@@ -454,7 +456,7 @@ interface LinkRepositoryInterface
         int $limit = 50,
         int $offset = 0
     ): array;
-    
+
     /**
      * Find links by store name (partial match)
      *
@@ -470,7 +472,7 @@ interface LinkRepositoryInterface
         bool $activeOnly = true,
         int $limit = 50
     ): array;
-    
+
     /**
      * Find links by price range
      *
@@ -486,7 +488,7 @@ interface LinkRepositoryInterface
         bool $activeOnly = true,
         int $limit = 100
     ): array;
-    
+
     /**
      * Find links by rating
      *
@@ -496,9 +498,9 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function findByMinRating(float $minRating, bool $activeOnly = true, int $limit = 100): array;
-    
+
     // ==================== STATISTICS & ANALYTICS ====================
-    
+
     /**
      * Get link statistics
      *
@@ -506,7 +508,7 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function getStatistics(?int $linkId = null): array;
-    
+
     /**
      * Count links by status
      *
@@ -514,7 +516,7 @@ interface LinkRepositoryInterface
      * @return array [active => int, inactive => int, needs_validation => int, needs_price_update => int]
      */
     public function countByStatus(bool $withTrashed = false): array;
-    
+
     /**
      * Count total links
      *
@@ -522,14 +524,14 @@ interface LinkRepositoryInterface
      * @return int
      */
     public function countAll(bool $withTrashed = false): int;
-    
+
     /**
      * Count active links
      *
      * @return int
      */
     public function countActive(): int;
-    
+
     /**
      * Get top performing links
      *
@@ -545,7 +547,7 @@ interface LinkRepositoryInterface
         string $period = '30d',
         bool $activeOnly = true
     ): array;
-    
+
     /**
      * Get performance trends
      *
@@ -555,7 +557,7 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function getPerformanceTrend(int $linkId, string $period = '30d', string $metric = 'clicks'): array;
-    
+
     /**
      * Get marketplace comparison statistics
      *
@@ -563,9 +565,9 @@ interface LinkRepositoryInterface
      * @return array [marketplace_id => [price, rating, store_count, avg_rating]]
      */
     public function getMarketplaceComparison(int $productId): array;
-    
+
     // ==================== BATCH & BULK OPERATIONS ====================
-    
+
     /**
      * Bulk update links
      *
@@ -574,7 +576,7 @@ interface LinkRepositoryInterface
      * @return int Number of affected rows
      */
     public function bulkUpdate(array $linkIds, array $updateData): int;
-    
+
     /**
      * Bulk activate links
      *
@@ -583,7 +585,7 @@ interface LinkRepositoryInterface
      * @return int Number of activated links
      */
     public function bulkActivate(array $linkIds, ?string $reason = null): int;
-    
+
     /**
      * Bulk deactivate links
      *
@@ -592,7 +594,7 @@ interface LinkRepositoryInterface
      * @return int Number of deactivated links
      */
     public function bulkDeactivate(array $linkIds, ?string $reason = null): int;
-    
+
     /**
      * Bulk validate links
      *
@@ -601,7 +603,7 @@ interface LinkRepositoryInterface
      * @return array [processed => int, valid => int, invalid => int, errors => array]
      */
     public function bulkValidate(array $linkIds, bool $force = false): array;
-    
+
     /**
      * Bulk update prices
      *
@@ -611,7 +613,7 @@ interface LinkRepositoryInterface
      * @return array [processed => int, updated => int, errors => array]
      */
     public function bulkUpdatePrices(array $linkIds, string $price, string $changeReason = 'bulk_update'): array;
-    
+
     /**
      * Bulk delete links
      *
@@ -620,9 +622,9 @@ interface LinkRepositoryInterface
      * @return int Number of deleted links
      */
     public function bulkDelete(array $linkIds, bool $force = false): int;
-    
+
     // ==================== VALIDATION & BUSINESS RULES ====================
-    
+
     /**
      * Check if link can be deleted
      *
@@ -630,15 +632,14 @@ interface LinkRepositoryInterface
      * @return array [can_delete => bool, reasons => string[], affiliate_data => bool]
      */
     public function canDelete(int $linkId): array;
-    
+
     /**
      * Validate link URL format
      *
      * @param string $url URL to validate
      * @return array [is_valid => bool, errors => string[], normalized_url => string]
      */
-    public function validateUrl(string $url): array;
-    
+
     /**
      * Check if URL already exists
      *
@@ -647,15 +648,14 @@ interface LinkRepositoryInterface
      * @return bool
      */
     public function urlExists(string $url, ?int $excludeLinkId = null): bool;
-    
+
     /**
      * Validate link business rules
      *
      * @param Link $link
      * @return array [is_valid => bool, errors => string[]]
      */
-    public function validate(Link $link): array;
-    
+
     /**
      * Check daily click limit
      *
@@ -664,9 +664,9 @@ interface LinkRepositoryInterface
      * @return array [within_limit => bool, current_clicks => int, limit => int]
      */
     public function checkDailyClickLimit(int $linkId, int $maxClicks = 1000): array;
-    
+
     // ==================== CACHE MANAGEMENT ====================
-    
+
     /**
      * Clear link caches
      *
@@ -675,14 +675,14 @@ interface LinkRepositoryInterface
      * @return void
      */
     public function clearCache(?int $linkId = null, ?int $productId = null): void;
-    
+
     /**
      * Get cache TTL setting
      *
      * @return int Cache TTL in seconds
      */
     public function getCacheTtl(): int;
-    
+
     /**
      * Set cache TTL
      *
@@ -690,9 +690,9 @@ interface LinkRepositoryInterface
      * @return self
      */
     public function setCacheTtl(int $ttl): self;
-    
+
     // ==================== UTILITY METHODS ====================
-    
+
     /**
      * Generate affiliate tracking URL
      *
@@ -701,7 +701,7 @@ interface LinkRepositoryInterface
      * @return string|null
      */
     public function generateTrackingUrl(int $linkId, array $params = []): ?string;
-    
+
     /**
      * Get link health status
      *
@@ -709,7 +709,7 @@ interface LinkRepositoryInterface
      * @return array [status => string, issues => array, last_check => string]
      */
     public function getHealthStatus(int $linkId): array;
-    
+
     /**
      * Find duplicate links (same product + marketplace)
      *
@@ -719,7 +719,7 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function findDuplicates(int $productId, int $marketplaceId, bool $includeInactive = false): array;
-    
+
     /**
      * Get links with expiring validation
      *
@@ -728,7 +728,7 @@ interface LinkRepositoryInterface
      * @return array
      */
     public function findExpiringValidation(int $daysThreshold = 7, int $limit = 100): array;
-    
+
     /**
      * Get link summary for quick views
      *

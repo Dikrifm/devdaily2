@@ -2,16 +2,16 @@
 
 namespace App\Services;
 
-use App\Entities\AuditLog;
-use App\Models\AuditLogModel;
-use App\Entities\BaseEntity;
 use App\Entities\Admin;
+use App\Entities\AuditLog;
+use App\Entities\BaseEntity;
+use App\Models\AuditLogModel;
 use CodeIgniter\HTTP\RequestInterface;
 use DateTimeImmutable;
 
 /**
  * Enterprise-grade Audit Service
- * 
+ *
  * Handles automatic audit logging for all critical operations
  * Supports context-aware logging, diff tracking, and audit trails
  */
@@ -21,7 +21,7 @@ class AuditService
     private ?RequestInterface $request;
     private bool $enabled;
     private array $config;
-    
+
     private const ACTION_CREATE = 'CREATE';
     private const ACTION_UPDATE = 'UPDATE';
     private const ACTION_DELETE = 'DELETE';
@@ -33,13 +33,13 @@ class AuditService
     private const ACTION_LOGIN = 'LOGIN';
     private const ACTION_LOGOUT = 'LOGOUT';
     private const ACTION_STATUS_CHANGE = 'STATUS_CHANGE';
-    
-    private const ENTITY_PRODUCT = 'PRODUCT';
-    private const ENTITY_CATEGORY = 'CATEGORY';
-    private const ENTITY_LINK = 'LINK';
-    private const ENTITY_ADMIN = 'ADMIN';
-    private const ENTITY_BADGE = 'BADGE';
-    private const ENTITY_MARKETPLACE = 'MARKETPLACE';
+
+    public const ENTITY_PRODUCT = 'PRODUCT';
+    public const ENTITY_CATEGORY = 'CATEGORY';
+    public const ENTITY_LINK = 'LINK';
+    public const ENTITY_ADMIN = 'ADMIN';
+    public const ENTITY_BADGE = 'BADGE';
+    public const ENTITY_MARKETPLACE = 'MARKETPLACE';
 
     public function __construct(
         AuditLogModel $auditLogModel,
@@ -154,7 +154,7 @@ class AuditService
         ?string $notes = null
     ): ?AuditLog {
         $actionType = $softDelete ? self::ACTION_SOFT_DELETE : self::ACTION_DELETE;
-        
+
         return $this->logCrudOperation(
             $actionType,
             $entityType,
@@ -200,7 +200,7 @@ class AuditService
         ?string $notes = null
     ): ?AuditLog {
         $actionType = $this->mapStateTransitionToAction($fromState, $toState);
-        
+
         $context = [
             'from_state' => $fromState,
             'to_state' => $toState,
@@ -323,11 +323,11 @@ class AuditService
         ?string $actionType = null
     ): array {
         $filters = [];
-        
+
         if ($entityType) {
             $filters['entity_type'] = $entityType;
         }
-        
+
         if ($actionType) {
             $filters['action_type'] = $actionType;
         }
@@ -401,7 +401,7 @@ class AuditService
 
         if ($oldEntity && $newEntity) {
             $changes = $oldEntity->getChanges();
-            
+
             if (empty($changes)) {
                 return 'No significant changes detected';
             }
@@ -428,7 +428,7 @@ class AuditService
     private function prepareEntityData(BaseEntity $entity): array
     {
         $data = $entity->toArray();
-        
+
         // Remove sensitive information
         $sensitiveFields = ['password', 'password_hash', 'token', 'api_key'];
         foreach ($sensitiveFields as $field) {
@@ -455,7 +455,7 @@ class AuditService
         ];
 
         $key = "{$fromState}->{$toState}";
-        
+
         return $transitionMap[$key] ?? self::ACTION_STATUS_CHANGE;
     }
 
@@ -489,7 +489,7 @@ class AuditService
         }
 
         $stringValue = (string) $value;
-        
+
         // Truncate long values
         if (strlen($stringValue) > 50) {
             return substr($stringValue, 0, 47) . '...';
@@ -504,7 +504,7 @@ class AuditService
     private function logToFile(array $logData, string $errorMessage): void
     {
         $logDir = WRITEPATH . 'logs/audit/';
-        
+
         if (!is_dir($logDir)) {
             mkdir($logDir, 0755, true);
         }
@@ -545,7 +545,7 @@ class AuditService
     {
         $auditLogModel = model(AuditLogModel::class);
         $request = service('request');
-        
+
         return new self($auditLogModel, $request);
     }
 }

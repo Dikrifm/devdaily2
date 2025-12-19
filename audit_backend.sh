@@ -4,7 +4,7 @@
 # Output: backend_structure.txt
 
 OUTPUT_FILE="audit_backend.txt"
-target_dirs="app/Controllers app/Contracts app/DTOs app/Entities app/Enums app/Exceptions app/Models app/Repositories app/Services app/Validators"
+target_dirs="app/Config app/Controllers app/Contracts app/DTOs app/Entities app/Enums app/Exceptions app/Models app/Repositories app/Services app/Validators  tests/"
 
 # Reset file output
 echo "--- CI4 BACKEND SKELETON (Compressed Mode) ---" > "$OUTPUT_FILE"

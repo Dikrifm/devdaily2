@@ -97,18 +97,18 @@ class CacheService implements CacheInterface
     {
         $fullKey = $this->getKey($key);
         $ttl = $ttl ?? $this->defaultTtl;
-        
+
         $success = $this->cache->save($fullKey, $value, $ttl);
-        
+
         if ($success) {
             $this->stats['writes']++;
-            
+
             // Simpan key dalam indeks tag jika tag diatur
             if ($this->currentTag !== null) {
                 $this->addKeyToTagIndex($fullKey);
             }
         }
-        
+
         return $success;
     }
 
@@ -121,14 +121,14 @@ class CacheService implements CacheInterface
     {
         $fullKey = $this->getKey($key);
         $success = $this->cache->delete($fullKey);
-        
+
         if ($success) {
             $this->stats['deletes']++;
-            
+
             // Hapus dari indeks tag jika ada
             $this->removeKeyFromTagIndices($fullKey);
         }
-        
+
         return $success;
     }
 
@@ -140,12 +140,12 @@ class CacheService implements CacheInterface
     {
         // Catatan: Ini membersihkan SEMUA cache dengan handler yang sama, bukan hanya namespace kita
         $success = $this->cache->clean();
-        
+
         if ($success) {
             $this->stats['clears']++;
             $this->clearTagIndices();
         }
-        
+
         return $success;
     }
 
@@ -158,12 +158,12 @@ class CacheService implements CacheInterface
     {
         $fullKey = $this->getKey($key);
         $value = $this->cache->get($fullKey);
-        
+
         if ($value !== null) {
             $this->stats['hits']++;
             return true;
         }
-        
+
         $this->stats['misses']++;
         return false;
     }
@@ -178,17 +178,17 @@ class CacheService implements CacheInterface
     public function remember(string $key, callable $callback, ?int $ttl = null)
     {
         $cached = $this->get($key);
-        
+
         if ($cached !== null) {
             return $cached;
         }
-        
+
         $value = $callback();
-        
+
         if ($value !== null) {
             $this->set($key, $value, $ttl);
         }
-        
+
         return $value;
     }
 
@@ -201,10 +201,10 @@ class CacheService implements CacheInterface
     public function increment(string $key, int $value = 1)
     {
         $fullKey = $this->getKey($key);
-        
+
         // Cache CI4 tidak memiliki increment, jadi kita implementasikan secara manual
         $current = $this->cache->get($fullKey);
-        
+
         if ($current === null) {
             $newValue = $value;
         } else {
@@ -213,14 +213,14 @@ class CacheService implements CacheInterface
             }
             $newValue = $current + $value;
         }
-        
+
         $success = $this->cache->save($fullKey, $newValue, $this->defaultTtl);
-        
+
         if ($success) {
             $this->stats['writes']++;
             return $newValue;
         }
-        
+
         return false;
     }
 
@@ -243,14 +243,14 @@ class CacheService implements CacheInterface
     public function getMultiple(array $keys): array
     {
         $results = [];
-        
+
         foreach ($keys as $key) {
             $value = $this->get($key);
             if ($value !== null) {
                 $results[$key] = $value;
             }
         }
-        
+
         return $results;
     }
 
@@ -263,13 +263,13 @@ class CacheService implements CacheInterface
     public function setMultiple(array $items, ?int $ttl = null): bool
     {
         $success = true;
-        
+
         foreach ($items as $key => $value) {
             if (!$this->set($key, $value, $ttl)) {
                 $success = false;
             }
         }
-        
+
         return $success;
     }
 
@@ -281,13 +281,13 @@ class CacheService implements CacheInterface
     public function deleteMultiple(array $keys): bool
     {
         $success = true;
-        
+
         foreach ($keys as $key) {
             if (!$this->delete($key)) {
                 $success = false;
             }
         }
-        
+
         return $success;
     }
 
@@ -299,7 +299,7 @@ class CacheService implements CacheInterface
     {
         $totalOperations = $this->stats['hits'] + $this->stats['misses'];
         $hitRate = $totalOperations > 0 ? ($this->stats['hits'] / $totalOperations) * 100 : 0;
-        
+
         return [
             'hits' => $this->stats['hits'],
             'misses' => $this->stats['misses'],
@@ -355,10 +355,10 @@ class CacheService implements CacheInterface
             // Tes tulis dan baca
             $testKey = $this->getKey('health_check');
             $testValue = 'ok_' . time();
-            
+
             $this->cache->save($testKey, $testValue, 5);
             $retrieved = $this->cache->get($testKey);
-            
+
             return $retrieved === $testValue;
         } catch (\Exception $e) {
             return false;
@@ -386,11 +386,11 @@ class CacheService implements CacheInterface
         // Cache CI4 tidak mengekspos TTL, jadi kita simulasikan dengan metadata
         $fullKey = $this->getKey($key);
         $value = $this->cache->get($fullKey);
-        
+
         if ($value === null) {
             return null;
         }
-        
+
         // Untuk file cache CI4, kita tidak bisa mendapatkan TTL
         // Di produksi dengan Redis/Memcached, Anda akan mengimplementasikannya secara berbeda
         return [
@@ -419,25 +419,25 @@ class CacheService implements CacheInterface
     {
         $tags = is_array($tags) ? $tags : [$tags];
         $success = true;
-        
+
         foreach ($tags as $tag) {
             $tagKey = $this->getTagIndexKey($tag);
             $taggedKeys = $this->cache->get($tagKey);
-            
+
             if (is_array($taggedKeys)) {
                 foreach ($taggedKeys as $key) {
                     if (!$this->cache->delete($key)) {
                         $success = false;
                     }
                 }
-                
+
                 // Bersihkan indeks tag
                 $this->cache->delete($tagKey);
             }
-            
+
             $this->stats['tag_flushes']++;
         }
-        
+
         $this->currentTag = null;
         return $success;
     }
@@ -464,7 +464,7 @@ class CacheService implements CacheInterface
     {
         $total = $this->stats['hits'] + $this->stats['misses'];
         $hitRate = $total > 0 ? ($this->stats['hits'] / $total) * 100 : 0;
-        
+
         return [
             'hits' => $this->stats['hits'],
             'misses' => $this->stats['misses'],
@@ -507,7 +507,7 @@ class CacheService implements CacheInterface
     {
         ksort($context); // Pastikan urutan konsisten
         $hash = md5(json_encode($context));
-        
+
         return $prefix . '_' . $hash;
     }
 
@@ -531,10 +531,10 @@ class CacheService implements CacheInterface
         if ($this->currentTag === null) {
             return;
         }
-        
+
         $tagKey = $this->getTagIndexKey($this->currentTag);
         $taggedKeys = $this->cache->get($tagKey) ?: [];
-        
+
         if (!in_array($key, $taggedKeys, true)) {
             $taggedKeys[] = $key;
             $this->cache->save($tagKey, $taggedKeys, null); // Selamanya sampai flush tag
@@ -572,7 +572,7 @@ class CacheService implements CacheInterface
         $cache = \Config\Services::cache();
         $namespace = $config['namespace'] ?? 'devdaily_';
         $defaultTtl = $config['default_ttl'] ?? 3600;
-        
+
         return new self($cache, $namespace, $defaultTtl);
     }
 }

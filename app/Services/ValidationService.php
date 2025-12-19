@@ -2,24 +2,21 @@
 
 namespace App\Services;
 
-use App\Entities\Product;
+use App\Entities\Admin;
 use App\Entities\Category;
 use App\Entities\Link;
-use App\Entities\Admin;
+use App\Entities\Product;
 use App\Enums\ProductStatus;
-use App\Enums\ImageSourceType;
-use App\Exceptions\ValidationException;
-use App\Models\ProductModel;
+use App\Models\AdminModel;
 use App\Models\CategoryModel;
 use App\Models\LinkModel;
-use App\Models\AdminModel;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use CodeIgniter\Validation\Validation;
 use DateTimeImmutable;
 
 /**
  * Enterprise-grade Business Rule Validation Service
- * 
+ *
  * Centralized validation for complex business rules, cross-entity validations,
  * and system constraints. Separates business logic validation from input validation.
  */
@@ -30,9 +27,9 @@ class ValidationService
     private LinkModel $linkModel;
     private AdminModel $adminModel;
     private Validation $validation;
-    
+
     private array $config;
-    
+
     // Validation contexts
     public const CONTEXT_CREATE = 'CREATE';
     public const CONTEXT_UPDATE = 'UPDATE';
@@ -42,10 +39,10 @@ class ValidationService
     public const CONTEXT_ARCHIVE = 'ARCHIVE';
     public const CONTEXT_VERIFY = 'VERIFY';
     public const CONTEXT_BULK = 'BULK';
-    
+
     // Business rule error codes
     private const ERROR_CODE = 'BUSINESS_RULE_VIOLATION';
-    
+
     // System constraints
     private const MAX_PRODUCTS_PER_DAY = 100;
     private const MAX_CATEGORIES_PER_PRODUCT = 5;
@@ -55,10 +52,10 @@ class ValidationService
     private const MIN_PASSWORD_LENGTH = 8;
     private const MAX_NAME_LENGTH = 255;
     private const MAX_DESCRIPTION_LENGTH = 2000;
-    
+
     // Cache for validation results
     private array $validationCache = [];
-    
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryModel $categoryModel,
@@ -74,39 +71,39 @@ class ValidationService
         $this->validation = $validation;
         $this->config = array_merge($this->getDefaultConfig(), $config);
     }
-    
+
     /**
      * Validate product creation with business rules
      */
     public function validateProductCreate(array $data, int $adminId, string $context = self::CONTEXT_CREATE): array
     {
         $errors = [];
-        
+
         // 1. Basic field validation
         $errors = array_merge($errors, $this->validateProductFields($data, $context));
-        
+
         // 2. Business rule validation
         $errors = array_merge($errors, $this->validateProductBusinessRules($data, $adminId, $context));
-        
+
         // 3. System constraint validation
         $errors = array_merge($errors, $this->validateSystemConstraints($data, $adminId, $context));
-        
+
         // 4. Cross-entity validation
         $errors = array_merge($errors, $this->validateProductRelations($data, $context));
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate product update with business rules
      */
     public function validateProductUpdate(int $productId, array $data, int $adminId): array
     {
         $errors = [];
-        
+
         // 1. Check if product exists and is editable
         $product = $this->productRepository->find($productId);
-        
+
         if (!$product) {
             $errors[] = $this->createError(
                 'product_not_found',
@@ -115,7 +112,7 @@ class ValidationService
             );
             return $errors;
         }
-        
+
         // 2. Check if product can be edited in its current state
         if (!$product->getStatus()->canBePublished() && $product->getStatus() !== ProductStatus::DRAFT) {
             $errors[] = $this->createError(
@@ -124,25 +121,25 @@ class ValidationService
                 ['current_status' => $product->getStatus()->value]
             );
         }
-        
+
         // 3. Validate fields based on what's being updated
         $errors = array_merge($errors, $this->validateProductFields($data, self::CONTEXT_UPDATE));
-        
+
         // 4. Validate business rules for updates
         $errors = array_merge($errors, $this->validateUpdateBusinessRules($product, $data, $adminId));
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate product publishing prerequisites
      */
     public function validateProductPublish(int $productId, int $adminId, bool $forcePublish = false): array
     {
         $errors = [];
-        
+
         $product = $this->productRepository->find($productId);
-        
+
         if (!$product) {
             $errors[] = $this->createError(
                 'product_not_found',
@@ -151,7 +148,7 @@ class ValidationService
             );
             return $errors;
         }
-        
+
         // Check current status
         if (!$product->getStatus()->canBePublished()) {
             $errors[] = $this->createError(
@@ -160,7 +157,7 @@ class ValidationService
                 ['current_status' => $product->getStatus()->value]
             );
         }
-        
+
         // If not force publishing, validate all prerequisites
         if (!$forcePublish) {
             // 1. Validate required fields
@@ -178,7 +175,7 @@ class ValidationService
                     }
                 }
             }
-            
+
             // 2. Validate category exists and is active
             if ($product->getCategoryId()) {
                 $category = $this->categoryModel->find($product->getCategoryId());
@@ -190,7 +187,7 @@ class ValidationService
                     );
                 }
             }
-            
+
             // 3. Validate image requirements
             if (!$product->getImage() && $this->config['require_image_for_publish']) {
                 $errors[] = $this->createError(
@@ -199,7 +196,7 @@ class ValidationService
                     []
                 );
             }
-            
+
             // 4. Validate at least one active link
             $activeLinks = $this->linkModel->findActiveByProduct($productId);
             if (empty($activeLinks) && $this->config['require_active_links_for_publish']) {
@@ -209,13 +206,14 @@ class ValidationService
                     []
                 );
             }
-            
+
             // 5. Validate price is within reasonable range
             $price = (float) $product->getMarketPrice();
             if ($price < self::MIN_PRICE || $price > self::MAX_PRICE) {
                 $errors[] = $this->createError(
                     'invalid_price_range',
-                    sprintf('Price must be between %s and %s', 
+                    sprintf(
+                        'Price must be between %s and %s',
                         number_format(self::MIN_PRICE, 0),
                         number_format(self::MAX_PRICE, 0)
                     ),
@@ -226,7 +224,7 @@ class ValidationService
                     ]
                 );
             }
-            
+
             // 6. Validate slug uniqueness
             if (!$this->productRepository->isSlugUnique($product->getSlug(), $productId)) {
                 $errors[] = $this->createError(
@@ -236,7 +234,7 @@ class ValidationService
                 );
             }
         }
-        
+
         // 7. Validate admin permissions
         $admin = $this->adminModel->find($adminId);
         if (!$admin || !$admin->isActive()) {
@@ -246,19 +244,19 @@ class ValidationService
                 ['admin_id' => $adminId]
             );
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate product deletion
      */
     public function validateProductDelete(int $productId, int $adminId, bool $forceDelete = false): array
     {
         $errors = [];
-        
+
         $product = $this->productRepository->find($productId, true); // Include trashed
-        
+
         if (!$product) {
             $errors[] = $this->createError(
                 'product_not_found',
@@ -267,7 +265,7 @@ class ValidationService
             );
             return $errors;
         }
-        
+
         // Check if already deleted
         if ($product->isDeleted() && !$forceDelete) {
             $errors[] = $this->createError(
@@ -276,7 +274,7 @@ class ValidationService
                 ['product_id' => $productId]
             );
         }
-        
+
         // Check if published product can be deleted
         if ($product->isPublished() && !$forceDelete && !$this->config['allow_delete_published']) {
             $errors[] = $this->createError(
@@ -285,7 +283,7 @@ class ValidationService
                 ['product_id' => $productId, 'status' => $product->getStatus()->value]
             );
         }
-        
+
         // Check admin permissions
         $admin = $this->adminModel->find($adminId);
         if (!$admin || !$admin->isActive()) {
@@ -295,7 +293,7 @@ class ValidationService
                 ['admin_id' => $adminId]
             );
         }
-        
+
         // Check if product has active dependencies
         if (!$forceDelete) {
             $activeLinks = $this->linkModel->findActiveByProduct($productId);
@@ -307,19 +305,19 @@ class ValidationService
                 );
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate category operations
      */
     public function validateCategoryOperation(int $categoryId, string $operation, ?array $data = null): array
     {
         $errors = [];
-        
+
         $category = $this->categoryModel->find($categoryId);
-        
+
         if (!$category && $operation !== self::CONTEXT_CREATE) {
             $errors[] = $this->createError(
                 'category_not_found',
@@ -328,18 +326,18 @@ class ValidationService
             );
             return $errors;
         }
-        
+
         switch ($operation) {
             case self::CONTEXT_CREATE:
                 $errors = array_merge($errors, $this->validateCategoryFields($data ?? []));
                 $errors = array_merge($errors, $this->validateCategoryUniqueness($data ?? []));
                 break;
-                
+
             case self::CONTEXT_UPDATE:
                 $errors = array_merge($errors, $this->validateCategoryFields($data ?? []));
                 $errors = array_merge($errors, $this->validateCategoryUniqueness($data ?? [], $categoryId));
                 break;
-                
+
             case self::CONTEXT_DELETE:
                 if ($category->isInUse()) {
                     $errors[] = $this->createError(
@@ -349,7 +347,7 @@ class ValidationService
                     );
                 }
                 break;
-                
+
             case self::CONTEXT_ARCHIVE:
                 if (!$category->isActive()) {
                     $errors[] = $this->createError(
@@ -360,17 +358,17 @@ class ValidationService
                 }
                 break;
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate link operations
      */
     public function validateLinkOperation(array $linkData, string $operation, ?int $linkId = null): array
     {
         $errors = [];
-        
+
         // Basic field validation
         $rules = [
             'product_id' => 'required|integer|greater_than[0]',
@@ -380,9 +378,9 @@ class ValidationService
             'url' => 'valid_url|max_length[500]',
             'rating' => 'decimal|greater_than_equal_to[0]|less_than_equal_to[5]',
         ];
-        
+
         $validation = $this->validation->setRules($rules);
-        
+
         if (!$validation->run($linkData)) {
             foreach ($validation->getErrors() as $field => $error) {
                 $errors[] = $this->createError(
@@ -392,7 +390,7 @@ class ValidationService
                 );
             }
         }
-        
+
         // Business rules
         if ($operation === self::CONTEXT_CREATE || $operation === self::CONTEXT_UPDATE) {
             // Check if product exists
@@ -404,7 +402,7 @@ class ValidationService
                     ['product_id' => $linkData['product_id']]
                 );
             }
-            
+
             // Check maximum links per product
             $productLinks = $this->linkModel->findByProduct($linkData['product_id']);
             if (count($productLinks) >= self::MAX_LINKS_PER_PRODUCT && $operation === self::CONTEXT_CREATE) {
@@ -417,12 +415,12 @@ class ValidationService
                     ]
                 );
             }
-            
+
             // Validate price is reasonable compared to product market price
             if (isset($linkData['price']) && $product) {
                 $linkPrice = (float) $linkData['price'];
                 $marketPrice = (float) $product->getMarketPrice();
-                
+
                 // Price should not be more than 3x market price or less than 10% of market price
                 if ($linkPrice > ($marketPrice * 3) || ($marketPrice > 0 && $linkPrice < ($marketPrice * 0.1))) {
                     $errors[] = $this->createError(
@@ -438,17 +436,17 @@ class ValidationService
                 }
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate bulk operations
      */
     public function validateBulkOperation(array $entityIds, string $entityType, string $operation, int $adminId): array
     {
         $errors = [];
-        
+
         // Check maximum batch size
         $maxBatchSize = $this->config['max_batch_size'] ?? 100;
         if (count($entityIds) > $maxBatchSize) {
@@ -462,7 +460,7 @@ class ValidationService
             );
             return $errors;
         }
-        
+
         // Check for duplicate IDs
         $uniqueIds = array_unique($entityIds);
         if (count($uniqueIds) !== count($entityIds)) {
@@ -475,7 +473,7 @@ class ValidationService
                 ]
             );
         }
-        
+
         // Validate each entity based on type and operation
         foreach ($entityIds as $entityId) {
             switch ($entityType) {
@@ -492,7 +490,7 @@ class ValidationService
                         ['entity_type' => $entityType]
                     )];
             }
-            
+
             if (!empty($entityErrors)) {
                 $errors[] = $this->createError(
                     'bulk_entity_error',
@@ -506,33 +504,33 @@ class ValidationService
                 );
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Check if admin has reached daily product creation limit
      */
     public function checkDailyProductLimit(int $adminId): array
     {
         $errors = [];
-        
+
         if (!$this->config['enforce_daily_limits']) {
             return $errors;
         }
-        
+
         $today = date('Y-m-d');
         $cacheKey = 'daily_limit_' . $adminId . '_' . $today;
-        
+
         if (!isset($this->validationCache[$cacheKey])) {
             // In production, this would query the database
             $count = 0; // Placeholder - would be actual count from DB
-            
+
             $this->validationCache[$cacheKey] = $count;
         }
-        
+
         $count = $this->validationCache[$cacheKey];
-        
+
         if ($count >= self::MAX_PRODUCTS_PER_DAY) {
             $errors[] = $this->createError(
                 'daily_limit_reached',
@@ -545,19 +543,19 @@ class ValidationService
                 ]
             );
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate admin permissions for operation
      */
     public function validateAdminPermission(int $adminId, string $operation, ?string $entityType = null): array
     {
         $errors = [];
-        
+
         $admin = $this->adminModel->find($adminId);
-        
+
         if (!$admin) {
             $errors[] = $this->createError(
                 'admin_not_found',
@@ -566,7 +564,7 @@ class ValidationService
             );
             return $errors;
         }
-        
+
         if (!$admin->isActive()) {
             $errors[] = $this->createError(
                 'admin_inactive',
@@ -574,7 +572,7 @@ class ValidationService
                 ['admin_id' => $adminId]
             );
         }
-        
+
         // Check role-based permissions
         switch ($operation) {
             case self::CONTEXT_PUBLISH:
@@ -590,7 +588,7 @@ class ValidationService
                     );
                 }
                 break;
-                
+
             case self::CONTEXT_DELETE:
                 if ($entityType === 'admin' && !$admin->isSuperAdmin()) {
                     $errors[] = $this->createError(
@@ -604,10 +602,10 @@ class ValidationService
                 }
                 break;
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Create structured error response
      */
@@ -620,16 +618,16 @@ class ValidationService
             'timestamp' => (new DateTimeImmutable())->format('c'),
         ];
     }
-    
+
     /**
      * Validate product fields
      */
     private function validateProductFields(array $data, string $context): array
     {
         $errors = [];
-        
+
         $rules = [];
-        
+
         // Different rules for different contexts
         if ($context === self::CONTEXT_CREATE) {
             $rules = [
@@ -657,10 +655,10 @@ class ValidationService
                 $rules['category_id'] = 'integer|greater_than[0]';
             }
         }
-        
+
         if (!empty($rules)) {
             $validation = $this->validation->setRules($rules);
-            
+
             if (!$validation->run($data)) {
                 foreach ($validation->getErrors() as $field => $error) {
                     $errors[] = $this->createError(
@@ -671,17 +669,17 @@ class ValidationService
                 }
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate product business rules
      */
     private function validateProductBusinessRules(array $data, int $adminId, string $context): array
     {
         $errors = [];
-        
+
         // Validate slug uniqueness for create
         if ($context === self::CONTEXT_CREATE && isset($data['slug'])) {
             if (!$this->productRepository->isSlugUnique($data['slug'])) {
@@ -692,7 +690,7 @@ class ValidationService
                 );
             }
         }
-        
+
         // Validate category exists and is active
         if (isset($data['category_id'])) {
             $category = $this->categoryModel->find($data['category_id']);
@@ -710,14 +708,15 @@ class ValidationService
                 );
             }
         }
-        
+
         // Validate price range
         if (isset($data['market_price'])) {
             $price = (float) $data['market_price'];
             if ($price < self::MIN_PRICE || $price > self::MAX_PRICE) {
                 $errors[] = $this->createError(
                     'invalid_price_range',
-                    sprintf('Price must be between %s and %s', 
+                    sprintf(
+                        'Price must be between %s and %s',
                         number_format(self::MIN_PRICE, 0),
                         number_format(self::MAX_PRICE, 0)
                     ),
@@ -729,27 +728,27 @@ class ValidationService
                 );
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate system constraints
      */
     private function validateSystemConstraints(array $data, int $adminId, string $context): array
     {
         $errors = [];
-        
+
         // Check daily limit for product creation
         if ($context === self::CONTEXT_CREATE) {
             $errors = array_merge($errors, $this->checkDailyProductLimit($adminId));
         }
-        
+
         // Check total system limits if configured
         if ($this->config['enforce_system_limits']) {
             $totalProducts = $this->productRepository->countAll();
             $maxProducts = $this->config['max_total_products'] ?? 10000;
-            
+
             if ($totalProducts >= $maxProducts && $context === self::CONTEXT_CREATE) {
                 $errors[] = $this->createError(
                     'system_limit_reached',
@@ -761,22 +760,22 @@ class ValidationService
                 );
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate product relations
      */
     private function validateProductRelations(array $data, string $context): array
     {
         $errors = [];
-        
+
         // If category is specified, check product count in category
         if (isset($data['category_id']) && $this->config['enforce_category_limits']) {
             $categoryProductsCount = $this->productRepository->countPublished(); // Would need method for category count
             $maxPerCategory = $this->config['max_products_per_category'] ?? 1000;
-            
+
             if ($categoryProductsCount >= $maxPerCategory && $context === self::CONTEXT_CREATE) {
                 $errors[] = $this->createError(
                     'category_limit_reached',
@@ -789,17 +788,17 @@ class ValidationService
                 );
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate update business rules
      */
     private function validateUpdateBusinessRules(Product $product, array $data, int $adminId): array
     {
         $errors = [];
-        
+
         // Validate slug uniqueness if slug is being changed
         if (isset($data['slug']) && $data['slug'] !== $product->getSlug()) {
             if (!$this->productRepository->isSlugUnique($data['slug'], $product->getId())) {
@@ -810,16 +809,16 @@ class ValidationService
                 );
             }
         }
-        
+
         // Prevent certain changes for published products
         if ($product->isPublished() && $this->config['restrict_published_updates']) {
             $restrictedFields = ['slug', 'category_id', 'market_price'];
-            
+
             foreach ($restrictedFields as $field) {
                 if (isset($data[$field])) {
                     $getter = 'get' . str_replace('_', '', ucwords($field, '_'));
                     $oldValue = $product->$getter();
-                    
+
                     if ($data[$field] != $oldValue) {
                         $errors[] = $this->createError(
                             'published_field_restricted',
@@ -834,26 +833,26 @@ class ValidationService
                 }
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate category fields
      */
     private function validateCategoryFields(array $data): array
     {
         $errors = [];
-        
+
         $rules = [
             'name' => 'required|max_length[100]',
             'slug' => 'required|alpha_dash|max_length[50]',
             'icon' => 'max_length[50]',
             'sort_order' => 'integer',
         ];
-        
+
         $validation = $this->validation->setRules($rules);
-        
+
         if (!$validation->run($data)) {
             foreach ($validation->getErrors() as $field => $error) {
                 $errors[] = $this->createError(
@@ -863,17 +862,17 @@ class ValidationService
                 );
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate category uniqueness
      */
     private function validateCategoryUniqueness(array $data, ?int $excludeId = null): array
     {
         $errors = [];
-        
+
         if (isset($data['slug'])) {
             $existing = $this->categoryModel->findBySlug($data['slug']);
             if ($existing && $existing->getId() !== $excludeId) {
@@ -884,19 +883,19 @@ class ValidationService
                 );
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate product for bulk operation
      */
     private function validateProductForBulkOperation(int $productId, string $operation, int $adminId): array
     {
         $errors = [];
-        
+
         $product = $this->productRepository->find($productId);
-        
+
         if (!$product) {
             $errors[] = $this->createError(
                 'product_not_found',
@@ -905,13 +904,13 @@ class ValidationService
             );
             return $errors;
         }
-        
+
         switch ($operation) {
             case 'publish':
                 $publishErrors = $this->validateProductPublish($productId, $adminId);
                 $errors = array_merge($errors, $publishErrors);
                 break;
-                
+
             case 'archive':
                 if ($product->isArchived()) {
                     $errors[] = $this->createError(
@@ -921,25 +920,25 @@ class ValidationService
                     );
                 }
                 break;
-                
+
             case 'delete':
                 $deleteErrors = $this->validateProductDelete($productId, $adminId);
                 $errors = array_merge($errors, $deleteErrors);
                 break;
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate category for bulk operation
      */
     private function validateCategoryForBulkOperation(int $categoryId, string $operation): array
     {
         $errors = [];
-        
+
         $category = $this->categoryModel->find($categoryId);
-        
+
         if (!$category) {
             $errors[] = $this->createError(
                 'category_not_found',
@@ -948,7 +947,7 @@ class ValidationService
             );
             return $errors;
         }
-        
+
         switch ($operation) {
             case 'archive':
                 if (!$category->isActive()) {
@@ -959,7 +958,7 @@ class ValidationService
                     );
                 }
                 break;
-                
+
             case 'delete':
                 if ($category->isInUse()) {
                     $errors[] = $this->createError(
@@ -970,10 +969,10 @@ class ValidationService
                 }
                 break;
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Get default configuration
      */
@@ -986,22 +985,22 @@ class ValidationService
             'allow_delete_published' => false,
             'check_dependencies_before_delete' => true,
             'restrict_published_updates' => true,
-            
+
             // System limits
             'enforce_daily_limits' => true,
             'enforce_system_limits' => false,
             'max_total_products' => 10000,
             'enforce_category_limits' => true,
             'max_products_per_category' => 1000,
-            
+
             // Bulk operations
             'max_batch_size' => 100,
-            
+
             // Admin permissions
             'allow_regular_admin_publish' => false,
         ];
     }
-    
+
     /**
      * Clear validation cache
      */
@@ -1009,7 +1008,7 @@ class ValidationService
     {
         $this->validationCache = [];
     }
-    
+
     /**
      * Create ValidationService instance with default dependencies
      */
@@ -1017,12 +1016,12 @@ class ValidationService
     {
         $repositoryService = new \App\Services\RepositoryService();
         $productRepository = $repositoryService->product();
-        
+
         $categoryModel = model(CategoryModel::class);
         $linkModel = model(LinkModel::class);
         $adminModel = model(AdminModel::class);
         $validation = service('validation');
-        
+
         return new self(
             $productRepository,
             $categoryModel,

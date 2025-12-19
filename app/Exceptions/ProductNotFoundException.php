@@ -4,10 +4,10 @@ namespace App\Exceptions;
 
 /**
  * Product Not Found Exception
- * 
+ *
  * Thrown when a product entity cannot be found by ID or slug.
  * This is a domain exception that represents a business rule violation.
- * 
+ *
  * @package App\Exceptions
  */
 class ProductNotFoundException extends DomainException
@@ -19,7 +19,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * ProductNotFoundException constructor
-     * 
+     *
      * @param string $message Custom message or default will be used
      * @param array $details Additional context about the failure
      * @param int $code HTTP status code (default: 404)
@@ -47,7 +47,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * Create exception for product not found by ID
-     * 
+     *
      * @param int $productId
      * @return static
      */
@@ -65,7 +65,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * Create exception for product not found by slug
-     * 
+     *
      * @param string $slug
      * @return static
      */
@@ -83,7 +83,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * Create exception for product not found in specific status
-     * 
+     *
      * @param int $productId
      * @param string $status Required status
      * @return static
@@ -103,7 +103,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * Check if this exception includes product ID in details
-     * 
+     *
      * @return bool
      */
     public function hasProductId(): bool
@@ -113,7 +113,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * Get product ID from exception details
-     * 
+     *
      * @return int|null
      */
     public function getProductId(): ?int
@@ -123,7 +123,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * Get search method used
-     * 
+     *
      * @return string|null
      */
     public function getSearchMethod(): ?string
@@ -133,7 +133,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * Suggest alternative actions based on exception context
-     * 
+     *
      * @return array
      */
     public function getSuggestions(): array
@@ -156,7 +156,7 @@ class ProductNotFoundException extends DomainException
 
     /**
      * Convert to log context for structured logging
-     * 
+     *
      * @return array
      */
     public function toLogContext(): array
@@ -175,17 +175,17 @@ class ProductNotFoundException extends DomainException
     /**
      * Create a simplified API response structure
      * Override parent to include more product-specific details
-     * 
+     *
      * @return array
      */
     public function toArray(): array
     {
         $baseArray = parent::toArray();
-        
+
         // Add product-specific information
         $baseArray['error']['type'] = 'product_not_found';
         $baseArray['error']['suggestions'] = $this->getSuggestions();
-        
+
         // Include search context if available
         if ($this->getSearchMethod()) {
             $baseArray['error']['search_context'] = [
@@ -193,7 +193,7 @@ class ProductNotFoundException extends DomainException
                 'value' => $this->getProductId() ?? $this->details['slug'] ?? null
             ];
         }
-        
+
         return $baseArray;
     }
 }

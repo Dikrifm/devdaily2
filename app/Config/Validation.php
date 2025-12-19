@@ -2,14 +2,19 @@
 
 namespace Config;
 
-use CodeIgniter\Config\BaseConfig;
+use App\Validators\DateValidator;
+use App\Validators\EntityValidator;
+use App\Validators\EnumValidator;
+use App\Validators\FileValidator;
+use App\Validators\ImageValidator;
 use App\Validators\SlugValidator;
+use CodeIgniter\Config\BaseConfig;
 
 class Validation extends BaseConfig
 {
     /**
      * Custom validation rules.
-     * 
+     *
      * Format: 'rule_name' => 'class_name::method_name'
      */
     public $ruleSets = [
@@ -17,12 +22,17 @@ class Validation extends BaseConfig
         \CodeIgniter\Validation\FormatRules::class,
         \CodeIgniter\Validation\FileRules::class,
         \CodeIgniter\Validation\CreditCardRules::class,
-        // Custom rules bisa ditambahkan di sini
+        \App\Validators\SlugValidator::class,
+        EnumValidator::class,
+        DateValidator::class,
+        EntityValidator::class,
+        FileValidator::class,
+        ImageValidator::class,
     ];
 
     /**
      * Custom error messages.
-     * 
+     *
      * Format: 'rule_name' => 'Error message'
      */
     public array $customMessages = [
@@ -33,18 +43,18 @@ class Validation extends BaseConfig
         'valid_enum' => 'Field {field} harus berisi nilai yang valid dari enum {param}.',
         'future_date' => 'Field {field} harus berisi tanggal di masa depan.',
         'price_range' => 'Harga harus antara {param[0]} dan {param[1]}.',
-        
+
         // Business rule messages
         'can_publish' => 'Produk tidak dapat dipublikasikan: {field}',
         'can_archive' => 'Produk tidak dapat diarsipkan: {field}',
         'can_delete' => 'Data tidak dapat dihapus: {field}',
         'valid_state_transition' => 'Transisi status tidak valid dari {param[0]} ke {param[1]}.',
-        
+
         // File validation
         'max_file_count' => 'Maksimal {param} file yang diizinkan.',
         'allowed_mimes' => 'Tipe file tidak diizinkan. Hanya {param} yang diterima.',
         'image_dimensions' => 'Dimensi gambar harus {param}.',
-        
+
         // Slug validation
         'reserved_slug' => 'Slug {value} adalah kata yang dipesan dan tidak dapat digunakan.',
         'seo_friendly' => 'Slug harus SEO-friendly: {field}',
@@ -52,7 +62,7 @@ class Validation extends BaseConfig
 
     /**
      * Custom validation rules.
-     * 
+     *
      * Format: 'ruleName' => [class, method]
      */
     public array $customRules = [
@@ -60,25 +70,41 @@ class Validation extends BaseConfig
         'unique_slug' => [SlugValidator::class, 'isUniqueSlug'],
         'reserved_slug' => [SlugValidator::class, 'isReservedSlug'],
         'seo_friendly' => [SlugValidator::class, 'analyzeSeo'],
-        
+
         // DTO validation rules
         'required_if_published' => [\App\Validators\ProductValidator::class, 'validateRequiredIfPublished'],
         'valid_enum' => [\App\Validators\EnumValidator::class, 'validateEnumValue'],
         'future_date' => [\App\Validators\DateValidator::class, 'validateFutureDate'],
         'price_range' => [\App\Validators\ProductValidator::class, 'validatePriceRange'],
-        
+
         // Business rule validators
         'can_publish' => [\App\Validators\ProductValidator::class, 'validatePublishEligibility'],
         'can_archive' => [\App\Validators\ProductValidator::class, 'validateArchiveEligibility'],
         'can_delete' => [\App\Validators\EntityValidator::class, 'validateDeletionEligibility'],
         'valid_state_transition' => [\App\Validators\EntityValidator::class, 'validateStateTransition'],
-        
+
         // File validation
         'max_file_count' => [\App\Validators\FileValidator::class, 'validateFileCount'],
         'allowed_mimes' => [\App\Validators\FileValidator::class, 'validateMimeTypes'],
         'image_dimensions' => [\App\Validators\ImageValidator::class, 'validateDimensions'],
     ];
-
+    /*
+    // Atau jika menggunakan $customRules
+    public array $customRules = [
+        'enum'           => [EnumValidator::class, 'enum'],
+        'enum_array'     => [EnumValidator::class, 'enum_array'],
+        'date_format'    => [DateValidator::class, 'date_format'],
+        'after_date'     => [DateValidator::class, 'after_date'],
+        'before_date'    => [DateValidator::class, 'before_date'],
+        'exists'         => [EntityValidator::class, 'exists'],
+        'not_exists'     => [EntityValidator::class, 'not_exists'],
+        'uploaded_file'  => [FileValidator::class, 'uploaded_file'],
+        'file_extension' => [FileValidator::class, 'file_extension'],
+        'is_image'       => [ImageValidator::class, 'is_image'],
+        'image_max'      => [ImageValidator::class, 'image_max'],
+        // ... tambahkan rules lainnya sesuai kebutuhan
+    ];
+    */
     /**
      * Template untuk aturan validasi umum.
      * Bisa di-reuse di berbagai DTO/Request.
@@ -93,7 +119,7 @@ class Validation extends BaseConfig
                 'max_length' => '{field} maksimal {param} karakter.',
             ]
         ],
-        
+
         'product_slug' => [
             'label' => 'Slug Produk',
             'rules' => 'required|valid_slug|unique_slug[products,slug]|max_length[100]',
@@ -104,7 +130,7 @@ class Validation extends BaseConfig
                 'max_length' => '{field} maksimal {param} karakter.',
             ]
         ],
-        
+
         'product_price' => [
             'label' => 'Harga Produk',
             'rules' => 'required|decimal|greater_than_equal_to[100]|less_than_equal_to[1000000000]',
@@ -115,7 +141,7 @@ class Validation extends BaseConfig
                 'less_than_equal_to' => '{field} maksimal {param}.',
             ]
         ],
-        
+
         'product_status' => [
             'label' => 'Status Produk',
             'rules' => 'required|valid_enum[ProductStatus]',
@@ -124,7 +150,7 @@ class Validation extends BaseConfig
                 'valid_enum' => '{field} tidak valid.',
             ]
         ],
-        
+
         'pagination_page' => [
             'label' => 'Halaman',
             'rules' => 'if_exist|integer|greater_than_equal_to[1]',
@@ -133,7 +159,7 @@ class Validation extends BaseConfig
                 'greater_than_equal_to' => '{field} minimal {param}.',
             ]
         ],
-        
+
         'pagination_per_page' => [
             'label' => 'Item per Halaman',
             'rules' => 'if_exist|integer|greater_than_equal_to[1]|less_than_equal_to[100]',
@@ -143,7 +169,7 @@ class Validation extends BaseConfig
                 'less_than_equal_to' => '{field} maksimal {param}.',
             ]
         ],
-        
+
         'admin_email' => [
             'label' => 'Email Admin',
             'rules' => 'required|valid_email|max_length[100]',
@@ -153,7 +179,7 @@ class Validation extends BaseConfig
                 'max_length' => '{field} maksimal {param} karakter.',
             ]
         ],
-        
+
         'admin_password' => [
             'label' => 'Password',
             'rules' => 'required|min_length[8]|max_length[72]',
@@ -175,12 +201,12 @@ class Validation extends BaseConfig
             'sort_by' => 'if_exist|in_list[created_at,updated_at,name,price]',
             'sort_order' => 'if_exist|in_list[asc,desc,ASC,DESC]',
         ],
-        
+
         'search' => [
             'keyword' => 'if_exist|string|max_length[100]',
             'fields' => 'if_exist|string',
         ],
-        
+
         'filter' => [
             'status' => 'if_exist|string',
             'category_id' => 'if_exist|integer',
@@ -194,15 +220,15 @@ class Validation extends BaseConfig
      */
     public bool $allowEmptyRules = false;
     public bool $requireRule = true;
-    
+
     /**
      * Error display templates.
      */
     public string $errorTemplate = 'App\Views\errors\validation_error_template';
-    
+
     /**
      * Get validation template by name.
-     * 
+     *
      * @param string $templateName
      * @return array|null
      */
@@ -210,10 +236,10 @@ class Validation extends BaseConfig
     {
         return $this->templates[$templateName] ?? null;
     }
-    
+
     /**
      * Get API validation rules by type.
-     * 
+     *
      * @param string $type
      * @return array|null
      */

@@ -15,9 +15,12 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
+        "friendsofphp/php-cs-fixer": "^3.92",
         "mikey179/vfsstream": "^1.6",
+        "mockery/mockery": "^1.6",
         "phpstan/phpstan": "^2.1",
-        "phpunit/phpunit": "^10.5.16"
+        "phpunit/phpunit": "^10.5",
+        "rector/rector": "^2.2"
     },
     "autoload": {
         "psr-4": {

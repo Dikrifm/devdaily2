@@ -6,38 +6,38 @@ use Throwable;
 
 /**
  * Domain Exception Base Class
- * 
+ *
  * Foundation for all domain/business exceptions in the system.
  * Provides structured error information for API responses and logging.
- * 
+ *
  * @package App\Exceptions
  */
 class DomainException extends \RuntimeException
 {
     /**
      * Machine-readable error code for client handling
-     * 
+     *
      * @var string
      */
     protected string $errorCode = 'DOMAIN_ERROR';
 
     /**
      * Additional context about the error
-     * 
+     *
      * @var array
      */
     protected array $details = [];
 
     /**
      * HTTP status code for API responses
-     * 
+     *
      * @var int
      */
     protected int $httpStatusCode = 400;
 
     /**
      * DomainException constructor
-     * 
+     *
      * @param string $message Human-readable error message
      * @param string $errorCode Machine-readable error code
      * @param array $details Additional context about the error
@@ -60,7 +60,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Get machine-readable error code
-     * 
+     *
      * @return string
      */
     public function getErrorCode(): string
@@ -70,7 +70,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Get additional error details
-     * 
+     *
      * @return array
      */
     public function getDetails(): array
@@ -80,7 +80,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Get HTTP status code for this exception
-     * 
+     *
      * @return int
      */
     public function getHttpStatusCode(): int
@@ -90,7 +90,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Add additional details to the exception
-     * 
+     *
      * @param array $details
      * @return self
      */
@@ -102,7 +102,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Convert exception to array for API response
-     * 
+     *
      * @return array
      */
     public function toArray(): array
@@ -124,7 +124,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Convert exception to JSON for API response
-     * 
+     *
      * @return string
      */
     public function toJson(): string
@@ -134,7 +134,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Get structured log context for monitoring
-     * 
+     *
      * @return array
      */
     public function toLogContext(): array
@@ -151,7 +151,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Generate a unique trace ID for error tracking
-     * 
+     *
      * @return string
      */
     protected function generateTraceId(): string
@@ -161,7 +161,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Check if this exception has specific detail key
-     * 
+     *
      * @param string $key
      * @return bool
      */
@@ -172,7 +172,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Get specific detail value
-     * 
+     *
      * @param string $key
      * @param mixed $default
      * @return mixed
@@ -184,7 +184,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Create a simplified string representation for logging
-     * 
+     *
      * @return string
      */
     public function toString(): string
@@ -200,7 +200,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Check if this is a client error (4xx)
-     * 
+     *
      * @return bool
      */
     public function isClientError(): bool
@@ -210,7 +210,7 @@ class DomainException extends \RuntimeException
 
     /**
      * Check if this is a server error (5xx)
-     * 
+     *
      * @return bool
      */
     public function isServerError(): bool

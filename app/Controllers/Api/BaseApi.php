@@ -3,70 +3,96 @@
 namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
-use App\Services\ResponseFormatter;
-use App\Services\PaginationService;
-use App\Services\ValidationService;
-use App\Services\TransactionService;
 use App\Services\AuditService;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Services\PaginationService;
+use App\Services\ResponseFormatter;
+use App\Services\TransactionService;
+use App\Services\ValidationService;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\HTTP\ResponseInterface;
+use Config\Services;
 
 class BaseApi extends BaseController
 {
     use ResponseTrait;
 
     /**
-     * @var ResponseFormatter
+     * Response formatter service
+     *
+     * @var ResponseFormatter|null
      */
     protected $responseFormatter;
 
     /**
-     * @var PaginationService
+     * Pagination service
+     *
+     * @var PaginationService|null
      */
     protected $paginationService;
 
     /**
-     * @var ValidationService
+     * Validation service
+     *
+     * @var ValidationService|null
      */
     protected $validationService;
 
     /**
-     * @var TransactionService
+     * Transaction service
+     *
+     * @var TransactionService|null
      */
     protected $transactionService;
 
     /**
-     * @var AuditService
+     * Audit service
+     *
+     * @var AuditService|null
      */
     protected $auditService;
 
     /**
+     * Validation rules for this controller
+     *
      * @var array
      */
     protected $validationRules = [];
 
     /**
+     * Validation messages for this controller
+     *
      * @var array
      */
     protected $validationMessages = [];
 
     /**
+     * Resource name for API responses
+     *
      * @var string
      */
-    protected $resourceName;
+    protected $resourceName = '';
 
     /**
+     * Model class for this resource
+     *
      * @var string|null
      */
-    protected $modelClass = null;
+    protected $modelClass;
 
     /**
+     * Service class for this resource
+     *
      * @var string|null
      */
-    protected $serviceClass = null;
+    protected $serviceClass;
 
     /**
-     * Constructor.
+     * Initialize controller
+     *
+     * @param \CodeIgniter\HTTP\RequestInterface $request
+     * @param \CodeIgniter\HTTP\ResponseInterface $response
+     * @param \Psr\Log\LoggerInterface $logger
+     * @return void
      */
     public function initController(
         \CodeIgniter\HTTP\RequestInterface $request,
@@ -75,12 +101,12 @@ class BaseApi extends BaseController
     ) {
         parent::initController($request, $response, $logger);
 
-        // Initialize services
-        $this->responseFormatter = service('responseFormatter');
-        $this->paginationService = service('pagination');
-        $this->validationService = service('validationService') ?? null;
-        $this->transactionService = service('transactionService') ?? null;
-        $this->auditService = service('auditService') ?? null;
+        // Initialize services dengan fallback
+        $this->responseFormatter = service('responseFormatter') ?? new ResponseFormatter();
+        $this->paginationService = service('paginationService') ?? new PaginationService();
+        $this->validationService = service('validationService');
+        $this->transactionService = service('transactionService');
+        $this->auditService = service('auditService');
 
         // Set resource name from class name if not defined
         if (empty($this->resourceName)) {
@@ -96,12 +122,12 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Format successful response.
-     * 
-     * @param mixed $data
-     * @param string $message
-     * @param int $code
-     * @param array $meta
+     * Format successful response
+     *
+     * @param mixed $data Response data
+     * @param string $message Success message
+     * @param int $code HTTP status code
+     * @param array $meta Additional metadata
      * @return ResponseInterface
      */
     protected function success($data = null, string $message = 'Success', int $code = 200, array $meta = []): ResponseInterface
@@ -111,12 +137,12 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Format error response.
-     * 
-     * @param string $message
-     * @param int $code
-     * @param array $errors
-     * @param array $meta
+     * Format error response
+     *
+     * @param string $message Error message
+     * @param int $code HTTP status code
+     * @param array $errors Validation errors
+     * @param array $meta Additional metadata
      * @return ResponseInterface
      */
     protected function error(string $message = 'An error occurred', int $code = 500, array $errors = [], array $meta = []): ResponseInterface
@@ -126,10 +152,10 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Format validation error response.
-     * 
-     * @param array $validationErrors
-     * @param string $message
+     * Format validation error response
+     *
+     * @param array $validationErrors Validation errors
+     * @param string $message Error message
      * @return ResponseInterface
      */
     protected function validationError(array $validationErrors, string $message = 'Validation failed'): ResponseInterface
@@ -139,10 +165,10 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Format not found response.
-     * 
-     * @param string $message
-     * @param mixed $identifier
+     * Format not found response
+     *
+     * @param string $message Error message
+     * @param mixed $identifier Resource identifier
      * @return ResponseInterface
      */
     protected function notFound(string $message = 'Resource not found', $identifier = null): ResponseInterface
@@ -156,50 +182,56 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Format unauthorized response.
-     * 
-     * @param string $message
-     * @param string $reason
+     * Format unauthorized response
+     *
+     * @param string $message Error message
+     * @param string|null $reason Reason for unauthorized
      * @return ResponseInterface
      */
-    protected function unauthorized(string $message = 'Unauthorized', string $reason = null): ResponseInterface
+    protected function unauthorized(string $message = 'Unauthorized', ?string $reason = null): ResponseInterface
     {
         $response = $this->responseFormatter->unauthorized($message, $reason);
         return $this->responseFormatter->sendJson($this->response, $response);
     }
 
     /**
-     * Format forbidden response.
-     * 
-     * @param string $message
-     * @param string $permission
+     * Format forbidden response
+     *
+     * @param string $message Error message
+     * @param string|null $permission Required permission
      * @return ResponseInterface
      */
-    protected function forbidden(string $message = 'Forbidden', string $permission = null): ResponseInterface
+    protected function forbidden(string $message = 'Forbidden', ?string $permission = null): ResponseInterface
     {
         $response = $this->responseFormatter->forbidden($message, $permission);
         return $this->responseFormatter->sendJson($this->response, $response);
     }
 
     /**
-     * Format created response.
-     * 
-     * @param mixed $data
-     * @param string $message
-     * @param string $location
+     * Format created response
+     *
+     * @param mixed $data Created resource data
+     * @param string $message Success message
+     * @param string|null $location Location header
      * @return ResponseInterface
      */
-    protected function created($data = null, string $message = 'Resource created successfully', string $location = null): ResponseInterface
+    protected function created($data = null, string $message = 'Resource created successfully', ?string $location = null): ResponseInterface
     {
         $response = $this->responseFormatter->created($data, $message, $location);
+
+        // Add Location header if provided
+        if ($location !== null) {
+            $this->response->setHeader('Location', $location);
+        }
+
         return $this->responseFormatter->sendJson($this->response, $response);
     }
 
     /**
-     * Format updated response.
-     * 
-     * @param mixed $data
-     * @param string $message
+     * Format updated response
+     *
+     * @param mixed $data Updated resource data
+     * @param string $message Success message
      * @return ResponseInterface
      */
     protected function updated($data = null, string $message = 'Resource updated successfully'): ResponseInterface
@@ -209,9 +241,9 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Format deleted response.
-     * 
-     * @param string $message
+     * Format deleted response
+     *
+     * @param string $message Success message
      * @return ResponseInterface
      */
     protected function deleted(string $message = 'Resource deleted successfully'): ResponseInterface
@@ -221,13 +253,13 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Format paginated response.
-     * 
-     * @param array $items
-     * @param mixed $paginationQuery
-     * @param int $totalItems
-     * @param string $message
-     * @param array $additionalMeta
+     * Format paginated response
+     *
+     * @param array $items Paginated items
+     * @param mixed $paginationQuery Pagination query object
+     * @param int $totalItems Total items count
+     * @param string $message Success message
+     * @param array $additionalMeta Additional metadata
      * @return ResponseInterface
      */
     protected function paginated(
@@ -252,43 +284,33 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Validate request data.
-     * 
-     * @param array $rules
-     * @param array $messages
+     * Validate request data
+     *
+     * Override method dari parent untuk menggunakan default validation rules
+     *
+     * @param mixed $rules Validation rules (string atau array)
+     * @param array $messages Validation messages
      * @return bool
      */
-    protected function validate(array $rules = [], array $messages = []): bool
+    protected function validate($rules, array $messages = []): bool
     {
-        $validation = \Config\Services::validation();
-
-        // Use controller rules if none provided
-        if (empty($rules)) {
+        // Jika rules adalah array kosong, gunakan rules dari controller
+        if (is_array($rules) && empty($rules)) {
             $rules = $this->validationRules;
         }
 
-        // Use controller messages if none provided
+        // Jika messages kosong, gunakan messages dari controller
         if (empty($messages)) {
             $messages = $this->validationMessages;
         }
 
-        // Get request data
-        $data = $this->getRequestData();
-
-        // Set rules and messages
-        $validation->setRules($rules, $messages);
-
-        // Run validation
-        if (!$validation->run($data)) {
-            return false;
-        }
-
-        return true;
+        // Panggil parent validate
+        return parent::validateRequest($rules, $messages);
     }
 
     /**
-     * Get request data based on content type.
-     * 
+     * Get request data based on content type
+     *
      * @return array
      */
     protected function getRequestData(): array
@@ -303,9 +325,9 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Get pagination parameters from request.
-     * 
-     * @param array $config
+     * Get pagination parameters from request
+     *
+     * @param array $config Pagination config
      * @return mixed
      */
     protected function getPagination(array $config = [])
@@ -315,15 +337,15 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Execute operation within transaction.
-     * 
-     * @param callable $callback
-     * @param array $options
+     * Execute operation within transaction
+     *
+     * @param callable $callback Callback to execute
+     * @param array $options Transaction options
      * @return mixed
      */
     protected function transaction(callable $callback, array $options = [])
     {
-        if ($this->transactionService) {
+        if ($this->transactionService !== null) {
             return $this->transactionService->execute($callback, $options);
         }
 
@@ -332,28 +354,28 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Get current admin ID from session/jwt.
-     * 
+     * Get current admin ID from session/jwt
+     *
      * @return int|null
      */
     protected function adminId(): ?int
     {
         // Implementation depends on your auth system
         $adminId = session('admin_id') ?? $this->request->getHeader('X-Admin-ID')?->getValue();
-        
-        return $adminId ? (int) $adminId : null;
+
+        return $adminId !== null ? (int) $adminId : null;
     }
 
     /**
-     * Check if current user has permission.
-     * 
-     * @param string $permission
+     * Check if current user has permission
+     *
+     * @param string $permission Permission to check
      * @return bool
      */
     protected function can(string $permission): bool
     {
         $adminId = $this->adminId();
-        
+
         if (!$adminId) {
             return false;
         }
@@ -362,18 +384,19 @@ class BaseApi extends BaseController
             $adminRepository = service('adminRepository');
             return $adminRepository->hasPermission($adminId, $permission);
         } catch (\Exception $e) {
+            log_message('error', 'Permission check failed: ' . $e->getMessage());
             return false;
         }
     }
 
     /**
-     * Log admin action.
-     * 
-     * @param string $action
-     * @param string $entityType
-     * @param int $entityId
-     * @param array $oldData
-     * @param array $newData
+     * Log admin action
+     *
+     * @param string $action Action type
+     * @param string $entityType Entity type
+     * @param int $entityId Entity ID
+     * @param array $oldData Old data
+     * @param array $newData New data
      * @return bool
      */
     protected function log(
@@ -383,12 +406,12 @@ class BaseApi extends BaseController
         array $oldData = [],
         array $newData = []
     ): bool {
-        if (!$this->auditService) {
+        if ($this->auditService === null) {
             return false;
         }
 
         $adminId = $this->adminId();
-        
+
         if (!$adminId) {
             return false;
         }
@@ -402,9 +425,9 @@ class BaseApi extends BaseController
                 $oldData,
                 $newData,
                 $this->request->getIPAddress(),
-                $this->request->getUserAgent()
+                $this->request->getUserAgent()->getAgentString()
             );
-            
+
             return true;
         } catch (\Exception $e) {
             log_message('error', 'Failed to log action: ' . $e->getMessage());
@@ -413,9 +436,9 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Handle exception and return formatted error response.
-     * 
-     * @param \Throwable $e
+     * Handle exception and return formatted error response
+     *
+     * @param \Throwable $e Exception
      * @return ResponseInterface
      */
     protected function exception(\Throwable $e): ResponseInterface
@@ -441,59 +464,58 @@ class BaseApi extends BaseController
                 $e->getMessage(),
                 $e->getHttpStatusCode(),
                 [],
-                ['error_code' => $e->getErrorCode(), 'details' => $e->getDetails()]
+                [
+                    'error_code' => $e->getErrorCode(),
+                    'details' => $e->getDetails()
+                ]
             );
         }
 
         // Default error response
         $includeStackTrace = ENVIRONMENT !== 'production';
         $response = $this->responseFormatter->exception($e, $includeStackTrace);
-        
+
         return $this->responseFormatter->sendJson($this->response, $response);
     }
 
     /**
-     * Add pagination headers to response.
-     * 
-     * @param mixed $paginationQuery
-     * @param int $totalItems
+     * Add pagination headers to response
+     *
+     * @param mixed $paginationQuery Pagination query object
+     * @param int $totalItems Total items count
      * @return void
      */
     protected function addPaginationHeaders($paginationQuery, int $totalItems): void
     {
-        $config = config('Pagination');
-        
-        // Generate links
-        $links = $this->paginationService->createLinks(
-            current_url(),
-            $paginationQuery,
-            $totalItems,
-            $this->request->getGet()
-        );
-
-        // Add Link header
-        $linkHeader = $config->buildLinkHeader($links);
-        if ($linkHeader) {
-            $this->response->setHeader('Link', $linkHeader);
-        }
-
-        // Add other pagination headers
+        // Generate pagination data
         $paginationData = $this->paginationService->createPagination($paginationQuery, $totalItems);
-        $headers = $config->getHeaders($paginationData);
-        
-        foreach ($headers as $name => $value) {
-            $this->response->setHeader($name, $value);
+
+        // Add X-Pagination header
+        $this->response->setHeader('X-Pagination', json_encode($paginationData));
+
+        // Add Link header if available
+        if (isset($paginationData['links'])) {
+            $linkHeader = [];
+            foreach ($paginationData['links'] as $rel => $link) {
+                if ($link !== null) {
+                    $linkHeader[] = sprintf('<%s>; rel="%s"', $link, $rel);
+                }
+            }
+
+            if (!empty($linkHeader)) {
+                $this->response->setHeader('Link', implode(', ', $linkHeader));
+            }
         }
     }
 
     /**
-     * Set default validation messages.
-     * 
+     * Set default validation messages
+     *
      * @return void
      */
     protected function setDefaultValidationMessages(): void
     {
-        if (empty($this->validationMessages)) {
+        if ($this->validationMessages === []) {
             $this->validationMessages = [
                 'required' => 'Field {field} wajib diisi.',
                 'min_length' => 'Field {field} minimal {param} karakter.',
@@ -513,9 +535,9 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Get service instance.
-     * 
-     * @param string $serviceClass
+     * Get service instance
+     *
+     * @param string $serviceClass Service class name
      * @return object|null
      */
     protected function service(string $serviceClass): ?object
@@ -531,6 +553,7 @@ class BaseApi extends BaseController
                     return new $serviceClass();
                 }
             } catch (\Exception $e) {
+                log_message('error', 'Failed to instantiate service: ' . $e->getMessage());
                 return null;
             }
         }
@@ -539,9 +562,9 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Get model instance.
-     * 
-     * @param string $modelClass
+     * Get model instance
+     *
+     * @param string $modelClass Model class name
      * @return object|null
      */
     protected function model(string $modelClass): ?object
@@ -557,6 +580,7 @@ class BaseApi extends BaseController
                     return new $modelClass();
                 }
             } catch (\Exception $e) {
+                log_message('error', 'Failed to instantiate model: ' . $e->getMessage());
                 return null;
             }
         }
@@ -565,9 +589,9 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Get repository instance.
-     * 
-     * @param string $repositoryClass
+     * Get repository instance
+     *
+     * @param string $repositoryClass Repository class name
      * @return object|null
      */
     protected function repository(string $repositoryClass): ?object
@@ -579,7 +603,7 @@ class BaseApi extends BaseController
                 $shortName = (new \ReflectionClass($repositoryClass))->getShortName();
                 $name = str_replace('Repository', '', $shortName);
                 $name = lcfirst($name);
-                
+
                 return $repositoryService->get($name);
             }
         } catch (\Exception $e) {
@@ -589,6 +613,7 @@ class BaseApi extends BaseController
                     return new $repositoryClass();
                 }
             } catch (\Exception $e) {
+                log_message('error', 'Failed to instantiate repository: ' . $e->getMessage());
                 return null;
             }
         }
@@ -597,23 +622,23 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Check if request is from API client.
-     * 
+     * Check if request is from API client
+     *
      * @return bool
      */
     protected function isApi(): bool
     {
         $acceptHeader = $this->request->getHeaderLine('Accept');
         $contentType = $this->request->getHeaderLine('Content-Type');
-        
+
         return strpos($acceptHeader, 'application/json') !== false ||
                strpos($contentType, 'application/json') !== false ||
                $this->request->isAJAX();
     }
 
     /**
-     * Get request ID for tracking.
-     * 
+     * Get request ID for tracking
+     *
      * @return string
      */
     protected function requestId(): string
@@ -622,31 +647,31 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Rate limiting check.
-     * 
-     * @param string $key
-     * @param int $limit
-     * @param int $window
+     * Rate limiting check
+     *
+     * @param string $key Rate limit key
+     * @param int $limit Requests per window
+     * @param int $window Time window in seconds
      * @return array
      */
     protected function rateLimit(string $key, int $limit = 60, int $window = 60): array
     {
-        $cache = \Config\Services::cache();
+        $cache = Services::cache();
         $cacheKey = 'rate_limit_' . $key . '_' . $this->request->getIPAddress();
-        
+
         $attempts = $cache->get($cacheKey) ?: [];
         $currentTime = time();
-        
+
         // Remove old attempts
         $attempts = array_filter($attempts, function ($timestamp) use ($currentTime, $window) {
             return $timestamp > $currentTime - $window;
         });
-        
+
         // Check limit
         if (count($attempts) >= $limit) {
             $resetTime = min($attempts) + $window;
             $retryAfter = $resetTime - $currentTime;
-            
+
             return [
                 'allowed' => false,
                 'limit' => $limit,
@@ -655,11 +680,11 @@ class BaseApi extends BaseController
                 'retry_after' => $retryAfter,
             ];
         }
-        
+
         // Record attempt
         $attempts[] = $currentTime;
         $cache->save($cacheKey, $attempts, $window);
-        
+
         return [
             'allowed' => true,
             'limit' => $limit,
@@ -670,85 +695,90 @@ class BaseApi extends BaseController
     }
 
     /**
-     * Get validation errors.
-     * 
+     * Get validation errors
+     *
      * @return array
      */
     protected function validationErrors(): array
     {
-        $validation = \Config\Services::validation();
+        $validation = Services::validation();
         return $validation->getErrors();
     }
 
     /**
-     * Shortcut to get POST/JSON input.
-     * 
-     * @param string|null $key
+     * Shortcut to get POST/JSON input
+     *
+     * @param string|null $key Input key
      * @return mixed
      */
-    protected function input(string $key = null)
+    protected function input(?string $key = null)
     {
         $data = $this->getRequestData();
-        
+
         if ($key === null) {
             return $data;
         }
-        
+
         return $data[$key] ?? null;
     }
 
     /**
-     * Shortcut to get GET parameters.
-     * 
-     * @param string|null $key
+     * Shortcut to get GET parameters
+     *
+     * @param string|null $key Query key
      * @return mixed
      */
-    protected function query(string $key = null)
+    protected function query(?string $key = null)
     {
         if ($key === null) {
             return $this->request->getGet();
         }
-        
+
         return $this->request->getGet($key);
     }
 
     /**
-     * Require authentication.
-     * 
+     * Require authentication (API version)
+     *
+     * Override dari BaseController untuk API (tidak redirect, tapi throw exception)
+     *
+     * @param string|null $permission Permission yang diperlukan (opsional)
      * @return int Admin ID
-     * @throws \CodeIgniter\HTTP\Exceptions\RedirectException
+     * @throws \App\Exceptions\DomainException Jika tidak terautentikasi
      */
-    protected function requireAuth(): int
+    protected function requireAuth(?string $permission = null): int
     {
         $adminId = $this->adminId();
-        
+
         if (!$adminId) {
-            throw new \CodeIgniter\Router\Exceptions\RedirectException(
-                route_to('login') . '?redirect=' . urlencode(current_url())
-            );
+            throw new \App\Exceptions\DomainException('Unauthorized', 'UNAUTHORIZED', [], 401);
         }
-        
+
+        // Check permission if provided
+        if ($permission && !$this->can($permission)) {
+            throw new \App\Exceptions\DomainException('Forbidden', 'FORBIDDEN', [], 403);
+        }
+
         return $adminId;
     }
 
     /**
-     * Require permission.
-     * 
-     * @param string $permission
+     * Require permission (API version)
+     *
+     * @param string $permission Required permission
      * @return void
+     * @throws \App\Exceptions\DomainException Jika tidak memiliki permission
      */
     protected function requirePermission(string $permission): void
     {
         $adminId = $this->adminId();
-        
+
         if (!$adminId) {
-            throw new \CodeIgniter\Router\Exceptions\RedirectException(
-                route_to('login') . '?redirect=' . urlencode(current_url())
-            );
+            throw new \App\Exceptions\DomainException('Unauthorized', 'UNAUTHORIZED', [], 401);
         }
-        
+
         if (!$this->can($permission)) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            throw new \App\Exceptions\DomainException('Forbidden', 'FORBIDDEN', [], 403);
         }
     }
 }

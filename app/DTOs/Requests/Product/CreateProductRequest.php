@@ -7,73 +7,57 @@ use App\Enums\ProductStatus;
 
 /**
  * Create Product Request DTO
- * 
+ *
  * Data Transfer Object for product creation requests.
  * Contains validation rules and data transformation logic.
- * 
+ *
  * @package App\DTOs\Requests\Product
  */
 class CreateProductRequest
 {
     /**
      * Product name
-     * 
-     * @var string
      */
     public string $name;
 
     /**
      * URL-friendly slug
-     * 
-     * @var string
      */
     public string $slug;
 
     /**
      * Product description
-     * 
-     * @var string|null
      */
     public ?string $description = null;
 
     /**
      * Category ID
-     * 
-     * @var int|null
      */
     public ?int $categoryId = null;
 
     /**
      * Market reference price
-     * 
-     * @var string
      */
     public string $marketPrice = '0.00';
 
     /**
      * Image URL (for URL source type)
-     * 
-     * @var string|null
      */
     public ?string $image = null;
 
     /**
      * Image source type
-     * 
-     * @var ImageSourceType
      */
     public ImageSourceType $imageSourceType;
 
     /**
      * Initial product status
-     * 
-     * @var ProductStatus
      */
     public ProductStatus $status = ProductStatus::DRAFT;
 
     /**
      * CreateProductRequest constructor
-     * 
+     *
      * @param array $data Request data
      */
     public function __construct(array $data = [])
@@ -83,7 +67,7 @@ class CreateProductRequest
                 $this->$key = $this->castValue($key, $value);
             }
         }
-        
+
         // Set defaults
         if (!isset($this->imageSourceType)) {
             $this->imageSourceType = ImageSourceType::URL;
@@ -92,8 +76,7 @@ class CreateProductRequest
 
     /**
      * Cast value to appropriate type
-     * 
-     * @param string $key
+     *
      * @param mixed $value
      * @return mixed
      */
@@ -106,23 +89,23 @@ class CreateProductRequest
         switch ($key) {
             case 'imageSourceType':
                 return ImageSourceType::from($value);
-                
+
             case 'status':
                 return ProductStatus::from($value);
-                
+
             case 'categoryId':
                 return $value !== null ? (int) $value : null;
-                
+
             case 'marketPrice':
                 // Ensure decimal format with 2 places
                 return number_format((float) $value, 2, '.', '');
-                
+
             case 'name':
             case 'slug':
             case 'description':
             case 'image':
                 return (string) $value;
-                
+
             default:
                 return $value;
         }
@@ -130,8 +113,6 @@ class CreateProductRequest
 
     /**
      * Get validation rules for this request
-     * 
-     * @return array
      */
     public static function rules(): array
     {
@@ -149,8 +130,6 @@ class CreateProductRequest
 
     /**
      * Get validation messages
-     * 
-     * @return array
      */
     public static function messages(): array
     {
@@ -172,29 +151,25 @@ class CreateProductRequest
 
     /**
      * Sanitize the request data
-     * 
-     * @return self
      */
     public function sanitize(): self
     {
         $this->name = trim($this->name);
         $this->slug = strtolower(trim($this->slug));
-        
+
         if ($this->description !== null) {
             $this->description = trim($this->description);
         }
-        
+
         if ($this->image !== null) {
             $this->image = trim($this->image);
         }
-        
+
         return $this;
     }
 
     /**
      * Convert to array for database insertion
-     * 
-     * @return array
      */
     public function toArray(): array
     {
@@ -210,13 +185,12 @@ class CreateProductRequest
         ];
 
         // Remove null values
-        return array_filter($data, fn($value) => $value !== null);
+        return array_filter($data, fn ($value) => $value !== null);
     }
 
     /**
      * Create from HTTP request
-     * 
-     * @param array $requestData
+     *
      * @return static
      */
     public static function fromRequest(array $requestData): self
@@ -232,71 +206,65 @@ class CreateProductRequest
             'status' => $requestData['status'] ?? 'draft',
         ];
 
-        return new self(array_filter($data, fn($value) => $value !== null));
+        return new self(array_filter($data, fn ($value) => $value !== null));
     }
 
     /**
      * Validate the request data
-     * 
+     *
      * @return array [valid: bool, errors: array]
      */
     public function validate(): array
     {
         $validation = \Config\Services::validation();
         $validation->setRules(self::rules(), self::messages());
-        
+
         $data = $this->toArray();
-        
+
         // Convert enums to string values for validation
         $data['image_source_type'] = $this->imageSourceType->value;
         $data['status'] = $this->status->value;
-        
+
         $isValid = $validation->run($data);
         $errors = $isValid ? [] : $validation->getErrors();
-        
+
         // Additional business validations
         $businessErrors = $this->validateBusinessRules();
         $errors = array_merge($errors, $businessErrors);
-        
+
         return [
-            'valid' => empty($errors),
+            'valid' => $errors === [],
             'errors' => $errors,
         ];
     }
 
     /**
      * Validate business rules
-     * 
-     * @return array
      */
     private function validateBusinessRules(): array
     {
         $errors = [];
-        
+
         // Market price must be positive
         if ((float) $this->marketPrice < 0) {
             $errors[] = 'Market price cannot be negative';
         }
-        
+
         // If image is provided for URL source type, validate URL
-        if ($this->imageSourceType === ImageSourceType::URL && !empty($this->image)) {
-            if (!filter_var($this->image, FILTER_VALIDATE_URL)) {
-                $errors[] = 'Image must be a valid URL when using external source type';
-            }
+        if ($this->imageSourceType === ImageSourceType::URL && !in_array($this->image, [null, '', '0'], true) && !filter_var($this->image, FILTER_VALIDATE_URL)) {
+            $errors[] = 'Image must be a valid URL when using external source type';
         }
-        
+
         // Status must be DRAFT for creation (business rule)
         if ($this->status !== ProductStatus::DRAFT) {
             $errors[] = 'New products can only be created in DRAFT status';
         }
-        
+
         return $errors;
     }
 
     /**
      * Get formatted market price
-     * 
-     * @return string
      */
     public function getFormattedMarketPrice(): string
     {
@@ -305,18 +273,14 @@ class CreateProductRequest
 
     /**
      * Check if request has image
-     * 
-     * @return bool
      */
     public function hasImage(): bool
     {
-        return !empty($this->image);
+        return !in_array($this->image, [null, '', '0'], true);
     }
 
     /**
      * Check if request has category
-     * 
-     * @return bool
      */
     public function hasCategory(): bool
     {
@@ -325,8 +289,6 @@ class CreateProductRequest
 
     /**
      * Get the image source type label
-     * 
-     * @return string
      */
     public function getImageSourceTypeLabel(): string
     {
@@ -335,8 +297,6 @@ class CreateProductRequest
 
     /**
      * Get the status label
-     * 
-     * @return string
      */
     public function getStatusLabel(): string
     {
@@ -345,15 +305,13 @@ class CreateProductRequest
 
     /**
      * Create a summary of the request for logging
-     * 
-     * @return array
      */
     public function toSummary(): array
     {
         return [
             'name' => $this->name,
             'slug' => $this->slug,
-            'has_description' => !empty($this->description),
+            'has_description' => !in_array($this->description, [null, '', '0'], true),
             'has_category' => $this->hasCategory(),
             'market_price' => $this->getFormattedMarketPrice(),
             'has_image' => $this->hasImage(),

@@ -2,22 +2,20 @@
 
 namespace App\Validators;
 
-use App\DTOs\Requests\Product\CreateProductRequest;
-use App\DTOs\Requests\Product\UpdateProductRequest;
 use App\DTOs\Requests\Product\PublishProductRequest;
 use App\Entities\Product;
-use App\Enums\ProductStatus;
 use App\Enums\ImageSourceType;
-use App\Models\ProductModel;
+use App\Enums\ProductStatus;
 use App\Models\CategoryModel;
 use App\Models\LinkModel;
+use App\Models\ProductModel;
 use App\Services\CacheService;
 use CodeIgniter\Validation\Validation;
 use DateTimeImmutable;
 
 /**
  * Enterprise-grade Product Validator
- * 
+ *
  * Comprehensive validation rules for product operations with caching,
  * business rule validation, and multi-context support.
  */
@@ -28,7 +26,7 @@ class ProductValidator
     private CategoryModel $categoryModel;
     private LinkModel $linkModel;
     private CacheService $cacheService;
-    
+
     // Validation contexts
     public const CONTEXT_CREATE = 'create';
     public const CONTEXT_UPDATE = 'update';
@@ -38,7 +36,7 @@ class ProductValidator
     public const CONTEXT_RESTORE = 'restore';
     public const CONTEXT_VERIFY = 'verify';
     public const CONTEXT_BULK = 'bulk';
-    
+
     // Rule sets
     private array $baseRules = [
         'name' => [
@@ -86,7 +84,7 @@ class ProductValidator
             ]
         ]
     ];
-    
+
     private array $imageRules = [
         'image' => [
             'label' => 'Product Image',
@@ -103,7 +101,7 @@ class ProductValidator
             ]
         ]
     ];
-    
+
     private array $statusRules = [
         'status' => [
             'label' => 'Product Status',
@@ -113,7 +111,7 @@ class ProductValidator
             ]
         ]
     ];
-    
+
     // Business rule constraints
     private const MIN_PRICE = 100;
     private const MAX_PRICE = 1000000000;
@@ -121,10 +119,10 @@ class ProductValidator
     private const MAX_DESCRIPTION_LENGTH = 2000;
     private const MAX_SLUG_LENGTH = 100;
     private const MAX_IMAGE_URL_LENGTH = 500;
-    
+
     // Cache for validation results
     private array $validationCache = [];
-    
+
     public function __construct(
         Validation $validation,
         ProductModel $productModel,
@@ -138,26 +136,26 @@ class ProductValidator
         $this->linkModel = $linkModel;
         $this->cacheService = $cacheService;
     }
-    
+
     /**
      * Validate product creation data
      */
     public function validateCreate(array $data, array $options = []): array
     {
         $errors = [];
-        
+
         // 1. Basic field validation
         $rules = $this->getRulesForContext(self::CONTEXT_CREATE);
         $validationResult = $this->runValidation($data, $rules);
-        
+
         if (!$validationResult['is_valid']) {
             $errors = array_merge($errors, $validationResult['errors']);
         }
-        
+
         // 2. Business rule validation
         $businessErrors = $this->validateBusinessRules($data, self::CONTEXT_CREATE, $options);
         $errors = array_merge($errors, $businessErrors);
-        
+
         // 3. Return structured result
         return [
             'is_valid' => empty($errors),
@@ -167,14 +165,14 @@ class ProductValidator
             'timestamp' => (new DateTimeImmutable())->format('c')
         ];
     }
-    
+
     /**
      * Validate product update data
      */
     public function validateUpdate(int $productId, array $data, array $options = []): array
     {
         $errors = [];
-        
+
         // 1. Check if product exists
         $product = $this->productModel->find($productId);
         if (!$product) {
@@ -184,42 +182,42 @@ class ProductValidator
                 'message' => 'Product not found',
                 'value' => $productId
             ];
-            
+
             return $this->buildValidationResult(false, $errors, self::CONTEXT_UPDATE);
         }
-        
+
         // 2. Basic field validation (only validate fields that are present)
         $rules = $this->getRulesForContext(self::CONTEXT_UPDATE, $data);
         $validationResult = $this->runValidation($data, $rules);
-        
+
         if (!$validationResult['is_valid']) {
             $errors = array_merge($errors, $validationResult['errors']);
         }
-        
+
         // 3. Business rule validation
         $businessErrors = $this->validateBusinessRules(
-            array_merge($data, ['product_id' => $productId]), 
-            self::CONTEXT_UPDATE, 
+            array_merge($data, ['product_id' => $productId]),
+            self::CONTEXT_UPDATE,
             $options
         );
         $errors = array_merge($errors, $businessErrors);
-        
+
         // 4. Check if product can be updated in its current state
         if (!$this->canProductBeUpdated($product, $data)) {
             $errors[] = [
                 'field' => 'status',
                 'rule' => 'updatable',
                 'message' => sprintf(
-                    'Product cannot be updated in %s state', 
+                    'Product cannot be updated in %s state',
                     $product->getStatus()->value
                 ),
                 'value' => $product->getStatus()->value
             ];
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, self::CONTEXT_UPDATE);
     }
-    
+
     /**
      * Validate product publish data
      */
@@ -227,20 +225,20 @@ class ProductValidator
     {
         $errors = [];
         $productId = $product->getId();
-        
+
         // 1. Check if product can be published from current state
         if (!$product->getStatus()->canBePublished()) {
             $errors[] = [
                 'field' => 'status',
                 'rule' => 'publishable',
                 'message' => sprintf(
-                    'Product cannot be published from %s state', 
+                    'Product cannot be published from %s state',
                     $product->getStatus()->value
                 ),
                 'value' => $product->getStatus()->value
             ];
         }
-        
+
         // 2. If not force publish, validate all prerequisites
         if (!$request->isForcePublish()) {
             // Required fields validation
@@ -250,7 +248,7 @@ class ProductValidator
                 'market_price' => $product->getMarketPrice(),
                 'category_id' => $product->getCategoryId(),
             ];
-            
+
             foreach ($requiredFields as $field => $value) {
                 if (empty($value)) {
                     $errors[] = [
@@ -261,7 +259,7 @@ class ProductValidator
                     ];
                 }
             }
-            
+
             // Validate category exists and is active
             if ($product->getCategoryId()) {
                 $category = $this->categoryModel->find($product->getCategoryId());
@@ -281,7 +279,7 @@ class ProductValidator
                     ];
                 }
             }
-            
+
             // Validate image requirements
             if (!$product->getImage()) {
                 $errors[] = [
@@ -291,7 +289,7 @@ class ProductValidator
                     'value' => null
                 ];
             }
-            
+
             // Validate at least one active link
             $activeLinks = $this->linkModel->findActiveByProduct($productId);
             if (empty($activeLinks)) {
@@ -302,7 +300,7 @@ class ProductValidator
                     'value' => 0
                 ];
             }
-            
+
             // Validate price is within reasonable range
             $price = (float) $product->getMarketPrice();
             if ($price < self::MIN_PRICE || $price > self::MAX_PRICE) {
@@ -310,7 +308,7 @@ class ProductValidator
                     'field' => 'market_price',
                     'rule' => 'price_range',
                     'message' => sprintf(
-                        'Price must be between %s and %s', 
+                        'Price must be between %s and %s',
                         number_format(self::MIN_PRICE, 0),
                         number_format(self::MAX_PRICE, 0)
                     ),
@@ -321,7 +319,7 @@ class ProductValidator
                     ]
                 ];
             }
-            
+
             // Validate slug uniqueness
             if (!$this->isSlugUnique($product->getSlug(), $productId)) {
                 $errors[] = [
@@ -332,22 +330,22 @@ class ProductValidator
                 ];
             }
         }
-        
+
         // 3. Validate admin permissions (would be done by another service)
-        
+
         return $this->buildValidationResult(empty($errors), $errors, self::CONTEXT_PUBLISH);
     }
-    
+
     /**
      * Validate product deletion
      */
     public function validateDelete(int $productId, bool $force = false, array $options = []): array
     {
         $errors = [];
-        
+
         // 1. Check if product exists
         $product = $this->productModel->find($productId, true); // Include trashed
-        
+
         if (!$product) {
             $errors[] = [
                 'field' => 'product_id',
@@ -355,10 +353,10 @@ class ProductValidator
                 'message' => 'Product not found',
                 'value' => $productId
             ];
-            
+
             return $this->buildValidationResult(false, $errors, self::CONTEXT_DELETE);
         }
-        
+
         // 2. Check if already deleted
         if ($product->isDeleted() && !$force) {
             $errors[] = [
@@ -368,7 +366,7 @@ class ProductValidator
                 'value' => $product->getDeletedAt()?->format('Y-m-d H:i:s')
             ];
         }
-        
+
         // 3. Check if published product can be deleted
         if ($product->isPublished() && !$force) {
             $errors[] = [
@@ -378,7 +376,7 @@ class ProductValidator
                 'value' => $product->getStatus()->value
             ];
         }
-        
+
         // 4. Check if product has active dependencies
         if (!$force) {
             $activeLinks = $this->linkModel->findActiveByProduct($productId);
@@ -391,19 +389,19 @@ class ProductValidator
                 ];
             }
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, self::CONTEXT_DELETE);
     }
-    
+
     /**
      * Validate product archive operation
      */
     public function validateArchive(int $productId): array
     {
         $errors = [];
-        
+
         $product = $this->productModel->find($productId);
-        
+
         if (!$product) {
             $errors[] = [
                 'field' => 'product_id',
@@ -411,10 +409,10 @@ class ProductValidator
                 'message' => 'Product not found',
                 'value' => $productId
             ];
-            
+
             return $this->buildValidationResult(false, $errors, self::CONTEXT_ARCHIVE);
         }
-        
+
         // Check if already archived
         if ($product->isArchived()) {
             $errors[] = [
@@ -424,32 +422,32 @@ class ProductValidator
                 'value' => $product->getStatus()->value
             ];
         }
-        
+
         // Check if can be archived from current state
         if (!$product->getStatus()->canTransitionTo(ProductStatus::ARCHIVED)) {
             $errors[] = [
                 'field' => 'status',
                 'rule' => 'can_archive',
                 'message' => sprintf(
-                    'Cannot archive product from %s state', 
+                    'Cannot archive product from %s state',
                     $product->getStatus()->value
                 ),
                 'value' => $product->getStatus()->value
             ];
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, self::CONTEXT_ARCHIVE);
     }
-    
+
     /**
      * Validate product restore operation
      */
     public function validateRestore(int $productId): array
     {
         $errors = [];
-        
+
         $product = $this->productModel->find($productId, true); // Include trashed
-        
+
         if (!$product) {
             $errors[] = [
                 'field' => 'product_id',
@@ -457,10 +455,10 @@ class ProductValidator
                 'message' => 'Product not found',
                 'value' => $productId
             ];
-            
+
             return $this->buildValidationResult(false, $errors, self::CONTEXT_RESTORE);
         }
-        
+
         // Check if product is deleted or archived
         if (!$product->isDeleted() && !$product->isArchived()) {
             $errors[] = [
@@ -470,19 +468,19 @@ class ProductValidator
                 'value' => $product->getStatus()->value
             ];
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, self::CONTEXT_RESTORE);
     }
-    
+
     /**
      * Validate product verification
      */
     public function validateVerify(int $productId): array
     {
         $errors = [];
-        
+
         $product = $this->productModel->find($productId);
-        
+
         if (!$product) {
             $errors[] = [
                 'field' => 'product_id',
@@ -490,23 +488,23 @@ class ProductValidator
                 'message' => 'Product not found',
                 'value' => $productId
             ];
-            
+
             return $this->buildValidationResult(false, $errors, self::CONTEXT_VERIFY);
         }
-        
+
         // Check if product can be verified
         if (!$product->getStatus()->canBePublished()) {
             $errors[] = [
                 'field' => 'status',
                 'rule' => 'can_verify',
                 'message' => sprintf(
-                    'Product cannot be verified from %s state', 
+                    'Product cannot be verified from %s state',
                     $product->getStatus()->value
                 ),
                 'value' => $product->getStatus()->value
             ];
         }
-        
+
         // Validate all prerequisites for verification
         $requiredFields = [
             'name' => $product->getName(),
@@ -515,7 +513,7 @@ class ProductValidator
             'category_id' => $product->getCategoryId(),
             'image' => $product->getImage(),
         ];
-        
+
         foreach ($requiredFields as $field => $value) {
             if (empty($value)) {
                 $errors[] = [
@@ -526,17 +524,17 @@ class ProductValidator
                 ];
             }
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, self::CONTEXT_VERIFY);
     }
-    
+
     /**
      * Validate bulk product operations
      */
     public function validateBulk(array $productIds, string $operation, array $options = []): array
     {
         $errors = [];
-        
+
         // 1. Validate batch size
         $maxBatchSize = $options['max_batch_size'] ?? 100;
         if (count($productIds) > $maxBatchSize) {
@@ -547,10 +545,10 @@ class ProductValidator
                 'value' => count($productIds),
                 'params' => ['max' => $maxBatchSize]
             ];
-            
+
             return $this->buildValidationResult(false, $errors, self::CONTEXT_BULK);
         }
-        
+
         // 2. Check for duplicate IDs
         $uniqueIds = array_unique($productIds);
         if (count($uniqueIds) !== count($productIds)) {
@@ -565,32 +563,41 @@ class ProductValidator
                 ]
             ];
         }
-        
+
         // 3. Validate each product based on operation
         $individualErrors = [];
-        
+
         foreach ($productIds as $index => $productId) {
             $productErrors = [];
-            
+
             switch ($operation) {
                 case 'publish':
                     $product = $this->productModel->find($productId);
                     if ($product) {
-                        $request = new PublishProductRequest();
+                        // Gunakan factory method dengan parameter minimal yang diperlukan
+                        $adminId = $options['admin_id'] ?? 0; // Default atau ambil dari context
+                        $forcePublish = $options['force'] ?? false;
+
+                        if ($forcePublish) {
+                            $request = PublishProductRequest::forForcePublish($productId, $adminId);
+                        } else {
+                            $request = PublishProductRequest::forImmediatePublish($productId, $adminId);
+                        }
+
                         $publishResult = $this->validatePublish($request, $product);
                         if (!$publishResult['is_valid']) {
                             $productErrors = $publishResult['errors'];
                         }
                     }
                     break;
-                    
+
                 case 'archive':
                     $archiveResult = $this->validateArchive($productId);
                     if (!$archiveResult['is_valid']) {
                         $productErrors = $archiveResult['errors'];
                     }
                     break;
-                    
+
                 case 'delete':
                     $force = $options['force'] ?? false;
                     $deleteResult = $this->validateDelete($productId, $force, $options);
@@ -598,7 +605,7 @@ class ProductValidator
                         $productErrors = $deleteResult['errors'];
                     }
                     break;
-                    
+
                 default:
                     $productErrors[] = [
                         'field' => 'operation',
@@ -607,7 +614,7 @@ class ProductValidator
                         'value' => $operation
                     ];
             }
-            
+
             if (!empty($productErrors)) {
                 $individualErrors[] = [
                     'product_id' => $productId,
@@ -616,7 +623,7 @@ class ProductValidator
                 ];
             }
         }
-        
+
         if (!empty($individualErrors)) {
             $errors[] = [
                 'field' => 'product_ids',
@@ -626,10 +633,10 @@ class ProductValidator
                 'params' => ['failed_products' => $individualErrors]
             ];
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, self::CONTEXT_BULK);
     }
-    
+
     /**
      * Validate product price
      */
@@ -637,7 +644,7 @@ class ProductValidator
     {
         $errors = [];
         $priceFloat = (float) $price;
-        
+
         // 1. Basic price validation
         if (!is_numeric($price) || $priceFloat < 0) {
             $errors[] = [
@@ -647,7 +654,7 @@ class ProductValidator
                 'value' => $price
             ];
         }
-        
+
         // 2. Decimal places
         if (strpos($price, '.') !== false) {
             $decimalPart = explode('.', $price)[1];
@@ -660,17 +667,17 @@ class ProductValidator
                 ];
             }
         }
-        
+
         // 3. Price range
         $minPrice = $options['min_price'] ?? self::MIN_PRICE;
         $maxPrice = $options['max_price'] ?? self::MAX_PRICE;
-        
+
         if ($priceFloat < $minPrice || $priceFloat > $maxPrice) {
             $errors[] = [
                 'field' => 'price',
                 'rule' => 'price_range',
                 'message' => sprintf(
-                    'Price must be between %s and %s', 
+                    'Price must be between %s and %s',
                     number_format($minPrice, 0),
                     number_format($maxPrice, 0)
                 ),
@@ -681,20 +688,20 @@ class ProductValidator
                 ]
             ];
         }
-        
+
         // 4. Price change validation (if old price provided)
         if (isset($options['old_price'])) {
             $oldPrice = (float) $options['old_price'];
             if ($oldPrice > 0) {
                 $changePercent = abs(($priceFloat - $oldPrice) / $oldPrice) * 100;
                 $maxChange = $options['max_change_percent'] ?? 100;
-                
+
                 if ($changePercent > $maxChange) {
                     $errors[] = [
                         'field' => 'price',
                         'rule' => 'price_change',
                         'message' => sprintf(
-                            'Price change exceeds maximum allowed percentage (%s%%)', 
+                            'Price change exceeds maximum allowed percentage (%s%%)',
                             $maxChange
                         ),
                         'value' => $priceFloat,
@@ -707,50 +714,55 @@ class ProductValidator
                 }
             }
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, 'price_validation');
     }
-    
+
     /**
      * Validate product image
      */
     public function validateImage(array $imageData, ImageSourceType $sourceType): array
     {
         $errors = [];
-        
+
         // Validate based on source type
         switch ($sourceType) {
             case ImageSourceType::UPLOAD:
                 $errors = array_merge($errors, $this->validateUploadedImage($imageData));
                 break;
-                
+
             case ImageSourceType::URL:
                 $errors = array_merge($errors, $this->validateImageUrl($imageData['url'] ?? ''));
                 break;
-                
-            case ImageSourceType::EXTERNAL_SERVICE:
-                $errors = array_merge($errors, $this->validateExternalImage($imageData));
-                break;
-                
+
+                // Hapus atau komentari case EXTERNAL_SERVICE jika tidak ada
+                // case ImageSourceType::EXTERNAL_SERVICE:
+                //     $errors = array_merge($errors, $this->validateExternalImage($imageData));
+                //     break;
+
             default:
                 $errors[] = [
                     'field' => 'image_source_type',
                     'rule' => 'valid_source_type',
-                    'message' => 'Invalid image source type',
-                    'value' => $sourceType->value
+                    'message' => sprintf(
+                        'Invalid image source type: %s. Valid types are: %s',
+                        $sourceType->value,
+                        ImageSourceType::valuesAsString()
+                    ),
+                     'value' => $sourceType->value
                 ];
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, 'image_validation');
     }
-    
+
     /**
      * Validate product name
      */
     public function validateName(string $name, ?int $excludeProductId = null): array
     {
         $errors = [];
-        
+
         // 1. Basic validation
         if (empty(trim($name))) {
             $errors[] = [
@@ -760,7 +772,7 @@ class ProductValidator
                 'value' => $name
             ];
         }
-        
+
         // 2. Length validation
         if (strlen($name) > self::MAX_NAME_LENGTH) {
             $errors[] = [
@@ -771,7 +783,7 @@ class ProductValidator
                 'params' => ['max' => self::MAX_NAME_LENGTH]
             ];
         }
-        
+
         if (strlen($name) < 3) {
             $errors[] = [
                 'field' => 'name',
@@ -781,7 +793,7 @@ class ProductValidator
                 'params' => ['min' => 3]
             ];
         }
-        
+
         // 3. Check for duplicate names (case-insensitive)
         if (!$this->isProductNameUnique($name, $excludeProductId)) {
             $errors[] = [
@@ -791,35 +803,35 @@ class ProductValidator
                 'value' => $name
             ];
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, 'name_validation');
     }
-    
+
     /**
      * Validate product description
      */
     public function validateDescription(?string $description): array
     {
         $errors = [];
-        
+
         if ($description === null) {
             return $this->buildValidationResult(true, $errors, 'description_validation');
         }
-        
+
         // Length validation
         if (strlen($description) > self::MAX_DESCRIPTION_LENGTH) {
             $errors[] = [
                 'field' => 'description',
                 'rule' => 'max_length',
                 'message' => sprintf(
-                    'Description cannot exceed %s characters', 
+                    'Description cannot exceed %s characters',
                     self::MAX_DESCRIPTION_LENGTH
                 ),
                 'value' => $description,
                 'params' => ['max' => self::MAX_DESCRIPTION_LENGTH]
             ];
         }
-        
+
         // HTML validation (basic)
         if ($this->containsDangerousHtml($description)) {
             $errors[] = [
@@ -829,17 +841,17 @@ class ProductValidator
                 'value' => $description
             ];
         }
-        
+
         return $this->buildValidationResult(empty($errors), $errors, 'description_validation');
     }
-    
+
     /**
      * Get validation rules for a specific context
      */
     public function getRulesForContext(string $context, array $data = []): array
     {
         $rules = [];
-        
+
         switch ($context) {
             case self::CONTEXT_CREATE:
                 $rules = array_merge(
@@ -848,7 +860,7 @@ class ProductValidator
                     $this->statusRules
                 );
                 break;
-                
+
             case self::CONTEXT_UPDATE:
                 // Only include rules for fields that are present in data
                 $allRules = array_merge(
@@ -856,14 +868,14 @@ class ProductValidator
                     $this->imageRules,
                     $this->statusRules
                 );
-                
+
                 foreach ($allRules as $field => $ruleConfig) {
                     if (array_key_exists($field, $data)) {
                         $rules[$field] = $ruleConfig;
                     }
                 }
                 break;
-                
+
             case self::CONTEXT_PUBLISH:
                 $rules = [
                     'product_id' => [
@@ -878,10 +890,10 @@ class ProductValidator
                 ];
                 break;
         }
-        
+
         return $rules;
     }
-    
+
     /**
      * Run validation with CodeIgniter's validation library
      */
@@ -894,9 +906,9 @@ class ProductValidator
                 'validated_data' => $data
             ];
         }
-        
+
         $this->validation->setRules($rules);
-        
+
         if ($this->validation->run($data)) {
             return [
                 'is_valid' => true,
@@ -904,7 +916,7 @@ class ProductValidator
                 'validated_data' => $this->validation->getValidated()
             ];
         }
-        
+
         $errors = [];
         foreach ($this->validation->getErrors() as $field => $message) {
             $errors[] = [
@@ -914,28 +926,28 @@ class ProductValidator
                 'value' => $data[$field] ?? null
             ];
         }
-        
+
         return [
             'is_valid' => false,
             'errors' => $errors,
             'validated_data' => []
         ];
     }
-    
+
     /**
      * Validate business rules
      */
     private function validateBusinessRules(array $data, string $context, array $options): array
     {
         $errors = [];
-        
+
         // 1. Slug uniqueness (for create and update with slug change)
-        if (($context === self::CONTEXT_CREATE || 
-            ($context === self::CONTEXT_UPDATE && isset($data['slug']))) && 
+        if (($context === self::CONTEXT_CREATE ||
+            ($context === self::CONTEXT_UPDATE && isset($data['slug']))) &&
             isset($data['slug'])) {
-            
+
             $excludeId = $context === self::CONTEXT_UPDATE ? ($data['product_id'] ?? null) : null;
-            
+
             if (!$this->isSlugUnique($data['slug'], $excludeId)) {
                 $errors[] = [
                     'field' => 'slug',
@@ -945,7 +957,7 @@ class ProductValidator
                 ];
             }
         }
-        
+
         // 2. Category validation
         if (isset($data['category_id'])) {
             $category = $this->categoryModel->find($data['category_id']);
@@ -965,7 +977,7 @@ class ProductValidator
                 ];
             }
         }
-        
+
         // 3. Price range validation
         if (isset($data['market_price'])) {
             $price = (float) $data['market_price'];
@@ -974,7 +986,7 @@ class ProductValidator
                     'field' => 'market_price',
                     'rule' => 'price_range',
                     'message' => sprintf(
-                        'Price must be between %s and %s', 
+                        'Price must be between %s and %s',
                         number_format(self::MIN_PRICE, 0),
                         number_format(self::MAX_PRICE, 0)
                     ),
@@ -986,7 +998,7 @@ class ProductValidator
                 ];
             }
         }
-        
+
         // 4. Status transition validation
         if (isset($data['status']) && $context === self::CONTEXT_UPDATE && isset($data['product_id'])) {
             $product = $this->productModel->find($data['product_id']);
@@ -998,7 +1010,7 @@ class ProductValidator
                             'field' => 'status',
                             'rule' => 'valid_transition',
                             'message' => sprintf(
-                                'Cannot transition from %s to %s', 
+                                'Cannot transition from %s to %s',
                                 $product->getStatus()->value,
                                 $newStatus->value
                             ),
@@ -1019,7 +1031,7 @@ class ProductValidator
                 }
             }
         }
-        
+
         // 5. Daily limit check (optional)
         if ($context === self::CONTEXT_CREATE && ($options['check_daily_limit'] ?? false)) {
             $adminId = $options['admin_id'] ?? null;
@@ -1032,10 +1044,10 @@ class ProductValidator
                 ];
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Check if product can be updated
      */
@@ -1044,12 +1056,12 @@ class ProductValidator
         // Published products have restricted fields that can be updated
         if ($product->isPublished()) {
             $restrictedFields = ['slug', 'category_id', 'market_price'];
-            
+
             foreach ($restrictedFields as $field) {
                 if (isset($updateData[$field])) {
                     $getter = 'get' . str_replace('_', '', ucwords($field, '_'));
                     $oldValue = $product->$getter();
-                    
+
                     // Allow updates if value is the same (no actual change)
                     if ($updateData[$field] != $oldValue) {
                         return false;
@@ -1057,22 +1069,22 @@ class ProductValidator
                 }
             }
         }
-        
+
         return true;
     }
-    
+
     /**
      * Check if slug is unique
      */
     private function isSlugUnique(string $slug, ?int $excludeId = null): bool
     {
         $cacheKey = 'slug_unique_' . md5($slug . '_' . ($excludeId ?? ''));
-        
-        return $this->cacheService->remember($cacheKey, function() use ($slug, $excludeId) {
+
+        return $this->cacheService->remember($cacheKey, function () use ($slug, $excludeId) {
             return $this->productModel->isSlugUnique($slug, $excludeId);
         }, 300); // 5 minute cache
     }
-    
+
     /**
      * Check if product name is unique
      */
@@ -1080,24 +1092,24 @@ class ProductValidator
     {
         // Normalize name for comparison
         $normalizedName = strtolower(trim($name));
-        
+
         $cacheKey = 'product_name_unique_' . md5($normalizedName . '_' . ($excludeId ?? ''));
-        
-        return $this->cacheService->remember($cacheKey, function() use ($normalizedName, $excludeId) {
+
+        return $this->cacheService->remember($cacheKey, function () use ($normalizedName, $excludeId) {
             // Query database for case-insensitive name match
             $builder = $this->productModel->builder();
             $builder->where('LOWER(name)', $normalizedName);
-            
+
             if ($excludeId) {
                 $builder->where('id !=', $excludeId);
             }
-            
+
             $builder->where('deleted_at IS NULL');
-            
+
             return $builder->countAllResults() === 0;
         }, 300); // 5 minute cache
     }
-    
+
     /**
      * Check daily product limit for admin
      */
@@ -1105,28 +1117,28 @@ class ProductValidator
     {
         $today = date('Y-m-d');
         $cacheKey = 'daily_product_limit_' . $adminId . '_' . $today;
-        
-        $count = $this->cacheService->remember($cacheKey, function() use ($adminId, $today) {
+
+        $count = $this->cacheService->remember($cacheKey, function () use ($adminId, $today) {
             // Query database for today's product count by this admin
             $builder = $this->productModel->builder();
             $builder->where('created_by', $adminId);
             $builder->where('DATE(created_at)', $today);
-            
+
             return $builder->countAllResults();
         }, 3600); // 1 hour cache
-        
+
         $maxDaily = config('ProductValidation')->maxDailyProducts ?? 100;
-        
+
         return $count < $maxDaily;
     }
-    
+
     /**
      * Validate uploaded image
      */
     private function validateUploadedImage(array $imageData): array
     {
         $errors = [];
-        
+
         if (empty($imageData['tmp_name'] ?? '')) {
             $errors[] = [
                 'field' => 'image',
@@ -1136,7 +1148,7 @@ class ProductValidator
             ];
             return $errors;
         }
-        
+
         // File size validation
         $maxSize = config('ImageUpload')->maxSize ?? 5 * 1024 * 1024; // 5MB default
         if (($imageData['size'] ?? 0) > $maxSize) {
@@ -1148,7 +1160,7 @@ class ProductValidator
                 'params' => ['max_size' => $maxSize]
             ];
         }
-        
+
         // File type validation
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         if (!in_array($imageData['type'] ?? '', $allowedTypes)) {
@@ -1160,17 +1172,17 @@ class ProductValidator
                 'params' => ['allowed_types' => $allowedTypes]
             ];
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate image URL
      */
     private function validateImageUrl(string $url): array
     {
         $errors = [];
-        
+
         if (empty($url)) {
             $errors[] = [
                 'field' => 'image',
@@ -1180,7 +1192,7 @@ class ProductValidator
             ];
             return $errors;
         }
-        
+
         // URL format validation
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             $errors[] = [
@@ -1190,21 +1202,21 @@ class ProductValidator
                 'value' => $url
             ];
         }
-        
+
         // URL length validation
         if (strlen($url) > self::MAX_IMAGE_URL_LENGTH) {
             $errors[] = [
                 'field' => 'image',
                 'rule' => 'max_length',
                 'message' => sprintf(
-                    'Image URL cannot exceed %s characters', 
+                    'Image URL cannot exceed %s characters',
                     self::MAX_IMAGE_URL_LENGTH
                 ),
                 'value' => $url,
                 'params' => ['max' => self::MAX_IMAGE_URL_LENGTH]
             ];
         }
-        
+
         // Check if URL points to an image (by extension)
         $imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
         $hasImageExtension = false;
@@ -1214,7 +1226,7 @@ class ProductValidator
                 break;
             }
         }
-        
+
         if (!$hasImageExtension) {
             $errors[] = [
                 'field' => 'image',
@@ -1223,17 +1235,17 @@ class ProductValidator
                 'value' => $url
             ];
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate external image service data
      */
     private function validateExternalImage(array $data): array
     {
         $errors = [];
-        
+
         if (empty($data['service_id'] ?? '')) {
             $errors[] = [
                 'field' => 'service_id',
@@ -1242,7 +1254,7 @@ class ProductValidator
                 'value' => null
             ];
         }
-        
+
         if (empty($data['service_type'] ?? '')) {
             $errors[] = [
                 'field' => 'service_type',
@@ -1251,10 +1263,10 @@ class ProductValidator
                 'value' => null
             ];
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Check if text contains dangerous HTML
      */
@@ -1268,16 +1280,16 @@ class ProductValidator
             '/onclick\s*=/i',
             '/javascript:/i'
         ];
-        
+
         foreach ($dangerousPatterns as $pattern) {
             if (preg_match($pattern, $text)) {
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Get field label from field name
      */
@@ -1292,10 +1304,10 @@ class ProductValidator
             'image' => 'Product image',
             'status' => 'Product status'
         ];
-        
+
         return $labels[$field] ?? ucfirst(str_replace('_', ' ', $field));
     }
-    
+
     /**
      * Extract rule name from error message
      */
@@ -1314,16 +1326,16 @@ class ProductValidator
             'greater_than' => 'greater_than',
             'in_list' => 'in_list'
         ];
-        
+
         foreach ($ruleMap as $rule => $pattern) {
             if (stripos($message, $rule) !== false) {
                 return $rule;
             }
         }
-        
+
         return 'unknown';
     }
-    
+
     /**
      * Build standardized validation result
      */
@@ -1338,7 +1350,7 @@ class ProductValidator
             'summary' => $isValid ? 'Validation passed' : 'Validation failed'
         ];
     }
-    
+
     /**
      * Create ProductValidator instance with default dependencies
      */
@@ -1349,7 +1361,7 @@ class ProductValidator
         $categoryModel = model(CategoryModel::class);
         $linkModel = model(LinkModel::class);
         $cacheService = new CacheService(service('cache'));
-        
+
         return new self(
             $validation,
             $productModel,

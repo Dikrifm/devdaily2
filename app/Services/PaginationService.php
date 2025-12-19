@@ -20,7 +20,7 @@ class PaginationService
 
     /**
      * Constructor.
-     * 
+     *
      * @param PagerConfig $config
      */
     public function __construct(?PagerConfig $config = null)
@@ -30,7 +30,7 @@ class PaginationService
 
     /**
      * Create pagination metadata from PaginationQuery and total items.
-     * 
+     *
      * @param PaginationQuery $query
      * @param int $totalItems
      * @return array
@@ -40,7 +40,7 @@ class PaginationService
         $page = $query->getPage();
         $perPage = $query->getPerPage();
         $totalPages = $this->calculateTotalPages($totalItems, $perPage);
-        
+
         // Clamp page number to valid range
         if ($page > $totalPages && $totalPages > 0) {
             $page = $totalPages;
@@ -62,7 +62,7 @@ class PaginationService
 
     /**
      * Generate pagination links for API responses.
-     * 
+     *
      * @param string $baseUrl
      * @param PaginationQuery $query
      * @param int $totalItems
@@ -112,7 +112,7 @@ class PaginationService
 
     /**
      * Create CodeIgniter Pager instance for view rendering.
-     * 
+     *
      * @param string $group
      * @param int $totalItems
      * @param int $perPage
@@ -126,7 +126,7 @@ class PaginationService
         ?int $currentPage = null
     ): Pager {
         $pager = service('pager');
-        
+
         return $pager->makeLinks(
             $currentPage ?? 1,
             $perPage,
@@ -138,7 +138,7 @@ class PaginationService
 
     /**
      * Validate and normalize pagination parameters from request.
-     * 
+     *
      * @param array $requestData
      * @param array $config
      * @return PaginationQuery
@@ -150,7 +150,7 @@ class PaginationService
 
     /**
      * Get default pagination configuration.
-     * 
+     *
      * @return PaginationQuery
      */
     public function getDefault(): PaginationQuery
@@ -160,7 +160,7 @@ class PaginationService
 
     /**
      * Calculate total pages.
-     * 
+     *
      * @param int $totalItems
      * @param int $perPage
      * @return int
@@ -176,7 +176,7 @@ class PaginationService
 
     /**
      * Calculate "from" number (showing X-Y of Z).
-     * 
+     *
      * @param int $page
      * @param int $perPage
      * @param int $totalItems
@@ -193,7 +193,7 @@ class PaginationService
 
     /**
      * Calculate "to" number (showing X-Y of Z).
-     * 
+     *
      * @param int $page
      * @param int $perPage
      * @param int $totalItems
@@ -211,7 +211,7 @@ class PaginationService
 
     /**
      * Build URL with pagination parameters.
-     * 
+     *
      * @param string $baseUrl
      * @param int $page
      * @param int $perPage
@@ -239,13 +239,13 @@ class PaginationService
 
         // Handle base URL with existing query string
         $separator = strpos($baseUrl, '?') === false ? '?' : '&';
-        
+
         return $queryString ? $baseUrl . $separator . $queryString : $baseUrl;
     }
 
     /**
      * Generate cache key for paginated results.
-     * 
+     *
      * @param string $baseKey
      * @param PaginationQuery $query
      * @return string
@@ -257,7 +257,7 @@ class PaginationService
 
     /**
      * Generate cache pattern for paginated results (for clearing).
-     * 
+     *
      * @param string $baseKey
      * @param PaginationQuery $query
      * @return string
@@ -269,7 +269,7 @@ class PaginationService
 
     /**
      * Check if current page is within valid range.
-     * 
+     *
      * @param int $page
      * @param int $perPage
      * @param int $totalItems
@@ -287,7 +287,7 @@ class PaginationService
 
     /**
      * Get recommended per_page values for UI dropdown.
-     * 
+     *
      * @return array
      */
     public function getPerPageOptions(): array
@@ -302,7 +302,7 @@ class PaginationService
 
     /**
      * Get pagination summary for logging/monitoring.
-     * 
+     *
      * @param PaginationQuery $query
      * @param int $totalItems
      * @return array

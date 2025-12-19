@@ -6,31 +6,27 @@ use DateTimeImmutable;
 
 /**
  * Badge Entity
- * 
+ *
  * Represents a product badge/tag for visual categorization and highlighting.
  * Examples: "Best Seller", "New Arrival", "Limited Edition", etc.
- * 
+ *
  * @package App\Entities
  */
 class Badge extends BaseEntity
 {
     /**
      * Badge label/name
-     * 
-     * @var string
      */
     private string $label;
 
     /**
      * Badge color in hex format
-     * 
-     * @var string|null
      */
     private ?string $color = null;
 
     /**
      * Badge constructor
-     * 
+     *
      * @param string $label Badge display label
      */
     public function __construct(string $label)
@@ -58,7 +54,7 @@ class Badge extends BaseEntity
         if ($this->label === $label) {
             return $this;
         }
-        
+
         $this->trackChange('label', $this->label, $label);
         $this->label = $label;
         $this->markAsUpdated();
@@ -70,12 +66,12 @@ class Badge extends BaseEntity
         if ($color !== null && !preg_match('/^#[0-9A-F]{6}$/i', $color)) {
             throw new \InvalidArgumentException('Color must be a valid hex code (e.g., #ef4444) or null');
         }
-        
+
         $normalizedColor = $color !== null ? strtoupper($color) : null;
         if ($this->color === $normalizedColor) {
             return $this;
         }
-        
+
         $this->trackChange('color', $this->color, $normalizedColor);
         $this->color = $normalizedColor;
         $this->markAsUpdated();
@@ -83,11 +79,8 @@ class Badge extends BaseEntity
     }
 
     // ==================== BUSINESS LOGIC METHODS ====================
-
     /**
      * Check if badge has a custom color
-     * 
-     * @return bool
      */
     public function hasColor(): bool
     {
@@ -97,33 +90,29 @@ class Badge extends BaseEntity
     /**
      * Get CSS color style for badge display
      * Returns inline style if color is set, empty string otherwise
-     * 
-     * @return string
      */
     public function getColorStyle(): string
     {
         if (!$this->hasColor()) {
             return '';
         }
-        
+
         return sprintf('background-color: %s; color: white;', $this->color);
     }
 
     /**
      * Get Tailwind CSS classes for badge display
      * Based on business need for consistent styling
-     * 
-     * @return string
      */
     public function getTailwindClasses(): string
     {
         $baseClasses = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium';
-        
+
         if ($this->hasColor()) {
             // For custom colors, we'll use inline style
             return $baseClasses;
         }
-        
+
         // Default color scheme based on badge type
         $colorMap = [
             'Best Seller' => 'bg-red-100 text-red-800',
@@ -135,14 +124,12 @@ class Badge extends BaseEntity
             'Discount' => 'bg-pink-100 text-pink-800',
             'Premium' => 'bg-amber-100 text-amber-800',
         ];
-        
+
         return $baseClasses . ' ' . ($colorMap[$this->label] ?? 'bg-gray-100 text-gray-800');
     }
 
     /**
      * Get FontAwesome icon for badge type
-     * 
-     * @return string
      */
     public function getIcon(): string
     {
@@ -156,15 +143,13 @@ class Badge extends BaseEntity
             'Discount' => 'fas fa-tag',
             'Premium' => 'fas fa-gem',
         ];
-        
+
         return $iconMap[$this->label] ?? 'fas fa-tag';
     }
 
     /**
      * Check if badge is currently in use by any active product
      * Note: This check should be done at service level
-     * 
-     * @return bool
      */
     public function isInUse(): bool
     {
@@ -176,22 +161,19 @@ class Badge extends BaseEntity
     /**
      * Check if badge can be archived
      * Business rule: badge in use cannot be archived
-     * 
-     * @return bool
      */
     public function canBeArchived(): bool
     {
         if (!parent::canBeArchived()) {
             return false;
         }
-        
+
         return !$this->isInUse();
     }
 
     /**
      * Archive badge (soft delete) with usage check
-     * 
-     * @return self
+     *
      * @throws \LogicException If badge cannot be archived
      */
     public function archive(): self
@@ -199,50 +181,48 @@ class Badge extends BaseEntity
         if (!$this->canBeArchived()) {
             throw new \LogicException('Badge cannot be archived because it is still in use by active products.');
         }
-        
+
         $this->softDelete();
         return $this;
     }
 
     /**
      * Restore badge from archive
-     * 
-     * @return self
      */
     public function restore(): self
     {
         if (!$this->canBeRestored()) {
             throw new \LogicException('Badge cannot be restored.');
         }
-        
-        $this->restoreFromDelete();
+
+        $this->restore();
         return $this;
     }
 
     /**
      * Validate badge state
      * Override parent validation with badge-specific rules
-     * 
+     *
      * @return array{valid: bool, errors: string[]}
      */
     public function validate(): array
     {
         $parentValidation = parent::validate();
         $errors = $parentValidation['errors'];
-        
+
         // Badge-specific validation
-        if (empty($this->label)) {
+        if ($this->label === '' || $this->label === '0') {
             $errors[] = 'Badge label cannot be empty';
         }
-        
+
         if (strlen($this->label) > 100) {
             $errors[] = 'Badge label cannot exceed 100 characters';
         }
-        
+
         if ($this->color !== null && !preg_match('/^#[0-9A-F]{6}$/i', $this->color)) {
             $errors[] = 'Badge color must be a valid hex color code (e.g., #ef4444) or null';
         }
-        
+
         return [
             'valid' => empty($errors),
             'errors' => $errors
@@ -300,9 +280,8 @@ class Badge extends BaseEntity
     /**
      * Create a common badge instance
      * Useful for default badges in the system
-     * 
+     *
      * @param string $type Type of common badge
-     * @return static|null
      */
     public static function createCommon(string $type): ?static
     {
@@ -323,20 +302,20 @@ class Badge extends BaseEntity
 
         $badge = new self($commonBadges[$type]['label']);
         $badge->setColor($commonBadges[$type]['color']);
-        
+
         return $badge;
     }
 
     /**
      * Create all common badges for system initialization
-     * 
+     *
      * @return static[]
      */
     public static function createAllCommon(): array
     {
         $types = [
             'best_seller',
-            'new_arrival', 
+            'new_arrival',
             'limited',
             'exclusive',
             'trending',
@@ -344,7 +323,7 @@ class Badge extends BaseEntity
             'discount',
             'premium',
         ];
-        
+
         $badges = [];
         foreach ($types as $type) {
             $badge = self::createCommon($type);
@@ -352,14 +331,12 @@ class Badge extends BaseEntity
                 $badges[] = $badge;
             }
         }
-        
+
         return $badges;
     }
 
     /**
      * Create a sample badge for testing/demo
-     * 
-     * @return static
      */
     public static function createSample(): static
     {

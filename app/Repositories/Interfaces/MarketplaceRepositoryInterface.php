@@ -3,12 +3,11 @@
 namespace App\Repositories\Interfaces;
 
 use App\Entities\Marketplace;
-use App\Exceptions\MarketplaceNotFoundException;
 
 interface MarketplaceRepositoryInterface
 {
     // ==================== BASIC CRUD OPERATIONS ====================
-    
+
     /**
      * Find marketplace by ID
      *
@@ -17,7 +16,7 @@ interface MarketplaceRepositoryInterface
      * @return Marketplace|null
      */
     public function find(int $id, bool $withTrashed = false): ?Marketplace;
-    
+
     /**
      * Find marketplace by slug
      *
@@ -26,7 +25,7 @@ interface MarketplaceRepositoryInterface
      * @return Marketplace|null
      */
     public function findBySlug(string $slug, bool $withTrashed = false): ?Marketplace;
-    
+
     /**
      * Find marketplace by name (case-insensitive)
      *
@@ -35,7 +34,7 @@ interface MarketplaceRepositoryInterface
      * @return Marketplace|null
      */
     public function findByName(string $name, bool $withTrashed = false): ?Marketplace;
-    
+
     /**
      * Find marketplace by ID or slug
      *
@@ -44,7 +43,7 @@ interface MarketplaceRepositoryInterface
      * @return Marketplace|null
      */
     public function findByIdOrSlug($identifier, bool $withTrashed = false): ?Marketplace;
-    
+
     /**
      * Get all marketplaces with filtering
      *
@@ -63,7 +62,7 @@ interface MarketplaceRepositoryInterface
         string $sortDirection = 'ASC',
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Save marketplace (create or update)
      *
@@ -72,7 +71,7 @@ interface MarketplaceRepositoryInterface
      * @throws \RuntimeException
      */
     public function save(Marketplace $marketplace): Marketplace;
-    
+
     /**
      * Delete marketplace
      *
@@ -81,7 +80,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function delete(int $id, bool $force = false): bool;
-    
+
     /**
      * Restore soft deleted marketplace
      *
@@ -89,7 +88,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function restore(int $id): bool;
-    
+
     /**
      * Check if marketplace exists
      *
@@ -98,9 +97,9 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function exists(int $id, bool $withTrashed = false): bool;
-    
+
     // ==================== STATUS & ACTIVATION MANAGEMENT ====================
-    
+
     /**
      * Activate marketplace
      *
@@ -108,7 +107,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function activate(int $marketplaceId): bool;
-    
+
     /**
      * Deactivate marketplace
      *
@@ -117,7 +116,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function deactivate(int $marketplaceId, ?string $reason = null): bool;
-    
+
     /**
      * Archive marketplace (special deactivation)
      *
@@ -126,7 +125,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function archive(int $marketplaceId, ?string $notes = null): bool;
-    
+
     /**
      * Check if marketplace is active
      *
@@ -134,7 +133,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function isActive(int $marketplaceId): bool;
-    
+
     /**
      * Bulk update marketplace status
      *
@@ -144,9 +143,9 @@ interface MarketplaceRepositoryInterface
      * @return int Number of affected rows
      */
     public function bulkUpdateStatus(array $marketplaceIds, string $status, ?string $reason = null): int;
-    
+
     // ==================== LINK & PRODUCT RELATIONS ====================
-    
+
     /**
      * Get all links for a marketplace
      *
@@ -164,7 +163,7 @@ interface MarketplaceRepositoryInterface
         int $limit = 100,
         int $offset = 0
     ): array;
-    
+
     /**
      * Count links for a marketplace
      *
@@ -173,7 +172,7 @@ interface MarketplaceRepositoryInterface
      * @return int
      */
     public function countLinks(int $marketplaceId, bool $activeOnly = true): int;
-    
+
     /**
      * Count active links for a marketplace
      *
@@ -181,7 +180,7 @@ interface MarketplaceRepositoryInterface
      * @return int
      */
     public function countActiveLinks(int $marketplaceId): int;
-    
+
     /**
      * Get products available on a marketplace
      *
@@ -197,7 +196,7 @@ interface MarketplaceRepositoryInterface
         int $limit = 50,
         int $offset = 0
     ): array;
-    
+
     /**
      * Count products on a marketplace
      *
@@ -206,7 +205,7 @@ interface MarketplaceRepositoryInterface
      * @return int
      */
     public function countProducts(int $marketplaceId, bool $activeOnly = true): int;
-    
+
     /**
      * Get categories represented on a marketplace
      *
@@ -215,7 +214,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function getCategories(int $marketplaceId, bool $activeOnly = true): array;
-    
+
     /**
      * Get top selling products on a marketplace
      *
@@ -225,7 +224,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function getTopSellingProducts(int $marketplaceId, int $limit = 10, string $period = 'month'): array;
-    
+
     /**
      * Get marketplace link statistics
      *
@@ -234,9 +233,9 @@ interface MarketplaceRepositoryInterface
      * @return array [total_links, active_links, total_clicks, total_revenue, conversion_rate]
      */
     public function getLinkStatistics(int $marketplaceId, string $period = 'month'): array;
-    
+
     // ==================== SEARCH & FILTER ====================
-    
+
     /**
      * Search marketplaces by name or slug
      *
@@ -254,7 +253,7 @@ interface MarketplaceRepositoryInterface
         int $limit = 50,
         int $offset = 0
     ): array;
-    
+
     /**
      * Find marketplaces by IDs
      *
@@ -268,7 +267,7 @@ interface MarketplaceRepositoryInterface
         bool $activeOnly = true,
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Find marketplaces with active links
      *
@@ -278,7 +277,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function findWithActiveLinks(int $minLinks = 1, bool $activeOnly = true, int $limit = 50): array;
-    
+
     /**
      * Find marketplaces without active links
      *
@@ -287,7 +286,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function findWithoutActiveLinks(bool $activeOnly = true, int $limit = 50): array;
-    
+
     /**
      * Get marketplaces sorted by performance
      *
@@ -303,9 +302,9 @@ interface MarketplaceRepositoryInterface
         bool $activeOnly = true,
         int $limit = 10
     ): array;
-    
+
     // ==================== STATISTICS & ANALYTICS ====================
-    
+
     /**
      * Get marketplace statistics
      *
@@ -313,7 +312,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function getStatistics(?int $marketplaceId = null): array;
-    
+
     /**
      * Count marketplaces by status
      *
@@ -321,7 +320,7 @@ interface MarketplaceRepositoryInterface
      * @return array [active => int, inactive => int, archived => int]
      */
     public function countByStatus(bool $withTrashed = false): array;
-    
+
     /**
      * Count total marketplaces
      *
@@ -329,14 +328,14 @@ interface MarketplaceRepositoryInterface
      * @return int
      */
     public function countAll(bool $withTrashed = false): int;
-    
+
     /**
      * Count active marketplaces
      *
      * @return int
      */
     public function countActive(): int;
-    
+
     /**
      * Get marketplace growth statistics
      *
@@ -344,7 +343,7 @@ interface MarketplaceRepositoryInterface
      * @return array [new_marketplaces, deactivated_marketplaces, growth_rate]
      */
     public function getGrowthStatistics(string $period = 'month'): array;
-    
+
     /**
      * Get revenue statistics by marketplace
      *
@@ -353,7 +352,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function getRevenueRanking(string $period = 'month', int $limit = 10): array;
-    
+
     /**
      * Get click statistics by marketplace
      *
@@ -362,7 +361,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function getClickRanking(string $period = 'month', int $limit = 10): array;
-    
+
     /**
      * Get conversion rate statistics by marketplace
      *
@@ -371,7 +370,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function getConversionRanking(string $period = 'month', int $limit = 10): array;
-    
+
     /**
      * Get performance comparison between marketplaces
      *
@@ -380,9 +379,9 @@ interface MarketplaceRepositoryInterface
      * @return array [marketplace_id => [revenue, clicks, conversion]]
      */
     public function getPerformanceComparison(array $marketplaceIds, string $period = 'month'): array;
-    
+
     // ==================== BATCH & BULK OPERATIONS ====================
-    
+
     /**
      * Bulk update marketplaces
      *
@@ -391,7 +390,7 @@ interface MarketplaceRepositoryInterface
      * @return int Number of affected rows
      */
     public function bulkUpdate(array $marketplaceIds, array $updateData): int;
-    
+
     /**
      * Bulk activate marketplaces
      *
@@ -400,7 +399,7 @@ interface MarketplaceRepositoryInterface
      * @return int Number of activated marketplaces
      */
     public function bulkActivate(array $marketplaceIds, ?string $reason = null): int;
-    
+
     /**
      * Bulk deactivate marketplaces
      *
@@ -409,7 +408,7 @@ interface MarketplaceRepositoryInterface
      * @return int Number of deactivated marketplaces
      */
     public function bulkDeactivate(array $marketplaceIds, ?string $reason = null): int;
-    
+
     /**
      * Bulk delete marketplaces
      *
@@ -418,7 +417,7 @@ interface MarketplaceRepositoryInterface
      * @return int Number of deleted marketplaces
      */
     public function bulkDelete(array $marketplaceIds, bool $force = false): int;
-    
+
     /**
      * Bulk restore marketplaces
      *
@@ -426,9 +425,9 @@ interface MarketplaceRepositoryInterface
      * @return int Number of restored marketplaces
      */
     public function bulkRestore(array $marketplaceIds): int;
-    
+
     // ==================== VALIDATION & BUSINESS RULES ====================
-    
+
     /**
      * Check if marketplace can be deleted
      *
@@ -436,7 +435,7 @@ interface MarketplaceRepositoryInterface
      * @return array [can_delete => bool, reasons => string[], active_links => int]
      */
     public function canDelete(int $marketplaceId): array;
-    
+
     /**
      * Check if marketplace can be deactivated
      *
@@ -444,7 +443,7 @@ interface MarketplaceRepositoryInterface
      * @return array [can_deactivate => bool, reasons => string[], active_links => int]
      */
     public function canDeactivate(int $marketplaceId): array;
-    
+
     /**
      * Check if slug is unique
      *
@@ -453,7 +452,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function isSlugUnique(string $slug, ?int $excludeId = null): bool;
-    
+
     /**
      * Check if name is unique
      *
@@ -462,7 +461,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function isNameUnique(string $name, ?int $excludeId = null): bool;
-    
+
     /**
      * Validate marketplace business rules
      *
@@ -470,7 +469,7 @@ interface MarketplaceRepositoryInterface
      * @return array [is_valid => bool, errors => string[]]
      */
     public function validate(Marketplace $marketplace): array;
-    
+
     /**
      * Check if marketplace has active affiliate program
      *
@@ -478,7 +477,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function hasAffiliateProgram(int $marketplaceId): bool;
-    
+
     /**
      * Check if marketplace supports specific features
      *
@@ -487,9 +486,9 @@ interface MarketplaceRepositoryInterface
      * @return array [feature => bool]
      */
     public function supportsFeatures(int $marketplaceId, array $features): array;
-    
+
     // ==================== CACHE MANAGEMENT ====================
-    
+
     /**
      * Clear marketplace caches
      *
@@ -497,14 +496,14 @@ interface MarketplaceRepositoryInterface
      * @return void
      */
     public function clearCache(?int $marketplaceId = null): void;
-    
+
     /**
      * Get cache TTL setting
      *
      * @return int Cache TTL in seconds
      */
     public function getCacheTtl(): int;
-    
+
     /**
      * Set cache TTL
      *
@@ -512,9 +511,9 @@ interface MarketplaceRepositoryInterface
      * @return self
      */
     public function setCacheTtl(int $ttl): self;
-    
+
     // ==================== UTILITY & HELPER METHODS ====================
-    
+
     /**
      * Get default marketplaces (commonly used)
      *
@@ -522,14 +521,14 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function getDefaults(bool $activeOnly = true): array;
-    
+
     /**
      * Create default marketplaces if none exist
      *
      * @return array Created marketplaces
      */
     public function createDefaultMarketplaces(): array;
-    
+
     /**
      * Get marketplace suggestions for dropdowns
      *
@@ -539,7 +538,7 @@ interface MarketplaceRepositoryInterface
      * @return array [id => name, ...]
      */
     public function getSuggestions(?string $query = null, bool $activeOnly = true, int $limit = 20): array;
-    
+
     /**
      * Get marketplace domains (for validation)
      *
@@ -547,7 +546,7 @@ interface MarketplaceRepositoryInterface
      * @return array Allowed domains for this marketplace
      */
     public function getAllowedDomains(int $marketplaceId): array;
-    
+
     /**
      * Get marketplace configuration
      *
@@ -555,7 +554,7 @@ interface MarketplaceRepositoryInterface
      * @return array Configuration array
      */
     public function getConfiguration(int $marketplaceId): array;
-    
+
     /**
      * Update marketplace configuration
      *
@@ -564,7 +563,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function updateConfiguration(int $marketplaceId, array $config): bool;
-    
+
     /**
      * Get marketplace icon URL
      *
@@ -573,7 +572,7 @@ interface MarketplaceRepositoryInterface
      * @return string|null
      */
     public function getIconUrl(int $marketplaceId, string $size = 'medium'): ?string;
-    
+
     /**
      * Generate marketplace report
      *
@@ -583,7 +582,7 @@ interface MarketplaceRepositoryInterface
      * @return mixed
      */
     public function generateReport(int $marketplaceId, string $period = 'month', string $format = 'array');
-    
+
     /**
      * Check if marketplace is popular (by link count)
      *
@@ -592,7 +591,7 @@ interface MarketplaceRepositoryInterface
      * @return bool
      */
     public function isPopular(int $marketplaceId, int $threshold = 100): bool;
-    
+
     /**
      * Get marketplace health status
      *
@@ -600,7 +599,7 @@ interface MarketplaceRepositoryInterface
      * @return array [status => string, issues => array, last_activity => string]
      */
     public function getHealthStatus(int $marketplaceId): array;
-    
+
     /**
      * Find similar marketplaces
      *
@@ -609,7 +608,7 @@ interface MarketplaceRepositoryInterface
      * @return array
      */
     public function findSimilar(int $marketplaceId, int $limit = 5): array;
-    
+
     /**
      * Get marketplace summary for quick views
      *

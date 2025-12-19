@@ -6,25 +6,21 @@ use DateTimeImmutable;
 
 /**
  * SoftDeletable Trait
- * 
+ *
  * Provides soft delete functionality for entities.
  * Instead of physical deletion, sets a deletion timestamp.
- * 
+ *
  * @package App\Entities\Traits
  */
 trait SoftDeletableTrait
 {
     /**
      * Deletion timestamp
-     * 
-     * @var DateTimeImmutable|null
      */
     private ?DateTimeImmutable $deleted_at = null;
 
     /**
      * Get deletion timestamp
-     * 
-     * @return DateTimeImmutable|null
      */
     public function getDeletedAt(): ?DateTimeImmutable
     {
@@ -33,9 +29,6 @@ trait SoftDeletableTrait
 
     /**
      * Set deletion timestamp
-     * 
-     * @param DateTimeImmutable|null $deleted_at
-     * @return void
      */
     public function setDeletedAt(?DateTimeImmutable $deleted_at): void
     {
@@ -44,8 +37,6 @@ trait SoftDeletableTrait
 
     /**
      * Check if entity is soft-deleted
-     * 
-     * @return bool
      */
     public function isDeleted(): bool
     {
@@ -55,10 +46,8 @@ trait SoftDeletableTrait
     /**
      * Soft delete the entity
      * Sets deleted_at to current time
-     * 
-     * @return void
      */
-    public function softDelete(): void
+    public function softDelete(?string $param = null): void
     {
         $this->deleted_at = new DateTimeImmutable();
     }
@@ -66,8 +55,6 @@ trait SoftDeletableTrait
     /**
      * Restore a soft-deleted entity
      * Sets deleted_at to null
-     * 
-     * @return void
      */
     public function restore(): void
     {
@@ -77,9 +64,6 @@ trait SoftDeletableTrait
     /**
      * Check if entity was deleted within specific days
      * Useful for cleanup or permanent deletion workflows
-     * 
-     * @param int $days
-     * @return bool
      */
     public function wasDeletedWithinDays(int $days): bool
     {
@@ -89,15 +73,13 @@ trait SoftDeletableTrait
 
         $now = new DateTimeImmutable();
         $interval = $now->diff($this->deleted_at);
-        
+
         return $interval->days <= $days;
     }
 
     /**
      * Get days since deletion
      * Returns null if not deleted
-     * 
-     * @return int|null
      */
     public function getDaysSinceDeletion(): ?int
     {
@@ -107,7 +89,7 @@ trait SoftDeletableTrait
 
         $now = new DateTimeImmutable();
         $interval = $now->diff($this->deleted_at);
-        
+
         return $interval->days;
     }
 }

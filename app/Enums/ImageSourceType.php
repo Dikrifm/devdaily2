@@ -4,10 +4,10 @@ namespace App\Enums;
 
 /**
  * Image Source Type Enumeration
- * 
+ *
  * Defines how product images are sourced in the system.
  * Business Rule: Manual curation allows both uploaded screenshots and external URLs.
- * 
+ *
  * @package App\Enums
  */
 enum ImageSourceType: string
@@ -27,7 +27,7 @@ enum ImageSourceType: string
     /**
      * Get all source types as array
      * Useful for validation and form select options
-     * 
+     *
      * @return array
      */
     public static function all(): array
@@ -35,9 +35,19 @@ enum ImageSourceType: string
         return array_column(self::cases(), 'value');
     }
 
+
+    // Method baru untuk validator
+    public static function valuesAsString(): string
+    {
+        return implode(', ', array_map(
+            fn ($case) => $case->value,
+            self::cases()
+        ));
+    }
+
     /**
      * Check if this source type requires local file storage
-     * 
+     *
      * @return bool
      */
     public function requiresLocalStorage(): bool
@@ -47,7 +57,7 @@ enum ImageSourceType: string
 
     /**
      * Check if this source type requires URL validation
-     * 
+     *
      * @return bool
      */
     public function requiresUrlValidation(): bool
@@ -57,7 +67,7 @@ enum ImageSourceType: string
 
     /**
      * Get the storage path for uploaded images
-     * 
+     *
      * @return string
      */
     public function getStoragePath(): string
@@ -71,7 +81,7 @@ enum ImageSourceType: string
     /**
      * Get the maximum file size allowed for this source type
      * Returns in bytes for UPLOAD, null for URL
-     * 
+     *
      * @return int|null
      */
     public function getMaxFileSize(): ?int
@@ -85,7 +95,7 @@ enum ImageSourceType: string
     /**
      * Get allowed file extensions for this source type
      * Returns array for UPLOAD, empty array for URL
-     * 
+     *
      * @return array
      */
     public function getAllowedExtensions(): array
@@ -99,7 +109,7 @@ enum ImageSourceType: string
     /**
      * Get validation rules for this source type
      * Useful for form validation in admin interface
-     * 
+     *
      * @return array
      */
     public function getValidationRules(): array
@@ -119,7 +129,7 @@ enum ImageSourceType: string
 
     /**
      * Get display label for UI
-     * 
+     *
      * @return string
      */
     public function label(): string
@@ -132,7 +142,7 @@ enum ImageSourceType: string
 
     /**
      * Get description for UI tooltips
-     * 
+     *
      * @return string
      */
     public function description(): string
@@ -145,7 +155,7 @@ enum ImageSourceType: string
 
     /**
      * Get FontAwesome icon for display
-     * 
+     *
      * @return string
      */
     public function icon(): string
@@ -158,7 +168,7 @@ enum ImageSourceType: string
 
     /**
      * Get Tailwind CSS color class
-     * 
+     *
      * @return string
      */
     public function colorClass(): string
@@ -172,7 +182,7 @@ enum ImageSourceType: string
     /**
      * Check if this source type is recommended for verification screenshots
      * Business Rule: Screenshot proof should be uploaded, not external URL
-     * 
+     *
      * @return bool
      */
     public function isRecommendedForVerification(): bool
@@ -182,7 +192,7 @@ enum ImageSourceType: string
 
     /**
      * Generate a filename pattern for uploaded images
-     * 
+     *
      * @param string $productSlug
      * @param string $extension
      * @return string
@@ -195,13 +205,13 @@ enum ImageSourceType: string
 
         $timestamp = time();
         $hash = substr(md5($productSlug . $timestamp), 0, 8);
-        
+
         return sprintf('%s-%s.%s', $productSlug, $hash, $extension);
     }
 
     /**
      * Get the full image path/URL for display
-     * 
+     *
      * @param string $identifier Image path or URL
      * @return string
      */
@@ -215,7 +225,7 @@ enum ImageSourceType: string
 
     /**
      * Validate an image source against this type's requirements
-     * 
+     *
      * @param string $source
      * @return bool
      */
@@ -229,7 +239,7 @@ enum ImageSourceType: string
 
     /**
      * Get the recommended dimensions for this source type
-     * 
+     *
      * @return array{width: int, height: int}
      */
     public function getRecommendedDimensions(): array
@@ -242,7 +252,7 @@ enum ImageSourceType: string
 
     /**
      * Check if resizing is recommended for this source type
-     * 
+     *
      * @return bool
      */
     public function shouldResize(): bool

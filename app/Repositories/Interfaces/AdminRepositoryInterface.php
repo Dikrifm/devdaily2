@@ -3,12 +3,11 @@
 namespace App\Repositories\Interfaces;
 
 use App\Entities\Admin;
-use App\Exceptions\AdminNotFoundException;
 
 interface AdminRepositoryInterface
 {
     // ==================== BASIC CRUD OPERATIONS ====================
-    
+
     /**
      * Find admin by ID
      *
@@ -17,7 +16,7 @@ interface AdminRepositoryInterface
      * @return Admin|null
      */
     public function find(int $id, bool $withTrashed = false): ?Admin;
-    
+
     /**
      * Find admin by username
      *
@@ -26,7 +25,7 @@ interface AdminRepositoryInterface
      * @return Admin|null
      */
     public function findByUsername(string $username, bool $withTrashed = false): ?Admin;
-    
+
     /**
      * Find admin by email
      *
@@ -35,7 +34,7 @@ interface AdminRepositoryInterface
      * @return Admin|null
      */
     public function findByEmail(string $email, bool $withTrashed = false): ?Admin;
-    
+
     /**
      * Find admin by identifier (username or email)
      *
@@ -44,7 +43,7 @@ interface AdminRepositoryInterface
      * @return Admin|null
      */
     public function findByIdentifier(string $identifier, bool $withTrashed = false): ?Admin;
-    
+
     /**
      * Get all admins with filtering
      *
@@ -68,7 +67,7 @@ interface AdminRepositoryInterface
         string $sortDirection = 'DESC',
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Save admin (create or update)
      *
@@ -77,7 +76,7 @@ interface AdminRepositoryInterface
      * @throws \RuntimeException
      */
     public function save(Admin $admin): Admin;
-    
+
     /**
      * Delete admin
      *
@@ -86,7 +85,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function delete(int $id, bool $force = false): bool;
-    
+
     /**
      * Restore soft deleted admin
      *
@@ -94,7 +93,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function restore(int $id): bool;
-    
+
     /**
      * Check if admin exists
      *
@@ -103,9 +102,9 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function exists(int $id, bool $withTrashed = false): bool;
-    
+
     // ==================== AUTHENTICATION & SECURITY ====================
-    
+
     /**
      * Authenticate admin with credentials
      *
@@ -115,7 +114,7 @@ interface AdminRepositoryInterface
      * @return array [success => bool, admin => Admin|null, message => string]
      */
     public function authenticate(string $identifier, string $password, string $ipAddress): array;
-    
+
     /**
      * Verify password against hash
      *
@@ -124,7 +123,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function verifyPassword(string $password, string $hash): bool;
-    
+
     /**
      * Hash password using secure algorithm
      *
@@ -132,7 +131,7 @@ interface AdminRepositoryInterface
      * @return string Password hash
      */
     public function hashPassword(string $password): string;
-    
+
     /**
      * Check if password needs rehash
      *
@@ -140,7 +139,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function passwordNeedsRehash(string $hash): bool;
-    
+
     /**
      * Update admin password
      *
@@ -149,7 +148,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function updatePassword(int $adminId, string $newPassword): bool;
-    
+
     /**
      * Generate random secure password
      *
@@ -157,7 +156,7 @@ interface AdminRepositoryInterface
      * @return string
      */
     public function generateRandomPassword(int $length = 12): string;
-    
+
     /**
      * Validate password strength
      *
@@ -165,9 +164,9 @@ interface AdminRepositoryInterface
      * @return array [is_valid => bool, errors => string[], score => int]
      */
     public function validatePasswordStrength(string $password): array;
-    
+
     // ==================== LOGIN & SESSION MANAGEMENT ====================
-    
+
     /**
      * Record successful login
      *
@@ -177,7 +176,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function recordSuccessfulLogin(int $adminId, string $ipAddress, string $userAgent): bool;
-    
+
     /**
      * Record failed login attempt
      *
@@ -187,7 +186,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function recordFailedLogin(int $adminId, string $ipAddress, string $reason = 'invalid_credentials'): bool;
-    
+
     /**
      * Reset login attempts counter
      *
@@ -195,7 +194,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function resetLoginAttempts(int $adminId): bool;
-    
+
     /**
      * Increment login attempts counter
      *
@@ -203,7 +202,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function incrementLoginAttempts(int $adminId): bool;
-    
+
     /**
      * Check if account is locked due to too many failed attempts
      *
@@ -213,7 +212,7 @@ interface AdminRepositoryInterface
      * @return array [is_locked => bool, attempts_remaining => int, lockout_until => string|null]
      */
     public function isAccountLocked(int $adminId, int $maxAttempts = 5, int $lockoutDuration = 15): array;
-    
+
     /**
      * Get login attempts count
      *
@@ -222,7 +221,7 @@ interface AdminRepositoryInterface
      * @return int
      */
     public function getLoginAttemptsCount(int $adminId, string $timeWindow = '1 hour'): int;
-    
+
     /**
      * Clear all login attempts (unlock account)
      *
@@ -230,7 +229,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function clearLoginAttempts(int $adminId): bool;
-    
+
     /**
      * Record logout
      *
@@ -239,9 +238,9 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function recordLogout(int $adminId, string $ipAddress): bool;
-    
+
     // ==================== ROLE & PERMISSION MANAGEMENT ====================
-    
+
     /**
      * Promote admin to super admin
      *
@@ -249,7 +248,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function promoteToSuperAdmin(int $adminId): bool;
-    
+
     /**
      * Demote super admin to regular admin
      *
@@ -257,7 +256,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function demoteToAdmin(int $adminId): bool;
-    
+
     /**
      * Check if admin has specific role
      *
@@ -266,7 +265,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function hasRole(int $adminId, string $role): bool;
-    
+
     /**
      * Check if admin is super admin
      *
@@ -274,7 +273,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function isSuperAdmin(int $adminId): bool;
-    
+
     /**
      * Check if admin is regular admin
      *
@@ -282,7 +281,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function isRegularAdmin(int $adminId): bool;
-    
+
     /**
      * Get admin permissions
      *
@@ -290,7 +289,7 @@ interface AdminRepositoryInterface
      * @return array List of permissions
      */
     public function getPermissions(int $adminId): array;
-    
+
     /**
      * Check if admin has permission
      *
@@ -299,7 +298,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function hasPermission(int $adminId, string $permission): bool;
-    
+
     /**
      * Update admin permissions
      *
@@ -308,7 +307,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function updatePermissions(int $adminId, array $permissions): bool;
-    
+
     /**
      * Get all super admins
      *
@@ -316,7 +315,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function findSuperAdmins(bool $activeOnly = true): array;
-    
+
     /**
      * Count super admins
      *
@@ -324,9 +323,9 @@ interface AdminRepositoryInterface
      * @return int
      */
     public function countSuperAdmins(bool $activeOnly = true): int;
-    
+
     // ==================== STATUS & ACTIVATION MANAGEMENT ====================
-    
+
     /**
      * Activate admin account
      *
@@ -334,7 +333,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function activate(int $adminId): bool;
-    
+
     /**
      * Deactivate admin account
      *
@@ -343,7 +342,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function deactivate(int $adminId, ?string $reason = null): bool;
-    
+
     /**
      * Suspend admin account (temporary deactivation)
      *
@@ -353,7 +352,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function suspend(int $adminId, string $reason, ?\DateTimeInterface $until = null): bool;
-    
+
     /**
      * Unsuspend admin account
      *
@@ -361,7 +360,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function unsuspend(int $adminId): bool;
-    
+
     /**
      * Check if admin account is active
      *
@@ -369,7 +368,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function isActive(int $adminId): bool;
-    
+
     /**
      * Check if admin account is suspended
      *
@@ -377,7 +376,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function isSuspended(int $adminId): bool;
-    
+
     /**
      * Get account status
      *
@@ -385,9 +384,9 @@ interface AdminRepositoryInterface
      * @return string active|inactive|suspended|locked
      */
     public function getAccountStatus(int $adminId): string;
-    
+
     // ==================== SEARCH & FILTER ====================
-    
+
     /**
      * Search admins by keyword (name, username, email)
      *
@@ -405,7 +404,7 @@ interface AdminRepositoryInterface
         int $limit = 50,
         int $offset = 0
     ): array;
-    
+
     /**
      * Find admins by role
      *
@@ -415,7 +414,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function findByRole(string $role, bool $activeOnly = true, int $limit = 100): array;
-    
+
     /**
      * Find admins by IDs
      *
@@ -429,7 +428,7 @@ interface AdminRepositoryInterface
         bool $activeOnly = true,
         bool $withTrashed = false
     ): array;
-    
+
     /**
      * Find recently active admins
      *
@@ -438,7 +437,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function findRecentlyActive(int $hoursActiveWithin = 24, int $limit = 20): array;
-    
+
     /**
      * Find inactive admins (not logged in for a period)
      *
@@ -447,9 +446,9 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function findInactive(int $daysInactive = 30, int $limit = 50): array;
-    
+
     // ==================== STATISTICS & ANALYTICS ====================
-    
+
     /**
      * Get admin statistics
      *
@@ -457,7 +456,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getStatistics(?int $adminId = null): array;
-    
+
     /**
      * Count admins by status
      *
@@ -465,7 +464,7 @@ interface AdminRepositoryInterface
      * @return array [active => int, inactive => int, suspended => int, locked => int]
      */
     public function countByStatus(bool $withTrashed = false): array;
-    
+
     /**
      * Count admins by role
      *
@@ -473,7 +472,7 @@ interface AdminRepositoryInterface
      * @return array [role => count]
      */
     public function countByRole(bool $activeOnly = true): array;
-    
+
     /**
      * Count total admins
      *
@@ -481,14 +480,14 @@ interface AdminRepositoryInterface
      * @return int
      */
     public function countAll(bool $withTrashed = false): int;
-    
+
     /**
      * Count active admins
      *
      * @return int
      */
     public function countActive(): int;
-    
+
     /**
      * Get login activity statistics
      *
@@ -496,7 +495,7 @@ interface AdminRepositoryInterface
      * @return array [total_logins, failed_logins, unique_admins, avg_logins_per_admin]
      */
     public function getLoginActivityStats(string $period = 'month'): array;
-    
+
     /**
      * Get admin activity ranking
      *
@@ -506,16 +505,16 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getActivityRanking(string $period = 'month', string $metric = 'actions', int $limit = 10): array;
-    
+
     /**
      * Get admin dashboard statistics
      *
      * @return array
      */
     public function getDashboardStats(): array;
-    
+
     // ==================== BATCH & BULK OPERATIONS ====================
-    
+
     /**
      * Bulk update admins
      *
@@ -524,7 +523,7 @@ interface AdminRepositoryInterface
      * @return int Number of affected rows
      */
     public function bulkUpdate(array $adminIds, array $updateData): int;
-    
+
     /**
      * Bulk activate admins
      *
@@ -532,7 +531,7 @@ interface AdminRepositoryInterface
      * @return int Number of activated admins
      */
     public function bulkActivate(array $adminIds): int;
-    
+
     /**
      * Bulk deactivate admins
      *
@@ -541,7 +540,7 @@ interface AdminRepositoryInterface
      * @return int Number of deactivated admins
      */
     public function bulkDeactivate(array $adminIds, ?string $reason = null): int;
-    
+
     /**
      * Bulk delete admins
      *
@@ -550,7 +549,7 @@ interface AdminRepositoryInterface
      * @return int Number of deleted admins
      */
     public function bulkDelete(array $adminIds, bool $force = false): int;
-    
+
     /**
      * Bulk restore admins
      *
@@ -558,7 +557,7 @@ interface AdminRepositoryInterface
      * @return int Number of restored admins
      */
     public function bulkRestore(array $adminIds): int;
-    
+
     /**
      * Bulk update roles
      *
@@ -567,7 +566,7 @@ interface AdminRepositoryInterface
      * @return int Number of updated admins
      */
     public function bulkUpdateRoles(array $adminIds, string $newRole): int;
-    
+
     /**
      * Bulk reset passwords
      *
@@ -581,9 +580,9 @@ interface AdminRepositoryInterface
         bool $generateNew = true,
         ?string $newPassword = null
     ): array;
-    
+
     // ==================== VALIDATION & BUSINESS RULES ====================
-    
+
     /**
      * Check if admin can be deleted
      *
@@ -592,7 +591,7 @@ interface AdminRepositoryInterface
      * @return array [can_delete => bool, reasons => string[], is_self => bool, is_last_super_admin => bool]
      */
     public function canDelete(int $adminId, int $currentAdminId): array;
-    
+
     /**
      * Check if admin can be deactivated
      *
@@ -601,7 +600,7 @@ interface AdminRepositoryInterface
      * @return array [can_deactivate => bool, reasons => string[], is_self => bool]
      */
     public function canDeactivate(int $adminId, int $currentAdminId): array;
-    
+
     /**
      * Check if username is unique
      *
@@ -610,7 +609,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function isUsernameUnique(string $username, ?int $excludeId = null): bool;
-    
+
     /**
      * Check if email is unique
      *
@@ -619,7 +618,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function isEmailUnique(string $email, ?int $excludeId = null): bool;
-    
+
     /**
      * Validate admin business rules
      *
@@ -627,7 +626,7 @@ interface AdminRepositoryInterface
      * @return array [is_valid => bool, errors => string[]]
      */
     public function validate(Admin $admin): array;
-    
+
     /**
      * Validate admin data for create/update
      *
@@ -636,7 +635,7 @@ interface AdminRepositoryInterface
      * @return array [is_valid => bool, errors => string[], validated_data => array]
      */
     public function validateAdminData(array $data, ?int $adminId = null): array;
-    
+
     /**
      * Check if admin can perform action on entity
      *
@@ -652,9 +651,9 @@ interface AdminRepositoryInterface
         ?string $entityType = null,
         ?int $entityId = null
     ): array;
-    
+
     // ==================== CACHE MANAGEMENT ====================
-    
+
     /**
      * Clear admin caches
      *
@@ -662,14 +661,14 @@ interface AdminRepositoryInterface
      * @return void
      */
     public function clearCache(?int $adminId = null): void;
-    
+
     /**
      * Get cache TTL setting
      *
      * @return int Cache TTL in seconds
      */
     public function getCacheTtl(): int;
-    
+
     /**
      * Set cache TTL
      *
@@ -677,23 +676,23 @@ interface AdminRepositoryInterface
      * @return self
      */
     public function setCacheTtl(int $ttl): self;
-    
+
     // ==================== UTILITY & HELPER METHODS ====================
-    
+
     /**
      * Get system admin (special admin for system operations)
      *
      * @return Admin|null
      */
     public function getSystemAdmin(): ?Admin;
-    
+
     /**
      * Create system admin if not exists
      *
      * @return Admin
      */
     public function createSystemAdmin(): Admin;
-    
+
     /**
      * Get admin profile with extended information
      *
@@ -701,7 +700,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getProfile(int $adminId): array;
-    
+
     /**
      * Update admin profile
      *
@@ -710,7 +709,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function updateProfile(int $adminId, array $profileData): bool;
-    
+
     /**
      * Get admin activity logs
      *
@@ -720,7 +719,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getActivityLogs(int $adminId, int $limit = 50, int $offset = 0): array;
-    
+
     /**
      * Get admin login history
      *
@@ -729,7 +728,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getLoginHistory(int $adminId, int $limit = 20): array;
-    
+
     /**
      * Get admin sessions (active)
      *
@@ -737,7 +736,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getActiveSessions(int $adminId): array;
-    
+
     /**
      * Terminate admin session
      *
@@ -746,7 +745,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function terminateSession(int $adminId, string $sessionId): bool;
-    
+
     /**
      * Terminate all admin sessions except current
      *
@@ -755,7 +754,7 @@ interface AdminRepositoryInterface
      * @return int Number of terminated sessions
      */
     public function terminateAllOtherSessions(int $adminId, string $currentSessionId): int;
-    
+
     /**
      * Generate API token for admin
      *
@@ -771,7 +770,7 @@ interface AdminRepositoryInterface
         array $scopes = [],
         ?\DateTimeInterface $expiresAt = null
     ): array;
-    
+
     /**
      * Revoke API token
      *
@@ -780,7 +779,7 @@ interface AdminRepositoryInterface
      * @return bool
      */
     public function revokeApiToken(int $adminId, string $tokenId): bool;
-    
+
     /**
      * Get admin API tokens
      *
@@ -789,7 +788,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getApiTokens(int $adminId, bool $activeOnly = true): array;
-    
+
     /**
      * Get admin suggestions for dropdowns/autocomplete
      *
@@ -799,7 +798,7 @@ interface AdminRepositoryInterface
      * @return array [id => name, ...]
      */
     public function getSuggestions(?string $query = null, bool $activeOnly = true, int $limit = 20): array;
-    
+
     /**
      * Get admin initials (for avatars)
      *
@@ -807,7 +806,7 @@ interface AdminRepositoryInterface
      * @return string
      */
     public function getInitials(int $adminId): string;
-    
+
     /**
      * Get admin display name
      *
@@ -815,7 +814,7 @@ interface AdminRepositoryInterface
      * @return string
      */
     public function getDisplayName(int $adminId): string;
-    
+
     /**
      * Get admin summary for quick views
      *
@@ -823,7 +822,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getSummary(int $adminId): array;
-    
+
     /**
      * Export admin data
      *
@@ -832,7 +831,7 @@ interface AdminRepositoryInterface
      * @return mixed
      */
     public function exportData(int $adminId, string $format = 'array');
-    
+
     /**
      * Import admin data
      *
@@ -841,7 +840,7 @@ interface AdminRepositoryInterface
      * @return array [created => int, updated => int, errors => array]
      */
     public function importData(array $data, bool $updateExisting = false): array;
-    
+
     /**
      * Check admin health status (for monitoring)
      *
@@ -849,7 +848,7 @@ interface AdminRepositoryInterface
      * @return array [status => string, issues => array, last_activity => string]
      */
     public function getHealthStatus(int $adminId): array;
-    
+
     /**
      * Find similar admins (by role/activity)
      *
@@ -858,7 +857,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function findSimilar(int $adminId, int $limit = 5): array;
-    
+
     /**
      * Get admin notification preferences
      *
@@ -866,7 +865,7 @@ interface AdminRepositoryInterface
      * @return array
      */
     public function getNotificationPreferences(int $adminId): array;
-    
+
     /**
      * Update admin notification preferences
      *

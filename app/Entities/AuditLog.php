@@ -6,98 +6,74 @@ use DateTimeImmutable;
 
 /**
  * Audit Log Entity
- * 
+ *
  * Represents an immutable audit log entry for tracking all administrative actions.
  * This entity does NOT extend BaseEntity because audit logs have a different structure
  * and are immutable (cannot be updated or deleted).
- * 
+ *
  * @package App\Entities
  */
 class AuditLog
 {
+    public $admin_name;
+    public $admin_username;
     /**
      * Log entry ID
-     * 
-     * @var int|null
      */
     private ?int $id = null;
 
     /**
      * Admin who performed the action (nullable for system actions)
-     * 
-     * @var int|null
      */
     private ?int $admin_id = null;
 
     /**
      * Type of action performed
-     * 
-     * @var string
      */
     private string $action_type;
 
     /**
      * Type of entity affected
-     * 
-     * @var string
      */
     private string $entity_type;
 
     /**
      * ID of entity affected
-     * 
-     * @var int
      */
     private int $entity_id;
 
     /**
      * JSON snapshot of values before change
-     * 
-     * @var string|null
      */
     private ?string $old_values = null;
 
     /**
      * JSON snapshot of values after change
-     * 
-     * @var string|null
      */
     private ?string $new_values = null;
 
     /**
      * Human-readable summary of changes
-     * 
-     * @var string|null
      */
     private ?string $changes_summary = null;
 
     /**
      * IP address of the requester
-     * 
-     * @var string|null
      */
     private ?string $ip_address = null;
 
     /**
      * User agent string of the requester
-     * 
-     * @var string|null
      */
     private ?string $user_agent = null;
 
     /**
      * When the action was performed
-     * 
-     * @var DateTimeImmutable|null
      */
     private ?DateTimeImmutable $performed_at = null;
 
     /**
      * AuditLog constructor
-     * 
-     * @param string $action_type
-     * @param string $entity_type
-     * @param int $entity_id
      */
     public function __construct(string $action_type, string $entity_type, int $entity_id)
     {
@@ -261,31 +237,24 @@ class AuditLog
     }
 
     // ==================== BUSINESS LOGIC METHODS ====================
-
     /**
      * Check if this log entry has old values
-     * 
-     * @return bool
      */
     public function hasOldValues(): bool
     {
-        return !empty($this->old_values);
+        return !in_array($this->old_values, [null, '', '0'], true);
     }
 
     /**
      * Check if this log entry has new values
-     * 
-     * @return bool
      */
     public function hasNewValues(): bool
     {
-        return !empty($this->new_values);
+        return !in_array($this->new_values, [null, '', '0'], true);
     }
 
     /**
      * Get old values as array
-     * 
-     * @return array|null
      */
     public function getOldValuesArray(): ?array
     {
@@ -293,13 +262,11 @@ class AuditLog
             return null;
         }
 
-        return json_decode($this->old_values, true);
+        return json_decode((string) $this->old_values, true);
     }
 
     /**
      * Get new values as array
-     * 
-     * @return array|null
      */
     public function getNewValuesArray(): ?array
     {
@@ -307,14 +274,11 @@ class AuditLog
             return null;
         }
 
-        return json_decode($this->new_values, true);
+        return json_decode((string) $this->new_values, true);
     }
 
     /**
      * Check if this log was performed by a specific admin
-     * 
-     * @param int $adminId
-     * @return bool
      */
     public function wasPerformedBy(int $adminId): bool
     {
@@ -323,8 +287,6 @@ class AuditLog
 
     /**
      * Check if this log was performed by the system (no admin)
-     * 
-     * @return bool
      */
     public function wasSystemAction(): bool
     {
@@ -333,19 +295,14 @@ class AuditLog
 
     /**
      * Get formatted performed at date
-     * 
-     * @param string $format
-     * @return string
      */
     public function getFormattedPerformedAt(string $format = 'Y-m-d H:i:s'): string
     {
-        return $this->performed_at ? $this->performed_at->format($format) : '';
+        return $this->performed_at instanceof \DateTimeImmutable ? $this->performed_at->format($format) : '';
     }
 
     /**
      * Get human-readable action type
-     * 
-     * @return string
      */
     public function getActionTypeLabel(): string
     {
@@ -373,8 +330,6 @@ class AuditLog
 
     /**
      * Get action icon based on action type
-     * 
-     * @return string
      */
     public function getActionIcon(): string
     {
@@ -402,8 +357,6 @@ class AuditLog
 
     /**
      * Get Tailwind CSS color class based on action type
-     * 
-     * @return string
      */
     public function getActionColorClass(): string
     {
@@ -431,8 +384,6 @@ class AuditLog
 
     /**
      * Get admin display name (falls back to username or "System")
-     * 
-     * @return string
      */
     public function getAdminDisplayName(): string
     {
@@ -449,12 +400,10 @@ class AuditLog
 
     /**
      * Get time elapsed since performed at
-     * 
-     * @return string
      */
     public function getTimeAgo(): string
     {
-        if (!$this->performed_at) {
+        if (!$this->performed_at instanceof \DateTimeImmutable) {
             return 'Unknown time';
         }
 
@@ -486,12 +435,10 @@ class AuditLog
 
     /**
      * Check if this log is recent (within last 24 hours)
-     * 
-     * @return bool
      */
     public function isRecent(): bool
     {
-        if (!$this->performed_at) {
+        if (!$this->performed_at instanceof \DateTimeImmutable) {
             return false;
         }
 
@@ -503,8 +450,6 @@ class AuditLog
 
     /**
      * Get entity reference string
-     * 
-     * @return string
      */
     public function getEntityReference(): string
     {
@@ -513,9 +458,6 @@ class AuditLog
 
     /**
      * Check if changes summary contains specific text
-     * 
-     * @param string $search
-     * @return bool
      */
     public function summaryContains(string $search): bool
     {
@@ -528,9 +470,6 @@ class AuditLog
 
     /**
      * Get truncated changes summary for display
-     * 
-     * @param int $length
-     * @return string
      */
     public function getTruncatedSummary(int $length = 100): string
     {
@@ -549,7 +488,7 @@ class AuditLog
 
     /**
      * Validate audit log data
-     * 
+     *
      * @return array{valid: bool, errors: string[]}
      */
     public function validate(): array
@@ -557,15 +496,15 @@ class AuditLog
         $errors = [];
 
         // Required fields
-        if (empty($this->action_type)) {
+        if ($this->action_type === '' || $this->action_type === '0') {
             $errors[] = 'Action type is required';
         }
 
-        if (empty($this->entity_type)) {
+        if ($this->entity_type === '' || $this->entity_type === '0') {
             $errors[] = 'Entity type is required';
         }
 
-        if (empty($this->entity_id)) {
+        if ($this->entity_id === 0) {
             $errors[] = 'Entity ID is required';
         }
 
@@ -579,16 +518,13 @@ class AuditLog
         }
 
         return [
-            'valid' => empty($errors),
+            'valid' => $errors === [],
             'errors' => $errors
         ];
     }
 
     /**
      * Check if string is valid JSON
-     * 
-     * @param string $json
-     * @return bool
      */
     private function isValidJson(string $json): bool
     {
@@ -597,11 +533,8 @@ class AuditLog
     }
 
     // ==================== SERIALIZATION METHODS ====================
-
     /**
      * Convert entity to array representation
-     * 
-     * @return array
      */
     public function toArray(): array
     {
@@ -638,9 +571,6 @@ class AuditLog
 
     /**
      * Create entity from array data
-     * 
-     * @param array $data
-     * @return static
      */
     public static function fromArray(array $data): static
     {
@@ -695,8 +625,6 @@ class AuditLog
 
     /**
      * Create a sample audit log for testing/demo
-     * 
-     * @return static
      */
     public static function createSample(): static
     {
@@ -708,7 +636,7 @@ class AuditLog
         $auditLog->setIpAddress('192.168.1.100');
         $auditLog->setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
         $auditLog->setPerformedAt(new DateTimeImmutable('2024-01-15 14:30:00'));
-        
+
         return $auditLog;
     }
 }

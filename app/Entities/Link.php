@@ -6,14 +6,17 @@ use DateTimeImmutable;
 
 /**
  * Link Entity with Smart Commission Logic
- * 
+ *
  * Implements "Transient Input, Persistent Revenue" strategy
  * Commission rate (percentage) is transient, only revenue (Rupiah) is persisted
- * 
+ *
  * @package App\Entities
  */
 class Link extends BaseEntity
 {
+    public $created_at;
+    public $updated_at;
+    public $deleted_at;
     private int $product_id;
     private int $marketplace_id;
     private string $store_name;
@@ -31,17 +34,12 @@ class Link extends BaseEntity
     /**
      * Default commission rate (2%) as global fallback
      * Used when admin doesn't provide custom rate
-     * 
+     *
      * @const float
      */
     public const DEFAULT_COMMISSION_RATE = 0.02; // 2%
-
     /**
      * Constructor
-     * 
-     * @param int $product_id
-     * @param int $marketplace_id  
-     * @param string $store_name
      */
     public function __construct(int $product_id, int $marketplace_id, string $store_name)
     {
@@ -53,7 +51,7 @@ class Link extends BaseEntity
     // ============================================
     // GETTER METHODS (EXISTING - KEEP AS IS)
     // ============================================
-    
+
     public function getProductId(): int
     {
         return $this->product_id;
@@ -120,9 +118,9 @@ class Link extends BaseEntity
     }
 
     // ============================================
-    // SETTER METHODS (EXISTING - KEEP AS IS)  
+    // SETTER METHODS (EXISTING - KEEP AS IS)
     // ============================================
-    
+
     public function setProductId(int $product_id): self
     {
         $this->product_id = $product_id;
@@ -192,9 +190,6 @@ class Link extends BaseEntity
     /**
      * Set affiliate revenue (Rupiah)
      * Only Rupiah value is persisted, not percentage
-     * 
-     * @param string $affiliate_revenue
-     * @return self
      */
     public function setAffiliateRevenue(string $affiliate_revenue): self
     {
@@ -211,7 +206,7 @@ class Link extends BaseEntity
     // ============================================
     // BUSINESS LOGIC METHODS (EXISTING - KEEP AS IS)
     // ============================================
-    
+
     public function activate(): self
     {
         $this->active = true;
@@ -272,10 +267,10 @@ class Link extends BaseEntity
 
     public function needsPriceUpdate(): bool
     {
-        if ($this->last_price_update === null) {
+        if (!$this->last_price_update instanceof \DateTimeImmutable) {
             return true;
         }
-        
+
         $now = new DateTimeImmutable();
         $interval = $now->getTimestamp() - $this->last_price_update->getTimestamp();
         return $interval > 86400; // 24 hours
@@ -283,10 +278,10 @@ class Link extends BaseEntity
 
     public function needsValidation(): bool
     {
-        if ($this->last_validation === null) {
+        if (!$this->last_validation instanceof \DateTimeImmutable) {
             return true;
         }
-        
+
         $now = new DateTimeImmutable();
         $interval = $now->getTimestamp() - $this->last_validation->getTimestamp();
         return $interval > 172800; // 48 hours
@@ -325,7 +320,7 @@ class Link extends BaseEntity
         $rating = (float) $this->rating;
         $stars = round($rating);
         $html = '';
-        
+
         for ($i = 1; $i <= 5; $i++) {
             if ($i <= $stars) {
                 $html .= '<i class="fas fa-star text-yellow-500"></i>';
@@ -333,7 +328,7 @@ class Link extends BaseEntity
                 $html .= '<i class="far fa-star text-gray-300"></i>';
             }
         }
-        
+
         return $html;
     }
 
@@ -347,7 +342,7 @@ class Link extends BaseEntity
         if ($totalProductViews <= 0) {
             return 0.0;
         }
-        
+
         return ($this->clicks / $totalProductViews) * 100;
     }
 
@@ -356,7 +351,7 @@ class Link extends BaseEntity
         if ($this->clicks <= 0) {
             return '0.00';
         }
-        
+
         $revenue = (float) $this->affiliate_revenue;
         $perClick = $revenue / $this->clicks;
         return number_format($perClick, 2, '.', '');
@@ -365,18 +360,18 @@ class Link extends BaseEntity
     public function archive(): self
     {
         $this->active = false;
-        $this->markAsDeleted();
+        $this->softdelete();
         return $this;
     }
 
     // ============================================
     // NEW COMMISSION LOGIC METHODS
     // ============================================
-    
+
     /**
      * Calculate estimated revenue based on price and commission rate
      * Forward calculation: percentage → Rupiah
-     * 
+     *
      * @param float|null $customRate Decimal rate (e.g., 0.05 for 5%). Null uses default 2%
      * @return string Rupiah value formatted to 2 decimal places
      */
@@ -384,13 +379,13 @@ class Link extends BaseEntity
     {
         // 1. Determine rate: custom input or default 2%
         $rate = $customRate ?? self::DEFAULT_COMMISSION_RATE;
-        
+
         // 2. Get current price
         $price = (float) $this->price;
-        
+
         // 3. Calculate: Price × Rate
         $estimated = $price * $rate;
-        
+
         // Format with 2 decimal places, no thousands separator
         return number_format($estimated, 2, '.', '');
     }
@@ -399,22 +394,22 @@ class Link extends BaseEntity
      * Reverse calculation: Derive commission rate from stored revenue
      * Used to display percentage in edit forms
      * Formula: (Revenue / Price) × 100
-     * 
+     *
      * @return float Percentage (e.g., 5.0 for 5%)
      */
     public function getImpliedCommissionRate(): float
     {
         $price = (float) $this->price;
         $revenue = (float) $this->affiliate_revenue;
-        
+
         // Prevent division by zero
         if ($price <= 0) {
             return 0.0;
         }
-        
+
         // Calculate ratio
         $ratio = $revenue / $price;
-        
+
         // Convert to percentage and round to 2 decimals
         return round($ratio * 100, 2);
     }
@@ -422,7 +417,7 @@ class Link extends BaseEntity
     // ============================================
     // TO ARRAY AND STATIC METHODS (KEEP AS IS)
     // ============================================
-    
+
     public function toArray(): array
     {
         return [
@@ -436,8 +431,8 @@ class Link extends BaseEntity
             'active' => $this->active,
             'sold_count' => $this->sold_count,
             'clicks' => $this->clicks,
-            'last_price_update' => $this->last_price_update ? $this->last_price_update->format('Y-m-d H:i:s') : null,
-            'last_validation' => $this->last_validation ? $this->last_validation->format('Y-m-d H:i:s') : null,
+            'last_price_update' => $this->last_price_update instanceof \DateTimeImmutable ? $this->last_price_update->format('Y-m-d H:i:s') : null,
+            'last_validation' => $this->last_validation instanceof \DateTimeImmutable ? $this->last_validation->format('Y-m-d H:i:s') : null,
             'affiliate_revenue' => $this->affiliate_revenue,
             'marketplace_badge_id' => $this->marketplace_badge_id,
             'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
@@ -448,54 +443,68 @@ class Link extends BaseEntity
 
     public static function fromArray(array $data): static
     {
-        $link = new static(
+        $link = new Link(
             $data['product_id'] ?? 0,
             $data['marketplace_id'] ?? 0,
             $data['store_name'] ?? ''
         );
-        
-        if (isset($data['id'])) $link->setId($data['id']);
-        if (isset($data['price'])) $link->setPrice($data['price']);
-        if (isset($data['url'])) $link->setUrl($data['url']);
-        if (isset($data['rating'])) $link->setRating($data['rating']);
-        if (isset($data['active'])) $link->setActive((bool) $data['active']);
-        if (isset($data['sold_count'])) $link->setSoldCount((int) $data['sold_count']);
-        if (isset($data['clicks'])) $link->setClicks((int) $data['clicks']);
-        
+
+        if (isset($data['id'])) {
+            $link->setId($data['id']);
+        }
+        if (isset($data['price'])) {
+            $link->setPrice($data['price']);
+        }
+        if (isset($data['url'])) {
+            $link->setUrl($data['url']);
+        }
+        if (isset($data['rating'])) {
+            $link->setRating($data['rating']);
+        }
+        if (isset($data['active'])) {
+            $link->setActive((bool) $data['active']);
+        }
+        if (isset($data['sold_count'])) {
+            $link->setSoldCount((int) $data['sold_count']);
+        }
+        if (isset($data['clicks'])) {
+            $link->setClicks((int) $data['clicks']);
+        }
+
         if (isset($data['last_price_update']) && $data['last_price_update']) {
             $link->setLastPriceUpdate(new DateTimeImmutable($data['last_price_update']));
         }
-        
+
         if (isset($data['last_validation']) && $data['last_validation']) {
             $link->setLastValidation(new DateTimeImmutable($data['last_validation']));
         }
-        
+
         if (isset($data['affiliate_revenue'])) {
             $link->setAffiliateRevenue($data['affiliate_revenue']);
         }
-        
+
         if (isset($data['marketplace_badge_id'])) {
             $link->setMarketplaceBadgeId($data['marketplace_badge_id']);
         }
-        
+
         if (isset($data['created_at']) && $data['created_at']) {
             $link->setCreatedAt(new DateTimeImmutable($data['created_at']));
         }
-        
+
         if (isset($data['updated_at']) && $data['updated_at']) {
             $link->setUpdatedAt(new DateTimeImmutable($data['updated_at']));
         }
-        
+
         if (isset($data['deleted_at']) && $data['deleted_at']) {
             $link->setDeletedAt(new DateTimeImmutable($data['deleted_at']));
         }
-        
+
         return $link;
     }
 
     public static function createSample(int $productId = 1, int $marketplaceId = 1): static
     {
-        $link = new static($productId, $marketplaceId, 'Sample Store');
+        $link = new Link($productId, $marketplaceId, 'Sample Store');
         $link->setPrice('100000.00');
         $link->setUrl('https://example.com/product');
         $link->setRating('4.5');

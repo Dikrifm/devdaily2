@@ -2,19 +2,17 @@
 
 namespace App\Validators;
 
-use App\Models\ProductModel;
 use App\Models\CategoryModel;
 use App\Models\MarketplaceModel;
-use App\Models\PageModel;
+use App\Models\ProductModel;
 use App\Services\CacheService;
 use CodeIgniter\Validation\Validation;
 use DateTimeImmutable;
-use Exception;
 use InvalidArgumentException;
 
 /**
  * Enterprise-grade Slug Validator
- * 
+ *
  * Reusable slug validation for multiple entities with format checking,
  * uniqueness validation, reserved words protection, and SEO optimization.
  */
@@ -22,13 +20,13 @@ class SlugValidator
 {
     private Validation $validation;
     private CacheService $cacheService;
-    
+
     // Model instances (lazy-loaded)
     private $productModel;
     private $categoryModel;
     private $marketplaceModel;
     private $pageModel;
-    
+
     // Entity types
     public const ENTITY_PRODUCT = 'product';
     public const ENTITY_CATEGORY = 'category';
@@ -37,53 +35,53 @@ class SlugValidator
     public const ENTITY_POST = 'post';
     public const ENTITY_TAG = 'tag';
     public const ENTITY_USER = 'user';
-    
+
     // Validation contexts
     public const CONTEXT_CREATE = 'create';
     public const CONTEXT_UPDATE = 'update';
     public const CONTEXT_GENERATE = 'generate';
-    
+
     // Slug configuration
     private const MIN_LENGTH = 3;
     private const MAX_LENGTH = 100;
     private const DEFAULT_LENGTH = 50;
     private const MAX_ATTEMPTS = 10; // Maximum attempts for unique slug generation
-    
+
     // Regex patterns
     private const SLUG_PATTERN = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/';
     private const CLEAN_PATTERN = '/[^a-z0-9]+/';
     private const MULTI_HYPHEN_PATTERN = '/-+/';
-    
+
     // Reserved slugs (common system routes and protected terms)
     private const RESERVED_SLUGS = [
         // System routes
         'admin', 'api', 'dashboard', 'login', 'logout', 'register', 'password',
         'profile', 'settings', 'search', 'cart', 'checkout', 'order', 'payment',
         'invoice', 'account', 'user', 'users', 'customer', 'customers',
-        
+
         // Common pages
         'home', 'index', 'default', 'main', 'welcome', 'about', 'contact',
         'privacy', 'terms', 'policy', 'faq', 'help', 'support', 'blog', 'news',
-        
+
         // Product-related
         'products', 'categories', 'marketplaces', 'brands', 'shops', 'stores',
         'deals', 'offers', 'discounts', 'sales', 'new', 'featured', 'popular',
         'trending', 'best', 'top', 'latest',
-        
+
         // API endpoints
         'v1', 'v2', 'graphql', 'webhook', 'callback', 'oauth', 'auth',
-        
+
         // File paths
         'assets', 'css', 'js', 'images', 'uploads', 'downloads', 'files',
         'storage', 'public', 'private',
-        
+
         // System files
         'robots.txt', 'sitemap.xml', 'favicon.ico', 'humans.txt',
-        
+
         // Admin features
         'backend', 'cp', 'control-panel', 'manager', 'moderator',
     ];
-    
+
     // Entity-specific reserved slugs
     private const ENTITY_RESERVED_SLUGS = [
         self::ENTITY_PRODUCT => [
@@ -96,7 +94,7 @@ class SlugValidator
             'page', 'pages', 'content', 'articles'
         ],
     ];
-    
+
     // SEO-friendly slug rules
     private const SEO_OPTIMIZATION_RULES = [
         'remove_stop_words' => true,
@@ -107,12 +105,12 @@ class SlugValidator
         'replace_underscores' => true,
         'trim_hyphens' => true,
     ];
-    
+
     // Cache TTLs
     private const CACHE_TTL_SLUG_CHECK = 300; // 5 minutes
     private const CACHE_TTL_RESERVED = 3600; // 1 hour
     private const CACHE_TTL_SUGGESTIONS = 600; // 10 minutes
-    
+
     public function __construct(
         Validation $validation,
         CacheService $cacheService
@@ -120,7 +118,7 @@ class SlugValidator
         $this->validation = $validation;
         $this->cacheService = $cacheService;
     }
-    
+
     /**
      * Validate slug for an entity
      */
@@ -132,25 +130,25 @@ class SlugValidator
         array $options = []
     ): array {
         $errors = [];
-        
+
         // 1. Basic format validation
         $formatErrors = $this->validateFormat($slug, $options);
         if (!empty($formatErrors)) {
             $errors = array_merge($errors, $formatErrors);
         }
-        
+
         // 2. Length validation
         $lengthErrors = $this->validateLength($slug, $options);
         if (!empty($lengthErrors)) {
             $errors = array_merge($errors, $lengthErrors);
         }
-        
+
         // 3. Reserved words validation
         $reservedErrors = $this->validateReserved($slug, $entityType, $options);
         if (!empty($reservedErrors)) {
             $errors = array_merge($errors, $reservedErrors);
         }
-        
+
         // 4. Uniqueness validation (skip for generate context)
         if ($context !== self::CONTEXT_GENERATE) {
             $uniquenessErrors = $this->validateUniqueness($slug, $entityType, $excludeId, $options);
@@ -158,7 +156,7 @@ class SlugValidator
                 $errors = array_merge($errors, $uniquenessErrors);
             }
         }
-        
+
         // 5. SEO validation (if enabled)
         if ($options['seo_validation'] ?? false) {
             $seoErrors = $this->validateSeo($slug, $options);
@@ -166,13 +164,13 @@ class SlugValidator
                 $errors = array_merge($errors, $seoErrors);
             }
         }
-        
+
         // 6. Entity-specific validation
         $entityErrors = $this->validateEntitySpecific($slug, $entityType, $context, $options);
         if (!empty($entityErrors)) {
             $errors = array_merge($errors, $entityErrors);
         }
-        
+
         return $this->buildValidationResult($slug, empty($errors), $errors, [
             'entity_type' => $entityType,
             'context' => $context,
@@ -180,7 +178,7 @@ class SlugValidator
             'options' => $options
         ]);
     }
-    
+
     /**
      * Generate a unique slug from a string
      */
@@ -201,27 +199,27 @@ class SlugValidator
             'stop_words' => self::SEO_OPTIMIZATION_RULES['stop_words'],
             'max_words' => self::SEO_OPTIMIZATION_RULES['max_words'],
         ], $options);
-        
+
         // 1. Clean the source string
         $baseSlug = $this->cleanString($source, $options);
-        
+
         // 2. Truncate to max length
         $baseSlug = $this->truncateSlug($baseSlug, $options['max_length']);
-        
+
         // 3. Remove stop words if enabled
         if ($options['remove_stop_words']) {
             $baseSlug = $this->removeStopWords($baseSlug, $options['stop_words'], $options['separator']);
         }
-        
+
         // 4. Limit words if specified
         if ($options['max_words'] > 0) {
             $baseSlug = $this->limitWords($baseSlug, $options['max_words'], $options['separator']);
         }
-        
+
         // 5. Generate unique slug
         return $this->generateUniqueSlug($baseSlug, $entityType, $excludeId, $options);
     }
-    
+
     /**
      * Suggest alternative slugs when validation fails
      */
@@ -234,7 +232,7 @@ class SlugValidator
         $suggestions = [];
         $attempts = 0;
         $maxSuggestions = $options['max_suggestions'] ?? 5;
-        
+
         // Cache key for suggestions
         $cacheKey = $this->getCacheKey('suggestions', [
             'slug' => $originalSlug,
@@ -242,74 +240,74 @@ class SlugValidator
             'exclude' => $excludeId,
             'max' => $maxSuggestions
         ]);
-        
+
         // Try to get from cache first
         $cached = $this->cacheService->get($cacheKey);
         if ($cached !== null) {
             return $cached;
         }
-        
+
         // Strategy 1: Try with incrementing numbers
         $baseSlug = $originalSlug;
         $increment = 1;
-        
+
         while ($attempts < $maxSuggestions && $increment <= self::MAX_ATTEMPTS) {
             $suggestion = $baseSlug . '-' . $increment;
-            
+
             if ($this->isValid($suggestion, $entityType, self::CONTEXT_CREATE, $excludeId, $options)) {
                 $suggestions[] = $suggestion;
                 $attempts++;
             }
-            
+
             $increment++;
         }
-        
+
         // Strategy 2: Try with random suffixes if still need more suggestions
         if (count($suggestions) < $maxSuggestions) {
             $randomAttempts = 0;
             $maxRandomAttempts = ($maxSuggestions - count($suggestions)) * 3;
-            
+
             while (count($suggestions) < $maxSuggestions && $randomAttempts < $maxRandomAttempts) {
                 $suffix = $this->generateRandomSuffix(3);
                 $suggestion = $baseSlug . '-' . $suffix;
-                
+
                 if ($this->isValid($suggestion, $entityType, self::CONTEXT_CREATE, $excludeId, $options)) {
                     if (!in_array($suggestion, $suggestions)) {
                         $suggestions[] = $suggestion;
                     }
                 }
-                
+
                 $randomAttempts++;
             }
         }
-        
+
         // Strategy 3: Try with timestamp if still need more
         if (count($suggestions) < $maxSuggestions) {
             $timestamp = time();
             $suggestion = $baseSlug . '-' . $timestamp;
-            
+
             if ($this->isValid($suggestion, $entityType, self::CONTEXT_CREATE, $excludeId, $options)) {
                 $suggestions[] = $suggestion;
             }
         }
-        
+
         // Strategy 4: Generate completely new slug from original
         if (count($suggestions) < $maxSuggestions) {
             $newSlug = $this->generate($originalSlug, $entityType, $excludeId, array_merge($options, [
                 'max_attempts' => $maxSuggestions - count($suggestions)
             ]));
-            
+
             if ($newSlug !== $originalSlug && !in_array($newSlug, $suggestions)) {
                 $suggestions[] = $newSlug;
             }
         }
-        
+
         // Cache the suggestions
         $this->cacheService->set($cacheKey, $suggestions, self::CACHE_TTL_SUGGESTIONS);
-        
+
         return array_slice($suggestions, 0, $maxSuggestions);
     }
-    
+
     /**
      * Check if a slug is valid (quick check without detailed errors)
      */
@@ -328,22 +326,22 @@ class SlugValidator
             'exclude' => $excludeId,
             'options' => $options
         ]);
-        
+
         $cached = $this->cacheService->get($cacheKey);
         if ($cached !== null) {
             return $cached;
         }
-        
+
         // Perform validation
         $result = $this->validate($slug, $entityType, $context, $excludeId, $options);
         $isValid = $result['is_valid'];
-        
+
         // Cache the result
         $this->cacheService->set($cacheKey, $isValid, self::CACHE_TTL_SLUG_CHECK);
-        
+
         return $isValid;
     }
-    
+
     /**
      * Normalize a slug (clean and format consistently)
      */
@@ -357,42 +355,42 @@ class SlugValidator
             'collapse_hyphens' => true,
             'remove_special' => true,
         ], $options);
-        
+
         $normalized = $slug;
-        
+
         // Convert to lowercase
         if ($options['force_lowercase']) {
             $normalized = mb_strtolower($normalized, 'UTF-8');
         }
-        
+
         // Replace underscores with hyphens
         if ($options['replace_underscores']) {
             $normalized = str_replace('_', '-', $normalized);
         }
-        
+
         // Replace spaces with hyphens
         if ($options['replace_spaces']) {
             $normalized = preg_replace('/\s+/', '-', $normalized);
         }
-        
+
         // Remove special characters
         if ($options['remove_special']) {
             $normalized = preg_replace(self::CLEAN_PATTERN, '-', $normalized);
         }
-        
+
         // Collapse multiple hyphens
         if ($options['collapse_hyphens']) {
             $normalized = preg_replace(self::MULTI_HYPHEN_PATTERN, '-', $normalized);
         }
-        
+
         // Trim hyphens from start and end
         if ($options['trim']) {
             $normalized = trim($normalized, '-');
         }
-        
+
         return $normalized;
     }
-    
+
     /**
      * Get SEO analysis for a slug
      */
@@ -406,99 +404,99 @@ class SlugValidator
             'recommendations' => [],
             'timestamp' => (new DateTimeImmutable())->format('c')
         ];
-        
+
         $score = 0;
         $factors = [];
-        
+
         // 1. Length analysis
         $length = mb_strlen($slug);
         $lengthScore = $this->calculateLengthScore($length);
         $score += $lengthScore['score'];
         $factors['length'] = $lengthScore;
-        
+
         if ($lengthScore['score'] < $lengthScore['max_score']) {
             $analysis['recommendations'][] = $lengthScore['recommendation'];
         }
-        
+
         // 2. Word count analysis
         $wordCount = substr_count($slug, '-') + 1;
         $wordScore = $this->calculateWordScore($wordCount);
         $score += $wordScore['score'];
         $factors['word_count'] = $wordScore;
-        
+
         if ($wordScore['score'] < $wordScore['max_score']) {
             $analysis['recommendations'][] = $wordScore['recommendation'];
         }
-        
+
         // 3. Keyword analysis
         $keywordScore = $this->calculateKeywordScore($slug);
         $score += $keywordScore['score'];
         $factors['keywords'] = $keywordScore;
-        
+
         if (!empty($keywordScore['recommendations'])) {
             $analysis['recommendations'] = array_merge(
                 $analysis['recommendations'],
                 $keywordScore['recommendations']
             );
         }
-        
+
         // 4. Readability analysis
         $readabilityScore = $this->calculateReadabilityScore($slug);
         $score += $readabilityScore['score'];
         $factors['readability'] = $readabilityScore;
-        
+
         if (!empty($readabilityScore['recommendations'])) {
             $analysis['recommendations'] = array_merge(
                 $analysis['recommendations'],
                 $readabilityScore['recommendations']
             );
         }
-        
+
         // 5. Special characters analysis
         $specialCharScore = $this->calculateSpecialCharScore($slug);
         $score += $specialCharScore['score'];
         $factors['special_characters'] = $specialCharScore;
-        
+
         if (!empty($specialCharScore['recommendations'])) {
             $analysis['recommendations'] = array_merge(
                 $analysis['recommendations'],
                 $specialCharScore['recommendations']
             );
         }
-        
+
         $analysis['score'] = min($score, 100);
         $analysis['factors'] = $factors;
-        
+
         // Overall rating
         $analysis['rating'] = $this->getSeoRating($analysis['score']);
-        
+
         return $analysis;
     }
-    
+
     /**
      * Check if slug is reserved
      */
     public function isReserved(string $slug, ?string $entityType = null): bool
     {
         $normalizedSlug = $this->normalize($slug);
-        
+
         // Check global reserved slugs
         if (in_array($normalizedSlug, self::RESERVED_SLUGS)) {
             return true;
         }
-        
+
         // Check entity-specific reserved slugs
         if ($entityType && isset(self::ENTITY_RESERVED_SLUGS[$entityType])) {
             if (in_array($normalizedSlug, self::ENTITY_RESERVED_SLUGS[$entityType])) {
                 return true;
             }
         }
-        
+
         // Check numeric-only slugs (could conflict with IDs)
         if (is_numeric($normalizedSlug) && strlen($normalizedSlug) <= 10) {
             return true;
         }
-        
+
         // Check for common file extensions
         $extensions = ['.html', '.htm', '.php', '.asp', '.aspx', '.jsp', '.do', '.action'];
         foreach ($extensions as $ext) {
@@ -506,33 +504,33 @@ class SlugValidator
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Get all reserved slugs for an entity
      */
     public function getReservedSlugs(?string $entityType = null): array
     {
         $reserved = self::RESERVED_SLUGS;
-        
+
         if ($entityType && isset(self::ENTITY_RESERVED_SLUGS[$entityType])) {
             $reserved = array_merge($reserved, self::ENTITY_RESERVED_SLUGS[$entityType]);
         }
-        
+
         // Add numeric slugs
         for ($i = 0; $i <= 100; $i++) {
             $reserved[] = (string) $i;
         }
-        
+
         // Sort and remove duplicates
         sort($reserved);
         $reserved = array_unique($reserved);
-        
+
         return $reserved;
     }
-    
+
     /**
      * Validate slug format
      */
@@ -540,7 +538,7 @@ class SlugValidator
     {
         $errors = [];
         $normalizedSlug = $this->normalize($slug);
-        
+
         // Check if slug matches pattern
         if (!preg_match(self::SLUG_PATTERN, $normalizedSlug)) {
             $errors[] = [
@@ -552,7 +550,7 @@ class SlugValidator
                 'normalized' => $normalizedSlug
             ];
         }
-        
+
         // Check for invalid characters
         $invalidChars = $this->findInvalidCharacters($slug);
         if (!empty($invalidChars)) {
@@ -567,10 +565,10 @@ class SlugValidator
                 'invalid_chars' => array_unique($invalidChars)
             ];
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate slug length
      */
@@ -578,10 +576,10 @@ class SlugValidator
     {
         $errors = [];
         $length = mb_strlen($slug);
-        
+
         $minLength = $options['min_length'] ?? self::MIN_LENGTH;
         $maxLength = $options['max_length'] ?? self::MAX_LENGTH;
-        
+
         if ($length < $minLength) {
             $errors[] = [
                 'field' => 'slug',
@@ -592,7 +590,7 @@ class SlugValidator
                 'min_length' => $minLength
             ];
         }
-        
+
         if ($length > $maxLength) {
             $errors[] = [
                 'field' => 'slug',
@@ -603,17 +601,17 @@ class SlugValidator
                 'max_length' => $maxLength
             ];
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate reserved words
      */
     private function validateReserved(string $slug, string $entityType, array $options): array
     {
         $errors = [];
-        
+
         if ($this->isReserved($slug, $entityType)) {
             $errors[] = [
                 'field' => 'slug',
@@ -623,7 +621,7 @@ class SlugValidator
                 'entity_type' => $entityType
             ];
         }
-        
+
         // Check for partial matches with reserved words
         if ($options['check_partial_reserved'] ?? false) {
             $partialReserved = $this->checkPartialReserved($slug, $entityType);
@@ -640,10 +638,10 @@ class SlugValidator
                 ];
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate uniqueness
      */
@@ -654,14 +652,14 @@ class SlugValidator
         array $options
     ): array {
         $errors = [];
-        
+
         // Check cache first
         $cacheKey = $this->getCacheKey('uniqueness', [
             'slug' => $slug,
             'entity' => $entityType,
             'exclude' => $excludeId
         ]);
-        
+
         $cached = $this->cacheService->get($cacheKey);
         if ($cached !== null) {
             if (!$cached['is_unique']) {
@@ -669,10 +667,10 @@ class SlugValidator
             }
             return [];
         }
-        
+
         // Check uniqueness in database
         $isUnique = $this->checkDatabaseUniqueness($slug, $entityType, $excludeId);
-        
+
         if (!$isUnique) {
             $error = [
                 'field' => 'slug',
@@ -684,13 +682,13 @@ class SlugValidator
                     'max_suggestions' => 3
                 ])
             ];
-            
+
             // Cache the negative result
             $this->cacheService->set($cacheKey, [
                 'is_unique' => false,
                 'error' => $error
             ], self::CACHE_TTL_SLUG_CHECK);
-            
+
             $errors[] = $error;
         } else {
             // Cache the positive result
@@ -699,10 +697,10 @@ class SlugValidator
                 'error' => null
             ], self::CACHE_TTL_SLUG_CHECK);
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate SEO factors
      */
@@ -710,9 +708,9 @@ class SlugValidator
     {
         $errors = [];
         $analysis = $this->analyzeSeo($slug, $options);
-        
+
         $minSeoScore = $options['min_seo_score'] ?? 60;
-        
+
         if ($analysis['score'] < $minSeoScore) {
             $errors[] = [
                 'field' => 'slug',
@@ -729,7 +727,7 @@ class SlugValidator
                 'recommendations' => $analysis['recommendations']
             ];
         }
-        
+
         // Check for stop words if enabled
         if ($options['warn_stop_words'] ?? false) {
             $stopWords = $this->findStopWords($slug);
@@ -746,10 +744,10 @@ class SlugValidator
                 ];
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Validate entity-specific rules
      */
@@ -760,7 +758,7 @@ class SlugValidator
         array $options
     ): array {
         $errors = [];
-        
+
         switch ($entityType) {
             case self::ENTITY_PRODUCT:
                 // Product slugs should not look like IDs
@@ -772,7 +770,7 @@ class SlugValidator
                         'value' => $slug
                     ];
                 }
-                
+
                 // Product slugs should be descriptive
                 if (strlen($slug) < 5 && $context === self::CONTEXT_CREATE) {
                     $errors[] = [
@@ -784,7 +782,7 @@ class SlugValidator
                     ];
                 }
                 break;
-                
+
             case self::ENTITY_CATEGORY:
                 // Category slugs should be short and clear
                 if (str_word_count(str_replace('-', ' ', $slug)) > 3) {
@@ -798,7 +796,7 @@ class SlugValidator
                     ];
                 }
                 break;
-                
+
             case self::ENTITY_PAGE:
                 // Page slugs should not start with numbers
                 if (preg_match('/^\d/', $slug)) {
@@ -811,10 +809,10 @@ class SlugValidator
                 }
                 break;
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * Check database uniqueness
      */
@@ -824,29 +822,29 @@ class SlugValidator
         ?int $excludeId
     ): bool {
         $model = $this->getModelForEntity($entityType);
-        
+
         if (!$model) {
             throw new InvalidArgumentException("Unsupported entity type: {$entityType}");
         }
-        
+
         $normalizedSlug = $this->normalize($slug);
-        
+
         // Build query
         $builder = $model->builder();
         $builder->where('slug', $normalizedSlug);
-        
+
         if ($excludeId !== null) {
             $builder->where('id !=', $excludeId);
         }
-        
+
         // Consider soft deleted records based on context
         if (method_exists($model, 'builder') && $model->useSoftDeletes ?? false) {
             $builder->where('deleted_at IS NULL');
         }
-        
+
         return $builder->countAllResults() === 0;
     }
-    
+
     /**
      * Generate unique slug with incrementing suffix
      */
@@ -859,52 +857,52 @@ class SlugValidator
         $attempt = 1;
         $maxAttempts = $options['max_attempts'] ?? self::MAX_ATTEMPTS;
         $incrementSeparator = $options['increment_separator'] ?? '-';
-        
+
         $slug = $baseSlug;
-        
+
         while ($attempt <= $maxAttempts) {
             // Check if current slug is valid
             if ($this->isValid($slug, $entityType, self::CONTEXT_CREATE, $excludeId, $options)) {
                 return $slug;
             }
-            
+
             // Try with incrementing number
             $attempt++;
             $slug = $baseSlug . $incrementSeparator . $attempt;
         }
-        
+
         // If all attempts fail, append timestamp
         $timestamp = time();
         return $baseSlug . $incrementSeparator . $timestamp;
     }
-    
+
     /**
      * Clean string for slug generation
      */
     private function cleanString(string $string, array $options): string
     {
         $cleaned = $string;
-        
+
         // Convert to lowercase if needed
         if ($options['force_lowercase'] ?? true) {
             $cleaned = mb_strtolower($cleaned, 'UTF-8');
         }
-        
+
         // Remove accents/diacritics
         $cleaned = $this->removeAccents($cleaned);
-        
+
         // Replace spaces and special characters with separator
         $cleaned = preg_replace(self::CLEAN_PATTERN, $options['separator'], $cleaned);
-        
+
         // Remove duplicate separators
         $cleaned = preg_replace('/' . preg_quote($options['separator'], '/') . '+/', $options['separator'], $cleaned);
-        
+
         // Trim separators from ends
         $cleaned = trim($cleaned, $options['separator']);
-        
+
         return $cleaned;
     }
-    
+
     /**
      * Remove accents from string
      */
@@ -926,7 +924,7 @@ class SlugValidator
             'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ',
             'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ'
         ];
-        
+
         $replace = [
             'A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I',
             'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a',
@@ -943,10 +941,10 @@ class SlugValidator
             'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u',
             'A', 'a', 'AE', 'ae', 'O', 'o'
         ];
-        
+
         return str_replace($search, $replace, $string);
     }
-    
+
     /**
      * Truncate slug to maximum length
      */
@@ -955,46 +953,46 @@ class SlugValidator
         if (mb_strlen($slug) <= $maxLength) {
             return $slug;
         }
-        
+
         // Try to truncate at word boundary
         $truncated = mb_substr($slug, 0, $maxLength);
         $lastSeparator = mb_strrpos($truncated, '-');
-        
+
         if ($lastSeparator > 0 && $lastSeparator > $maxLength * 0.7) {
             $truncated = mb_substr($truncated, 0, $lastSeparator);
         }
-        
+
         return rtrim($truncated, '-');
     }
-    
+
     /**
      * Remove stop words from slug
      */
     private function removeStopWords(string $slug, array $stopWords, string $separator): string
     {
         $words = explode($separator, $slug);
-        $filteredWords = array_filter($words, function($word) use ($stopWords) {
+        $filteredWords = array_filter($words, function ($word) use ($stopWords) {
             return !in_array($word, $stopWords);
         });
-        
+
         return implode($separator, $filteredWords);
     }
-    
+
     /**
      * Limit number of words in slug
      */
     private function limitWords(string $slug, int $maxWords, string $separator): string
     {
         $words = explode($separator, $slug);
-        
+
         if (count($words) <= $maxWords) {
             return $slug;
         }
-        
+
         $limitedWords = array_slice($words, 0, $maxWords);
         return implode($separator, $limitedWords);
     }
-    
+
     /**
      * Generate random suffix
      */
@@ -1002,14 +1000,14 @@ class SlugValidator
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $suffix = '';
-        
+
         for ($i = 0; $i < $length; $i++) {
             $suffix .= $characters[rand(0, strlen($characters) - 1)];
         }
-        
+
         return $suffix;
     }
-    
+
     /**
      * Find invalid characters in slug
      */
@@ -1017,20 +1015,20 @@ class SlugValidator
     {
         $invalid = [];
         $normalized = $this->normalize($slug, ['force_lowercase' => false]);
-        
+
         // Check each character
         for ($i = 0; $i < mb_strlen($normalized); $i++) {
             $char = mb_substr($normalized, $i, 1);
-            
+
             // Allow letters, numbers, hyphens
             if (!preg_match('/^[a-zA-Z0-9-]$/', $char)) {
                 $invalid[] = $char === ' ' ? '[space]' : $char;
             }
         }
-        
+
         return $invalid;
     }
-    
+
     /**
      * Check for partial matches with reserved words
      */
@@ -1039,7 +1037,7 @@ class SlugValidator
         $matches = [];
         $slugParts = explode('-', $slug);
         $allReserved = $this->getReservedSlugs($entityType);
-        
+
         foreach ($allReserved as $reserved) {
             foreach ($slugParts as $part) {
                 if (strpos($reserved, $part) !== false || strpos($part, $reserved) !== false) {
@@ -1049,10 +1047,10 @@ class SlugValidator
                 }
             }
         }
-        
+
         return $matches;
     }
-    
+
     /**
      * Find stop words in slug
      */
@@ -1061,16 +1059,16 @@ class SlugValidator
         $stopWords = self::SEO_OPTIMIZATION_RULES['stop_words'];
         $slugWords = explode('-', $slug);
         $found = [];
-        
+
         foreach ($slugWords as $word) {
             if (in_array($word, $stopWords)) {
                 $found[] = $word;
             }
         }
-        
+
         return $found;
     }
-    
+
     /**
      * Calculate length score for SEO
      */
@@ -1080,7 +1078,7 @@ class SlugValidator
         $idealMin = 3;
         $idealMax = 60;
         $absoluteMax = 100;
-        
+
         if ($length < $idealMin) {
             $score = 5;
             $recommendation = "Slug is too short. Aim for {$idealMin}-{$idealMax} characters.";
@@ -1096,7 +1094,7 @@ class SlugValidator
             $score = $maxScore;
             $recommendation = "Slug length is optimal.";
         }
-        
+
         return [
             'score' => round($score, 1),
             'max_score' => $maxScore,
@@ -1105,7 +1103,7 @@ class SlugValidator
             'recommendation' => $recommendation
         ];
     }
-    
+
     /**
      * Calculate word count score for SEO
      */
@@ -1115,7 +1113,7 @@ class SlugValidator
         $idealMin = 2;
         $idealMax = 5;
         $absoluteMax = 8;
-        
+
         if ($wordCount < $idealMin) {
             $score = $maxScore * 0.5;
             $recommendation = "Slug has too few words. Aim for {$idealMin}-{$idealMax} words.";
@@ -1131,7 +1129,7 @@ class SlugValidator
             $score = $maxScore;
             $recommendation = "Word count is optimal.";
         }
-        
+
         return [
             'score' => round($score, 1),
             'max_score' => $maxScore,
@@ -1140,7 +1138,7 @@ class SlugValidator
             'recommendation' => $recommendation
         ];
     }
-    
+
     /**
      * Calculate keyword score for SEO
      */
@@ -1149,9 +1147,9 @@ class SlugValidator
         $maxScore = 30;
         $score = $maxScore;
         $recommendations = [];
-        
+
         $words = explode('-', $slug);
-        
+
         // Check for keyword stuffing (repetition)
         $wordCounts = array_count_values($words);
         foreach ($wordCounts as $word => $count) {
@@ -1160,7 +1158,7 @@ class SlugValidator
                 $recommendations[] = "Word '{$word}' is repeated too many times.";
             }
         }
-        
+
         // Check for generic words
         $genericWords = ['page', 'post', 'item', 'product', 'category', 'tag'];
         $genericFound = array_intersect($words, $genericWords);
@@ -1168,23 +1166,23 @@ class SlugValidator
             $score -= 5;
             $recommendations[] = "Consider replacing generic words: " . implode(', ', $genericFound);
         }
-        
+
         // Check for numbers at the end (good for SEO)
         $lastWord = end($words);
         if (is_numeric($lastWord)) {
             $score += 5;
         }
-        
+
         // Ensure score stays within bounds
         $score = max(0, min($maxScore, $score));
-        
+
         return [
             'score' => round($score, 1),
             'max_score' => $maxScore,
             'recommendations' => $recommendations
         ];
     }
-    
+
     /**
      * Calculate readability score
      */
@@ -1193,9 +1191,9 @@ class SlugValidator
         $maxScore = 20;
         $score = $maxScore;
         $recommendations = [];
-        
+
         $words = explode('-', $slug);
-        
+
         // Check word lengths
         foreach ($words as $word) {
             $length = strlen($word);
@@ -1207,7 +1205,7 @@ class SlugValidator
                 $recommendations[] = "Word '{$word}' is too long. Consider splitting or replacing.";
             }
         }
-        
+
         // Check for consecutive consonants/vowels (hard to pronounce)
         foreach ($words as $word) {
             if (preg_match('/[bcdfghjklmnpqrstvwxyz]{4,}/i', $word) ||
@@ -1216,17 +1214,17 @@ class SlugValidator
                 $recommendations[] = "Word '{$word}' might be hard to pronounce.";
             }
         }
-        
+
         // Ensure score stays within bounds
         $score = max(0, min($maxScore, $score));
-        
+
         return [
             'score' => round($score, 1),
             'max_score' => $maxScore,
             'recommendations' => $recommendations
         ];
     }
-    
+
     /**
      * Calculate special characters score
      */
@@ -1235,48 +1233,58 @@ class SlugValidator
         $maxScore = 10;
         $score = $maxScore;
         $recommendations = [];
-        
+
         // Check for special characters (already validated, but double-check)
         if (preg_match('/[^a-z0-9-]/', $slug)) {
             $score = 0;
             $recommendations[] = "Slug contains invalid characters. Only lowercase letters, numbers, and hyphens are allowed.";
         }
-        
+
         // Check for consecutive hyphens
         if (strpos($slug, '--') !== false) {
             $score -= 5;
             $recommendations[] = "Avoid consecutive hyphens in slug.";
         }
-        
+
         // Check for leading/trailing hyphens
         if ($slug[0] === '-' || substr($slug, -1) === '-') {
             $score -= 5;
             $recommendations[] = "Remove hyphens from beginning or end of slug.";
         }
-        
+
         // Ensure score stays within bounds
         $score = max(0, min($maxScore, $score));
-        
+
         return [
             'score' => round($score, 1),
             'max_score' => $maxScore,
             'recommendations' => $recommendations
         ];
     }
-    
+
     /**
      * Get SEO rating based on score
      */
     private function getSeoRating(int $score): string
     {
-        if ($score >= 90) return 'excellent';
-        if ($score >= 80) return 'very good';
-        if ($score >= 70) return 'good';
-        if ($score >= 60) return 'fair';
-        if ($score >= 50) return 'needs improvement';
+        if ($score >= 90) {
+            return 'excellent';
+        }
+        if ($score >= 80) {
+            return 'very good';
+        }
+        if ($score >= 70) {
+            return 'good';
+        }
+        if ($score >= 60) {
+            return 'fair';
+        }
+        if ($score >= 50) {
+            return 'needs improvement';
+        }
         return 'poor';
     }
-    
+
     /**
      * Get model instance for entity type
      */
@@ -1288,44 +1296,38 @@ class SlugValidator
                     $this->productModel = model(ProductModel::class);
                 }
                 return $this->productModel;
-                
+
             case self::ENTITY_CATEGORY:
                 if (!isset($this->categoryModel)) {
                     $this->categoryModel = model(CategoryModel::class);
                 }
                 return $this->categoryModel;
-                
+
             case self::ENTITY_MARKETPLACE:
                 if (!isset($this->marketplaceModel)) {
                     $this->marketplaceModel = model(MarketplaceModel::class);
                 }
                 return $this->marketplaceModel;
-                
-            case self::ENTITY_PAGE:
-                if (!isset($this->pageModel)) {
-                    $this->pageModel = model(PageModel::class);
-                }
-                return $this->pageModel;
-                
+
             default:
                 throw new InvalidArgumentException("Unsupported entity type: {$entityType}");
         }
     }
-    
+
     /**
      * Generate cache key
      */
     private function getCacheKey(string $type, array $params = []): string
     {
         $key = 'slug_validator_' . $type;
-        
+
         if (!empty($params)) {
             $key .= '_' . md5(serialize($params));
         }
-        
+
         return $key;
     }
-    
+
     /**
      * Build validation result
      */
@@ -1336,7 +1338,7 @@ class SlugValidator
         array $context
     ): array {
         $normalizedSlug = $this->normalize($slug);
-        
+
         $result = [
             'is_valid' => $isValid,
             'slug' => $slug,
@@ -1346,7 +1348,7 @@ class SlugValidator
             'timestamp' => (new DateTimeImmutable())->format('c'),
             'error_count' => count($errors)
         ];
-        
+
         // Add suggestions if there are errors
         if (!$isValid && !empty($errors)) {
             $result['suggestions'] = $this->suggestAlternatives(
@@ -1356,10 +1358,10 @@ class SlugValidator
                 ['max_suggestions' => 3]
             );
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Create SlugValidator instance with default dependencies
      */
@@ -1367,7 +1369,7 @@ class SlugValidator
     {
         $validation = service('validation');
         $cacheService = new CacheService(service('cache'));
-        
+
         return new self($validation, $cacheService);
     }
 }

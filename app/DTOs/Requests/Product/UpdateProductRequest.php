@@ -7,94 +7,74 @@ use App\Enums\ProductStatus;
 
 /**
  * Update Product Request DTO
- * 
+ *
  * Data Transfer Object for product update requests.
  * Supports partial updates with change detection.
- * 
+ *
  * @package App\DTOs\Requests\Product
  */
 class UpdateProductRequest
 {
     /**
      * Product ID to update
-     * 
-     * @var int
      */
     public int $productId;
 
     /**
      * Product name
-     * 
-     * @var string|null
      */
     public ?string $name = null;
 
     /**
      * URL-friendly slug
-     * 
-     * @var string|null
      */
     public ?string $slug = null;
 
     /**
      * Product description
-     * 
-     * @var string|null
      */
     public ?string $description = null;
 
     /**
      * Category ID
-     * 
-     * @var int|null
      */
     public ?int $categoryId = null;
 
     /**
      * Market reference price
-     * 
-     * @var string|null
      */
     public ?string $marketPrice = null;
 
     /**
      * Image URL (for URL source type)
-     * 
-     * @var string|null
      */
     public ?string $image = null;
 
     /**
      * Image source type
-     * 
-     * @var ImageSourceType|null
      */
     public ?ImageSourceType $imageSourceType = null;
 
     /**
      * Product status
-     * 
-     * @var ProductStatus|null
      */
     public ?ProductStatus $status = null;
 
     /**
      * Image path for uploaded images
-     * 
-     * @var string|null
      */
     public ?string $imagePath = null;
 
     /**
      * UpdateProductRequest constructor
-     * 
+     *
      * @param int $productId Product ID to update
      * @param array $data Request data
      */
     public function __construct(int $productId, array $data = [])
     {
         $this->productId = $productId;
-        
+
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $this->castValue($key, $value);
@@ -104,8 +84,7 @@ class UpdateProductRequest
 
     /**
      * Cast value to appropriate type
-     * 
-     * @param string $key
+     *
      * @param mixed $value
      * @return mixed
      */
@@ -117,28 +96,26 @@ class UpdateProductRequest
 
         switch ($key) {
             case 'productId':
-                return (int) $value;
-                
-            case 'imageSourceType':
-                return ImageSourceType::from($value);
-                
-            case 'status':
-                return ProductStatus::from($value);
-                
             case 'categoryId':
                 return (int) $value;
-                
+
+            case 'imageSourceType':
+                return ImageSourceType::from($value);
+
+            case 'status':
+                return ProductStatus::from($value);
+
             case 'marketPrice':
                 // Ensure decimal format with 2 places
                 return number_format((float) $value, 2, '.', '');
-                
+
             case 'name':
             case 'slug':
             case 'description':
             case 'image':
             case 'imagePath':
                 return (string) $value;
-                
+
             default:
                 return $value;
         }
@@ -146,8 +123,6 @@ class UpdateProductRequest
 
     /**
      * Get validation rules for this request
-     * 
-     * @return array
      */
     public static function rules(): array
     {
@@ -167,8 +142,6 @@ class UpdateProductRequest
 
     /**
      * Get validation messages
-     * 
-     * @return array
      */
     public static function messages(): array
     {
@@ -189,88 +162,82 @@ class UpdateProductRequest
 
     /**
      * Sanitize the request data
-     * 
-     * @return self
      */
     public function sanitize(): self
     {
         if ($this->name !== null) {
             $this->name = trim($this->name);
         }
-        
+
         if ($this->slug !== null) {
             $this->slug = strtolower(trim($this->slug));
         }
-        
+
         if ($this->description !== null) {
             $this->description = trim($this->description);
         }
-        
+
         if ($this->image !== null) {
             $this->image = trim($this->image);
         }
-        
+
         if ($this->imagePath !== null) {
             $this->imagePath = trim($this->imagePath);
         }
-        
+
         return $this;
     }
 
     /**
      * Convert to array for database update
      * Only includes fields that are actually being updated
-     * 
-     * @return array
      */
     public function toArray(): array
     {
         $data = [];
-        
+
         if ($this->name !== null) {
             $data['name'] = $this->name;
         }
-        
+
         if ($this->slug !== null) {
             $data['slug'] = $this->slug;
         }
-        
+
         if ($this->description !== null) {
             $data['description'] = $this->description;
         }
-        
+
         if ($this->categoryId !== null) {
             $data['category_id'] = $this->categoryId;
         }
-        
+
         if ($this->marketPrice !== null) {
             $data['market_price'] = $this->marketPrice;
         }
-        
+
         if ($this->image !== null) {
             $data['image'] = $this->image;
         }
-        
-        if ($this->imageSourceType !== null) {
+
+        if ($this->imageSourceType instanceof \App\Enums\ImageSourceType) {
             $data['image_source_type'] = $this->imageSourceType->value;
         }
-        
-        if ($this->status !== null) {
+
+        if ($this->status instanceof \App\Enums\ProductStatus) {
             $data['status'] = $this->status->value;
         }
-        
+
         if ($this->imagePath !== null) {
             $data['image_path'] = $this->imagePath;
         }
-        
+
         return $data;
     }
 
     /**
      * Create from HTTP request
-     * 
-     * @param int $productId
-     * @param array $requestData
+     *
      * @return static
      */
     public static function fromRequest(int $productId, array $requestData): self
@@ -287,111 +254,118 @@ class UpdateProductRequest
             'imagePath' => $requestData['image_path'] ?? $requestData['imagePath'] ?? null,
         ];
 
-        return new self($productId, array_filter($data, fn($value) => $value !== null));
+        return new self($productId, array_filter($data, fn ($value) => $value !== null));
     }
 
     /**
      * Validate the request data
-     * 
+     *
      * @return array [valid: bool, errors: array]
      */
     public function validate(): array
     {
         $validation = \Config\Services::validation();
         $validation->setRules(self::rules(), self::messages());
-        
+
         $data = $this->toArray();
         $data['productId'] = $this->productId;
-        
+
         // Convert enums to string values for validation
-        if ($this->imageSourceType !== null) {
+        if ($this->imageSourceType instanceof \App\Enums\ImageSourceType) {
             $data['image_source_type'] = $this->imageSourceType->value;
         }
-        
-        if ($this->status !== null) {
+
+        if ($this->status instanceof \App\Enums\ProductStatus) {
             $data['status'] = $this->status->value;
         }
-        
+
         $isValid = $validation->run($data);
         $errors = $isValid ? [] : $validation->getErrors();
-        
+
         // Additional business validations
         $businessErrors = $this->validateBusinessRules();
         $errors = array_merge($errors, $businessErrors);
-        
+
         return [
-            'valid' => empty($errors),
+            'valid' => $errors === [],
             'errors' => $errors,
         ];
     }
 
     /**
      * Validate business rules
-     * 
-     * @return array
      */
     private function validateBusinessRules(): array
     {
         $errors = [];
-        
+
         // Market price must be positive if provided
         if ($this->marketPrice !== null && (float) $this->marketPrice < 0) {
             $errors[] = 'Market price cannot be negative';
         }
-        
+
         // If image is provided for URL source type, validate URL
-        if ($this->imageSourceType === ImageSourceType::URL && !empty($this->image)) {
-            if (!filter_var($this->image, FILTER_VALIDATE_URL)) {
-                $errors[] = 'Image must be a valid URL when using external source type';
-            }
+        if ($this->imageSourceType === ImageSourceType::URL && !in_array($this->image, [null, '', '0'], true) && !filter_var($this->image, FILTER_VALIDATE_URL)) {
+            $errors[] = 'Image must be a valid URL when using external source type';
         }
-        
+
         // If both image and imagePath are provided, they must be compatible
         if ($this->image !== null && $this->imagePath !== null && $this->imageSourceType === ImageSourceType::UPLOAD) {
             // For uploads, image should be null and imagePath should contain the path
             $errors[] = 'For uploaded images, provide only imagePath, not image URL';
         }
-        
+
         return $errors;
     }
 
     /**
      * Check if this request has any changes
-     * 
-     * @return bool
      */
     public function hasChanges(): bool
     {
-        return !empty($this->toArray());
+        return $this->toArray() !== [];
     }
 
     /**
      * Get list of fields being updated
-     * 
-     * @return array
      */
     public function getChangedFields(): array
     {
         $fields = [];
-        
-        if ($this->name !== null) $fields[] = 'name';
-        if ($this->slug !== null) $fields[] = 'slug';
-        if ($this->description !== null) $fields[] = 'description';
-        if ($this->categoryId !== null) $fields[] = 'category_id';
-        if ($this->marketPrice !== null) $fields[] = 'market_price';
-        if ($this->image !== null) $fields[] = 'image';
-        if ($this->imageSourceType !== null) $fields[] = 'image_source_type';
-        if ($this->status !== null) $fields[] = 'status';
-        if ($this->imagePath !== null) $fields[] = 'image_path';
-        
+
+        if ($this->name !== null) {
+            $fields[] = 'name';
+        }
+        if ($this->slug !== null) {
+            $fields[] = 'slug';
+        }
+        if ($this->description !== null) {
+            $fields[] = 'description';
+        }
+        if ($this->categoryId !== null) {
+            $fields[] = 'category_id';
+        }
+        if ($this->marketPrice !== null) {
+            $fields[] = 'market_price';
+        }
+        if ($this->image !== null) {
+            $fields[] = 'image';
+        }
+        if ($this->imageSourceType instanceof \App\Enums\ImageSourceType) {
+            $fields[] = 'image_source_type';
+        }
+        if ($this->status instanceof \App\Enums\ProductStatus) {
+            $fields[] = 'status';
+        }
+        if ($this->imagePath !== null) {
+            $fields[] = 'image_path';
+        }
+
         return $fields;
     }
 
     /**
      * Check if specific field is being updated
-     * 
-     * @param string $field
-     * @return bool
      */
     public function isFieldChanged(string $field): bool
     {
@@ -402,42 +376,36 @@ class UpdateProductRequest
             'category_id' => $this->categoryId !== null,
             'market_price' => $this->marketPrice !== null,
             'image' => $this->image !== null,
-            'image_source_type' => $this->imageSourceType !== null,
-            'status' => $this->status !== null,
+            'image_source_type' => $this->imageSourceType instanceof \App\Enums\ImageSourceType,
+            'status' => $this->status instanceof \App\Enums\ProductStatus,
             'image_path' => $this->imagePath !== null,
         ];
-        
+
         return $fieldMap[$field] ?? false;
     }
 
     /**
      * Get formatted market price if provided
-     * 
-     * @return string|null
      */
     public function getFormattedMarketPrice(): ?string
     {
         if ($this->marketPrice === null) {
             return null;
         }
-        
+
         return number_format((float) $this->marketPrice, 0, ',', '.');
     }
 
     /**
      * Check if request has image data
-     * 
-     * @return bool
      */
     public function hasImageData(): bool
     {
-        return $this->image !== null || $this->imagePath !== null || $this->imageSourceType !== null;
+        return $this->image !== null || $this->imagePath !== null || $this->imageSourceType instanceof \App\Enums\ImageSourceType;
     }
 
     /**
      * Get the image source type label if provided
-     * 
-     * @return string|null
      */
     public function getImageSourceTypeLabel(): ?string
     {
@@ -446,8 +414,6 @@ class UpdateProductRequest
 
     /**
      * Get the status label if provided
-     * 
-     * @return string|null
      */
     public function getStatusLabel(): ?string
     {
@@ -456,8 +422,6 @@ class UpdateProductRequest
 
     /**
      * Create a summary of changes for logging
-     * 
-     * @return array
      */
     public function toChangeSummary(): array
     {
@@ -466,49 +430,46 @@ class UpdateProductRequest
             'changed_fields' => $this->getChangedFields(),
             'field_count' => count($this->getChangedFields()),
         ];
-        
+
         if ($this->name !== null) {
             $summary['new_name'] = $this->name;
         }
-        
+
         if ($this->slug !== null) {
             $summary['new_slug'] = $this->slug;
         }
-        
+
         if ($this->marketPrice !== null) {
             $summary['new_market_price'] = $this->getFormattedMarketPrice();
         }
-        
-        if ($this->status !== null) {
+
+        if ($this->status instanceof \App\Enums\ProductStatus) {
             $summary['new_status'] = $this->getStatusLabel();
         }
-        
-        if ($this->imageSourceType !== null) {
+
+        if ($this->imageSourceType instanceof \App\Enums\ImageSourceType) {
             $summary['new_image_source_type'] = $this->getImageSourceTypeLabel();
         }
-        
+
         return $summary;
     }
 
     /**
      * Merge with another update request
      * Useful for combining partial updates
-     * 
-     * @param UpdateProductRequest $other
-     * @return self
      */
     public function merge(self $other): self
     {
         if ($this->productId !== $other->productId) {
             throw new \InvalidArgumentException('Cannot merge requests for different products');
         }
-        
+
         $mergedData = $this->toArray();
         $otherData = $other->toArray();
-        
+
         // Merge, with other request taking precedence
         $mergedData = array_merge($mergedData, $otherData);
-        
+
         // Recreate request with merged data
         return new self($this->productId, $mergedData);
     }
