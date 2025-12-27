@@ -9,8 +9,10 @@ use App\Entities\Product;
 use App\Enums\ProductStatus;
 use App\Models\AdminModel;
 use App\Models\CategoryModel;
-use App\Models\LinkModel;
+use App\Models\LinkModel; 
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Repositories\Interfaces\LinkRepositoryInterface; 
+use App\Repositories\Concrete\LinkRepository; 
 use CodeIgniter\Validation\Validation;
 use DateTimeImmutable;
 
@@ -24,7 +26,7 @@ class ValidationService
 {
     private ProductRepositoryInterface $productRepository;
     private CategoryModel $categoryModel;
-    private LinkModel $linkModel;
+    private LinkRepositoryInterface $linkRepository;
     private AdminModel $adminModel;
     private Validation $validation;
 
@@ -49,7 +51,6 @@ class ValidationService
     private const MAX_LINKS_PER_PRODUCT = 10;
     private const MIN_PRICE = 100; // Rp 100
     private const MAX_PRICE = 1000000000; // Rp 1M
-    private const MIN_PASSWORD_LENGTH = 8;
     private const MAX_NAME_LENGTH = 255;
     private const MAX_DESCRIPTION_LENGTH = 2000;
 
@@ -59,14 +60,14 @@ class ValidationService
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryModel $categoryModel,
-        LinkModel $linkModel,
+        LinkRepositoryInterface $linkRepository,
         AdminModel $adminModel,
         Validation $validation,
         array $config = []
     ) {
         $this->productRepository = $productRepository;
         $this->categoryModel = $categoryModel;
-        $this->linkModel = $linkModel;
+        $this->linkRepository = $linkRepository;
         $this->adminModel = $adminModel;
         $this->validation = $validation;
         $this->config = array_merge($this->getDefaultConfig(), $config);
@@ -158,16 +159,28 @@ class ValidationService
             );
         }
 
-        // If not force publishing, validate all prerequisites
         if (!$forcePublish) {
             // 1. Validate required fields
+            // [FIX] Definisikan array requiredFields sebelum loop
             $requiredFields = ['name', 'slug', 'market_price', 'category_id'];
+            
             foreach ($requiredFields as $field) {
-                $getter = 'get' . str_replace('_', '', ucwords($field, '_'));
-                if (method_exists($product, $getter)) {
-                    $value = $product->$getter();
+                // Mapping field database ke nama method getter Entity
+                $getterMap = [
+                    'name'          => 'getName',
+                    'slug'          => 'getSlug',
+                    'market_price'  => 'getMarketPrice',
+                    'category_id'   => 'getCategoryId'
+                ];
+
+                if (!isset($getterMap[$field])) continue;
+
+                $method = $getterMap[$field];
+                
+                if (method_exists($product, $method)) {
+                    $value = $product->$method();
                     if (empty($value)) {
-                        $errors[] = $this->createError(
+                         $errors[] = $this->createError(
                             'missing_required_field',
                             sprintf('Field %s is required for publishing', $field),
                             ['field' => $field]
@@ -198,7 +211,8 @@ class ValidationService
             }
 
             // 4. Validate at least one active link
-            $activeLinks = $this->linkModel->findActiveByProduct($productId);
+            // Menggunakan method Repository (findByProduct dengan parameter activeOnly=true)
+            $activeLinks = $this->linkRepository->findByProduct($productId, true);
             if (empty($activeLinks) && $this->config['require_active_links_for_publish']) {
                 $errors[] = $this->createError(
                     'no_active_links',
@@ -226,7 +240,9 @@ class ValidationService
             }
 
             // 6. Validate slug uniqueness
-            if (!$this->productRepository->isSlugUnique($product->getSlug(), $productId)) {
+            // Menggunakan findBySlug untuk keamanan
+             $existingProduct = $this->productRepository->findBySlug($product->getSlug());
+             if ($existingProduct && $existingProduct->getId() !== $productId) {
                 $errors[] = $this->createError(
                     'duplicate_slug',
                     'Product slug must be unique',
@@ -296,7 +312,8 @@ class ValidationService
 
         // Check if product has active dependencies
         if (!$forceDelete) {
-            $activeLinks = $this->linkModel->findActiveByProduct($productId);
+            // [FIX] Menggunakan Repository Method, bukan Model Method
+            $activeLinks = $this->linkRepository->findByProduct($productId, true);
             if (!empty($activeLinks) && $this->config['check_dependencies_before_delete']) {
                 $errors[] = $this->createError(
                     'has_active_dependencies',
@@ -404,7 +421,7 @@ class ValidationService
             }
 
             // Check maximum links per product
-            $productLinks = $this->linkModel->findByProduct($linkData['product_id']);
+            $productLinks = $this->linkRepository->findByProduct($linkData['product_id']);
             if (count($productLinks) >= self::MAX_LINKS_PER_PRODUCT && $operation === self::CONTEXT_CREATE) {
                 $errors[] = $this->createError(
                     'max_links_reached',
@@ -682,7 +699,9 @@ class ValidationService
 
         // Validate slug uniqueness for create
         if ($context === self::CONTEXT_CREATE && isset($data['slug'])) {
-            if (!$this->productRepository->isSlugUnique($data['slug'])) {
+            // [FIX] Gunakan findBySlug, bukan isSlugUnique
+            $existing = $this->productRepository->findBySlug($data['slug']);
+            if ($existing) {
                 $errors[] = $this->createError(
                     'duplicate_slug',
                     'Product slug must be unique',
@@ -801,7 +820,9 @@ class ValidationService
 
         // Validate slug uniqueness if slug is being changed
         if (isset($data['slug']) && $data['slug'] !== $product->getSlug()) {
-            if (!$this->productRepository->isSlugUnique($data['slug'], $product->getId())) {
+            // [FIX] Gunakan findBySlug manual
+            $existing = $this->productRepository->findBySlug($data['slug']);
+            if ($existing && $existing->getId() !== $product->getId()) {
                 $errors[] = $this->createError(
                     'duplicate_slug',
                     'Product slug must be unique',
@@ -816,7 +837,16 @@ class ValidationService
 
             foreach ($restrictedFields as $field) {
                 if (isset($data[$field])) {
-                    $getter = 'get' . str_replace('_', '', ucwords($field, '_'));
+                    // [FIX] Gunakan mapping eksplisit, BUKAN magic ucwords
+                    $getterMap = [
+                        'slug' => 'getSlug',
+                        'category_id' => 'getCategoryId',
+                        'market_price' => 'getMarketPrice'
+                    ];
+
+                    if (!isset($getterMap[$field])) continue;
+                    
+                    $getter = $getterMap[$field];
                     $oldValue = $product->$getter();
 
                     if ($data[$field] != $oldValue) {
@@ -1017,15 +1047,16 @@ class ValidationService
         $repositoryService = new \App\Services\RepositoryService();
         $productRepository = $repositoryService->product();
 
+        // [FIX] Menggunakan new Instance, bukan model() untuk Repository
         $categoryModel = model(CategoryModel::class);
-        $linkModel = model(LinkModel::class);
+        $linkRepository = new LinkRepository(model(LinkModel::class));
         $adminModel = model(AdminModel::class);
         $validation = service('validation');
 
         return new self(
             $productRepository,
             $categoryModel,
-            $linkModel,
+            $linkRepository,
             $adminModel,
             $validation
         );

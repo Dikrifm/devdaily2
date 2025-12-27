@@ -12,11 +12,8 @@ use DateTimeImmutable;
  *
  * @package App\Entities
  */
-class Link extends BaseEntity
+final class Link extends BaseEntity
 {
-    public $created_at;
-    public $updated_at;
-    public $deleted_at;
     private int $product_id;
     private int $marketplace_id;
     private string $store_name;
@@ -30,7 +27,6 @@ class Link extends BaseEntity
     private ?DateTimeImmutable $last_validation = null;
     private string $affiliate_revenue = '0.00';
     private ?int $marketplace_badge_id = null;
-
     /**
      * Default commission rate (2%) as global fallback
      * Used when admin doesn't provide custom rate
@@ -38,7 +34,7 @@ class Link extends BaseEntity
      * @const float
      */
     public const DEFAULT_COMMISSION_RATE = 0.02; // 2%
-    /**
+    /**  *
      * Constructor
      */
     public function __construct(int $product_id, int $marketplace_id, string $store_name)
@@ -50,7 +46,7 @@ class Link extends BaseEntity
 
     // ============================================
     // GETTER METHODS (EXISTING - KEEP AS IS)
-    // ============================================
+    // ===========================================
 
     public function getProductId(): int
     {
@@ -66,6 +62,16 @@ class Link extends BaseEntity
     {
         return $this->store_name;
     }
+    
+    // app/Entities/Link.php - Tambahkan validasi
+public function setPrice(string $price): self
+{
+    if (!preg_match('/^\d+(\.\d{2})?$/', $price)) {
+        throw new \InvalidArgumentException('Price must be in decimal format with 2 decimals');
+    }
+    $this->price = $price;
+    return $this;
+}
 
     public function getPrice(): string
     {
@@ -136,12 +142,6 @@ class Link extends BaseEntity
     public function setStoreName(string $store_name): self
     {
         $this->store_name = $store_name;
-        return $this;
-    }
-
-    public function setPrice(string $price): self
-    {
-        $this->price = $price;
         return $this;
     }
 
@@ -443,7 +443,7 @@ class Link extends BaseEntity
 
     public static function fromArray(array $data): static
     {
-        $link = new Link(
+        $link = new static(
             $data['product_id'] ?? 0,
             $data['marketplace_id'] ?? 0,
             $data['store_name'] ?? ''

@@ -3,41 +3,50 @@
 namespace App\Models;
 
 use App\Entities\Link;
+use CodeIgniter\Database\BaseBuilder;
 
 /**
- * Link Model
- *
- * Handles affiliate links, click tracking, and revenue management.
- * Core of the affiliate monetization system with MVP approach.
- *
+ * Link Model - SQL Encapsulator for Link Entity
+ * 
+ * Layer 2: Pure Data Gateway (0% Business Logic)
+ * Implements "Transient Input, Persistent Revenue" database operations
+ * 
  * @package App\Models
  */
 class LinkModel extends BaseModel
 {
     /**
      * Table name
-     *
+     * 
      * @var string
      */
     protected $table = 'links';
 
     /**
      * Primary key
-     *
+     * 
      * @var string
      */
     protected $primaryKey = 'id';
 
     /**
-     * Entity class for result objects
-     *
+     * Return type for hydration
+     * MUST be set to Link Entity (Type Safety)
+     * 
      * @var string
      */
     protected $returnType = Link::class;
 
     /**
+     * Use soft deletes
+     * 
+     * @var bool
+     */
+    protected $useSoftDeletes = true;
+
+    /**
      * Allowed fields for mass assignment
-     *
+     * 
      * @var array
      */
     protected $allowedFields = [
@@ -54,424 +63,543 @@ class LinkModel extends BaseModel
         'last_validation',
         'affiliate_revenue',
         'marketplace_badge_id',
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
      * Validation rules for insert
-     *
+     * 
      * @var array
      */
     protected $validationRules = [
-        'product_id'        => 'required|integer',
-        'marketplace_id'    => 'required|integer',
-        'store_name'        => 'required|min_length[2]|max_length[255]',
-        'price'             => 'required|decimal',
-        'url'               => 'permit_empty|valid_url|max_length[2000]',
-        'rating'            => 'permit_empty|decimal|greater_than_equal_to[0]|less_than_equal_to[5]',
-        'active'            => 'permit_empty|in_list[0,1]',
-        'sold_count'        => 'permit_empty|integer|greater_than_equal_to[0]',
+        'product_id' => 'required|integer',
+        'marketplace_id' => 'required|integer',
+        'store_name' => 'required|max_length[255]',
+        'price' => 'required|decimal',
+        'url' => 'permit_empty|valid_url|max_length[500]',
+        'rating' => 'permit_empty|decimal',
+        'active' => 'permit_empty|in_list[0,1]',
+        'sold_count' => 'permit_empty|integer',
+        'clicks' => 'permit_empty|integer',
+        'affiliate_revenue' => 'permit_empty|decimal',
         'marketplace_badge_id' => 'permit_empty|integer',
     ];
 
     /**
-     * Default ordering for queries
-     *
+     * Validation messages
+     * 
      * @var array
      */
-    protected $orderBy = [
-        'price' => 'ASC',
-        'rating' => 'DESC'
+    protected $validationMessages = [
+        'product_id' => [
+            'required' => 'Product ID is required',
+            'integer' => 'Product ID must be an integer',
+        ],
+        'marketplace_id' => [
+            'required' => 'Marketplace ID is required',
+            'integer' => 'Marketplace ID must be an integer',
+        ],
+        'store_name' => [
+            'required' => 'Store name is required',
+            'max_length' => 'Store name cannot exceed 255 characters',
+        ],
+        'price' => [
+            'required' => 'Price is required',
+            'decimal' => 'Price must be a valid decimal',
+        ],
+        'url' => [
+            'valid_url' => 'URL must be a valid URL',
+            'max_length' => 'URL cannot exceed 500 characters',
+        ],
+        'rating' => [
+            'decimal' => 'Rating must be a valid decimal',
+        ],
+        'active' => [
+            'in_list' => 'Active must be either 0 or 1',
+        ],
+        'sold_count' => [
+            'integer' => 'Sold count must be an integer',
+        ],
+        'clicks' => [
+            'integer' => 'Clicks must be an integer',
+        ],
+        'affiliate_revenue' => [
+            'decimal' => 'Affiliate revenue must be a valid decimal',
+        ],
+        'marketplace_badge_id' => [
+            'integer' => 'Marketplace badge ID must be an integer',
+        ],
     ];
 
-    // ==================== CORE BUSINESS METHODS (6 METHODS) ====================
+    // ============================================
+    // QUERY SCOPES (Pure SQL Building - 0% Business Logic)
+    // ============================================
+
     /**
-     * Find links by product ID
-     * Optionally filter by active status
-     *
-     * @param bool|null $active null = all, true = active only, false = inactive only
-     * @return Link[]
+     * Scope: Active links only
+     * 
+     * @param BaseBuilder $builder
+     * @return BaseBuilder
      */
-    public function findByProduct(int $productId, ?bool $active = true, int $limit = 10): array
+    public function scopeActive(BaseBuilder $builder): BaseBuilder
     {
-        $cacheKey = $this->cacheKey("product_{$productId}_" . ($active === null ? 'all' : ($active ? 'active' : 'inactive')));
-
-        return $this->cached($cacheKey, function () use ($productId, $active, $limit) {
-            $builder = $this->builder();
-            $builder->where('product_id', $productId)
-                    ->where('deleted_at');
-
-            if ($active !== null) {
-                $builder->where('active', $active ? 1 : 0);
-            }
-
-            return $builder->orderBy('price', 'ASC')
-                           ->orderBy('rating', 'DESC')
-                           ->limit($limit)
-                           ->get()
-                           ->getResult($this->returnType);
-        }, 1800); // 30 minutes cache
+        return $builder->where('active', 1)
+                      ->where($this->deletedField, null);
     }
 
     /**
-     * Find active links for a product with marketplace details
-     * Used for product comparison table
-     *
-     * @return Link[]
+     * Scope: Links by product ID
+     * 
+     * @param BaseBuilder $builder
+     * @param int $productId
+     * @return BaseBuilder
      */
-    public function findActiveByProduct(int $productId): array
+    public function scopeByProduct(BaseBuilder $builder, int $productId): BaseBuilder
     {
-        // This method intentionally not cached because it's called from cached findWithLinks
-        $builder = $this->builder();
-
-        return $builder->select('links.*')
-                       ->join('marketplaces', 'marketplaces.id = links.marketplace_id', 'left')
-                       ->where('links.product_id', $productId)
-                       ->where('links.active', 1)
-                       ->where('links.deleted_at')
-                       ->where('marketplaces.deleted_at')
-                       ->orderBy('links.price', 'ASC')
-                       ->orderBy('links.rating', 'DESC')
-                       ->get()
-                       ->getResult($this->returnType);
+        return $builder->where('product_id', $productId)
+                      ->where($this->deletedField, null);
     }
 
     /**
-     * Increment click count for a link
-     * Uses direct SQL to avoid updating timestamps
-     * Clears relevant caches
+     * Scope: Links by marketplace ID
+     * 
+     * @param BaseBuilder $builder
+     * @param int $marketplaceId
+     * @return BaseBuilder
      */
-    public function incrementClicks(int $linkId): bool
+    public function scopeByMarketplace(BaseBuilder $builder, int $marketplaceId): BaseBuilder
     {
-        // Get product_id for cache clearing
-        $link = $this->findActiveById($linkId);
-        if (!$link) {
-            return false;
-        }
-
-        // Clear caches that include this link
-        $this->clearLinkCaches($link->getProductId());
-
-        // Direct SQL to avoid updating timestamps
-        $sql = "UPDATE {$this->table} SET clicks = clicks + 1 WHERE id = ?";
-        $result = $this->db->query($sql, [$linkId]);
-
-        // Also update last_validation timestamp (click indicates link is working)
-        if ($result) {
-            $this->update($linkId, [
-                'last_validation' => date('Y-m-d H:i:s')
-            ]);
-        }
-
-        return $result;
+        return $builder->where('marketplace_id', $marketplaceId)
+                      ->where($this->deletedField, null);
     }
 
     /**
-     * Update link price with timestamp tracking
-     * Only updates if price actually changed
-     *
-     * @param string $newPrice Must be in format 1234.56
+     * Scope: Links that need price update (older than 24 hours)
+     * 
+     * @param BaseBuilder $builder
+     * @return BaseBuilder
      */
-    public function updatePrice(int $linkId, string $newPrice): bool
+    public function scopeNeedsPriceUpdate(BaseBuilder $builder): BaseBuilder
     {
-        // Validate price format
-        if (!preg_match('/^\d+\.\d{2}$/', $newPrice)) {
-            log_message('error', "Invalid price format for link {$linkId}: {$newPrice}");
-            return false;
+        $threshold = date('Y-m-d H:i:s', strtotime('-24 hours'));
+        return $builder->groupStart()
+                      ->where('last_price_update <', $threshold)
+                      ->orWhere('last_price_update IS NULL')
+                      ->groupEnd()
+                      ->where('active', 1)
+                      ->where($this->deletedField, null);
+    }
+
+    /**
+     * Scope: Links that need validation (older than 48 hours)
+     * 
+     * @param BaseBuilder $builder
+     * @return BaseBuilder
+     */
+    public function scopeNeedsValidation(BaseBuilder $builder): BaseBuilder
+    {
+        $threshold = date('Y-m-d H:i:s', strtotime('-48 hours'));
+        return $builder->groupStart()
+                      ->where('last_validation <', $threshold)
+                      ->orWhere('last_validation IS NULL')
+                      ->groupEnd()
+                      ->where('active', 1)
+                      ->where($this->deletedField, null);
+    }
+
+    /**
+     * Scope: Links with affiliate revenue
+     * 
+     * @param BaseBuilder $builder
+     * @return BaseBuilder
+     */
+    public function scopeWithRevenue(BaseBuilder $builder): BaseBuilder
+    {
+        return $builder->where('affiliate_revenue >', 0)
+                      ->where($this->deletedField, null);
+    }
+
+    /**
+     * Scope: Links by price range
+     * 
+     * @param BaseBuilder $builder
+     * @param float $min
+     * @param float $max
+     * @return BaseBuilder
+     */
+    public function scopePriceBetween(BaseBuilder $builder, float $min, float $max): BaseBuilder
+    {
+        return $builder->where('price >=', $min)
+                      ->where('price <=', $max)
+                      ->where($this->deletedField, null);
+    }
+
+    /**
+     * Scope: Links sorted by best selling
+     * 
+     * @param BaseBuilder $builder
+     * @return BaseBuilder
+     */
+    public function scopeBestSelling(BaseBuilder $builder): BaseBuilder
+    {
+        return $builder->orderBy('sold_count', 'DESC')
+                      ->where($this->deletedField, null);
+    }
+
+    /**
+     * Scope: Links sorted by highest revenue
+     * 
+     * @param BaseBuilder $builder
+     * @return BaseBuilder
+     */
+    public function scopeHighestRevenue(BaseBuilder $builder): BaseBuilder
+    {
+        return $builder->orderBy('affiliate_revenue', 'DESC')
+                      ->where($this->deletedField, null);
+    }
+
+    /**
+     * Scope: Links with marketplace badge
+     * 
+     * @param BaseBuilder $builder
+     * @return BaseBuilder
+     */
+    public function scopeWithBadge(BaseBuilder $builder): BaseBuilder
+    {
+        return $builder->where('marketplace_badge_id IS NOT NULL')
+                      ->where($this->deletedField, null);
+    }
+
+    // ============================================
+    // FINDER METHODS (Return Fully Hydrated Entities)
+    // ============================================
+
+    /**
+     * Find active link by ID with product and marketplace relations
+     * 
+     * @param int $id
+     * @return Link|null
+     */
+    public function findActiveWithRelations(int $id): ?Link
+    {
+        $result = $this->select('links.*, products.name as product_name, marketplaces.name as marketplace_name')
+                      ->join('products', 'products.id = links.product_id')
+                      ->join('marketplaces', 'marketplaces.id = links.marketplace_id')
+                      ->where('links.id', $id)
+                      ->where('links.' . $this->deletedField, null)
+                      ->first();
+
+        return $result instanceof Link ? $result : null;
+    }
+
+    /**
+     * Find all active links by product ID
+     * 
+     * @param int $productId
+     * @return array<Link>
+     */
+    public function findByProductId(int $productId): array
+    {
+        $result = $this->scopeByProduct($this->builder(), $productId)
+                      ->orderBy('price', 'ASC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Link);
+    }
+
+    /**
+     * Find cheapest active link for a product
+     * 
+     * @param int $productId
+     * @return Link|null
+     */
+    public function findCheapestForProduct(int $productId): ?Link
+    {
+        $result = $this->scopeByProduct($this->builder(), $productId)
+                      ->where('active', 1)
+                      ->orderBy('price', 'ASC')
+                      ->first();
+
+        return $result instanceof Link ? $result : null;
+    }
+
+    /**
+     * Find links that need price updates (batch processing)
+     * 
+     * @param int $limit
+     * @return array<Link>
+     */
+    public function findNeedingPriceUpdate(int $limit = 100): array
+    {
+        $result = $this->scopeNeedsPriceUpdate($this->builder())
+                      ->limit($limit)
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Link);
+    }
+
+    /**
+     * Find links that need validation (batch processing)
+     * 
+     * @param int $limit
+     * @return array<Link>
+     */
+    public function findNeedingValidation(int $limit = 100): array
+    {
+        $result = $this->scopeNeedsValidation($this->builder())
+                      ->limit($limit)
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Link);
+    }
+
+    /**
+     * Find top performing links by revenue
+     * 
+     * @param int $limit
+     * @return array<Link>
+     */
+    public function findTopPerforming(int $limit = 10): array
+    {
+        $result = $this->scopeHighestRevenue($this->builder())
+                      ->limit($limit)
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Link);
+    }
+
+    // ============================================
+    // BATCH OPERATIONS (Pure SQL - No Business Logic)
+    // ============================================
+
+    /**
+     * Bulk update price and timestamp
+     * 
+     * @param array<int> $linkIds
+     * @param string $newPrice
+     * @return int Affected rows
+     */
+    public function bulkUpdatePrice(array $linkIds, string $newPrice): int
+    {
+        if (empty($linkIds)) {
+            return 0;
         }
 
-        $link = $this->findActiveById($linkId);
-        if (!$link) {
-            return false;
-        }
-
-        // Check if price actually changed
-        if ($link->getPrice() === $newPrice) {
-            return true; // No change needed
-        }
-
-        // Get product_id for cache clearing
-        $productId = $link->getProductId();
-
-        // Clear caches
-        $this->clearLinkCaches($productId);
-
-        // Update with new price and timestamp
-        return $this->update($linkId, [
+        $data = [
             'price' => $newPrice,
-            'last_price_update' => date('Y-m-d H:i:s')
-        ]);
-    }
-
-    /**
-     * Find links that need validation
-     * Business rule: validate every 14 days
-     *
-     * @param string $type 'validation' or 'price' or 'both'
-     * @return Link[]
-     */
-    public function findExpired(string $type = 'validation', int $limit = 50): array
-    {
-        $builder = $this->builder();
-        $builder->where('active', 1)
-                ->where('deleted_at');
-
-        $now = date('Y-m-d H:i:s');
-
-        if ($type === 'validation' || $type === 'both') {
-            // Validation needed if last_validation is NULL or older than 14 days
-            $builder->groupStart()
-                    ->where('last_validation IS NULL')
-                    ->orWhere("last_validation <= DATE_SUB('{$now}', INTERVAL 14 DAY)")
-                    ->groupEnd();
-        }
-
-        if ($type === 'price' || $type === 'both') {
-            // Price update needed if last_price_update is NULL or older than 7 days
-            $builder->groupStart()
-                    ->where('last_price_update IS NULL')
-                    ->orWhere("last_price_update <= DATE_SUB('{$now}', INTERVAL 7 DAY)")
-                    ->groupEnd();
-        }
-
-        return $builder->limit($limit)
-                       ->orderBy('last_validation', 'ASC')
-                       ->orderBy('last_price_update', 'ASC')
-                       ->get()
-                       ->getResult($this->returnType);
-    }
-
-    /**
-     * Get click statistics for analytics
-     * Returns aggregated data for dashboard
-     *
-     * @param string $period 'day', 'week', 'month', or 'all'
-     * @param int|null $productId Filter by product
-     * @param int|null $marketplaceId Filter by marketplace
-     */
-    public function getClickStats(string $period = 'month', ?int $productId = null, ?int $marketplaceId = null): array
-    {
-        $cacheKey = $this->cacheKey("click_stats_{$period}_{$productId}_{$marketplaceId}");
-
-        return $this->cached($cacheKey, function () use ($period, $productId, $marketplaceId) {
-            $builder = $this->builder();
-
-            // Select aggregated data
-            $builder->select([
-                'COUNT(*) as total_links',
-                'SUM(clicks) as total_clicks',
-                'SUM(affiliate_revenue) as total_revenue',
-                'AVG(clicks) as avg_clicks_per_link',
-                'MAX(clicks) as max_clicks',
-                'MIN(clicks) as min_clicks',
-            ]);
-
-            // Apply filters
-            $builder->where('active', 1)
-                    ->where('deleted_at');
-
-            if ($productId) {
-                $builder->where('product_id', $productId);
-            }
-
-            if ($marketplaceId) {
-                $builder->where('marketplace_id', $marketplaceId);
-            }
-
-            // Apply time period filter based on last_validation
-            if ($period !== 'all') {
-                $dateField = 'last_validation';
-                $intervals = [
-                    'day' => '-1 day',
-                    'week' => '-1 week',
-                    'month' => '-1 month',
-                ];
-
-                if (isset($intervals[$period])) {
-                    $builder->where("{$dateField} >= DATE_SUB(NOW(), INTERVAL 1 {$period})");
-                }
-            }
-
-            $result = $builder->get()->getRowArray();
-
-            // Format the result
-            if (!$result) {
-                return [
-                    'total_links' => 0,
-                    'total_clicks' => 0,
-                    'total_revenue' => '0.00',
-                    'avg_clicks_per_link' => 0,
-                    'max_clicks' => 0,
-                    'min_clicks' => 0,
-                    'revenue_per_click' => '0.00',
-                ];
-            }
-
-            // Calculate revenue per click
-            $totalClicks = (int) $result['total_clicks'];
-            $totalRevenue = (float) $result['total_revenue'];
-            $revenuePerClick = $totalClicks > 0 ? $totalRevenue / $totalClicks : 0;
-
-            return [
-                'total_links' => (int) $result['total_links'],
-                'total_clicks' => $totalClicks,
-                'total_revenue' => number_format($totalRevenue, 2, '.', ''),
-                'avg_clicks_per_link' => round((float) $result['avg_clicks_per_link'], 2),
-                'max_clicks' => (int) $result['max_clicks'],
-                'min_clicks' => (int) $result['min_clicks'],
-                'revenue_per_click' => number_format($revenuePerClick, 2, '.', ''),
-            ];
-        }, 300); // 5 minutes cache for stats
-    }
-
-    // ==================== HELPER METHODS ====================
-    /**
-     * Clear all caches related to a link
-     */
-    private function clearLinkCaches(int $productId): void
-    {
-        // Clear link-specific caches
-        $cacheKeys = [
-            "product_{$productId}_all",
-            "product_{$productId}_active",
-            "product_{$productId}_inactive",
+            'last_price_update' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ];
 
-        foreach ($cacheKeys as $key) {
-            $this->clearCache($key);
+        return $this->bulkUpdate($linkIds, $data);
+    }
+
+    /**
+     * Bulk update validation timestamp
+     * 
+     * @param array<int> $linkIds
+     * @return int Affected rows
+     */
+    public function bulkMarkValidated(array $linkIds): int
+    {
+        if (empty($linkIds)) {
+            return 0;
         }
 
-        // Also clear product model caches (since product has links)
-        $productModel = model(ProductModel::class);
-        $productModel->clearCache($productModel->cacheKey("with_links_{$productId}_active"));
-        $productModel->clearCache($productModel->cacheKey("with_links_{$productId}_all"));
+        $data = [
+            'last_validation' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->bulkUpdate($linkIds, $data);
     }
 
     /**
-     * Add affiliate revenue to a link
-     * Used when affiliate commission is confirmed
-     *
-     * @param string $amount Decimal amount to add
+     * Bulk increment clicks
+     * 
+     * @param array<int> $linkIds
+     * @param int $increment
+     * @return int Affected rows
      */
-    public function addAffiliateRevenue(int $linkId, string $amount): bool
+    public function bulkIncrementClicks(array $linkIds, int $increment = 1): int
     {
-        // Validate amount format
-        if (!preg_match('/^\d+\.\d{2}$/', $amount)) {
-            log_message('error', "Invalid revenue amount format for link {$linkId}: {$amount}");
-            return false;
+        if (empty($linkIds)) {
+            return 0;
         }
 
-        $link = $this->findActiveById($linkId);
-        if (!$link) {
-            return false;
+        $builder = $this->builder();
+        $builder->whereIn($this->primaryKey, $linkIds)
+                ->set('clicks', 'clicks + ' . $increment, false)
+                ->set('updated_at', date('Y-m-d H:i:s'));
+
+        return $builder->update() ? count($linkIds) : 0;
+    }
+
+    /**
+     * Bulk increment sold count
+     * 
+     * @param array<int> $linkIds
+     * @param int $increment
+     * @return int Affected rows
+     */
+    public function bulkIncrementSoldCount(array $linkIds, int $increment = 1): int
+    {
+        if (empty($linkIds)) {
+            return 0;
         }
 
-        // Get product_id for cache clearing
-        $productId = $link->getProductId();
+        $builder = $this->builder();
+        $builder->whereIn($this->primaryKey, $linkIds)
+                ->set('sold_count', 'sold_count + ' . $increment, false)
+                ->set('updated_at', date('Y-m-d H:i:s'));
 
-        // Clear caches
-        $this->clearLinkCaches($productId);
-
-        // Use direct SQL to avoid float precision issues
-        $sql = "UPDATE {$this->table} SET affiliate_revenue = affiliate_revenue + ? WHERE id = ?";
-        return $this->db->query($sql, [(float) $amount, $linkId]);
+        return $builder->update() ? count($linkIds) : 0;
     }
 
     /**
-     * Mark link as validated (updates last_validation timestamp)
+     * Update affiliate revenue for a link
+     * Pure SQL operation - business logic handled in Service layer
+     * 
+     * @param int $linkId
+     * @param string $revenue Rupiah amount
+     * @return bool
      */
-    public function markAsValidated(int $linkId): bool
+    public function updateAffiliateRevenue(int $linkId, string $revenue): bool
     {
-        $link = $this->findActiveById($linkId);
-        if (!$link) {
-            return false;
+        $data = [
+            'affiliate_revenue' => $revenue,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($linkId, $data);
+    }
+
+    // ============================================
+    // AGGREGATE QUERIES (Pure SQL Calculations)
+    // ============================================
+
+    /**
+     * Get total revenue for a product across all links
+     * 
+     * @param int $productId
+     * @return string Total revenue
+     */
+    public function getTotalRevenueForProduct(int $productId): string
+    {
+        $result = $this->selectSum('affiliate_revenue', 'total_revenue')
+                      ->where('product_id', $productId)
+                      ->where($this->deletedField, null)
+                      ->first();
+
+        return $result->total_revenue ?? '0.00';
+    }
+
+    /**
+     * Get total clicks for a product across all links
+     * 
+     * @param int $productId
+     * @return int Total clicks
+     */
+    public function getTotalClicksForProduct(int $productId): int
+    {
+        $result = $this->selectSum('clicks', 'total_clicks')
+                      ->where('product_id', $productId)
+                      ->where($this->deletedField, null)
+                      ->first();
+
+        return (int) ($result->total_clicks ?? 0);
+    }
+
+    /**
+     * Get average price for a product across all active links
+     * 
+     * @param int $productId
+     * @return string Average price
+     */
+    public function getAveragePriceForProduct(int $productId): string
+    {
+        $result = $this->selectAvg('price', 'avg_price')
+                      ->where('product_id', $productId)
+                      ->where('active', 1)
+                      ->where($this->deletedField, null)
+                      ->first();
+
+        return number_format((float) ($result->avg_price ?? 0), 2, '.', '');
+    }
+
+    /**
+     * Get marketplace distribution for a product
+     * 
+     * @param int $productId
+     * @return array Marketplace counts
+     */
+    public function getMarketplaceDistribution(int $productId): array
+    {
+        return $this->select('marketplace_id, COUNT(*) as count')
+                   ->where('product_id', $productId)
+                   ->where($this->deletedField, null)
+                   ->groupBy('marketplace_id')
+                   ->findAll();
+    }
+
+    // ============================================
+    // UTILITY METHODS
+    // ============================================
+
+    /**
+     * Check if link exists and is active
+     * 
+     * @param int $linkId
+     * @return bool
+     */
+    public function existsAndActive(int $linkId): bool
+    {
+        $count = $this->where('id', $linkId)
+                     ->where('active', 1)
+                     ->where($this->deletedField, null)
+                     ->countAllResults();
+
+        return $count > 0;
+    }
+
+    /**
+     * Get count of active links for a product
+     * 
+     * @param int $productId
+     * @return int
+     */
+    public function countActiveForProduct(int $productId): int
+    {
+        return $this->scopeByProduct($this->builder(), $productId)
+                   ->where('active', 1)
+                   ->countAllResults();
+    }
+
+    /**
+     * Validate price format (helper for input validation)
+     * 
+     * @param string $price
+     * @return bool
+     */
+    public function isValidPriceFormat(string $price): bool
+    {
+        return (bool) preg_match('/^\d+(\.\d{2})?$/', $price);
+    }
+
+    /**
+     * Custom validation for URL format
+     * 
+     * @param string|null $url
+     * @return bool
+     */
+    public function isValidUrl(?string $url): bool
+    {
+        if ($url === null || $url === '') {
+            return true; // Empty is allowed
         }
 
-        $productId = $link->getProductId();
-        $this->clearLinkCaches($productId);
-
-        return $this->update($linkId, [
-            'last_validation' => date('Y-m-d H:i:s')
-        ]);
-    }
-
-    /**
-     * Update link active status
-     */
-    public function setActiveStatus(int $linkId, bool $active): bool
-    {
-        $link = $this->findActiveById($linkId);
-        if (!$link) {
-            return false;
-        }
-
-        $productId = $link->getProductId();
-        $this->clearLinkCaches($productId);
-
-        return $this->update($linkId, ['active' => $active ? 1 : 0]);
-    }
-
-    /**
-     * Find links by marketplace
-     *
-     * @return Link[]
-     */
-    public function findByMarketplace(int $marketplaceId, bool $activeOnly = true, int $limit = 50): array
-    {
-        $cacheKey = $this->cacheKey("marketplace_{$marketplaceId}_" . ($activeOnly ? 'active' : 'all'));
-
-        return $this->cached($cacheKey, function () use ($marketplaceId, $activeOnly, $limit) {
-            $builder = $this->builder();
-            $builder->where('marketplace_id', $marketplaceId)
-                    ->where('deleted_at');
-
-            if ($activeOnly) {
-                $builder->where('active', 1);
-            }
-
-            return $builder->orderBy('clicks', 'DESC')
-                           ->limit($limit)
-                           ->get()
-                           ->getResult($this->returnType);
-        }, 1800); // 30 minutes cache
-    }
-
-    /**
-     * Get top performing links by clicks or revenue
-     *
-     * @param string $by 'clicks' or 'revenue'
-     * @return Link[]
-     */
-    public function getTopPerformers(string $by = 'clicks', int $limit = 10): array
-    {
-        $cacheKey = $this->cacheKey("top_{$by}_{$limit}");
-
-        return $this->cached($cacheKey, function () use ($by, $limit) {
-            $builder = $this->builder();
-            $builder->where('active', 1)
-                    ->where('deleted_at');
-
-            $orderBy = $by === 'revenue' ? 'affiliate_revenue' : 'clicks';
-
-            return $builder->orderBy($orderBy, 'DESC')
-                           ->limit($limit)
-                           ->get()
-                           ->getResult($this->returnType);
-        }, 300); // 5 minutes cache for top performers
-    }
-
-    /**
-     * Count active links for a product
-     * Business rule: minimum 3 marketplace links per product
-     */
-    public function countActiveByProduct(int $productId): int
-    {
-        $cacheKey = $this->cacheKey("count_active_product_{$productId}");
-
-        return $this->cached($cacheKey, function () use ($productId) {
-            return $this->where('product_id', $productId)
-                       ->where('active', 1)
-                       ->where('deleted_at')
-                       ->countAllResults();
-        }, 3600); // 60 minutes cache
+        return filter_var($url, FILTER_VALIDATE_URL) !== false;
     }
 }

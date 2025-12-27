@@ -4,44 +4,28 @@ namespace App\Entities;
 
 use DateTimeImmutable;
 
-/**
+/*  
  * Category Entity
  *
  * Represents a product category in the system.
  * Limited to 15 categories as per business constraints.
- *
+ 
  * @package App\Entities
  */
-class Category extends BaseEntity
+final class Category extends BaseEntity
 {
-    /**
-     * Category name
-     */
     private string $name;
-
-    /**
-     * URL-friendly slug (unique)
-     */
     private string $slug;
-
-    /**
-     * FontAwesome or custom icon class
-     */
     private string $icon = 'fas fa-folder';
-
-    /**
-     * Manual sorting order
-     */
     private int $sort_order = 0;
-
-    /**
-     * Whether category is active and visible
-     */
     private bool $active = true;
+    private ?int $product_count = null;
+    private ?int $children_count = null;
+    private ?int $parent_id = null;
 
     /**
      * Category constructor
-     *
+     *""
      * @param string $name Category name
      * @param string $slug URL slug
      */
@@ -52,8 +36,52 @@ class Category extends BaseEntity
         $this->initialize();
     }
 
-    // ==================== GETTER METHODS ====================
+    // ==================== GETTER METHODS ====================    
 
+    public function getParentId(): int
+    {
+        return (int) $this->parent_id;
+    }
+
+    // ==================== SETTER ====================
+
+    public function setParentId(?int $parent_id): self 
+    {
+        // Normalisasi: jika input null, ubah jadi 0 agar sesuai DB
+        $val = $parent_id ?? 0;
+
+        if ($this->parent_id === $val) {
+            return $this;
+        }
+        
+        $this->trackChange('parent_id', $this->parent_id, $val);
+        $this->parent_id = $val;
+        $this->markAsUpdated();
+        return $this;
+    }
+
+    // ==================== BUSINESS LOGIC ====================
+
+    /**
+     * Cek apakah kategori ini adalah Root (Induk Utama)
+     * Menggunakan logika 0 = Root
+     */
+    public function isRoot(): bool
+    {
+        return $this->getParentId() === 0;
+    }
+
+    /**
+     * Cek apakah kategori ini adalah Sub-Category
+     */
+    public function isSubCategory(): bool
+    {
+        return $this->getParentId() > 0;
+    }
+
+    // ... (sisa method sama)
+
+    
     public function getName(): string
     {
         return $this->name;
@@ -211,10 +239,12 @@ class Category extends BaseEntity
             throw new \LogicException('Category cannot be restored.');
         }
 
-        $this->softdelete(false);
+        $this->deleted_at = null;
+        parent::restore();
         $this->activate();
         return $this;
     }
+
 
     /**
      * Check if category is currently in use
@@ -264,7 +294,7 @@ class Category extends BaseEntity
         ];
     }
 
-    /**
+    /*
      * Get display icon HTML
      */
     public function getIconHtml(): string
@@ -315,7 +345,7 @@ class Category extends BaseEntity
 
     public static function fromArray(array $data): static
     {
-        $category = new self(
+        $category = new static(
             $data['name'] ?? '',
             $data['slug'] ?? ''
         );
@@ -360,5 +390,37 @@ class Category extends BaseEntity
         $category->setIcon('fas fa-laptop');
         $category->setSortOrder(1);
         return $category;
+    }
+    
+     /**
+     * Get Product Count (Smart Logic)
+     */
+     
+    public function getProductCount(): int
+    {
+        return $this->product_count ?? 0;
+    }
+
+    /**
+     * Get Children Count (Smart Logic)
+     */
+     
+    public function getChildrenCount(): int
+    {
+        return $this->children_count ?? 0;
+    }
+
+
+    // 3. TAMBAHKAN SETTER (Untuk diisi oleh Repository)
+    public function setProductCount(int $count): self
+    {
+        $this->product_count = $count;
+        return $this;
+    }
+
+    public function setChildrenCount(int $count): self
+    {
+        $this->children_count = $count;
+        return $this;
     }
 }

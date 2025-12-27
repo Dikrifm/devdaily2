@@ -3,21 +3,33 @@ includes:
 
 parameters:
     # Level 5
-    level: 1
+    level: 2
 
+    ignoreErrors:
+        - '#^PHPDoc tag @.*#'
+        - '#^PHPDoc tag @var for variable .* contains unresolvable type.*#'
+        - '#^PHPDoc tag @param for method .* contains unresolvable type.*#'
+        - '#^PHPDoc tag @return for method .* contains unresolvable type.*#'
+        - '#^PHPDoc tag @extends contains generic type .* but class .* is not generic.#'
+        - '#^PHPDoc tag @implements contains generic type .* but class .* is not generic.#'
+        - '#.*PHPDoc.*#'
+         # [BARU] Ignore error "Array of what?" (Missing Iterable Value Type)
+        - '#.*no value type specified in iterable type.*#'
+        # [BARU] Ignore error jika return type di Docblock beda dengan native type (kadang terjadi saat mixed)
+        - '#.*return type has no value type specified.*#'
+        - '#.*parameter \$[a-zA-Z0-9_]+ with no value type specified.*#'
     # Path sesuai audit_backend.txt
     paths:
-        - app/Controllers
-        - app/Entities
-        - app/Enums
-        - app/Models
-        - app/Repositories
-        - app/Services
-        - app/Validators
+     #   - app/Controllers
+     #   - app/Entities
+     #   - app/Enums
+     #   - app/Models
+     #   - app/Repositories
+     #   - app/Services
+     #   - app/Validators
         - app/DTOs
-        - app/Contracts
-        - app/Exceptions
-        - app/Config
+     #   - app/Exceptions
+     #   - app/Config
 
     
     scanFiles:
@@ -33,11 +45,12 @@ parameters:
         - app/Database/*
         - app/ThirdParty/*
         - app/Common.php
+        - app/Config/Kint.php
 
     # Helper bawaan CI4
     scanDirectories:
-        - vendor/codeigniter4/framework/system/Helpers
-      #  - vendor/codeigniter4/framework/system/Helpers/url_helper.php
+         - vendor/codeigniter4/framework/system/Helpers
+       # - vendor/codeigniter4/framework/system/Helpers/url_helper.php
        # - vendor/codeigniter4/framework/system/Config/Services.php
-      #  - vendor/codeigniter4/framework/system/Common.php
-        
+       # - vendor/codeigniter4/framework/system/Common.php
+

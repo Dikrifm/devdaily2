@@ -3,449 +3,463 @@
 namespace App\Models;
 
 use App\Entities\Badge;
+use CodeIgniter\Database\BaseResult;
+use RuntimeException;
 
 /**
  * Badge Model
- *
- * Handles product badges (Best Seller, New Arrival, etc.).
- * Simple CRUD with usage tracking for MVP.
- *
+ * 
+ * Layer 2: SQL Encapsulator for Badge entities.
+ * 0% Business Logic - Pure data access layer.
+ * 
  * @package App\Models
  */
-class BadgeModel extends BaseModel
+final class BadgeModel extends BaseModel
 {
     /**
-     * Table name
-     *
+     * Database table name
+     * 
      * @var string
      */
     protected $table = 'badges';
 
     /**
-     * Primary key
-     *
+     * Primary key column
+     * 
      * @var string
      */
     protected $primaryKey = 'id';
 
     /**
-     * Entity class for result objects
-     *
-     * @var string
+     * Entity class for hydration
+     * 
+     * @var class-string<Badge>
      */
     protected $returnType = Badge::class;
 
     /**
-     * Allowed fields for mass assignment
-     *
-     * @var array
+     * Fields allowed for mass assignment
+     * 
+     * @var array<string>
      */
     protected $allowedFields = [
         'label',
         'color',
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
-     * Validation rules for insert
-     *
-     * @var array
+     * Validation rules for insert/update
+     * 
+     * @var array<string, array<string, string>>
      */
     protected $validationRules = [
-        'label' => 'required|min_length[2]|max_length[100]',
-        'color' => 'permit_empty|regex_match[/^#[0-9A-F]{6}$/i]',
+        'label' => [
+            'label' => 'Badge Label',
+            'rules' => 'required|max_length[100]|is_unique[badges.label,id,{id}]',
+            'errors' => [
+                'required' => 'Badge label is required',
+                'max_length' => 'Badge label cannot exceed 100 characters',
+                'is_unique' => 'This badge label already exists'
+            ]
+        ],
+        'color' => [
+            'label' => 'Badge Color',
+            'rules' => 'permit_empty|regex_match[/^#[0-9A-F]{6}$/i]',
+            'errors' => [
+                'regex_match' => 'Color must be a valid hex code (e.g., #ef4444)'
+            ]
+        ]
     ];
 
     /**
-     * Default ordering for queries
-     *
-     * @var array
+     * Whether to use timestamps
+     * Override from BaseModel for explicit declaration
+     * 
+     * @var bool
      */
-    protected $orderBy = [
-        'label' => 'ASC'
-    ];
-
-    // ==================== CORE BUSINESS METHODS (4 METHODS) ====================
+    protected $useTimestamps = true;
 
     /**
-     * Find common badges (system defaults)
-     * Returns predefined badges that are commonly used
-     * Cached for 60 minutes as badges rarely change
-     *
-     * @param bool $activeOnly Only return non-deleted badges
+     * Whether to use soft deletes
+     * Override from BaseModel for explicit declaration
+     * 
+     * @var bool
+     */
+    protected $useSoftDeletes = true;
+
+    /**
+     * Date format for timestamps
+     * 
+     * @var string
+     */
+    protected $dateFormat = 'datetime';
+
+    // ==================== CUSTOM SCOPES & QUERY METHODS ====================
+
+    /**
+     * Find badge by exact label (case-insensitive)
+     * 
+     * @param string $label Badge label to search
+     * @return Badge|null
+     */
+    public function findByLabel(string $label): ?Badge
+    {
+        $result = $this->where('LOWER(label)', strtolower($label))
+                      ->where($this->deletedField, null)
+                      ->first();
+
+        return $result instanceof Badge ? $result : null;
+    }
+
+    /**
+     * Find badges by color
+     * 
+     * @param string $color Hex color code (e.g., #EF4444)
      * @return Badge[]
      */
-    public function findCommon(bool $activeOnly = true): array
+    public function findByColor(string $color): array
     {
-        $cacheKey = $this->cacheKey('common_' . ($activeOnly ? 'active' : 'all'));
+        $result = $this->where('color', strtoupper($color))
+                      ->where($this->deletedField, null)
+                      ->findAll();
 
-        return $this->cached($cacheKey, function () use ($activeOnly) {
-            // Common badge labels (matches Entity's createCommon method)
-            $commonLabels = [
-                'Best Seller',
-                'New Arrival',
-                'Limited Edition',
-                'Exclusive',
-                'Trending',
-                'Verified',
-                'Discount',
-                'Premium',
-            ];
-
-            $builder = $this->builder();
-            $builder->whereIn('label', $commonLabels);
-
-            if ($activeOnly) {
-                $builder->where('deleted_at');
-            }
-
-            return $builder->orderBy('label', 'ASC')
-                          ->get()
-                          ->getResult($this->returnType);
-        }, 3600); // 60 minutes cache
+        return array_filter($result, fn($item) => $item instanceof Badge);
     }
 
     /**
-     * Find active badges (not deleted)
-     * Simple active badge retrieval for UI selection
-     *
-     * @param int $limit Maximum badges to return
+     * Find badges without custom color (NULL color)
+     * 
      * @return Badge[]
      */
-    public function findActive(int $limit = 50): array
+    public function findWithoutColor(): array
     {
-        $cacheKey = $this->cacheKey("active_{$limit}");
+        $result = $this->where('color IS NULL')
+                      ->where($this->deletedField, null)
+                      ->findAll();
 
-        return $this->cached($cacheKey, function () use ($limit) {
-            return $this->where('deleted_at')
-                       ->orderBy('label', 'ASC')
-                       ->limit($limit)
-                       ->findAll();
-        }, 3600); // 60 minutes cache
+        return array_filter($result, fn($item) => $item instanceof Badge);
     }
 
     /**
-     * Find badges with product count (usage statistics)
-     * Shows how many products have each badge assigned
-     * Used for admin dashboard and badge management
-     *
-     * @return Badge[] With attached product_count property
+     * Find badges with custom color (NOT NULL)
+     * 
+     * @return Badge[]
      */
-    public function withProductCount(int $limit = 50): array
+    public function findWithColor(): array
     {
-        $cacheKey = $this->cacheKey("with_product_count_{$limit}");
+        $result = $this->where('color IS NOT NULL')
+                      ->where($this->deletedField, null)
+                      ->findAll();
 
-        return $this->cached($cacheKey, function () use ($limit) {
-            // Get all non-deleted badges
-            $badges = $this->where('deleted_at')
-                          ->orderBy('label', 'ASC')
-                          ->limit($limit)
-                          ->findAll();
-
-            if (empty($badges)) {
-                return [];
-            }
-
-            // Get product counts for each badge
-            $this->attachProductCounts($badges);
-
-            return $badges;
-        }, 1800); // 30 minutes cache
+        return array_filter($result, fn($item) => $item instanceof Badge);
     }
 
     /**
-     * Find badge by label (case-insensitive search)
-     * Useful for finding or creating badges by label
-     *
-     * @param bool $activeOnly Only return non-deleted badges
+     * Search badges by label with LIKE
+     * 
+     * @param string $searchTerm Search term
+     * @param int $limit Result limit
+     * @param int $offset Result offset
+     * @return Badge[]
      */
-    public function findByLabel(string $label, bool $activeOnly = true): ?Badge
+    public function searchByLabel(string $searchTerm, int $limit = 10, int $offset = 0): array
     {
-        $cacheKey = $this->cacheKey("label_" . md5(strtolower($label)) . '_' . ($activeOnly ? 'active' : 'all'));
+        $result = $this->like('label', $searchTerm, 'both')
+                      ->where($this->deletedField, null)
+                      ->orderBy('label', 'ASC')
+                      ->findAll($limit, $offset);
 
-        return $this->cached($cacheKey, function () use ($label, $activeOnly) {
-            $builder = $this->builder();
-
-            // Case-insensitive search
-            $builder->where('LOWER(label)', strtolower($label));
-
-            if ($activeOnly) {
-                $builder->where('deleted_at');
-            }
-
-            $result = $builder->get()->getFirstRow($this->returnType);
-
-            return $result instanceof Badge ? $result : null;
-        }, 3600); // 60 minutes cache
-    }
-
-    // ==================== HELPER METHODS ====================
-    /**
-     * Attach product counts to badges
-     *
-     * @param Badge[] $badges
-     */
-    private function attachProductCounts(array &$badges): void
-    {
-        if ($badges === []) {
-            return;
-        }
-
-        $badgeIds = array_map(fn ($badge) => $badge->getId(), $badges);
-
-        // Get product counts from junction table
-        $productBadgeModel = model(ProductBadgeModel::class);
-        $builder = $productBadgeModel->builder();
-
-        $result = $builder->select('badge_id, COUNT(*) as product_count')
-                         ->whereIn('badge_id', $badgeIds)
-                         ->groupBy('badge_id')
-                         ->get()
-                         ->getResultArray();
-
-        // Create lookup array
-        $counts = [];
-        foreach ($result as $row) {
-            $counts[$row['badge_id']] = (int) $row['product_count'];
-        }
-
-        // Attach counts to badges
-        foreach ($badges as $badge) {
-            $badgeId = $badge->getId();
-            $badge->product_count = $counts[$badgeId] ?? 0;
-            $badge->is_in_use = ($counts[$badgeId] ?? 0) > 0;
-        }
+        return array_filter($result, fn($item) => $item instanceof Badge);
     }
 
     /**
-     * Check if badge can be deleted
-     * Business rule: badge assigned to products cannot be deleted
-     *
-     * @return array [bool $canDelete, string $reason]
+     * Get all active badges ordered by label
+     * 
+     * @param string $orderDirection 'ASC' or 'DESC'
+     * @return Badge[]
      */
-    public function canDelete(int $badgeId): array
+    public function findAllActive(string $orderDirection = 'ASC'): array
     {
-        $badge = $this->findActiveById($badgeId);
-        if (!$badge) {
-            return [false, 'Badge not found'];
-        }
+        $result = $this->where($this->deletedField, null)
+                      ->orderBy('label', $orderDirection)
+                      ->findAll();
 
-        // Check if badge is assigned to any products
-        $productBadgeModel = model(ProductBadgeModel::class);
-        $assignmentCount = $productBadgeModel->countByBadge($badgeId);
-
-        if ($assignmentCount > 0) {
-            return [false, "Badge is assigned to {$assignmentCount} product(s). Remove assignments first."];
-        }
-
-        return [true, ''];
+        return array_filter($result, fn($item) => $item instanceof Badge);
     }
 
     /**
-     * Get badge statistics for admin dashboard
+     * Get paginated active badges
+     * 
+     * @param int $perPage Items per page
+     * @param int $page Current page
+     * @return array{data: Badge[], pager: \CodeIgniter\Pager\Pager}
      */
-    public function getStats(): array
+    public function paginateActive(int $perPage = 20, int $page = 1): array
     {
-        $cacheKey = $this->cacheKey('stats');
+        $total = $this->where($this->deletedField, null)->countAllResults(false);
+        
+        $data = $this->where($this->deletedField, null)
+                    ->orderBy('label', 'ASC')
+                    ->paginate($perPage, 'default', $page);
 
-        return $this->cached($cacheKey, function () {
-            $total = $this->countActive();
+        $pager = $this->pager;
 
-            // Get badge usage statistics
-            $productBadgeModel = model(ProductBadgeModel::class);
-            $builder = $productBadgeModel->builder();
+        return [
+            'data' => array_filter($data, fn($item) => $item instanceof Badge),
+            'pager' => $pager
+        ];
+    }
 
-            $usageStats = $builder->select('badge_id, COUNT(*) as usage_count')
-                                 ->groupBy('badge_id')
-                                 ->orderBy('usage_count', 'DESC')
-                                 ->get()
-                                 ->getResultArray();
+    /**
+     * Find badges by IDs (batch lookup)
+     * 
+     * @param array<int|string> $ids Array of badge IDs
+     * @return Badge[]
+     */
+    public function findByIds(array $ids): array
+    {
+        if (empty($ids)) {
+            return [];
+        }
 
-            $totalAssignments = 0;
-            $mostUsedBadge = null;
+        $result = $this->whereIn($this->primaryKey, $ids)
+                      ->where($this->deletedField, null)
+                      ->orderBy('label', 'ASC')
+                      ->findAll();
 
-            if (!empty($usageStats)) {
-                foreach ($usageStats as $stat) {
-                    $totalAssignments += $stat['usage_count'];
-                }
+        return array_filter($result, fn($item) => $item instanceof Badge);
+    }
 
-                // Get most used badge details
-                $mostUsed = $usageStats[0];
-                $badge = $this->find($mostUsed['badge_id']);
-                if ($badge) {
-                    $mostUsedBadge = [
-                        'badge' => $badge,
-                        'usage_count' => (int) $mostUsed['usage_count']
-                    ];
-                }
-            }
+    /**
+     * Check if badge label exists (excluding current ID)
+     * 
+     * @param string $label Label to check
+     * @param int|string|null $excludeId ID to exclude (for updates)
+     * @return bool
+     */
+    public function labelExists(string $label, int|string|null $excludeId = null): bool
+    {
+        $query = $this->where('LOWER(label)', strtolower($label))
+                     ->where($this->deletedField, null);
 
-            // Get badges without color (default styling)
-            $noColorCount = $this->where('color IS NULL')
-                                ->where('deleted_at')
-                                ->countAllResults();
+        if ($excludeId !== null) {
+            $query->where($this->primaryKey . ' !=', $excludeId);
+        }
 
-            $withColorCount = $this->where('color IS NOT NULL')
-                                  ->where('deleted_at')
-                                  ->countAllResults();
+        return $query->countAllResults() > 0;
+    }
 
-            return [
-                'total_badges' => $total,
-                'total_assignments' => $totalAssignments,
-                'avg_assignments_per_badge' => $total > 0 ? round($totalAssignments / $total, 2) : 0,
-                'most_used_badge' => $mostUsedBadge,
-                'badges_without_color' => $noColorCount,
-                'badges_with_color' => $withColorCount,
-                'color_coverage' => $total > 0 ? round(($withColorCount / $total) * 100, 2) : 0,
+    /**
+     * Get badges count by color status
+     * 
+     * @return array{with_color: int, without_color: int}
+     */
+    public function countByColorStatus(): array
+    {
+        $withColor = $this->where('color IS NOT NULL')
+                         ->where($this->deletedField, null)
+                         ->countAllResults(false);
+
+        $withoutColor = $this->where('color IS NULL')
+                           ->where($this->deletedField, null)
+                           ->countAllResults(false);
+
+        return [
+            'with_color' => (int) $withColor,
+            'without_color' => (int) $withoutColor
+        ];
+    }
+
+    /**
+     * Get most used badges (by product assignment)
+     * Note: This requires joining with product_badges table
+     * 
+     * @param int $limit Limit results
+     * @return array<array{badge: Badge, usage_count: int}>
+     */
+    public function findMostUsed(int $limit = 10): array
+    {
+        // Since this is Layer 2, we keep the query simple
+        // Complex joins should be handled via Model Scopes or Repository
+        $builder = $this->builder();
+        
+        // Example join query - simplified for demonstration
+        // In production, this would be a proper join with product_badges table
+        $query = $builder->select('badges.*, COUNT(product_badges.id) as usage_count')
+                        ->join('product_badges', 'product_badges.badge_id = badges.id', 'left')
+                        ->where('badges.deleted_at', null)
+                        ->groupBy('badges.id')
+                        ->orderBy('usage_count', 'DESC')
+                        ->orderBy('badges.label', 'ASC')
+                        ->limit($limit)
+                        ->get();
+
+        $results = [];
+        foreach ($query->getResultArray() as $row) {
+            $badge = new Badge($row['label']);
+            $badge->setId($row['id']);
+            $badge->setColor($row['color']);
+            
+            $results[] = [
+                'badge' => $badge,
+                'usage_count' => (int) $row['usage_count']
             ];
-        }, 300); // 5 minutes cache for stats
+        }
+
+        return $results;
     }
 
     /**
-     * Find or create badge by label
-     * Useful for bulk operations where badges might not exist
-     *
-     * @param string|null $color Optional hex color
-     * @return Badge The found or created badge
+     * Find archived (soft-deleted) badges
+     * 
+     * @param string $orderDirection 'ASC' or 'DESC'
+     * @return Badge[]
      */
-    public function findOrCreate(string $label, ?string $color = null): Badge
+    public function findArchived(string $orderDirection = 'ASC'): array
     {
-        // Try to find existing badge
-        $badge = $this->findByLabel($label, false); // Include deleted for restoration
+        $result = $this->where($this->deletedField . ' IS NOT NULL', null)
+                      ->orderBy('label', $orderDirection)
+                      ->findAll();
 
-        if ($badge instanceof \App\Entities\Badge) {
-            // If badge was deleted, restore it
-            if ($badge->isDeleted()) {
-                $this->restore($badge->getId());
-                $badge = $this->find($badge->getId());
-            }
+        return array_filter($result, fn($item) => $item instanceof Badge);
+    }
 
-            // Update color if provided and different
-            if ($color !== null && $badge->getColor() !== $color) {
-                $this->update($badge->getId(), ['color' => $color]);
-                $badge = $this->find($badge->getId());
-            }
+    /**
+     * Get badge statistics
+     * 
+     * @return array{
+     *     total: int,
+     *     active: int,
+     *     archived: int,
+     *     with_color: int,
+     *     without_color: int
+     * }
+     */
+    public function getStatistics(): array
+    {
+        $total = $this->countAllResults(false); // false = don't reset query
+        
+        $active = $this->where($this->deletedField, null)
+                      ->countAllResults(false);
+        
+        $archived = $this->where($this->deletedField . ' IS NOT NULL', null)
+                        ->countAllResults(false);
+        
+        $colorStats = $this->countByColorStatus();
 
-            return $badge;
+        return [
+            'total' => (int) $total,
+            'active' => (int) $active,
+            'archived' => (int) $archived,
+            'with_color' => $colorStats['with_color'],
+            'without_color' => $colorStats['without_color']
+        ];
+    }
+
+    // ==================== OVERRIDDEN METHODS ====================
+
+    /**
+     * Insert data with validation
+     * Override to ensure type safety
+     * 
+     * @param array<string, mixed>|object|null $data
+     * @return int|string|false
+     */
+    public function insert($data = null, bool $returnID = true)
+    {
+        // Convert Badge entity to array if needed
+        if ($data instanceof Badge) {
+            $data = [
+                'label' => $data->getLabel(),
+                'color' => $data->getColor(),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
         }
 
-        // Create new badge
+        return parent::insert($data, $returnID);
+    }
+
+    /**
+     * Update data with validation
+     * Override to ensure type safety
+     * 
+     * @param array<string, mixed>|int|string|null $id
+     * @param array<string, mixed>|object|null $data
+     * @return bool
+     */
+    public function update($id = null, $data = null): bool
+    {
+        // Convert Badge entity to array if needed
+        if ($data instanceof Badge) {
+            $updateData = [
+                'label' => $data->getLabel(),
+                'color' => $data->getColor(),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+
+            // Only update if values changed
+            return $this->updateIfChanged($id, $updateData);
+        }
+
+        return parent::update($id, $data);
+    }
+
+    /**
+     * Physical delete protection
+     * Override to enforce soft delete only
+     * 
+     * @throws RuntimeException Always, since physical deletes are disabled
+     */
+    public function delete($id = null, bool $purge = false): bool
+    {
+        if ($purge) {
+            throw new RuntimeException('Physical deletes are disabled in MVP. Use archive() method.');
+        }
+
+        return parent::delete($id, false);
+    }
+
+    /**
+     * Bulk archive badges
+     * 
+     * @param array<int|string> $ids Badge IDs to archive
+     * @return int Number of archived badges
+     */
+    public function bulkArchive(array $ids): int
+    {
+        if (empty($ids)) {
+            return 0;
+        }
+
         $data = [
-            'label' => $label,
-            'color' => $color,
+            $this->deletedField => date('Y-m-d H:i:s'),
+            $this->updatedField => date('Y-m-d H:i:s')
         ];
 
-        $id = $this->insert($data);
-
-        if (!$id) {
-            throw new \RuntimeException("Failed to create badge: {$label}");
-        }
-
-        // Clear caches
-        $this->clearBadgeCaches();
-
-        return $this->find($id);
+        return $this->bulkUpdate($ids, $data);
     }
 
     /**
-     * Create default badges for system initialization
-     *
-     * @return array IDs of created badges
+     * Bulk restore archived badges
+     * 
+     * @param array<int|string> $ids Badge IDs to restore
+     * @return int Number of restored badges
      */
-    public function createDefaultBadges(): array
+    public function bulkRestore(array $ids): int
     {
-        $defaultBadges = [
-            ['label' => 'Best Seller', 'color' => '#EF4444'],
-            ['label' => 'New Arrival', 'color' => '#10B981'],
-            ['label' => 'Limited Edition', 'color' => '#8B5CF6'],
-            ['label' => 'Exclusive', 'color' => '#F59E0B'],
-            ['label' => 'Trending', 'color' => '#3B82F6'],
-            ['label' => 'Verified', 'color' => '#059669'],
-            ['label' => 'Discount', 'color' => '#EC4899'],
-            ['label' => 'Premium', 'color' => '#D97706'],
+        if (empty($ids)) {
+            return 0;
+        }
+
+        $data = [
+            $this->deletedField => null,
+            $this->updatedField => date('Y-m-d H:i:s')
         ];
 
-        $createdIds = [];
-
-        foreach ($defaultBadges as $badgeData) {
-            // Check if badge already exists by label (case-insensitive)
-            $existing = $this->findByLabel($badgeData['label'], false);
-
-            if (!$existing instanceof \App\Entities\Badge && $id = $this->insert($badgeData)) {
-                $createdIds[] = $id;
-            }
-        }
-
-        // Clear caches after creating defaults
-        $this->clearBadgeCaches();
-
-        return $createdIds;
-    }
-
-    /**
-     * Clear all badge caches
-     */
-    private function clearBadgeCaches(): void
-    {
-        $keys = [
-            'common_active',
-            'common_all',
-            'active_50',
-            'with_product_count_50',
-            'stats',
-        ];
-
-        foreach ($keys as $key) {
-            $this->clearCache($this->cacheKey($key));
-        }
-    }
-
-    /**
-     * Find badges by IDs
-     *
-     * @param bool $activeOnly Only return non-deleted badges
-     * @return Badge[]
-     */
-    public function findByIds(array $badgeIds, bool $activeOnly = true): array
-    {
-        if ($badgeIds === []) {
-            return [];
-        }
-
-        $cacheKey = $this->cacheKey('ids_' . md5(implode(',', $badgeIds)) . '_' . ($activeOnly ? 'active' : 'all'));
-
-        return $this->cached($cacheKey, function () use ($badgeIds, $activeOnly) {
-            $builder = $this->builder();
-            $builder->whereIn('id', $badgeIds);
-
-            if ($activeOnly) {
-                $builder->where('deleted_at');
-            }
-
-            $builder->orderBy('label', 'ASC');
-
-            return $builder->get()->getResult($this->returnType);
-        }, 3600);
-    }
-
-    /**
-     * Search badges by keyword
-     *
-     * @return Badge[]
-     */
-    public function search(string $keyword, int $limit = 20): array
-    {
-        if ($keyword === '' || $keyword === '0') {
-            return [];
-        }
-
-        $cacheKey = $this->cacheKey("search_" . md5($keyword) . "_{$limit}");
-
-        return $this->cached($cacheKey, function () use ($keyword, $limit) {
-            return $this->like('label', $keyword)
-                       ->where('deleted_at')
-                       ->orderBy('label', 'ASC')
-                       ->limit($limit)
-                       ->findAll();
-        }, 1800); // 30 minutes cache
+        return $this->bulkUpdate($ids, $data);
     }
 }

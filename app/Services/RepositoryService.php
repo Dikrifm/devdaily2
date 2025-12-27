@@ -150,7 +150,7 @@ class RepositoryService
      */
     public static function getConfig(string $name): ?array
     {
-        return self::$config[$name] ?? null;
+        //return self::$config[$name] ?? null;
     }
 
     /**

@@ -3,1653 +3,772 @@
 namespace App\Repositories\Concrete;
 
 use App\Entities\Link;
-use App\Entities\Marketplace;
-use App\Entities\Product;
-use App\Exceptions\LinkNotFoundException;
-use App\Exceptions\ValidationException;
 use App\Models\LinkModel;
-use App\Models\MarketplaceBadgeModel;
-use App\Models\MarketplaceModel;
-use App\Models\ProductModel;
+use App\Repositories\BaseRepository;
 use App\Repositories\Interfaces\LinkRepositoryInterface;
-use App\Services\AuditService;
-use App\Services\CacheService;
+use CodeIgniter\Cache\CacheInterface;
 use CodeIgniter\Database\ConnectionInterface;
-use DateTimeImmutable;
+use CodeIgniter\Database\Exceptions\DatabaseException;
 use RuntimeException;
+use InvalidArgumentException;
 
-class LinkRepository implements LinkRepositoryInterface
+/**
+ * Link Repository - Concrete Implementation
+ * 
+ * Data Orchestrator Layer with caching strategy for Link entities.
+ * Implements "Transient Input, Persistent Revenue" commission logic.
+ * 
+ * @package App\Repositories\Concrete
+ */
+final class LinkRepository extends BaseRepository implements LinkRepositoryInterface
 {
-    private LinkModel $linkModel;
-    private ProductModel $productModel;
-    private MarketplaceModel $marketplaceModel;
-    private MarketplaceBadgeModel $marketplaceBadgeModel;
-    private CacheService $cacheService;
-    private AuditService $auditService;
+    /**
+     * LinkModel instance with typed access
+     * 
+     * @var LinkModel
+     */
+    protected LinkModel $model;
+
+    /**
+     * Database connection for transactions
+     * 
+     * @var ConnectionInterface
+     */
     private ConnectionInterface $db;
 
-    private int $cacheTtl = 3600;
-    private string $cachePrefix = 'link_repo_';
-
-    // Cache keys constants
-    private const CACHE_KEY_FIND = 'find_';
-    private const CACHE_KEY_BY_PRODUCT = 'by_product_';
-    private const CACHE_KEY_BY_MARKETPLACE = 'by_marketplace_';
-    private const CACHE_KEY_PRICE_HISTORY = 'price_history_';
-    private const CACHE_KEY_STATS = 'stats_';
-    private const CACHE_KEY_TOP_PERFORMERS = 'top_performers_';
-    private const CACHE_KEY_NEEDS_UPDATE = 'needs_update_';
-    private const CACHE_KEY_NEEDS_VALIDATION = 'needs_validation_';
-
-    // Configuration constants
-    private const MIN_PRICE_UPDATE_INTERVAL = 3600; // 1 hour
-    private const MIN_VALIDATION_INTERVAL = 7200;   // 2 hours
-    private const PRICE_CHANGE_THRESHOLD = 0.1;     // 10%
-    private const MAX_CLICKS_PER_DAY = 1000;
-
+    /**
+     * Constructor with dependency injection
+     * 
+     * @param LinkModel $model
+     * @param CacheInterface|null $cache
+     * @param ConnectionInterface $db
+     */
     public function __construct(
-        LinkModel $linkModel,
-        ProductModel $productModel,
-        MarketplaceModel $marketplaceModel,
-        MarketplaceBadgeModel $marketplaceBadgeModel,
-        CacheService $cacheService,
-        AuditService $auditService,
+        LinkModel $model, 
+        ?CacheInterface $cache = null,
         ConnectionInterface $db
     ) {
-        $this->linkModel = $linkModel;
-        $this->productModel = $productModel;
-        $this->marketplaceModel = $marketplaceModel;
-        $this->marketplaceBadgeModel = $marketplaceBadgeModel;
-        $this->cacheService = $cacheService;
-        $this->auditService = $auditService;
+        parent::__construct($model, $cache);
+        $this->model = $model;
         $this->db = $db;
+        
+        // Set specific cache TTL for links (30 minutes)
+        $this->setCacheTtl(1800);
     }
 
-    // ==================== BASIC CRUD OPERATIONS ====================
+    // ============================================
+    // CORE REPOSITORY METHODS (Type-hinted overrides)
+    // ============================================
 
-    public function find(int $id, bool $withTrashed = false): ?Link
+     /**
+     * Alias for findActiveForProduct to satisfy generic service calls
+     * @param int $productId
+     * @return array
+     */
+    public function findByProduct(int $productId): array
     {
-        $cacheKey = $this->getCacheKey(self::CACHE_KEY_FIND . $id . '_' . ($withTrashed ? 'with' : 'without'));
-
-        return $this->cacheService->remember($cacheKey, function () use ($id, $withTrashed) {
-            $link = $withTrashed
-                ? $this->linkModel->withDeleted()->find($id)
-                : $this->linkModel->find($id);
-
-            if (!$link instanceof Link) {
-                return null;
-            }
-
-            return $link;
-        }, $this->cacheTtl);
+        return $this->findActiveForProduct($productId);
     }
 
-    public function findByProductAndMarketplace(
-        int $productId,
-        int $marketplaceId,
-        bool $activeOnly = true
-    ): ?Link {
-        $cacheKey = $this->getCacheKey("find_by_product_marketplace_{$productId}_{$marketplaceId}_" . ($activeOnly ? 'active' : 'all'));
 
-        return $this->cacheService->remember($cacheKey, function () use ($productId, $marketplaceId, $activeOnly) {
-            $builder = $this->linkModel;
-
-            if ($activeOnly) {
-                $builder->where('active', true);
-            }
-
-            $builder->where('product_id', $productId)
-                   ->where('marketplace_id', $marketplaceId);
-
-            return $builder->first();
-        }, $this->cacheTtl);
-    }
-
-    public function findByUrl(string $url, bool $withTrashed = false): ?Link
+    /**
+     * {@inheritDoc}
+     */
+    public function find($id, bool $useCache = true): ?Link
     {
-        $cacheKey = $this->getCacheKey("find_by_url_" . md5($url) . '_' . ($withTrashed ? 'with' : 'without'));
-
-        return $this->cacheService->remember($cacheKey, function () use ($url, $withTrashed) {
-            $builder = $withTrashed
-                ? $this->linkModel->withDeleted()
-                : $this->linkModel;
-
-            $builder->where('url', $url);
-            return $builder->first();
-        }, $this->cacheTtl);
+        return parent::find($id, $useCache);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function findOrFail($id, bool $useCache = true): Link
+    {
+        $link = parent::findOrFail($id, $useCache);
+        if (!$link instanceof Link) {
+            throw new RuntimeException('Invalid entity type returned');
+        }
+        return $link;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function findAll(
-        array $filters = [],
-        string $sortBy = 'created_at',
-        string $sortDirection = 'DESC',
-        bool $withTrashed = false
+        array $conditions = [], 
+        ?int $limit = null, 
+        int $offset = 0,
+        bool $useCache = true
     ): array {
-        $cacheKey = $this->getCacheKey(
-            "find_all_" .
-            md5(serialize($filters)) . "_" .
-            "{$sortBy}_{$sortDirection}_" .
-            ($withTrashed ? 'with' : 'without')
-        );
-
-        return $this->cacheService->remember($cacheKey, function () use ($filters, $sortBy, $sortDirection, $withTrashed) {
-            $builder = $withTrashed
-                ? $this->linkModel->withDeleted()
-                : $this->linkModel;
-
-            // Apply filters
-            $this->applyFilters($builder, $filters);
-
-            // Apply sorting
-            $builder->orderBy($sortBy, $sortDirection);
-
-            $result = $builder->findAll();
-            return $result ?: [];
-        }, $this->cacheTtl);
+        $result = parent::findAll($conditions, $limit, $offset, $useCache);
+        
+        // Ensure array of Link entities
+        return array_filter($result, static fn($item) => $item instanceof Link);
     }
 
-    public function save(Link $link): Link
+    /**
+     * {@inheritDoc}
+     */
+    public function save(Link $entity): bool
     {
-        $isUpdate = $link->getId() !== null;
-        $oldData = $isUpdate ? $this->find($link->getId(), true)?->toArray() : null;
-
-        try {
-            $this->db->transBegin();
-
-            // Validate before save
-            $validationResult = $this->validate($link);
-            if (!$validationResult['is_valid']) {
-                throw new ValidationException(
-                    'Link validation failed',
-                    $validationResult['errors']
-                );
-            }
-
-            // Check for duplicate URL
-            if (!$this->isUrlUnique($link->getUrl(), $link->getId())) {
-                throw new ValidationException(
-                    'Link URL already exists',
-                    ['url' => 'This URL is already associated with another link']
-                );
-            }
-
-            // Check for duplicate product-marketplace combination
-            $existingLink = $this->findByProductAndMarketplace(
-                $link->getProductId(),
-                $link->getMarketplaceId(),
-                false // Check all, not just active
-            );
-
-            if ($existingLink && $existingLink->getId() !== $link->getId()) {
-                throw new ValidationException(
-                    'Duplicate link',
-                    ['product_marketplace' => 'This product already has a link for this marketplace']
-                );
-            }
-
-            // Prepare for save
-            $link->prepareForSave($isUpdate);
-
-            // Save to database
-            $saved = $isUpdate
-                ? $this->linkModel->update($link->getId(), $link)
-                : $this->linkModel->insert($link);
-
-            if (!$saved) {
-                throw new RuntimeException(
-                    'Failed to save link: ' .
-                    implode(', ', $this->linkModel->errors())
-                );
-            }
-
-            // If new link, get the ID
-            if (!$isUpdate) {
-                $link->setId($this->linkModel->getInsertID());
-            }
-
-            // Clear relevant caches
-            $this->clearCache($link->getId(), $link->getProductId());
-
-            // Log audit trail
-            if ($this->auditService->isEnabled()) {
-                $action = $isUpdate ? 'UPDATE' : 'CREATE';
-                $adminId = service('auth')->user()?->getId() ?? 0;
-
-                $this->auditService->logCrudOperation(
-                    'LINK',
-                    $link->getId(),
-                    $action,
-                    $adminId,
-                    $oldData,
-                    $link->toArray()
-                );
-            }
-
-            $this->db->transCommit();
-
-            return $link;
-
-        } catch (\Exception $e) {
-            $this->db->transRollback();
-
-            log_message('error', 'LinkRepository save failed: ' . $e->getMessage());
-            throw new RuntimeException('Failed to save link: ' . $e->getMessage(), 0, $e);
-        }
-    }
-
-    public function delete(int $id, bool $force = false): bool
-    {
-        $link = $this->find($id, true);
-        if (!$link) {
-            throw LinkNotFoundException::forId($id);
-        }
-
-        // Check if can be deleted
-        $canDeleteResult = $this->canDelete($id);
-        if (!$canDeleteResult['can_delete'] && !$force) {
-            throw new ValidationException(
-                'Cannot delete link',
-                $canDeleteResult['reasons']
+        // Validate store name uniqueness before save
+        if (!$this->validateStoreNameUniqueness($entity)) {
+            throw new InvalidArgumentException(
+                'Store name must be unique for this product and marketplace combination.'
             );
         }
 
-        try {
-            $this->db->transBegin();
+        $isNew = $entity->isNew();
+        $success = parent::save($entity);
 
-            $oldData = $link->toArray();
-            $adminId = service('auth')->user()?->getId() ?? 0;
-
-            if ($force) {
-                // Permanent deletion
-                $deleted = $this->linkModel->delete($id, true);
-            } else {
-                // Soft delete
-                $link->softDelete();
-                $deleted = $this->linkModel->save($link);
-            }
-
-            if (!$deleted) {
-                throw new RuntimeException('Failed to delete link');
-            }
-
-            // Clear caches
-            $this->clearCache($id, $link->getProductId());
-
-            // Log audit trail
-            if ($this->auditService->isEnabled()) {
-                $action = $force ? 'DELETE' : 'SOFT_DELETE';
-                $this->auditService->logCrudOperation(
-                    'LINK',
-                    $id,
-                    $action,
-                    $adminId,
-                    $oldData,
-                    null
-                );
-            }
-
-            $this->db->transCommit();
-
-            return true;
-
-        } catch (\Exception $e) {
-            $this->db->transRollback();
-
-            log_message('error', 'LinkRepository delete failed: ' . $e->getMessage());
-            throw new RuntimeException('Failed to delete link: ' . $e->getMessage(), 0, $e);
+        // Invalidate relevant caches after save
+        if ($success) {
+            $this->invalidateCachesForLink($entity, $isNew);
         }
+
+        return $success;
     }
 
-    public function restore(int $id): bool
+    /**
+     * {@inheritDoc}
+     */
+    public function first(array $conditions = [], bool $useCache = true): ?Link
     {
-        $link = $this->find($id, true);
-        if (!$link || !$link->isDeleted()) {
-            return false;
-        }
-
-        try {
-            $this->db->transBegin();
-
-            $link->restore();
-            $restored = $this->linkModel->save($link);
-
-            if (!$restored) {
-                throw new RuntimeException('Failed to restore link');
-            }
-
-            // Clear caches
-            $this->clearCache($id, $link->getProductId());
-
-            // Log audit trail
-            if ($this->auditService->isEnabled()) {
-                $adminId = service('auth')->user()?->getId() ?? 0;
-                $this->auditService->logCrudOperation(
-                    'LINK',
-                    $id,
-                    'RESTORE',
-                    $adminId,
-                    null,
-                    $link->toArray()
-                );
-            }
-
-            $this->db->transCommit();
-
-            return true;
-
-        } catch (\Exception $e) {
-            $this->db->transRollback();
-
-            log_message('error', 'LinkRepository restore failed: ' . $e->getMessage());
-            return false;
-        }
+        $result = parent::first($conditions, $useCache);
+        return $result instanceof Link ? $result : null;
     }
 
-    public function exists(int $id, bool $withTrashed = false): bool
+    // ============================================
+    // BUSINESS-SPECIFIC QUERY METHODS
+    // ============================================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findActiveForProduct(int $productId, bool $useCache = true): array
     {
-        $cacheKey = $this->getCacheKey("exists_{$id}_" . ($withTrashed ? 'with' : 'without'));
-
-        return $this->cacheService->remember($cacheKey, function () use ($id, $withTrashed) {
-            $builder = $withTrashed
-                ? $this->linkModel->withDeleted()
-                : $this->linkModel;
-
-            return $builder->find($id) !== null;
-        }, 300);
+        $cacheKey = "active_for_product:{$productId}";
+        
+        return $this->remember($cacheKey, function() use ($productId) {
+            return $this->model->findActiveForProduct($productId);
+        }, $useCache ? $this->defaultCacheTtl : null);
     }
 
-    // ==================== PRODUCT-LINK RELATIONS ====================
+    /**
+     * {@inheritDoc}
+     */
+    public function findByProductAndMarketplace(
+        int $productId, 
+        int $marketplaceId, 
+        bool $useCache = true
+    ): ?Link {
+        $cacheKey = "product_marketplace:{$productId}:{$marketplaceId}";
+        
+        return $this->remember($cacheKey, function() use ($productId, $marketplaceId) {
+            return $this->model->findByProductAndMarketplace($productId, $marketplaceId);
+        }, $useCache ? $this->defaultCacheTtl : null);
+    }
 
-    public function findByProduct(
-        int $productId,
-        bool $activeOnly = true,
-        bool $withTrashed = false,
-        string $sortBy = 'price',
-        string $sortDirection = 'ASC'
+    /**
+     * {@inheritDoc}
+     */
+    public function findNeedingPriceUpdate(
+        int $marketplaceId = 0, 
+        int $limit = 50, 
+        bool $useCache = true
     ): array {
-        $cacheKey = $this->getCacheKey(
-            self::CACHE_KEY_BY_PRODUCT .
-            "{$productId}_" .
-            ($activeOnly ? 'active_' : 'all_') .
-            ($withTrashed ? 'with_' : 'without_') .
-            "{$sortBy}_{$sortDirection}"
-        );
-
-        return $this->cacheService->remember($cacheKey, function () use ($productId, $activeOnly, $withTrashed, $sortBy, $sortDirection) {
-            $builder = $withTrashed
-                ? $this->linkModel->withDeleted()
-                : $this->linkModel;
-
-            if ($activeOnly) {
-                $builder->where('active', true);
+        $cacheKey = "needs_price_update:{$marketplaceId}:{$limit}";
+        
+        // Lower TTL for frequently changing data (5 minutes)
+        $ttl = $useCache ? 300 : null;
+        
+        return $this->remember($cacheKey, function() use ($marketplaceId, $limit) {
+            if ($marketplaceId > 0) {
+                return $this->model->findNeedingPriceUpdate($marketplaceId, $limit);
             }
-
-            $builder->where('product_id', $productId)
-                   ->orderBy($sortBy, $sortDirection);
-
-            $result = $builder->findAll();
-            return $result ?: [];
-        }, $this->cacheTtl);
+            
+            // For all marketplaces
+            return $this->model
+                ->withScopes(['needsPriceUpdate' => null])
+                ->withMarketplace()
+                ->limit($limit)
+                ->findAll();
+        }, $ttl);
     }
 
-    public function findActiveByProduct(int $productId): array
+    /**
+     * {@inheritDoc}
+     */
+    public function findNeedingValidation(int $limit = 100, bool $useCache = true): array
     {
-        return $this->findByProduct($productId, true, false, 'price', 'ASC');
+        $cacheKey = "needs_validation:{$limit}";
+        
+        // Low TTL for validation data (2 minutes)
+        $ttl = $useCache ? 120 : null;
+        
+        return $this->remember($cacheKey, function() use ($limit) {
+            return $this->model
+                ->withScopes(['needsValidation' => null])
+                ->withMarketplace()
+                ->limit($limit)
+                ->findAll();
+        }, $ttl);
     }
 
-    public function countByProduct(int $productId, bool $activeOnly = true): int
-    {
-        $cacheKey = $this->getCacheKey("count_by_product_{$productId}_" . ($activeOnly ? 'active' : 'all'));
-
-        return $this->cacheService->remember($cacheKey, function () use ($productId, $activeOnly) {
-            $builder = $this->linkModel->where('product_id', $productId);
-
-            if ($activeOnly) {
-                $builder->where('active', true);
-            }
-
-            return $builder->countAllResults();
-        }, 300);
-    }
-
-    public function productHasActiveLinks(int $productId): bool
-    {
-        return $this->countByProduct($productId, true) > 0;
-    }
-
-    public function findCheapestByProduct(int $productId, bool $activeOnly = true): ?Link
-    {
-        $links = $this->findByProduct($productId, $activeOnly, false, 'price', 'ASC');
-        return !empty($links) ? $links[0] : null;
-    }
-
-    public function findHighestRatedByProduct(int $productId, bool $activeOnly = true): ?Link
-    {
-        $links = $this->findByProduct($productId, $activeOnly, false, 'rating', 'DESC');
-        return !empty($links) ? $links[0] : null;
-    }
-
-    // ==================== MARKETPLACE-LINK RELATIONS ====================
-
-    public function findByMarketplace(
-        int $marketplaceId,
-        bool $activeOnly = true,
-        bool $withTrashed = false,
-        int $limit = 50,
-        int $offset = 0
+    /**
+     * {@inheritDoc}
+     */
+    public function findTopPerforming(
+        int $limit = 10, 
+        float $minRevenue = 10000.00, 
+        bool $useCache = true
     ): array {
-        $cacheKey = $this->getCacheKey(
-            self::CACHE_KEY_BY_MARKETPLACE .
-            "{$marketplaceId}_" .
-            ($activeOnly ? 'active_' : 'all_') .
-            ($withTrashed ? 'with_' : 'without_') .
-            "{$limit}_{$offset}"
-        );
-
-        return $this->cacheService->remember($cacheKey, function () use ($marketplaceId, $activeOnly, $withTrashed, $limit, $offset) {
-            $builder = $withTrashed
-                ? $this->linkModel->withDeleted()
-                : $this->linkModel;
-
-            if ($activeOnly) {
-                $builder->where('active', true);
-            }
-
-            $builder->where('marketplace_id', $marketplaceId)
-                   ->orderBy('created_at', 'DESC')
-                   ->limit($limit, $offset);
-
-            $result = $builder->findAll();
-            return $result ?: [];
-        }, $this->cacheTtl);
+        $cacheKey = "top_performing:{$limit}:{$minRevenue}";
+        
+        return $this->remember($cacheKey, function() use ($limit, $minRevenue) {
+            return $this->model->findTopPerforming($limit);
+        }, $useCache ? $this->defaultCacheTtl : null);
     }
 
-    public function countByMarketplace(int $marketplaceId, bool $activeOnly = true): int
+    /**
+     * {@inheritDoc}
+     */
+    public function findWithBadges(int $limit = 50, bool $useCache = true): array
     {
-        $cacheKey = $this->getCacheKey("count_by_marketplace_{$marketplaceId}_" . ($activeOnly ? 'active' : 'all'));
-
-        return $this->cacheService->remember($cacheKey, function () use ($marketplaceId, $activeOnly) {
-            $builder = $this->linkModel->where('marketplace_id', $marketplaceId);
-
-            if ($activeOnly) {
-                $builder->where('active', true);
-            }
-
-            return $builder->countAllResults();
-        }, 300);
+        $cacheKey = "with_badges:{$limit}";
+        
+        return $this->remember($cacheKey, function() use ($limit) {
+            return $this->model
+                ->withScopes(['withBadge' => null])
+                ->withMarketplaceBadge()
+                ->limit($limit)
+                ->findAll();
+        }, $useCache ? $this->defaultCacheTtl : null);
     }
 
-    // ==================== PRICE MANAGEMENT ====================
-
-    public function updatePrice(int $linkId, string $newPrice, bool $autoUpdateTimestamp = true): bool
-    {
-        $link = $this->find($linkId);
-        if (!$link) {
-            throw LinkNotFoundException::forId($linkId);
-        }
-
-        $oldPrice = $link->getPrice();
-        $priceChange = $this->calculatePriceChange($oldPrice, $newPrice);
-
-        try {
-            $this->db->transBegin();
-
-            // Update price
-            $link->setPrice($newPrice);
-
-            if ($autoUpdateTimestamp) {
-                $link->setLastPriceUpdate(new DateTimeImmutable());
-            }
-
-            $updated = $this->linkModel->save($link);
-
-            if (!$updated) {
-                throw new RuntimeException('Failed to update price');
-            }
-
-            // Log price history if significant change
-            if ($priceChange >= self::PRICE_CHANGE_THRESHOLD) {
-                $this->logPriceHistory($linkId, $oldPrice, $newPrice, 'manual_update');
-            }
-
-            // Clear caches
-            $this->clearCache($linkId, $link->getProductId());
-
-            // Log audit trail
-            if ($this->auditService->isEnabled()) {
-                $adminId = service('auth')->user()?->getId() ?? 0;
-                $changes = [
-                    'price' => [
-                        'old' => $oldPrice,
-                        'new' => $newPrice,
-                        'change_percentage' => round($priceChange * 100, 2)
-                    ]
-                ];
-
-                $this->auditService->logCrudOperation(
-                    'LINK',
-                    $linkId,
-                    'UPDATE',
-                    $adminId,
-                    ['price' => $oldPrice],
-                    ['price' => $newPrice],
-                    json_encode($changes)
-                );
-            }
-
-            $this->db->transCommit();
-
-            return true;
-
-        } catch (\Exception $e) {
-            $this->db->transRollback();
-
-            log_message('error', 'LinkRepository updatePrice failed: ' . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function updatePriceWithHistory(
-        int $linkId,
-        string $newPrice,
-        string $changeReason = 'manual_update',
-        ?int $adminId = null
+    /**
+     * {@inheritDoc}
+     */
+    public function findByMarketplaceSorted(
+        int $marketplaceId, 
+        string $orderBy = 'revenue', 
+        string $direction = 'DESC',
+        bool $useCache = true
     ): array {
-        $link = $this->find($linkId);
-        if (!$link) {
-            throw LinkNotFoundException::forId($linkId);
-        }
+        $cacheKey = "marketplace_sorted:{$marketplaceId}:{$orderBy}:{$direction}";
+        
+        $allowedOrder = ['revenue', 'clicks', 'sold', 'rating', 'price'];
+        $orderBy = in_array($orderBy, $allowedOrder, true) ? $orderBy : 'revenue';
+        $direction = strtoupper($direction) === 'ASC' ? 'ASC' : 'DESC';
+        
+        return $this->remember($cacheKey, function() use ($marketplaceId, $orderBy, $direction) {
+            return $this->model
+                ->withScopes(['forMarketplace' => $marketplaceId])
+                ->withScopes(['orderByPerformance' => [$orderBy, $direction]])
+                ->withMarketplace()
+                ->findAll();
+        }, $useCache ? $this->defaultCacheTtl : null);
+    }
 
-        $oldPrice = $link->getPrice();
-        $priceChange = $this->calculatePriceChange($oldPrice, $newPrice);
+    // ============================================
+    // STATISTICS & ANALYTICS METHODS
+    // ============================================
 
-        try {
-            $this->db->transBegin();
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatistics(bool $useCache = true): array
+    {
+        $cacheKey = 'statistics:global';
+        
+        // Short TTL for statistics (10 minutes)
+        $ttl = $useCache ? 600 : null;
+        
+        return $this->remember($cacheKey, function() {
+            return $this->model->getLinkStatistics();
+        }, $ttl);
+    }
 
-            // Update price
-            $link->setPrice($newPrice);
-            $link->setLastPriceUpdate(new DateTimeImmutable());
+    /**
+     * {@inheritDoc}
+     */
+    public function getProductLinkStatistics(int $productId, bool $useCache = true): array
+    {
+        $cacheKey = "statistics:product:{$productId}";
+        
+        return $this->remember($cacheKey, function() use ($productId) {
+            $builder = $this->model->builder();
+            
+            $stats = $builder->select([
+                    'COUNT(*) as total_links',
+                    'SUM(CASE WHEN active = 1 THEN 1 ELSE 0 END) as active_links',
+                    'SUM(clicks) as total_clicks',
+                    'SUM(sold_count) as total_sold',
+                    'SUM(CAST(affiliate_revenue AS DECIMAL(10,2))) as total_revenue',
+                    'AVG(CAST(rating AS DECIMAL(3,2))) as avg_rating',
+                    'MIN(CAST(price AS DECIMAL(10,2))) as min_price',
+                    'MAX(CAST(price AS DECIMAL(10,2))) as max_price'
+                ])
+                ->where('product_id', $productId)
+                ->where($this->model->deletedField . ' IS NULL')
+                ->get()
+                ->getRowArray();
 
-            $updated = $this->linkModel->save($link);
-
-            if (!$updated) {
-                throw new RuntimeException('Failed to update price');
-            }
-
-            // Always log price history for this method
-            $historyId = $this->logPriceHistory($linkId, $oldPrice, $newPrice, $changeReason, $adminId);
-
-            // Clear caches
-            $this->clearCache($linkId, $link->getProductId());
-
-            // Log audit trail
-            if ($this->auditService->isEnabled()) {
-                $adminId = $adminId ?? service('auth')->user()?->getId() ?? 0;
-                $changes = [
-                    'price' => [
-                        'old' => $oldPrice,
-                        'new' => $newPrice,
-                        'change_percentage' => round($priceChange * 100, 2),
-                        'reason' => $changeReason
-                    ]
-                ];
-
-                $this->auditService->logCrudOperation(
-                    'LINK',
-                    $linkId,
-                    'UPDATE',
-                    $adminId,
-                    ['price' => $oldPrice],
-                    ['price' => $newPrice],
-                    json_encode($changes)
-                );
-            }
-
-            $this->db->transCommit();
-
-            return [
-                'success' => true,
-                'price_change' => $priceChange,
-                'old_price' => $oldPrice,
-                'new_price' => $newPrice,
-                'history_id' => $historyId
+            return $stats ?: [
+                'total_links' => 0,
+                'active_links' => 0,
+                'total_clicks' => 0,
+                'total_sold' => 0,
+                'total_revenue' => '0.00',
+                'avg_rating' => '0.00',
+                'min_price' => '0.00',
+                'max_price' => '0.00'
             ];
+        }, $useCache ? $this->defaultCacheTtl : null);
+    }
 
-        } catch (\Exception $e) {
-            $this->db->transRollback();
+    /**
+     * {@inheritDoc}
+     */
+    public function getMarketplaceLinkStatistics(int $marketplaceId, bool $useCache = true): array
+    {
+        $cacheKey = "statistics:marketplace:{$marketplaceId}";
+        
+        return $this->remember($cacheKey, function() use ($marketplaceId) {
+            $builder = $this->model->builder();
+            
+            $stats = $builder->select([
+                    'COUNT(*) as total_links',
+                    'SUM(CASE WHEN active = 1 THEN 1 ELSE 0 END) as active_links',
+                    'SUM(clicks) as total_clicks',
+                    'SUM(sold_count) as total_sold',
+                    'SUM(CAST(affiliate_revenue AS DECIMAL(10,2))) as total_revenue',
+                    'AVG(CAST(rating AS DECIMAL(3,2))) as avg_rating',
+                    'AVG(CAST(price AS DECIMAL(10,2))) as avg_price'
+                ])
+                ->where('marketplace_id', $marketplaceId)
+                ->where($this->model->deletedField . ' IS NULL')
+                ->get()
+                ->getRowArray();
 
-            log_message('error', 'LinkRepository updatePriceWithHistory failed: ' . $e->getMessage());
-
-            return [
-                'success' => false,
-                'price_change' => 0,
-                'old_price' => $oldPrice,
-                'new_price' => $newPrice,
-                'error' => $e->getMessage()
+            return $stats ?: [
+                'total_links' => 0,
+                'active_links' => 0,
+                'total_clicks' => 0,
+                'total_sold' => 0,
+                'total_revenue' => '0.00',
+                'avg_rating' => '0.00',
+                'avg_price' => '0.00'
             ];
-        }
+        }, $useCache ? $this->defaultCacheTtl : null);
     }
 
-    public function getPriceHistory(int $linkId, int $limit = 50, string $period = 'all'): array
+    // ============================================
+    // BUSINESS OPERATIONS METHODS
+    // ============================================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function incrementClicks(int $linkId): bool
     {
-        $cacheKey = $this->getCacheKey(self::CACHE_KEY_PRICE_HISTORY . "{$linkId}_{$limit}_{$period}");
-
-        return $this->cacheService->remember($cacheKey, function () {
-            // In real implementation, query price_history table
-            // This is a simplified version
-
-            $history = [];
-
-            // Example query::
-            // $builder = $this->db->table('price_history');
-            // $builder->where('link_id', $linkId);
-
-            // if ($period !== 'all') {
-            //     $dateCondition = $this->getDateCondition($period);
-            //     $builder->where($dateCondition);
-            // }
-
-            // $builder->orderBy('created_at', 'DESC')->limit($limit);
-            // $history = $builder->get()->getResultArray();
-
-            return $history;
-        }, 1800);
-    }
-
-    public function findNeedsPriceUpdate(int $maxAgeHours = 24, int $limit = 100, bool $activeOnly = true): array
-    {
-        $cacheKey = $this->getCacheKey(self::CACHE_KEY_NEEDS_UPDATE . "{$maxAgeHours}_{$limit}_" . ($activeOnly ? 'active' : 'all'));
-
-        return $this->cacheService->remember($cacheKey, function () use ($maxAgeHours, $limit, $activeOnly) {
-            $builder = $this->linkModel;
-
-            if ($activeOnly) {
-                $builder->where('active', true);
-            }
-
-            // Links without last_price_update or older than maxAgeHours
-            $cutoffTime = date('Y-m-d H:i:s', time() - ($maxAgeHours * 3600));
-
-            $builder->groupStart()
-                   ->where('last_price_update IS NULL')
-                   ->orWhere('last_price_update <', $cutoffTime)
-                   ->groupEnd();
-
-            $builder->orderBy('last_price_update', 'ASC NULLS FIRST')
-                   ->limit($limit);
-
-            $result = $builder->findAll();
-            return $result ?: [];
-        }, 300); // Short cache as this needs to be fresh
-    }
-
-    public function markPriceChecked(int $linkId): bool
-    {
-        $link = $this->find($linkId);
-        if (!$link) {
-            return false;
-        }
-
         try {
-            $link->setLastPriceUpdate(new DateTimeImmutable());
-            $updated = $this->linkModel->save($link);
-
-            if ($updated) {
-                $this->clearCache($linkId, $link->getProductId());
+            $success = $this->model->incrementClicks($linkId);
+            
+            if ($success) {
+                $this->deleteMatching("id:{$linkId}");
+                $this->deleteMatching("statistics:*");
             }
-
-            return $updated;
-
-        } catch (\Exception $e) {
-            log_message('error', 'LinkRepository markPriceChecked failed: ' . $e->getMessage());
+            
+            return $success;
+        } catch (DatabaseException $e) {
+            log_message('error', "Failed to increment clicks for link {$linkId}: " . $e->getMessage());
             return false;
         }
     }
 
-    public function getPriceStatisticsByProduct(int $productId, bool $activeOnly = true): array
+    /**
+     * {@inheritDoc}
+     */
+    public function updatePrice(int $linkId, string $price): bool
     {
-        $cacheKey = $this->getCacheKey("price_stats_product_{$productId}_" . ($activeOnly ? 'active' : 'all'));
-
-        return $this->cacheService->remember($cacheKey, function () use ($productId, $activeOnly) {
-            $links = $this->findByProduct($productId, $activeOnly);
-
-            if (empty($links)) {
-                return [
-                    'min' => 0,
-                    'max' => 0,
-                    'avg' => 0,
-                    'median' => 0,
-                    'count' => 0
-                ];
-            }
-
-            $prices = array_map(function ($link) {
-                return (float) $link->getPrice();
-            }, $links);
-
-            sort($prices);
-
-            $count = count($prices);
-            $min = min($prices);
-            $max = max($prices);
-            $avg = array_sum($prices) / $count;
-
-            // Calculate median
-            $middle = floor(($count - 1) / 2);
-            if ($count % 2) {
-                $median = $prices[$middle];
-            } else {
-                $median = ($prices[$middle] + $prices[$middle + 1]) / 2;
-            }
-
-            return [
-                'min' => $min,
-                'max' => $max,
-                'avg' => round($avg, 2),
-                'median' => round($median, 2),
-                'count' => $count,
-                'currency' => 'IDR' // Default, should come from configuration
-            ];
-        }, $this->cacheTtl);
-    }
-
-    // ==================== VALIDATION & STATUS MANAGEMENT ====================
-
-    public function validate(int $linkId, bool $force = false): array
-    {
-        $link = $this->find($linkId);
-        if (!$link) {
-            throw LinkNotFoundException::forId($linkId);
-        }
-
-        // Check if validation is needed
-        if (!$force && !$this->needsValidation($link)) {
-            return [
-                'is_valid' => $link->isValid(),
-                'status_code' => 200,
-                'message' => 'Validation not required yet',
-                'last_validation' => $link->getLastValidation()?->format('Y-m-d H:i:s'),
-                'cached' => true
-            ];
+        // Validate price format
+        if (!preg_match('/^\d+(\.\d{2})?$/', $price)) {
+            throw new InvalidArgumentException('Price must be in decimal format with 2 decimals');
         }
 
         try {
-            $url = $link->getUrl();
-            $isValid = $this->validateUrl($url);
-
-            // Update validation status
-            $link->setLastValidation(new DateTimeImmutable());
-            $this->linkModel->save($link);
-
-            // Clear cache
-            $this->clearCache($linkId, $link->getProductId());
-
-            // Log validation result
-            if ($this->auditService->isEnabled()) {
-                $adminId = service('auth')->user()?->getId() ?? 0;
-                $this->auditService->logStateTransition(
-                    'LINK',
-                    $linkId,
-                    $link->isValid() ? 'valid' : 'invalid',
-                    $isValid ? 'valid' : 'invalid',
-                    $adminId,
-                    'URL validation performed'
-                );
+            $success = $this->model->updatePriceWithTimestamp($linkId, $price);
+            
+            if ($success) {
+                $this->invalidateLinkCache($linkId);
             }
-
-            return [
-                'is_valid' => $isValid,
-                'status_code' => $isValid ? 200 : 404,
-                'message' => $isValid ? 'URL is accessible' : 'URL is not accessible',
-                'last_validation' => $link->getLastValidation()->format('Y-m-d H:i:s'),
-                'checked_url' => $url
-            ];
-
-        } catch (\Exception $e) {
-            log_message('error', 'LinkRepository validate failed: ' . $e->getMessage());
-
-            return [
-                'is_valid' => false,
-                'status_code' => 500,
-                'message' => 'Validation failed: ' . $e->getMessage(),
-                'last_validation' => null,
-                'error' => $e->getMessage()
-            ];
-        }
-    }
-
-    public function markAsValidated(int $linkId, bool $isValid = true, ?string $validationNotes = null): bool
-    {
-        $link = $this->find($linkId);
-        if (!$link) {
+            
+            return $success;
+        } catch (DatabaseException $e) {
+            log_message('error', "Failed to update price for link {$linkId}: " . $e->getMessage());
             return false;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateRevenueWithCommission(int $linkId, float $commissionRate): bool
+    {
+        // Validate commission rate
+        if ($commissionRate < 0 || $commissionRate > 1) {
+            throw new InvalidArgumentException('Commission rate must be between 0.00 and 1.00');
+        }
 
         try {
-            $link->setLastValidation(new DateTimeImmutable());
-
-            // If link is invalid, deactivate it
-            if (!$isValid) {
-                $link->setActive(false);
+            $success = $this->model->updateAffiliateRevenue($linkId, $commissionRate);
+            
+            if ($success) {
+                $this->invalidateLinkCache($linkId);
+                $this->deleteMatching("top_performing:*");
+                $this->deleteMatching("statistics:*");
             }
+            
+            return $success;
+        } catch (DatabaseException $e) {
+            log_message('error', "Failed to update revenue for link {$linkId}: " . $e->getMessage());
+            return false;
+        }
+    }
 
-            $updated = $this->linkModel->save($link);
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkUpdateStatus(array $linkIds, bool $active): int
+    {
+        if (empty($linkIds)) {
+            return 0;
+        }
 
-            if ($updated) {
-                $this->clearCache($linkId, $link->getProductId());
+        // Validate all IDs are integers
+        $linkIds = array_map('intval', $linkIds);
+        $linkIds = array_filter($linkIds, static fn($id) => $id > 0);
 
-                // Log validation notes if provided
-                if ($validationNotes) {
-                    $this->logValidationNotes($linkId, $validationNotes, $isValid);
+        if (empty($linkIds)) {
+            return 0;
+        }
+
+        try {
+            $updated = $this->model->bulkUpdateStatus($linkIds, $active);
+            
+            if ($updated > 0) {
+                foreach ($linkIds as $linkId) {
+                    $this->invalidateLinkCache($linkId);
                 }
+                $this->deleteMatching("active_for_product:*");
+                $this->deleteMatching("statistics:*");
             }
-
+            
             return $updated;
-
-        } catch (\Exception $e) {
-            log_message('error', 'LinkRepository markAsValidated failed: ' . $e->getMessage());
-            return false;
+        } catch (DatabaseException $e) {
+            log_message('error', "Failed to bulk update status: " . $e->getMessage());
+            return 0;
         }
     }
 
-    public function findNeedsValidation(int $maxAgeHours = 48, int $limit = 100, bool $activeOnly = true): array
+    /**
+     * {@inheritDoc}
+     */
+    public function markAsValidated(int $linkId): bool
     {
-        $cacheKey = $this->getCacheKey(self::CACHE_KEY_NEEDS_VALIDATION . "{$maxAgeHours}_{$limit}_" . ($activeOnly ? 'active' : 'all'));
+        $link = $this->find($linkId, false);
+        if (!$link instanceof Link) {
+            throw new RuntimeException("Link with ID {$linkId} not found");
+        }
 
-        return $this->cacheService->remember($cacheKey, function () use ($maxAgeHours, $limit, $activeOnly) {
-            $builder = $this->linkModel;
-
-            if ($activeOnly) {
-                $builder->where('active', true);
-            }
-
-            // Links without last_validation or older than maxAgeHours
-            $cutoffTime = date('Y-m-d H:i:s', time() - ($maxAgeHours * 3600));
-
-            $builder->groupStart()
-                   ->where('last_validation IS NULL')
-                   ->orWhere('last_validation <', $cutoffTime)
-                   ->groupEnd();
-
-            $builder->orderBy('last_validation', 'ASC NULLS FIRST')
-                   ->limit($limit);
-
-            $result = $builder->findAll();
-            return $result ?: [];
-        }, 300); // Short cache
+        $link->markAsValidated();
+        return $this->save($link);
     }
 
-    public function setActiveStatus(int $linkId, bool $active, ?string $reason = null): bool
+    /**
+     * {@inheritDoc}
+     */
+    public function archive(int $linkId): bool
     {
-        $link = $this->find($linkId);
-        if (!$link) {
+        $link = $this->find($linkId, false);
+        if (!$link instanceof Link) {
             return false;
         }
 
-        $oldStatus = $link->isActive();
-
-        if ($oldStatus === $active) {
-            return true; // Already in desired state
-        }
-
-        try {
-            $link->setActive($active);
-            $updated = $this->linkModel->save($link);
-
-            if ($updated) {
-                $this->clearCache($linkId, $link->getProductId());
-
-                // Log status change
-                if ($this->auditService->isEnabled()) {
-                    $adminId = service('auth')->user()?->getId() ?? 0;
-                    $this->auditService->logStateTransition(
-                        'LINK',
-                        $linkId,
-                        $oldStatus ? 'active' : 'inactive',
-                        $active ? 'active' : 'inactive',
-                        $adminId,
-                        $reason ?? 'Status changed'
-                    );
-                }
-            }
-
-            return $updated;
-
-        } catch (\Exception $e) {
-            log_message('error', 'LinkRepository setActiveStatus failed: ' . $e->getMessage());
-            return false;
-        }
+        $link->archive();
+        return $this->save($link);
     }
 
-    public function activate(int $linkId, ?string $reason = null): bool
+    /**
+     * {@inheritDoc}
+     */
+    public function restore(int $linkId): bool
     {
-        return $this->setActiveStatus($linkId, true, $reason);
+        $success = $this->model->restore($linkId);
+        
+        if ($success) {
+            $this->invalidateLinkCache($linkId);
+            $this->deleteMatching("active_for_product:*");
+            $this->deleteMatching("statistics:*");
+        }
+        
+        return $success;
     }
 
-    public function deactivate(int $linkId, ?string $reason = null): bool
+    // ============================================
+    // CACHE MANAGEMENT METHODS
+    // ============================================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function invalidateProductCache(int $productId): int
     {
-        return $this->setActiveStatus($linkId, false, $reason);
+        $patterns = [
+            "active_for_product:{$productId}",
+            "product_marketplace:{$productId}:*",
+            "statistics:product:{$productId}"
+        ];
+
+        $deleted = 0;
+        foreach ($patterns as $pattern) {
+            $deleted += $this->deleteMatching($pattern);
+        }
+
+        return $deleted;
     }
 
-    public function isValid(int $linkId): bool
+    /**
+     * {@inheritDoc}
+     */
+    public function invalidateMarketplaceCache(int $marketplaceId): int
     {
-        $link = $this->find($linkId);
-        if (!$link) {
-            return false;
+        $patterns = [
+            "product_marketplace:*:{$marketplaceId}",
+            "needs_price_update:{$marketplaceId}:*",
+            "marketplace_sorted:{$marketplaceId}:*",
+            "statistics:marketplace:{$marketplaceId}"
+        ];
+
+        $deleted = 0;
+        foreach ($patterns as $pattern) {
+            $deleted += $this->deleteMatching($pattern);
         }
 
-        // Check if validation is needed
-        if ($this->needsValidation($link)) {
-            $validationResult = $this->validate($linkId, false);
-            return $validationResult['is_valid'];
-        }
-
-        return $link->isValid();
+        return $deleted;
     }
 
-    // ==================== CLICK & AFFILIATE TRACKING ====================
-
-    public function incrementClicks(int $linkId, int $increment = 1): bool
+    /**
+     * Invalidate all cache for a specific link
+     * 
+     * @param int $linkId
+     * @return int
+     */
+    private function invalidateLinkCache(int $linkId): int
     {
-        $link = $this->find($linkId);
-        if (!$link) {
-            return false;
+        $patterns = [
+            "id:{$linkId}",
+            "product_marketplace:*:{$linkId}"
+        ];
+
+        $deleted = 0;
+        foreach ($patterns as $pattern) {
+            $deleted += $this->deleteMatching($pattern);
         }
 
-        try {
-            $link->setClicks($link->getClicks() + $increment);
-            $updated = $this->linkModel->save($link);
-
-            if ($updated) {
-                $this->clearCache($linkId, $link->getProductId());
-
-                // Log click in separate table for analytics
-                // $this->logClick($linkId, $increment);
-            }
-
-            return $updated;
-
-        } catch (\Exception $e) {
-            log_message('error', 'LinkRepository incrementClicks failed: ' . $e->getMessage());
-            return false;
-        }
+        return $deleted;
     }
 
-    public function recordClick(
-        int $linkId,
-        string $ipAddress,
-        ?string $userAgent = null,
-        array $metadata = []
-    ): bool {
-        $link = $this->find($linkId);
-        if (!$link) {
-            return false;
-        }
+    // ============================================
+    // BULK OPERATIONS METHODS
+    // ============================================
 
-        try {
-            $this->db->transBegin();
-
-            // Increment click count
-            $this->incrementClicks($linkId);
-
-            // Record detailed click in analytics table
-            $clickData = [
-                'link_id' => $linkId,
-                'product_id' => $link->getProductId(),
-                'marketplace_id' => $link->getMarketplaceId(),
-                'ip_address' => $ipAddress,
-                'user_agent' => $userAgent,
-                'metadata' => json_encode($metadata),
-                'created_at' => date('Y-m-d H:i:s')
-            ];
-
-            // $this->db->table('link_clicks')->insert($clickData);
-
-            $this->db->transCommit();
-
-            return true;
-
-        } catch (\Exception $e) {
-            $this->db->transRollback();
-
-            log_message('error', 'LinkRepository recordClick failed: ' . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function incrementSoldCount(int $linkId, int $increment = 1): bool
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkCreate(array $linksData): array
     {
-        $link = $this->find($linkId);
-        if (!$link) {
-            return false;
-        }
-
-        try {
-            $link->setSoldCount($link->getSoldCount() + $increment);
-            $updated = $this->linkModel->save($link);
-
-            if ($updated) {
-                $this->clearCache($linkId, $link->getProductId());
-            }
-
-            return $updated;
-
-        } catch (\Exception $e) {
-            log_message('error', 'LinkRepository incrementSoldCount failed: ' . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function addAffiliateRevenue(
-        int $linkId,
-        string $amount,
-        string $currency = 'IDR',
-        ?string $transactionId = null,
-        array $metadata = []
-    ): bool {
-        $link = $this->find($linkId);
-        if (!$link) {
-            return false;
-        }
-
-        try {
-            $this->db->transBegin();
-
-            // Convert amount to numeric for calculation
-            $currentRevenue = (float) $link->getAffiliateRevenue();
-            $newRevenue = $currentRevenue + (float) $amount;
-
-            $link->setAffiliateRevenue(number_format($newRevenue, 2, '.', ''));
-            $updated = $this->linkModel->save($link);
-
-            if ($updated) {
-                // Log revenue transaction
-                $revenueData = [
-                    'link_id' => $linkId,
-                    'product_id' => $link->getProductId(),
-                    'marketplace_id' => $link->getMarketplaceId(),
-                    'amount' => $amount,
-                    'currency' => $currency,
-                    'transaction_id' => $transactionId,
-                    'metadata' => json_encode($metadata),
-                    'created_at' => date('Y-m-d H:i:s')
-                ];
-
-                // $this->db->table('affiliate_revenue')->insert($revenueData);
-
-                $this->clearCache($linkId, $link->getProductId());
-
-                // Log audit trail
-                if ($this->auditService->isEnabled()) {
-                    $adminId = service('auth')->user()?->getId() ?? 0;
-                    $this->auditService->logCrudOperation(
-                        'LINK_REVENUE',
-                        $linkId,
-                        'CREATE',
-                        $adminId,
-                        null,
-                        $revenueData
-                    );
-                }
-            }
-
-            $this->db->transCommit();
-
-            return $updated;
-
-        } catch (\Exception $e) {
-            $this->db->transRollback();
-
-            log_message('error', 'LinkRepository addAffiliateRevenue failed: ' . $e->getMessage());
-            return false;
-        }
-    }
-
-    // ==================== STATISTICS & ANALYTICS ====================
-
-    public function getStatistics(?int $linkId = null): array
-    {
-        if ($linkId) {
-            return $this->getLinkStatistics($linkId);
-        }
-
-        return $this->getSystemStatistics();
-    }
-
-    public function countByStatus(bool $withTrashed = false): array
-    {
-        $cacheKey = $this->getCacheKey("count_by_status_" . ($withTrashed ? 'with' : 'without'));
-
-        return $this->cacheService->remember($cacheKey, function () use ($withTrashed) {
-            $builder = $withTrashed
-                ? $this->linkModel->withDeleted()
-                : $this->linkModel;
-
-            $total = $builder->countAllResults();
-
-            $builder->where('active', true);
-            $active = $builder->countAllResults();
-
-            $builder->where('active', false);
-            $inactive = $builder->countAllResults();
-
-            // Needs validation (active links without recent validation)
-            $cutoffTime = date('Y-m-d H:i:s', time() - self::MIN_VALIDATION_INTERVAL);
-            $needsValidation = $this->linkModel
-                ->where('active', true)
-                ->groupStart()
-                ->where('last_validation IS NULL')
-                ->orWhere('last_validation <', $cutoffTime)
-                ->groupEnd()
-                ->countAllResults();
-
-            // Needs price update (active links without recent price update)
-            $priceCutoffTime = date('Y-m-d H:i:s', time() - self::MIN_PRICE_UPDATE_INTERVAL);
-            $needsPriceUpdate = $this->linkModel
-                ->where('active', true)
-                ->groupStart()
-                ->where('last_price_update IS NULL')
-                ->orWhere('last_price_update <', $priceCutoffTime)
-                ->groupEnd()
-                ->countAllResults();
-
-            return [
-                'total' => $total,
-                'active' => $active,
-                'inactive' => $inactive,
-                'needs_validation' => $needsValidation,
-                'needs_price_update' => $needsPriceUpdate,
-            ];
-        }, 300);
-    }
-
-    // ==================== PRIVATE HELPER METHODS ====================
-
-    private function getCacheKey(string $suffix): string
-    {
-        return $this->cachePrefix . $suffix;
-    }
-
-    private function applyFilters(&$builder, array $filters): void
-    {
-        foreach ($filters as $field => $value) {
-            if ($value !== null && $value !== '') {
-                if ($field === 'search') {
-                    $builder->groupStart()
-                           ->like('store_name', $value)
-                           ->orLike('url', $value)
-                           ->groupEnd();
-                } elseif ($field === 'min_price') {
-                    $builder->where('price >=', $value);
-                } elseif ($field === 'max_price') {
-                    $builder->where('price <=', $value);
-                } elseif ($field === 'needs_price_update') {
-                    if ($value) {
-                        $cutoffTime = date('Y-m-d H:i:s', time() - self::MIN_PRICE_UPDATE_INTERVAL);
-                        $builder->groupStart()
-                               ->where('last_price_update IS NULL')
-                               ->orWhere('last_price_update <', $cutoffTime)
-                               ->groupEnd();
-                    }
-                } elseif ($field === 'needs_validation') {
-                    if ($value) {
-                        $cutoffTime = date('Y-m-d H:i:s', time() - self::MIN_VALIDATION_INTERVAL);
-                        $builder->groupStart()
-                               ->where('last_validation IS NULL')
-                               ->orWhere('last_validation <', $cutoffTime)
-                               ->groupEnd();
-                    }
-                } elseif (is_array($value)) {
-                    $builder->whereIn($field, $value);
-                } else {
-                    $builder->where($field, $value);
-                }
-            }
-        }
-    }
-
-    private function calculatePriceChange(string $oldPrice, string $newPrice): float
-    {
-        $old = (float) $oldPrice;
-        $new = (float) $newPrice;
-
-        if ($old === 0.0) {
-            return 1.0; // 100% change if old price was 0
-        }
-
-        return abs($new - $old) / $old;
-    }
-
-    private function logPriceHistory(
-        int $linkId,
-        string $oldPrice,
-        string $newPrice,
-        string $changeReason,
-        ?int $adminId = null
-    ): ?int {
-        try {
-            $historyData = [
-                'link_id' => $linkId,
-                'old_price' => $oldPrice,
-                'new_price' => $newPrice,
-                'change_percentage' => round($this->calculatePriceChange($oldPrice, $newPrice) * 100, 2),
-                'change_reason' => $changeReason,
-                'changed_by' => $adminId,
-                'created_at' => date('Y-m-d H:i:s')
-            ];
-
-            // $this->db->table('price_history')->insert($historyData);
-            // return $this->db->insertID();
-
-            return null; // Placeholder
-
-        } catch (\Exception $e) {
-            log_message('error', 'Failed to log price history: ' . $e->getMessage());
-            return null;
-        }
-    }
-
-    public function validateUrl(string $url): array
-    {
-        // Basic URL validation
-        if (!filter_var($url, FILTER_VALIDATE_URL)) {
-            return ['is_valid' => false];
-        }
-
-        // Check URL format (should start with http:// or https://)
-        if (!preg_match('/^https?:\/\//', $url)) {
-            return ['is_valid' => false];
-        }
-
-        // Check if URL is accessible (optional, can be heavy)
-        // return $this->checkUrlAccessibility($url);
-
-        return ['is_valid' => true];
-    }
-
-    private function needsValidation(Link $link): bool
-    {
-        if (!$link->isActive()) {
-            return false;
-        }
-
-        $lastValidation = $link->getLastValidation();
-        if (!$lastValidation) {
-            return true; // Never validated
-        }
-
-        $now = new DateTimeImmutable();
-        $interval = $now->getTimestamp() - $lastValidation->getTimestamp();
-
-        return $interval > self::MIN_VALIDATION_INTERVAL;
-    }
-
-    private function logValidationNotes(int $linkId, string $notes, bool $isValid): void
-    {
-        try {
-            $validationData = [
-                'link_id' => $linkId,
-                'is_valid' => $isValid,
-                'notes' => $notes,
-                'created_at' => date('Y-m-d H:i:s')
-            ];
-
-            // $this->db->table('validation_logs')->insert($validationData);
-
-        } catch (\Exception $e) {
-            log_message('error', 'Failed to log validation notes: ' . $e->getMessage());
-        }
-    }
-
-    private function getLinkStatistics(int $linkId): array
-    {
-        $link = $this->find($linkId);
-        if (!$link) {
+        if (empty($linksData)) {
             return [];
         }
 
-        return [
-            'id' => $link->getId(),
-            'store_name' => $link->getStoreName(),
-            'product_id' => $link->getProductId(),
-            'marketplace_id' => $link->getMarketplaceId(),
-            'price' => $link->getPrice(),
-            'clicks' => $link->getClicks(),
-            'sold_count' => $link->getSoldCount(),
-            'affiliate_revenue' => $link->getAffiliateRevenue(),
-            'rating' => $link->getRating(),
-            'active' => $link->isActive(),
-            'last_price_update' => $link->getLastPriceUpdate()?->format('Y-m-d H:i:s'),
-            'last_validation' => $link->getLastValidation()?->format('Y-m-d H:i:s'),
-            'created_at' => $link->getCreatedAt()?->format('Y-m-d H:i:s'),
-        ];
+        $createdIds = [];
+        $this->db->transStart();
+
+        try {
+            foreach ($linksData as $linkData) {
+                // Create entity from data
+                $link = Link::fromArray($linkData);
+                
+                // Validate store name uniqueness
+                if (!$this->validateStoreNameUniqueness($link)) {
+                    throw new InvalidArgumentException(
+                        "Store name '{$link->getStoreName()}' is not unique for product {$link->getProductId()} and marketplace {$link->getMarketplaceId()}"
+                    );
+                }
+
+                // Save the link
+                if ($this->save($link)) {
+                    $createdIds[] = $link->getId();
+                }
+            }
+
+            $this->db->transComplete();
+
+            if ($this->db->transStatus() === false) {
+                return [];
+            }
+
+            return $createdIds;
+        } catch (DatabaseException $e) {
+            $this->db->transRollback();
+            log_message('error', "Bulk create failed: " . $e->getMessage());
+            return [];
+        }
     }
 
-    private function getSystemStatistics(): array
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkUpdatePrices(array $priceMap): int
     {
-        return [
-            'total_links' => $this->countAll(),
-            'active_links' => $this->linkModel->where('active', true)->countAllResults(),
-            'total_clicks' => $this->db->table('links')->selectSum('clicks')->get()->getRow()->clicks ?? 0,
-            'total_revenue' => $this->db->table('links')->selectSum('affiliate_revenue')->get()->getRow()->affiliate_revenue ?? 0,
-            'average_rating' => $this->db->table('links')->selectAvg('rating')->get()->getRow()->rating ?? 0,
-            'top_marketplace' => [], // Would require group by query
-            'recent_activity' => [], // Last 10 links created
-        ];
-    }
-
-    private function isUrlUnique(string $url, ?int $excludeId = null): bool
-    {
-        $builder = $this->linkModel->where('url', $url);
-
-        if ($excludeId) {
-            $builder->where('id !=', $excludeId);
+        if (empty($priceMap)) {
+            return 0;
         }
 
-        return $builder->countAllResults() === 0;
+        $updated = 0;
+        $this->db->transStart();
+
+        try {
+            foreach ($priceMap as $linkId => $price) {
+                if ($this->updatePrice($linkId, $price)) {
+                    $updated++;
+                }
+            }
+
+            $this->db->transComplete();
+            return $this->db->transStatus() === false ? 0 : $updated;
+        } catch (DatabaseException $e) {
+            $this->db->transRollback();
+            log_message('error', "Bulk update prices failed: " . $e->getMessage());
+            return 0;
+        }
     }
 
+    // ============================================
+    // VALIDATION & INTEGRITY METHODS
+    // ============================================
 
+    /**
+     * {@inheritDoc}
+     */
+    public function isStoreNameUnique(
+        string $storeName, 
+        int $productId, 
+        int $marketplaceId,
+        ?int $excludeLinkId = null
+    ): bool {
+        $builder = $this->model->builder();
+        
+        $builder->where('store_name', $storeName)
+                ->where('product_id', $productId)
+                ->where('marketplace_id', $marketplaceId)
+                ->where($this->model->deletedField . ' IS NULL');
 
-    public function clearCache(?int $linkId = null, ?int $productId = null): void
+        if ($excludeLinkId !== null) {
+            $builder->where($this->model->primaryKey . ' !=', $excludeLinkId);
+        }
+
+        $count = $builder->countAllResults();
+        return $count === 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function validateUrl(string $url): bool
     {
-        // Clear specific link caches
-        if ($linkId) {
-            $patterns = [
-                $this->getCacheKey(self::CACHE_KEY_FIND . "{$linkId}_*"),
-                $this->getCacheKey(self::CACHE_KEY_PRICE_HISTORY . "{$linkId}_*"),
-                $this->getCacheKey("stats_{$linkId}"),
-                $this->getCacheKey("exists_{$linkId}_*"),
-            ];
+        if (empty($url)) {
+            return false;
+        }
 
-            foreach ($patterns as $pattern) {
-                $keys = $this->cacheService->getKeysByPattern($pattern);
-                if (!empty($keys)) {
-                    $this->cacheService->deleteMultiple($keys);
-                }
+        // Basic URL validation
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            return false;
+        }
+
+        // Check for allowed marketplaces patterns
+        $allowedDomains = ['tokopedia.com', 'shopee.co.id', 'bukalapak.com', 'blibli.com'];
+        $domain = parse_url($url, PHP_URL_HOST);
+        
+        foreach ($allowedDomains as $allowed) {
+            if (stripos($domain, $allowed) !== false) {
+                return true;
             }
         }
 
-        // Clear product-related caches
-        if ($productId) {
-            $patterns = [
-                $this->getCacheKey(self::CACHE_KEY_BY_PRODUCT . "{$productId}_*"),
-                $this->getCacheKey("price_stats_product_{$productId}_*"),
-                $this->getCacheKey("count_by_product_{$productId}_*"),
-            ];
-
-            foreach ($patterns as $pattern) {
-                $keys = $this->cacheService->getKeysByPattern($pattern);
-                if (!empty($keys)) {
-                    $this->cacheService->deleteMultiple($keys);
-                }
-            }
-        }
-
-        // Clear system-wide caches if no specific ID
-        if (!$linkId && !$productId) {
-            $patterns = [
-                $this->getCacheKey('*'),
-                $this->getCacheKey(self::CACHE_KEY_NEEDS_UPDATE . '*'),
-                $this->getCacheKey(self::CACHE_KEY_NEEDS_VALIDATION . '*'),
-                $this->getCacheKey(self::CACHE_KEY_TOP_PERFORMERS . '*'),
-                $this->getCacheKey(self::CACHE_KEY_STATS . '*'),
-            ];
-
-            foreach ($patterns as $pattern) {
-                $keys = $this->cacheService->getKeysByPattern($pattern);
-                if (!empty($keys)) {
-                    $this->cacheService->deleteMultiple($keys);
-                }
-            }
-        }
+        return false;
     }
 
-    // ==================== FACTORY METHOD ====================
-
-    public static function create(): self
+    /**
+     * Validate store name uniqueness for a link entity
+     * 
+     * @param Link $link
+     * @return bool
+     */
+    private function validateStoreNameUniqueness(Link $link): bool
     {
-        $linkModel = model(LinkModel::class);
-        $productModel = model(ProductModel::class);
-        $marketplaceModel = model(MarketplaceModel::class);
-        $marketplaceBadgeModel = model(MarketplaceBadgeModel::class);
-        $cacheService = service('cache');
-        $auditService = service('audit');
-        $db = db_connect();
-
-        return new self(
-            $linkModel,
-            $productModel,
-            $marketplaceModel,
-            $marketplaceBadgeModel,
-            $cacheService,
-            $auditService,
-            $db
+        return $this->isStoreNameUnique(
+            $link->getStoreName(),
+            $link->getProductId(),
+            $link->getMarketplaceId(),
+            $link->isNew() ? null : $link->getId()
         );
     }
 
-    // Note: Many more methods need to be implemented to complete the interface
-    // This is a partial implementation focusing on core functionality
-
-    public function canDelete(int $linkId): array
+    /**
+     * Invalidate caches for link operations
+     * 
+     * @param Link $link
+     * @param bool $isNew
+     * @return void
+     */
+    private function invalidateCachesForLink(Link $link, bool $isNew): void
     {
-        $link = $this->find($linkId, true);
-        if (!$link) {
-            return [
-                'can_delete' => false,
-                'reasons' => ['Link not found'],
-                'affiliate_data' => false,
-            ];
+        // Always invalidate link-specific cache
+        if (!$isNew) {
+            $this->invalidateLinkCache($link->getId());
         }
 
-        $reasons = [];
-        $canDelete = true;
-        $hasAffiliateData = false;
+        // Invalidate product and marketplace caches
+        $this->invalidateProductCache($link->getProductId());
+        $this->invalidateMarketplaceCache($link->getMarketplaceId());
 
-        // Check if link has affiliate revenue
-        $revenue = (float) $link->getAffiliateRevenue();
-        if ($revenue > 0) {
-            $hasAffiliateData = true;
-            $reasons[] = "Link has affiliate revenue: {$revenue}";
-            // May still be deletable, but warn about data loss
-        }
-
-        // Check if link has significant clicks
-        $clicks = $link->getClicks();
-        if ($clicks > 100) { // Arbitrary threshold
-            $reasons[] = "Link has {$clicks} clicks";
-        }
-
-        // Additional business rules can be added here
-
-        return [
-            'can_delete' => $canDelete,
-            'reasons' => $reasons,
-            'affiliate_data' => $hasAffiliateData,
-            'clicks' => $clicks,
-            'revenue' => $revenue,
-        ];
+        // Invalidate statistics and list caches
+        $this->deleteMatching("top_performing:*");
+        $this->deleteMatching("needs_*:*");
+        $this->deleteMatching("statistics:*");
+        $this->deleteMatching("all:*");
     }
 
-    public function urlExists(string $url, ?int $excludeLinkId = null): bool
+    /**
+     * {@inheritDoc}
+     */
+    public function getEntityType(): string
     {
-        return !$this->isUrlUnique($url, $excludeLinkId);
+        return 'link';
     }
 
-    public function checkDailyClickLimit(int $linkId, int $maxClicks = 1000): array
+    /**
+     * Get cache key with repository-specific prefix
+     * Override to add link-specific prefix
+     * 
+     * @param string $suffix
+     * @return string
+     */
+    protected function getCacheKey(string $suffix): string
     {
-        $link = $this->find($linkId);
-        if (!$link) {
-            return [
-                'within_limit' => false,
-                'current_clicks' => 0,
-                'limit' => $maxClicks,
-                'message' => 'Link not found'
-            ];
-        }
-
-        // Get today's clicks from analytics table
-        $today = date('Y-m-d');
-        $todayClicks = 0; // $this->db->table('link_clicks')
-        //   ->where('link_id', $linkId)
-        //   ->where('DATE(created_at)', $today)
-        //   ->countAllResults();
-
-        $withinLimit = $todayClicks < $maxClicks;
-
-        return [
-            'within_limit' => $withinLimit,
-            'current_clicks' => $todayClicks,
-            'limit' => $maxClicks,
-            'remaining' => max(0, $maxClicks - $todayClicks),
-            'date' => $today
-        ];
+        return parent::getCacheKey($suffix);
     }
-
-
-    // --- IMPLEMENTASI OTOMATIS (STRICT STUBS) ---
-
-    public function getClickStats(int $linkId, string $period = '30d'): array
-    {
-        throw new \RuntimeException('Method getClickStats belum diimplementasikan.');
-    }
-
-    public function calculateClickThroughRate(int $linkId, int $productViews = 0, string $period = '30d'): float
-    {
-        throw new \RuntimeException('Method calculateClickThroughRate belum diimplementasikan.');
-    }
-
-    public function getRevenueStats(int $linkId, string $period = '30d'): array
-    {
-        throw new \RuntimeException('Method getRevenueStats belum diimplementasikan.');
-    }
-
-    public function assignBadge(int $linkId, int $badgeId): bool
-    {
-        throw new \RuntimeException('Method assignBadge belum diimplementasikan.');
-    }
-
-    public function removeBadge(int $linkId): bool
-    {
-        throw new \RuntimeException('Method removeBadge belum diimplementasikan.');
-    }
-
-    public function findByBadge(int $badgeId, bool $activeOnly = true, int $limit = 50): array
-    {
-        throw new \RuntimeException('Method findByBadge belum diimplementasikan.');
-    }
-
-    public function findByMinRating(float $minRating, bool $activeOnly = true, int $limit = 100): array
-    {
-        throw new \RuntimeException('Method findByMinRating belum diimplementasikan.');
-    }
-
-    public function countAll(bool $withTrashed = false): int
-    {
-        throw new \RuntimeException('Method countAll belum diimplementasikan.');
-    }
-
-    public function countActive(): int
-    {
-        throw new \RuntimeException('Method countActive belum diimplementasikan.');
-    }
-
-    public function getPerformanceTrend(int $linkId, string $period = '30d', string $metric = 'clicks'): array
-    {
-        throw new \RuntimeException('Method getPerformanceTrend belum diimplementasikan.');
-    }
-
-    public function getMarketplaceComparison(int $productId): array
-    {
-        throw new \RuntimeException('Method getMarketplaceComparison belum diimplementasikan.');
-    }
-
-    public function bulkUpdate(array $linkIds, array $updateData): int
-    {
-        throw new \RuntimeException('Method bulkUpdate belum diimplementasikan.');
-    }
-
-    public function bulkActivate(array $linkIds, ?string $reason = null): int
-    {
-        throw new \RuntimeException('Method bulkActivate belum diimplementasikan.');
-    }
-
-    public function bulkDeactivate(array $linkIds, ?string $reason = null): int
-    {
-        throw new \RuntimeException('Method bulkDeactivate belum diimplementasikan.');
-    }
-
-    public function bulkValidate(array $linkIds, bool $force = false): array
-    {
-        throw new \RuntimeException('Method bulkValidate belum diimplementasikan.');
-    }
-
-    public function bulkUpdatePrices(array $linkIds, string $price, string $changeReason = 'bulk_update'): array
-    {
-        throw new \RuntimeException('Method bulkUpdatePrices belum diimplementasikan.');
-    }
-
-    public function bulkDelete(array $linkIds, bool $force = false): int
-    {
-        throw new \RuntimeException('Method bulkDelete belum diimplementasikan.');
-    }
-
-    public function getCacheTtl(): int
-    {
-        throw new \RuntimeException('Method getCacheTtl belum diimplementasikan.');
-    }
-
-    public function setCacheTtl(int $ttl): self
-    {
-        throw new \RuntimeException('Method setCacheTtl belum diimplementasikan.');
-    }
-
-    public function getHealthStatus(int $linkId): array
-    {
-        throw new \RuntimeException('Method getHealthStatus belum diimplementasikan.');
-    }
-
-    public function findDuplicates(int $productId, int $marketplaceId, bool $includeInactive = false): array
-    {
-        throw new \RuntimeException('Method findDuplicates belum diimplementasikan.');
-    }
-
-    public function findExpiringValidation(int $daysThreshold = 7, int $limit = 100): array
-    {
-        throw new \RuntimeException('Method findExpiringValidation belum diimplementasikan.');
-    }
-
-    public function getSummary(int $linkId): array
-    {
-        throw new \RuntimeException('Method getSummary belum diimplementasikan.');
-    }
-
-    // --- TAMBAHAN MANUAL UNTUK 5 METHOD TERSISA ---
-
-    public function findByPriceRange(float $minPrice, float $maxPrice, bool $activeOnly = true, int $limit = 10): array
-    {
-        throw new \RuntimeException('Method findByPriceRange belum diimplementasikan.');
-    }
-
-    public function findByStoreName(string $storeName, bool $exactMatch = false, bool $activeOnly = true, int $limit = 10): array
-    {
-        throw new \RuntimeException('Method findByStoreName belum diimplementasikan.');
-    }
-
-    public function generateTrackingUrl(int $linkId, array $params = []): ?string
-    {
-        throw new \RuntimeException('Method generateTrackingUrl belum diimplementasikan.');
-    }
-
-    public function getTopPerformers(string $metric = 'clicks', int $limit = 10, string $period = '30d', bool $activeOnly = true): array
-    {
-        throw new \RuntimeException('Method getTopPerformers belum diimplementasikan.');
-    }
-
-    public function search(string $keyword, bool $activeOnly = true, int $limit = 20, int $offset = 0): array
-    {
-        throw new \RuntimeException('Method search belum diimplementasikan.');
-    }
-
-
 }

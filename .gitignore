@@ -76,8 +76,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 #-------------------------
 # Test Files
 #-------------------------
-tests/coverage*
-
+Tests/coverage*
+Tests/
 # Don't save phpunit under version control.
 phpunit
 
@@ -124,3 +124,80 @@ _modules/*
 
 /results/
 /phpunit*.xml
+
+
+# --------------------------------------------------------------------
+# 1. KEAMANAN (CRITICAL) - JANGAN PERNAH DIHAPUS
+# --------------------------------------------------------------------
+.env
+env
+*.sql
+*.sq
+*.sqlite
+# File dump database (d.sql, d2.sql) haram masuk repo
+
+# --------------------------------------------------------------------
+# 2. FRAMEWORK & DEPENDENCIES (CodeIgniter 4 & Node)
+# --------------------------------------------------------------------
+/vendor/
+/node_modules/
+/build/
+/writable/*
+!/writable/**/.gitkeep
+!/writable/**/index.html
+.phpunit.result.cache
+phpstan-baseline.neon
+
+# --------------------------------------------------------------------
+# 3. SYSTEM & EDITOR JUNK
+# --------------------------------------------------------------------
+.DS_Store
+.idea/
+.vscode/
+*.log
+tmp/
+
+# --------------------------------------------------------------------
+# 4. PYTHON & AI AGENTS (Local Environment)
+# --------------------------------------------------------------------
+# Bytecode python tidak perlu di-track
+__pycache__/
+*.py[cod]
+
+# Script Python Agent (Kecuali Anda ingin menjadikannya bagian dari repo inti)
+# Sebaiknya tools ini dipindah ke folder khusus (misal: /tools) atau di-ignore
+# karena seringkali berisi hardcoded path atau API key jika tidak hati-hati.
+fix_agent.py
+fix_groq.py
+gemini.py
+nebius.py
+smart_agent.py
+cek_all.py
+
+# --------------------------------------------------------------------
+# 5. BINARIES & EXECUTABLES (Berat & Tidak Perlu)
+# --------------------------------------------------------------------
+# Binary tailwind standalone (38MB & 18MB) tidak boleh masuk git!
+tailwindcss
+tailwindcss-linux-arm64
+
+# --------------------------------------------------------------------
+# 6. LOCAL AUDIT & LOGS (Temporary Files)
+# --------------------------------------------------------------------
+# File hasil audit text ini hanya akan memperbesar ukuran repo tanpa guna
+audit*.txt
+audit_backend*.txt
+audit*.sh
+bedah_entity.sh
+debug_low.sh
+fix.sh
+watch.sh
+pkg
+
+# --------------------------------------------------------------------
+# 7. MISPLACED FILES (Saran Pembersihan)
+# --------------------------------------------------------------------
+# ProductInterface.php ada di root? Ini tidak standar.
+# Jika ini file sampah, ignore. Jika penting, pindahkan ke app/
+ProductInterface.php
+.appdev/

@@ -3,737 +3,329 @@
 namespace App\Repositories\Interfaces;
 
 use App\Entities\Link;
+use App\Repositories\BaseRepositoryInterface;
 
-interface LinkRepositoryInterface
+/**
+ * Link Repository Interface
+ * 
+ * Contract for Link data orchestration layer with caching strategy.
+ * Follows "Isolation via Interface" principle - all Link repositories must implement this.
+ * 
+ * @template-extends BaseRepositoryInterface<Link>
+ */
+interface LinkRepositoryInterface extends BaseRepositoryInterface
 {
-    // ==================== BASIC CRUD OPERATIONS ====================
+    // ============================================
+    // CORE REPOSITORY METHODS (Inherited from Base)
+    // ============================================
+    // Note: These methods are inherited but type-hinted for Link entity
 
     /**
-     * Find link by ID
-     *
-     * @param int $id Link ID
-     * @param bool $withTrashed Include soft deleted links
+     * Find Link by ID
+     * 
+     * @param int|string $id
+     * @param bool $useCache Use cache if available
      * @return Link|null
      */
-    public function find(int $id, bool $withTrashed = false): ?Link;
+    public function find($id, bool $useCache = true): ?Link;
 
     /**
-     * Find link by product and marketplace
-     *
-     * @param int $productId Product ID
-     * @param int $marketplaceId Marketplace ID
-     * @param bool $activeOnly Only active links
-     * @return Link|null
+     * Find Link by ID or throw exception
+     * 
+     * @param int|string $id
+     * @param bool $useCache Use cache if available
+     * @return Link
+     * @throws \RuntimeException If link not found
      */
-    public function findByProductAndMarketplace(
-        int $productId,
-        int $marketplaceId,
-        bool $activeOnly = true
-    ): ?Link;
+    public function findOrFail($id, bool $useCache = true): Link;
 
     /**
-     * Find link by URL (exact match)
-     *
-     * @param string $url Link URL
-     * @param bool $withTrashed Include soft deleted links
-     * @return Link|null
-     */
-    public function findByUrl(string $url, bool $withTrashed = false): ?Link;
-
-    /**
-     * Get all links with filtering
-     *
-     * @param array $filters [
-     *     'product_id' => int,
-     *     'marketplace_id' => int,
-     *     'active' => bool,
-     *     'store_name' => string,
-     *     'min_price' => float,
-     *     'max_price' => float,
-     *     'has_badge' => bool,
-     *     'needs_validation' => bool,
-     *     'needs_price_update' => bool
-     * ]
-     * @param string $sortBy
-     * @param string $sortDirection
-     * @param bool $withTrashed Include soft deleted links
-     * @return array
+     * Find all Links with optional conditions
+     * 
+     * @param array<string, mixed> $conditions Search conditions [field => value]
+     * @param int|null $limit Result limit
+     * @param int $offset Result offset
+     * @param bool $useCache Use cache if available
+     * @return array<Link>
      */
     public function findAll(
-        array $filters = [],
-        string $sortBy = 'created_at',
-        string $sortDirection = 'DESC',
-        bool $withTrashed = false
+        array $conditions = [], 
+        ?int $limit = null, 
+        int $offset = 0,
+        bool $useCache = true
     ): array;
 
     /**
-     * Save link (create or update)
-     *
-     * @param Link $link
-     * @return Link
-     * @throws \RuntimeException
+     * Save Link entity
+     * 
+     * @param Link $entity Link entity to save
+     * @return bool True on success
      */
-    public function save(Link $link): Link;
+    public function save(Link $entity): bool;
 
     /**
-     * Delete link
-     *
-     * @param int $id Link ID
-     * @param bool $force Permanent deletion
-     * @return bool
+     * Find first Link matching conditions
+     * 
+     * @param array<string, mixed> $conditions Search conditions
+     * @param bool $useCache Use cache if available
+     * @return Link|null
      */
-    public function delete(int $id, bool $force = false): bool;
+    public function first(array $conditions = [], bool $useCache = true): ?Link;
 
-    /**
-     * Restore soft deleted link
-     *
-     * @param int $id Link ID
-     * @return bool
-     */
-    public function restore(int $id): bool;
-
-    /**
-     * Check if link exists
-     *
-     * @param int $id Link ID
-     * @param bool $withTrashed Include soft deleted links
-     * @return bool
-     */
-    public function exists(int $id, bool $withTrashed = false): bool;
-
-    // ==================== PRODUCT-LINK RELATIONS ====================
-
-    /**
-     * Find all links for a product
-     *
-     * @param int $productId Product ID
-     * @param bool $activeOnly Only active links
-     * @param bool $withTrashed Include soft deleted links
-     * @param string $sortBy
-     * @param string $sortDirection
-     * @return array
-     */
-    public function findByProduct(
-        int $productId,
-        bool $activeOnly = true,
-        bool $withTrashed = false,
-        string $sortBy = 'price',
-        string $sortDirection = 'ASC'
-    ): array;
+    // ============================================
+    // BUSINESS-SPECIFIC QUERY METHODS
+    // ============================================
 
     /**
      * Find active links for a product
-     *
+     * 
      * @param int $productId Product ID
-     * @return array
+     * @param bool $useCache Use cache if available
+     * @return array<Link> Active links for the product
      */
-    public function findActiveByProduct(int $productId): array;
+    public function findActiveForProduct(int $productId, bool $useCache = true): array;
 
     /**
-     * Count links for a product
-     *
+     * Find link by product and marketplace combination
+     * 
      * @param int $productId Product ID
-     * @param bool $activeOnly Only active links
-     * @return int
-     */
-    public function countByProduct(int $productId, bool $activeOnly = true): int;
-
-    /**
-     * Check if product has active links
-     *
-     * @param int $productId Product ID
-     * @return bool
-     */
-    public function productHasActiveLinks(int $productId): bool;
-
-    public function validateUrl(string $url): array;
-
-
-    /**
-     * Get cheapest link for a product
-     *
-     * @param int $productId Product ID
-     * @param bool $activeOnly Only active links
-     * @return Link|null
-     */
-    public function findCheapestByProduct(int $productId, bool $activeOnly = true): ?Link;
-
-    /**
-     * Get highest rated link for a product
-     *
-     * @param int $productId Product ID
-     * @param bool $activeOnly Only active links
-     * @return Link|null
-     */
-    public function findHighestRatedByProduct(int $productId, bool $activeOnly = true): ?Link;
-
-    // ==================== MARKETPLACE-LINK RELATIONS ====================
-
-    /**
-     * Find all links for a marketplace
-     *
      * @param int $marketplaceId Marketplace ID
-     * @param bool $activeOnly Only active links
-     * @param bool $withTrashed Include soft deleted links
-     * @param int $limit Result limit
-     * @param int $offset Result offset
-     * @return array
+     * @param bool $useCache Use cache if available
+     * @return Link|null Link if exists
      */
-    public function findByMarketplace(
-        int $marketplaceId,
-        bool $activeOnly = true,
-        bool $withTrashed = false,
-        int $limit = 50,
-        int $offset = 0
+    public function findByProductAndMarketplace(
+        int $productId, 
+        int $marketplaceId, 
+        bool $useCache = true
+    ): ?Link;
+
+    /**
+     * Find links that need price updates (24+ hours old)
+     * 
+     * @param int $marketplaceId Specific marketplace (0 for all)
+     * @param int $limit Maximum results
+     * @param bool $useCache Use cache if available
+     * @return array<Link> Links needing price updates
+     */
+    public function findNeedingPriceUpdate(
+        int $marketplaceId = 0, 
+        int $limit = 50, 
+        bool $useCache = true
     ): array;
 
     /**
-     * Count links for a marketplace
-     *
+     * Find links that need validation (48+ hours old)
+     * 
+     * @param int $limit Maximum results
+     * @param bool $useCache Use cache if available
+     * @return array<Link> Links needing validation
+     */
+    public function findNeedingValidation(int $limit = 100, bool $useCache = true): array;
+
+    /**
+     * Find top performing links by revenue
+     * 
+     * @param int $limit Maximum results
+     * @param float $minRevenue Minimum revenue threshold
+     * @param bool $useCache Use cache if available
+     * @return array<Link> Top performing links
+     */
+    public function findTopPerforming(
+        int $limit = 10, 
+        float $minRevenue = 10000.00, 
+        bool $useCache = true
+    ): array;
+
+    /**
+     * Find links with marketplace badges
+     * 
+     * @param int $limit Maximum results
+     * @param bool $useCache Use cache if available
+     * @return array<Link> Links with badges
+     */
+    public function findWithBadges(int $limit = 50, bool $useCache = true): array;
+
+    /**
+     * Find links by marketplace with performance metrics
+     * 
      * @param int $marketplaceId Marketplace ID
-     * @param bool $activeOnly Only active links
-     * @return int
+     * @param string $orderBy Order by field (revenue, clicks, sold, rating)
+     * @param string $direction Order direction (ASC/DESC)
+     * @param bool $useCache Use cache if available
+     * @return array<Link> Sorted links
      */
-    public function countByMarketplace(int $marketplaceId, bool $activeOnly = true): int;
-
-    // ==================== PRICE MANAGEMENT ====================
-
-    /**
-     * Update link price
-     *
-     * @param int $linkId Link ID
-     * @param string $newPrice New price (formatted string)
-     * @param bool $autoUpdateTimestamp Automatically update last_price_update
-     * @return bool
-     */
-    public function updatePrice(int $linkId, string $newPrice, bool $autoUpdateTimestamp = true): bool;
-
-    /**
-     * Update price and track price history
-     *
-     * @param int $linkId Link ID
-     * @param string $newPrice New price
-     * @param string $changeReason Reason for price change
-     * @param int|null $adminId Admin who changed the price
-     * @return array [success => bool, price_change => float, old_price => string]
-     */
-    public function updatePriceWithHistory(
-        int $linkId,
-        string $newPrice,
-        string $changeReason = 'manual_update',
-        ?int $adminId = null
+    public function findByMarketplaceSorted(
+        int $marketplaceId, 
+        string $orderBy = 'revenue', 
+        string $direction = 'DESC',
+        bool $useCache = true
     ): array;
 
-    /**
-     * Get price history for a link
-     *
-     * @param int $linkId Link ID
-     * @param int $limit History entries limit
-     * @param string $period Time period (7d, 30d, 90d, all)
-     * @return array
-     */
-    public function getPriceHistory(int $linkId, int $limit = 50, string $period = 'all'): array;
+    // ============================================
+    // STATISTICS & ANALYTICS METHODS
+    // ============================================
 
     /**
-     * Find links that need price update
-     *
-     * @param int $maxAgeHours Links older than X hours
-     * @param int $limit Result limit
-     * @param bool $activeOnly Only active links
-     * @return array
+     * Get link statistics for dashboard
+     * 
+     * @param bool $useCache Use cache if available
+     * @return array<string, mixed> Statistics array
      */
-    public function findNeedsPriceUpdate(int $maxAgeHours = 24, int $limit = 100, bool $activeOnly = true): array;
+    public function getStatistics(bool $useCache = true): array;
 
     /**
-     * Mark price as checked/updated
-     *
-     * @param int $linkId Link ID
-     * @return bool
-     */
-    public function markPriceChecked(int $linkId): bool;
-
-    /**
-     * Get price statistics for a product
-     *
+     * Get product link statistics
+     * 
      * @param int $productId Product ID
-     * @param bool $activeOnly Only active links
-     * @return array [min, max, avg, median, count]
+     * @param bool $useCache Use cache if available
+     * @return array<string, mixed> Product link stats
      */
-    public function getPriceStatisticsByProduct(int $productId, bool $activeOnly = true): array;
-
-    // ==================== VALIDATION & STATUS MANAGEMENT ====================
+    public function getProductLinkStatistics(int $productId, bool $useCache = true): array;
 
     /**
-     * Validate link URL and status
-     *
+     * Get marketplace link statistics
+     * 
+     * @param int $marketplaceId Marketplace ID
+     * @param bool $useCache Use cache if available
+     * @return array<string, mixed> Marketplace link stats
+     */
+    public function getMarketplaceLinkStatistics(int $marketplaceId, bool $useCache = true): array;
+
+    // ============================================
+    // BUSINESS OPERATIONS METHODS
+    // ============================================
+
+    /**
+     * Increment click counter for a link
+     * 
      * @param int $linkId Link ID
-     * @param bool $force Force re-validation
-     * @return array [is_valid => bool, status_code => int, message => string, last_validation => string]
+     * @return bool True on success
      */
-    public function validate(int $linkId, bool $force = false): array;
+    public function incrementClicks(int $linkId): bool;
 
     /**
-     * Mark link as validated
-
+     * Update link price with automatic timestamp
+     * 
      * @param int $linkId Link ID
-     * @param bool $isValid Validation result
-     * @param string|null $validationNotes
-     * @return bool
+     * @param string $price New price (decimal string)
+     * @return bool True on success
      */
-    public function markAsValidated(int $linkId, bool $isValid = true, ?string $validationNotes = null): bool;
+    public function updatePrice(int $linkId, string $price): bool;
 
     /**
-     * Find links that need validation
-     *
-     * @param int $maxAgeHours Links older than X hours
-     * @param int $limit Result limit
-     * @param bool $activeOnly Only active links
-     * @return array
-     */
-    public function findNeedsValidation(int $maxAgeHours = 48, int $limit = 100, bool $activeOnly = true): array;
-
-    /**
-     * Set link active status
-     *
+     * Update affiliate revenue using commission rate
+     * 
      * @param int $linkId Link ID
-     * @param bool $active Active status
-     * @param string|null $reason Reason for status change
-     * @return bool
+     * @param float $commissionRate Decimal rate (e.g., 0.05 for 5%)
+     * @return bool True on success
      */
-    public function setActiveStatus(int $linkId, bool $active, ?string $reason = null): bool;
+    public function updateRevenueWithCommission(int $linkId, float $commissionRate): bool;
 
     /**
-     * Activate link
-     *
+     * Bulk update link statuses
+     * 
+     * @param array<int> $linkIds Array of link IDs
+     * @param bool $active New active status
+     * @return int Number of updated links
+     */
+    public function bulkUpdateStatus(array $linkIds, bool $active): int;
+
+    /**
+     * Validate and mark link as validated
+     * 
      * @param int $linkId Link ID
-     * @param string|null $reason Reason for activation
-     * @return bool
+     * @return bool True on success
      */
-    public function activate(int $linkId, ?string $reason = null): bool;
+    public function markAsValidated(int $linkId): bool;
 
     /**
-     * Deactivate link
-     *
+     * Archive link (soft delete with business rules)
+     * 
      * @param int $linkId Link ID
-     * @param string|null $reason Reason for deactivation
-     * @return bool
+     * @return bool True on success
      */
-    public function deactivate(int $linkId, ?string $reason = null): bool;
+    public function archive(int $linkId): bool;
 
     /**
-     * Check if link is valid and accessible
-     *
+     * Restore archived link
+     * 
      * @param int $linkId Link ID
-     * @return bool
+     * @return bool True on success
      */
-    public function isValid(int $linkId): bool;
+    public function restore(int $linkId): bool;
 
-    // ==================== CLICK & AFFILIATE TRACKING ====================
+    // ============================================
+    // CACHE MANAGEMENT METHODS
+    // ============================================
 
     /**
-     * Increment click count
-     *
-     * @param int $linkId Link ID
-     * @param int $increment Amount to increment
-     * @return bool
+     * Delete all cache entries for a product
+     * 
+     * @param int $productId Product ID
+     * @return int Number of cache entries deleted
      */
-    public function incrementClicks(int $linkId, int $increment = 1): bool;
+    public function invalidateProductCache(int $productId): int;
 
     /**
-     * Record affiliate click
-     *
-     * @param int $linkId Link ID
-     * @param string $ipAddress User IP
-     * @param string|null $userAgent User agent
-     * @param array $metadata Additional metadata
-     * @return bool
+     * Delete all cache entries for a marketplace
+     * 
+     * @param int $marketplaceId Marketplace ID
+     * @return int Number of cache entries deleted
      */
-    public function recordClick(
-        int $linkId,
-        string $ipAddress,
-        ?string $userAgent = null,
-        array $metadata = []
-    ): bool;
+    public function invalidateMarketplaceCache(int $marketplaceId): int;
+
+    // ============================================
+    // BULK OPERATIONS METHODS
+    // ============================================
 
     /**
-     * Increment sold count
-     *
-     * @param int $linkId Link ID
-     * @param int $increment Amount to increment
-     * @return bool
+     * Bulk create links from array data
+     * 
+     * @param array<array<string, mixed>> $linksData Array of link data
+     * @return array<int> Array of created link IDs
      */
-    public function incrementSoldCount(int $linkId, int $increment = 1): bool;
+    public function bulkCreate(array $linksData): array;
 
     /**
-     * Add affiliate revenue
-     *
-     * @param int $linkId Link ID
-     * @param string $amount Revenue amount
-     * @param string $currency Currency code
-     * @param string|null $transactionId Transaction ID
-     * @param array $metadata Additional metadata
-     * @return bool
+     * Update prices for multiple links
+     * 
+     * @param array<int, string> $priceMap Link ID => New price
+     * @return int Number of updated links
      */
-    public function addAffiliateRevenue(
-        int $linkId,
-        string $amount,
-        string $currency = 'IDR',
-        ?string $transactionId = null,
-        array $metadata = []
-    ): bool;
+    public function bulkUpdatePrices(array $priceMap): int;
+
+    // ============================================
+    // VALIDATION & INTEGRITY METHODS
+    // ============================================
 
     /**
-     * Get click statistics
-     *
-     * @param int $linkId Link ID
-     * @param string $period Time period (today, 7d, 30d, 90d, all)
-     * @return array [clicks, unique_clicks, conversion_rate, revenue]
-     */
-    public function getClickStats(int $linkId, string $period = '30d'): array;
-
-    /**
-     * Calculate click-through rate
-     *
-     * @param int $linkId Link ID
-     * @param int $productViews Total product views for context
-     * @param string $period Time period
-     * @return float CTR percentage
-     */
-    public function calculateClickThroughRate(int $linkId, int $productViews = 0, string $period = '30d'): float;
-
-    /**
-     * Get revenue statistics
-     *
-     * @param int $linkId Link ID
-     * @param string $period Time period
-     * @return array [revenue, commission, transactions]
-     */
-    public function getRevenueStats(int $linkId, string $period = '30d'): array;
-
-    // ==================== MARKETPLACE BADGE MANAGEMENT ====================
-
-    /**
-     * Assign marketplace badge to link
-     *
-     * @param int $linkId Link ID
-     * @param int $badgeId Marketplace badge ID
-     * @return bool
-     */
-    public function assignBadge(int $linkId, int $badgeId): bool;
-
-    /**
-     * Remove marketplace badge from link
-     *
-     * @param int $linkId Link ID
-     * @return bool
-     */
-    public function removeBadge(int $linkId): bool;
-
-    /**
-     * Get links with specific badge
-     *
-     * @param int $badgeId Marketplace badge ID
-     * @param bool $activeOnly Only active links
-     * @param int $limit Result limit
-     * @return array
-     */
-    public function findByBadge(int $badgeId, bool $activeOnly = true, int $limit = 50): array;
-
-    // ==================== SEARCH & FILTER ====================
-
-    /**
-     * Search links by store name or URL
-     *
-     * @param string $keyword Search term
-     * @param bool $activeOnly Only active links
-     * @param int $limit Result limit
-     * @param int $offset Result offset
-     * @return array
-     */
-    public function search(
-        string $keyword,
-        bool $activeOnly = true,
-        int $limit = 50,
-        int $offset = 0
-    ): array;
-
-    /**
-     * Find links by store name (partial match)
-     *
+     * Check if store name is unique for product and marketplace
+     * 
      * @param string $storeName Store name
-     * @param bool $exactMatch Exact match only
-     * @param bool $activeOnly Only active links
-     * @param int $limit Result limit
-     * @return array
-     */
-    public function findByStoreName(
-        string $storeName,
-        bool $exactMatch = false,
-        bool $activeOnly = true,
-        int $limit = 50
-    ): array;
-
-    /**
-     * Find links by price range
-     *
-     * @param float $minPrice Minimum price
-     * @param float $maxPrice Maximum price
-     * @param bool $activeOnly Only active links
-     * @param int $limit Result limit
-     * @return array
-     */
-    public function findByPriceRange(
-        float $minPrice,
-        float $maxPrice,
-        bool $activeOnly = true,
-        int $limit = 100
-    ): array;
-
-    /**
-     * Find links by rating
-     *
-     * @param float $minRating Minimum rating
-     * @param bool $activeOnly Only active links
-     * @param int $limit Result limit
-     * @return array
-     */
-    public function findByMinRating(float $minRating, bool $activeOnly = true, int $limit = 100): array;
-
-    // ==================== STATISTICS & ANALYTICS ====================
-
-    /**
-     * Get link statistics
-     *
-     * @param int|null $linkId Link ID (null for system-wide)
-     * @return array
-     */
-    public function getStatistics(?int $linkId = null): array;
-
-    /**
-     * Count links by status
-     *
-     * @param bool $withTrashed Include soft deleted links
-     * @return array [active => int, inactive => int, needs_validation => int, needs_price_update => int]
-     */
-    public function countByStatus(bool $withTrashed = false): array;
-
-    /**
-     * Count total links
-     *
-     * @param bool $withTrashed Include soft deleted links
-     * @return int
-     */
-    public function countAll(bool $withTrashed = false): int;
-
-    /**
-     * Count active links
-     *
-     * @return int
-     */
-    public function countActive(): int;
-
-    /**
-     * Get top performing links
-     *
-     * @param string $metric clicks|revenue|conversion|sold_count
-     * @param int $limit Result limit
-     * @param string $period Time period
-     * @param bool $activeOnly Only active links
-     * @return array
-     */
-    public function getTopPerformers(
-        string $metric = 'clicks',
-        int $limit = 10,
-        string $period = '30d',
-        bool $activeOnly = true
-    ): array;
-
-    /**
-     * Get performance trends
-     *
-     * @param int $linkId Link ID
-     * @param string $period Time period
-     * @param string $metric clicks|revenue|conversion
-     * @return array
-     */
-    public function getPerformanceTrend(int $linkId, string $period = '30d', string $metric = 'clicks'): array;
-
-    /**
-     * Get marketplace comparison statistics
-     *
-     * @param int $productId Product ID
-     * @return array [marketplace_id => [price, rating, store_count, avg_rating]]
-     */
-    public function getMarketplaceComparison(int $productId): array;
-
-    // ==================== BATCH & BULK OPERATIONS ====================
-
-    /**
-     * Bulk update links
-     *
-     * @param array $linkIds Array of link IDs
-     * @param array $updateData Data to update
-     * @return int Number of affected rows
-     */
-    public function bulkUpdate(array $linkIds, array $updateData): int;
-
-    /**
-     * Bulk activate links
-     *
-     * @param array $linkIds Array of link IDs
-     * @param string|null $reason Reason for activation
-     * @return int Number of activated links
-     */
-    public function bulkActivate(array $linkIds, ?string $reason = null): int;
-
-    /**
-     * Bulk deactivate links
-     *
-     * @param array $linkIds Array of link IDs
-     * @param string|null $reason Reason for deactivation
-     * @return int Number of deactivated links
-     */
-    public function bulkDeactivate(array $linkIds, ?string $reason = null): int;
-
-    /**
-     * Bulk validate links
-     *
-     * @param array $linkIds Array of link IDs
-     * @param bool $force Force re-validation
-     * @return array [processed => int, valid => int, invalid => int, errors => array]
-     */
-    public function bulkValidate(array $linkIds, bool $force = false): array;
-
-    /**
-     * Bulk update prices
-     *
-     * @param array $linkIds Array of link IDs
-     * @param string $price New price
-     * @param string $changeReason Reason for price change
-     * @return array [processed => int, updated => int, errors => array]
-     */
-    public function bulkUpdatePrices(array $linkIds, string $price, string $changeReason = 'bulk_update'): array;
-
-    /**
-     * Bulk delete links
-     *
-     * @param array $linkIds Array of link IDs
-     * @param bool $force Permanent deletion
-     * @return int Number of deleted links
-     */
-    public function bulkDelete(array $linkIds, bool $force = false): int;
-
-    // ==================== VALIDATION & BUSINESS RULES ====================
-
-    /**
-     * Check if link can be deleted
-     *
-     * @param int $linkId Link ID
-     * @return array [can_delete => bool, reasons => string[], affiliate_data => bool]
-     */
-    public function canDelete(int $linkId): array;
-
-    /**
-     * Validate link URL format
-     *
-     * @param string $url URL to validate
-     * @return array [is_valid => bool, errors => string[], normalized_url => string]
-     */
-
-    /**
-     * Check if URL already exists
-     *
-     * @param string $url URL to check
-     * @param int|null $excludeLinkId Link ID to exclude (for updates)
-     * @return bool
-     */
-    public function urlExists(string $url, ?int $excludeLinkId = null): bool;
-
-    /**
-     * Validate link business rules
-     *
-     * @param Link $link
-     * @return array [is_valid => bool, errors => string[]]
-     */
-
-    /**
-     * Check daily click limit
-     *
-     * @param int $linkId Link ID
-     * @param int $maxClicks Maximum clicks per day
-     * @return array [within_limit => bool, current_clicks => int, limit => int]
-     */
-    public function checkDailyClickLimit(int $linkId, int $maxClicks = 1000): array;
-
-    // ==================== CACHE MANAGEMENT ====================
-
-    /**
-     * Clear link caches
-     *
-     * @param int|null $linkId Specific link ID (null for all)
-     * @param int|null $productId Clear product-related caches
-     * @return void
-     */
-    public function clearCache(?int $linkId = null, ?int $productId = null): void;
-
-    /**
-     * Get cache TTL setting
-     *
-     * @return int Cache TTL in seconds
-     */
-    public function getCacheTtl(): int;
-
-    /**
-     * Set cache TTL
-     *
-     * @param int $ttl Cache TTL in seconds
-     * @return self
-     */
-    public function setCacheTtl(int $ttl): self;
-
-    // ==================== UTILITY METHODS ====================
-
-    /**
-     * Generate affiliate tracking URL
-     *
-     * @param int $linkId Link ID
-     * @param array $params Additional tracking parameters
-     * @return string|null
-     */
-    public function generateTrackingUrl(int $linkId, array $params = []): ?string;
-
-    /**
-     * Get link health status
-     *
-     * @param int $linkId Link ID
-     * @return array [status => string, issues => array, last_check => string]
-     */
-    public function getHealthStatus(int $linkId): array;
-
-    /**
-     * Find duplicate links (same product + marketplace)
-     *
      * @param int $productId Product ID
      * @param int $marketplaceId Marketplace ID
-     * @param bool $includeInactive Include inactive links
-     * @return array
+     * @param int|null $excludeLinkId Link ID to exclude (for updates)
+     * @return bool True if unique
      */
-    public function findDuplicates(int $productId, int $marketplaceId, bool $includeInactive = false): array;
+    public function isStoreNameUnique(
+        string $storeName, 
+        int $productId, 
+        int $marketplaceId,
+        ?int $excludeLinkId = null
+    ): bool;
 
     /**
-     * Get links with expiring validation
-     *
-     * @param int $daysThreshold Days until validation expires
-     * @param int $limit Result limit
-     * @return array
+     * Validate link URL is accessible
+     * 
+     * @param string $url URL to validate
+     * @return bool True if accessible
      */
-    public function findExpiringValidation(int $daysThreshold = 7, int $limit = 100): array;
+    public function validateUrl(string $url): bool;
 
     /**
-     * Get link summary for quick views
-     *
-     * @param int $linkId Link ID
-     * @return array
+     * Get entity type for this repository (required by BaseRepositoryInterface)
+     * 
+     * @return string Entity type name
      */
-    public function getSummary(int $linkId): array;
+    public function getEntityType(): string;
 }

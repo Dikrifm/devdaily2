@@ -5,867 +5,748 @@ namespace App\Repositories\Concrete;
 use App\Entities\Product;
 use App\Enums\ProductStatus;
 use App\Models\ProductModel;
+use App\Repositories\BaseRepository;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Services\CacheService;
-use CodeIgniter\Database\ConnectionInterface;
-use RuntimeException;
+use CodeIgniter\Cache\CacheInterface;
+use CodeIgniter\Database\BaseBuilder;
+use CodeIgniter\I18n\Time;
+use InvalidArgumentException;
 
 /**
- * Product Repository Implementation
- *
- * Concrete implementation of ProductRepositoryInterface using CodeIgniter 4 Model.
- * Handles data access for Product entities with caching and transaction support.
- *
- * @package App\Repositories\Concrete
+ * ProductRepository - Concrete implementation for Product repository
+ * 
+ * @extends BaseRepository<Product>
+ * @implements ProductRepositoryInterface
  */
-class ProductRepository implements ProductRepositoryInterface
+class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
     /**
-     * Product model instance
-     *
-     * @var ProductModel
-     */
-    private ProductModel $model;
-
-    /**
-     * Cache service instance
-     *
-     * @var CacheService
-     */
-    private CacheService $cache;
-
-    /**
-     * Database connection
-     *
-     * @var ConnectionInterface
-     */
-    private ConnectionInterface $db;
-
-    /**
-     * Cache TTL for product data (60 minutes)
-     *
-     * @var int
-     */
-    private int $cacheTtl = 3600;
-
-    /**
-     * ProductRepository constructor
-     *
+     * Constructor
+     * 
      * @param ProductModel $model
-     * @param CacheService $cache
-     * @param ConnectionInterface $db
+     * @param CacheInterface|null $cache
      */
-    public function __construct(
-        ProductModel $model,
-        CacheService $cache,
-        ConnectionInterface $db
-    ) {
-        $this->model = $model;
-        $this->cache = $cache;
-        $this->db = $db;
-    }
-
-    // ==================== CRUD OPERATIONS ====================
-
-    /**
-     * Find product by ID
-     *
-     * @param int $id Product ID
-     * @param bool $withTrashed Include soft-deleted products
-     * @return Product|null
-     */
-    public function find(int $id, bool $withTrashed = false): ?Product
+    public function __construct(ProductModel $model, ?CacheInterface $cache = null)
     {
-        $cacheKey = $this->getCacheKey("product_{$id}_" . ($withTrashed ? 'with_trashed' : 'active'));
-
-        return $this->cache->remember($cacheKey, function () use ($id, $withTrashed) {
-            if ($withTrashed) {
-                return $this->model->withDeleted()->find($id);
-            }
-
-            return $this->model->findActiveById($id);
-        }, $this->cacheTtl);
+        parent::__construct($model, $cache);
     }
 
     /**
-     * Find product by slug
-     *
-     * @param string $slug Product slug
-     * @param bool $withTrashed Include soft-deleted products
-     * @return Product|null
+     * {@inheritDoc}
      */
-    public function findBySlug(string $slug, bool $withTrashed = false): ?Product
+    public function getEntityType(): string
     {
-        $cacheKey = $this->getCacheKey("product_slug_{$slug}_" . ($withTrashed ? 'with_trashed' : 'active'));
+        return 'product';
+    }
 
-        return $this->cache->remember($cacheKey, function () use ($slug, $withTrashed) {
-            $builder = $this->model->builder();
+    /**
+     * {@inheritDoc}
+     */
+    public function findBySlug(string $slug, bool $activeOnly = true, bool $useCache = true): ?Product
+    {
+        $cacheKey = "slug:{$slug}:active:" . ($activeOnly ? '1' : '0');
+
+        return $this->remember($cacheKey, function () use ($slug, $activeOnly) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+            $builder = $model->builder();
             $builder->where('slug', $slug);
-
-            if (!$withTrashed) {
-                $builder->where('deleted_at', null);
+            
+            if ($activeOnly) {
+                $builder->where('deleted_at IS NULL');
             }
-
-            $result = $builder->get()->getFirstRow($this->model->returnType);
-
-            return $result instanceof Product ? $result : null;
-        }, $this->cacheTtl);
+            
+            $result = $model->findAll(1);
+            return $result[0] ?? null;
+        }, $useCache ? $this->defaultCacheTtl : 0);
     }
 
     /**
-     * Find product by ID or slug (flexible lookup)
-     *
-     * @param int|string $identifier ID or slug
-     * @param bool $adminMode If true, returns any status (for admin)
-     * @param bool $withTrashed Include soft-deleted products
-     * @return Product|null
+     * {@inheritDoc}
      */
-    public function findByIdOrSlug($identifier, bool $adminMode = false, bool $withTrashed = false): ?Product
-    {
-        if (is_numeric($identifier)) {
-            return $this->find((int) $identifier, $withTrashed);
-        }
-
-        return $this->findBySlug((string) $identifier, $withTrashed);
-    }
-
-    /**
-     * Get all products
-     *
-     * @param array $filters Filter criteria
-     * @param array $sort Sorting criteria
-     * @param int $limit Maximum results
-     * @param int $offset Results offset
-     * @param bool $withTrashed Include soft-deleted products
-     * @return Product[]
-     */
-    public function findAll(
-        array $filters = [],
-        array $sort = [],
-        int $limit = 0,
+    public function findPublished(
+        ?int $limit = null,
         int $offset = 0,
-        bool $withTrashed = false
+        array $orderBy = ['published_at' => 'DESC'],
+        bool $useCache = true
     ): array {
-        $cacheKey = $this->getCacheKeyForFindAll($filters, $sort, $limit, $offset, $withTrashed);
+        $cacheKey = sprintf(
+            'published:limit:%s:offset:%d:order:%s',
+            $limit ?? 'all',
+            $offset,
+            md5(serialize($orderBy))
+        );
 
-        return $this->cache->remember($cacheKey, function () use ($filters, $sort, $limit, $offset, $withTrashed) {
-            $builder = $this->model->builder();
+        return $this->remember($cacheKey, function () use ($limit, $offset, $orderBy) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+            $builder = $model->builder();
+            $model->scopePublished($builder);
 
-            // Apply filters
-            foreach ($filters as $field => $value) {
-                if (is_array($value)) {
-                    $builder->whereIn($field, $value);
-                } else {
-                    $builder->where($field, $value);
-                }
-            }
-
-            // Apply soft delete filter
-            if (!$withTrashed) {
-                $builder->where('deleted_at', null);
-            }
-
-            // Apply sorting
-            foreach ($sort as $field => $direction) {
+            
+            foreach ($orderBy as $field => $direction) {
                 $builder->orderBy($field, $direction);
             }
-
-            // Apply limit/offset
-            if ($limit > 0) {
-                $builder->limit($limit, $offset);
-            }
-
-            $results = $builder->get()->getResult($this->model->returnType);
-
-            return $results;
-        }, $this->cacheTtl);
+            
+            return $builder->findAll($limit, $offset);
+        }, $useCache ? $this->defaultCacheTtl : 0);
     }
 
     /**
-     * Save product (create or update)
-     *
-     * @param Product $product Product entity
-     * @return Product Saved product
-     * @throws RuntimeException If save fails
+     * {@inheritDoc}
      */
-    public function save(Product $product): Product
-    {
-        $this->db->transStart();
+    public function findPopular(
+        int $limit = 10,
+        int $offset = 0,
+        bool $publishedOnly = true,
+        bool $useCache = true
+    ): array {
+        $cacheKey = sprintf(
+            'popular:limit:%d:offset:%d:published:%d',
+            $limit,
+            $offset,
+            $publishedOnly ? 1 : 0
+        );
 
-        try {
-            $isUpdate = !$product->isNew();
+        return $this->remember($cacheKey, function () use ($limit, $offset, $publishedOnly) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+            $builder = $model->builder();
+                if ($publishedOnly) {
+                $model->scopePublished($builder);
+             }
+            $model->scopePopular($builder);
 
-            // Prepare product for save (this may update timestamps)
-            $product->prepareForSave($isUpdate);
-
-            // Get array data from entity
-            $data = $product->toArray();
-
-            // Remove non-database fields
-            unset(
-                $data['id'],
-                $data['created_at'],
-                $data['updated_at'],
-                $data['deleted_at'],
-                $data['is_deleted'],
-                $data['links'] // Remove relations
-            );
-
-            if ($isUpdate) {
-                // Update existing product
-                $success = $this->model->update($product->getId(), $data);
-
-                if (!$success) {
-                    throw new RuntimeException('Failed to update product');
-                }
-
-                // Get updated product
-                $savedProduct = $this->model->find($product->getId());
-            } else {
-                // Insert new product
-                $id = $this->model->insert($data);
-
-                if (!$id) {
-                    throw new RuntimeException('Failed to create product');
-                }
-
-                // Get newly created product
-                $savedProduct = $this->model->find($id);
-            }
-
-            if (!$savedProduct instanceof Product) {
-                throw new RuntimeException('Failed to retrieve saved product');
-            }
-
-            $this->db->transComplete();
-
-            // Clear relevant caches
-            $this->clearProductCaches($savedProduct);
-
-            return $savedProduct;
-
-        } catch (\Exception $e) {
-            $this->db->transRollback();
-            throw new RuntimeException('Product save failed: ' . $e->getMessage(), 0, $e);
-        }
+            
+            return $builder->findAll($limit, $offset);
+        }, $useCache ? $this->defaultCacheTtl : 0);
     }
 
     /**
-     * Delete product (soft delete if supported)
-     *
-     * @param int $id Product ID
-     * @param bool $force Force permanent deletion
-     * @return bool Success status
+     * {@inheritDoc}
      */
-    public function delete(int $id, bool $force = false): bool
-    {
-        if ($force) {
-            // Permanent delete
-            $success = $this->model->delete($id, true);
-        } else {
-            // Soft delete (archive)
-            $success = $this->model->delete($id);
-        }
+    public function search(
+        string $keyword,
+        array $filters = [],
+        ?int $limit = null,
+        int $offset = 0,
+        array $orderBy = ['name' => 'ASC'],
+        bool $useCache = true
+    ): array {
+        $cacheKey = sprintf(
+            'search:%s:filters:%s:limit:%s:offset:%d:order:%s',
+            md5($keyword),
+            md5(serialize($filters)),
+            $limit ?? 'all',
+            $offset,
+            md5(serialize($orderBy))
+        );
 
+        return $this->remember($cacheKey, function () use ($keyword, $filters, $limit, $offset, $orderBy) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+            $builder = $model->builder();
+            $model->scopePublished($builder); // Search biasanya perlu published only
+            $model->scopeSearch($builder, $keyword);
+
+            
+            // Apply additional filters
+            foreach ($filters as $field => $value) {
+                if ($value !== null && $value !== '') {
+                    if (is_array($value)) {
+                        $builder->whereIn($field, $value);
+                    } else {
+                        $builder->where($field, $value);
+                    }
+                }
+            }
+            
+            foreach ($orderBy as $field => $direction) {
+                $builder->orderBy($field, $direction);
+            }
+            return $builder->findAll($limit, $offset);
+        }, $useCache ? $this->defaultCacheTtl : 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function publish(int $productId, ?int $publishedBy = null): bool
+    {         
+         $product = $this->find($productId, false);
+         if ($product === null) {
+            return false;
+        }
+        
+        $product->publish();
+        if ($publishedBy !== null) {
+            $product->setVerifiedBy($publishedBy);
+        }
+        
+        $success = $this->save($product);
+        
+        // Invalidate relevant caches
         if ($success) {
-            $this->clearProductCachesById($id);
+            $this->deleteMatching('published:*');
+            $this->deleteMatching('search:*');
         }
-
+        
         return $success;
     }
 
     /**
-     * Restore soft-deleted product
-     *
-     * @param int $id Product ID
-     * @return bool Success status
+     * {@inheritDoc}
      */
-    public function restore(int $id): bool
+    public function verify(int $productId, int $verifiedBy): bool
     {
-        $success = $this->model->restore($id);
-
-        if ($success) {
-            $this->clearProductCachesById($id);
+        $product = $this->find($productId, false);
+        if ($product === null) {
+            return false;
         }
-
+        
+        $product->verify($verifiedBy);
+        $success = $this->save($product);
+        
+        // Invalidate caches
+        if ($success) {
+            $this->deleteMatching('*');
+        }
+        
         return $success;
     }
 
     /**
-     * Check if product exists
-     *
-     * @param int $id Product ID
-     * @param bool $withTrashed Include soft-deleted products
-     * @return bool
+     * {@inheritDoc}
      */
-    public function exists(int $id, bool $withTrashed = false): bool
+    public function archive(int $productId, ?int $archivedBy = null): bool
     {
-        $cacheKey = $this->getCacheKey("exists_{$id}_" . ($withTrashed ? 'with_trashed' : 'active'));
-
-        return $this->cache->remember($cacheKey, function () use ($id, $withTrashed) {
-            $builder = $this->model->builder();
-            $builder->select('1')->where('id', $id);
-
-            if (!$withTrashed) {
-                $builder->where('deleted_at', null);
-            }
-
-            $result = $builder->get()->getRow();
-
-            return $result !== null;
-        }, $this->cacheTtl);
-    }
-
-    // ==================== BUSINESS OPERATIONS ====================
-
-    /**
-     * Find published products for public display
-     *
-     * @param int $limit Maximum results
-     * @param int $offset Results offset
-     * @return Product[]
-     */
-    public function findPublished(int $limit = 20, int $offset = 0): array
-    {
-        $cacheKey = $this->getCacheKey("published_{$limit}_{$offset}");
-
-        return $this->cache->remember($cacheKey, function () use ($limit, $offset) {
-            return $this->model->findPublished($limit, $offset);
-        }, $this->cacheTtl);
+        $product = $this->find($productId, false);
+        if ($product === null) {
+            return false;
+        }
+        
+        $product->archive();
+        $success = $this->save($product);
+        
+        // Invalidate all product caches
+        if ($success) {
+            $this->deleteMatching('*');
+        }
+        
+        return $success;
     }
 
     /**
-     * Find product with its marketplace links (eager loading)
-     *
-     * @param int $productId Product ID
-     * @param bool $activeOnly Only active links
-     * @return Product|null
+     * {@inheritDoc}
      */
-    public function findWithLinks(int $productId, bool $activeOnly = true): ?Product
+    public function restore(int $productId, ?int $restoredBy = null): bool
     {
-        $cacheKey = $this->getCacheKey("with_links_{$productId}_" . ($activeOnly ? 'active' : 'all'));
-
-        return $this->cache->remember($cacheKey, function () use ($productId, $activeOnly) {
-            return $this->model->findWithLinks($productId, $activeOnly);
-        }, 1800); // 30 minutes for product with links
+        /** @var ProductModel $model */
+        $model = $this->model;
+        
+        $success = $model->restore($productId);
+        
+        // Invalidate caches
+        if ($success) {
+            $this->deleteMatching('*');
+        }
+        
+        return $success;
     }
 
     /**
-     * Increment product view count
-     *
-     * @param int $productId Product ID
-     * @return bool Success status
+     * {@inheritDoc}
+     */
+    public function updateStatus(int $productId, ProductStatus $status, ?int $changedBy = null): bool
+    {
+        $product = $this->find($productId, false);
+        if ($product === null) {
+            return false;
+        }
+        
+        $product->setStatus($status);
+        
+        // Set timestamps based on status
+        if ($status === ProductStatus::PUBLISHED && $product->getPublishedAt() === null) {
+            $product->setPublishedAt(new \DateTimeImmutable());
+        }
+        
+        if ($status === ProductStatus::VERIFIED && $product->getVerifiedAt() === null && $changedBy !== null) {
+            $product->setVerifiedAt(new \DateTimeImmutable());
+            $product->setVerifiedBy($changedBy);
+        }
+        
+        $success = $this->save($product);
+        
+        // Invalidate caches
+        if ($success) {
+            $this->deleteMatching('*');
+        }
+        
+        return $success;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function incrementViewCount(int $productId): bool
     {
-        $success = $this->model->incrementViewCount($productId);
-
-        if ($success) {
-            // Clear caches that include this product
-            $this->clearProductCachesById($productId);
-
-            // Also clear popular products cache
-            $this->cache->deleteMultiple([
-                $this->getCacheKey('popular_all_10'),
-                $this->getCacheKey('popular_week_10'),
-                $this->getCacheKey('popular_month_10'),
-            ]);
+        $product = $this->find($productId, false);
+        if ($product === null) {
+            return false;
         }
-
-        return $success;
+        
+        $product->incrementViewCount();
+        return $this->save($product);
     }
 
     /**
-     * Update product status with validation
-     *
-     * @param int $productId Product ID
-     * @param ProductStatus $newStatus New status
-     * @param int|null $verifiedBy Admin ID for verification
-     * @return bool Success status
-     */
-    public function updateStatus(int $productId, ProductStatus $newStatus, ?int $verifiedBy = null): bool
-    {
-        $success = $this->model->updateStatus($productId, $newStatus, $verifiedBy);
-
-        if ($success) {
-            $this->clearProductCachesById($productId);
-        }
-
-        return $success;
-    }
-
-    /**
-     * Find products that need maintenance updates
-     *
-     * @param string $type 'price' or 'link' or 'both'
-     * @param int $limit Maximum results
-     * @return Product[]
-     */
-    public function findNeedsUpdate(string $type = 'both', int $limit = 50): array
-    {
-        // Not cached because this is maintenance data that changes frequently
-        return $this->model->findNeedsUpdate($type, $limit);
-    }
-
-    /**
-     * Search products by keyword (public search)
-     *
-     * @param string $keyword Search keyword
-     * @param int $limit Maximum results
-     * @return Product[]
-     */
-    public function searchByKeyword(string $keyword, int $limit = 20): array
-    {
-        $cacheKey = $this->getCacheKey("search_" . md5($keyword) . "_$limit");
-
-        return $this->cache->remember($cacheKey, function () use ($keyword, $limit) {
-            return $this->model->searchByKeyword($keyword, $limit);
-        }, 1800); // 30 minutes for search results
-    }
-
-    /**
-     * Get popular products based on view count
-     *
-     * @param int $limit Maximum results
-     * @param string $period 'all', 'week', 'month'
-     * @return Product[]
-     */
-    public function getPopular(int $limit = 10, string $period = 'all'): array
-    {
-        $cacheKey = $this->getCacheKey("popular_{$period}_{$limit}");
-
-        return $this->cache->remember($cacheKey, function () use ($limit, $period) {
-            return $this->model->getPopular($limit, $period);
-        }, 1800); // 30 minutes for popular products
-    }
-
-    /**
-     * Find products by category
-     *
-     * @param int $categoryId Category ID
-     * @param int $limit Maximum results
-     * @param int $offset Results offset
-     * @return Product[]
-     */
-    public function findByCategory(int $categoryId, int $limit = 20, int $offset = 0): array
-    {
-        $cacheKey = $this->getCacheKey("category_{$categoryId}_{$limit}_{$offset}");
-
-        return $this->cache->remember($cacheKey, function () use ($categoryId, $limit, $offset) {
-            return $this->model->findByCategory($categoryId, $limit, $offset);
-        }, $this->cacheTtl);
-    }
-
-    /**
-     * Mark product price as checked
-     *
-     * @param int $productId Product ID
-     * @return bool Success status
+     * {@inheritDoc}
      */
     public function markPriceChecked(int $productId): bool
     {
-        $success = $this->model->markPriceChecked($productId);
-
-        if ($success) {
-            $this->clearProductCachesById($productId);
+        $product = $this->find($productId, false);
+        if ($product === null) {
+            return false;
         }
-
-        return $success;
+        
+        $product->markPriceChecked();
+        return $this->save($product);
     }
 
     /**
-     * Mark product links as checked
-     *
-     * @param int $productId Product ID
-     * @return bool Success status
+     * {@inheritDoc}
      */
     public function markLinksChecked(int $productId): bool
     {
-        $success = $this->model->markLinksChecked($productId);
-
-        if ($success) {
-            $this->clearProductCachesById($productId);
+        $product = $this->find($productId, false);
+        if ($product === null) {
+            return false;
         }
+        
+        $product->markLinksChecked();
+        return $this->save($product);
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function findNeedsPriceUpdate(
+        int $daysThreshold = 7,
+        int $limit = 50,
+        bool $publishedOnly = true
+    ): array {
+        $cacheKey = sprintf(
+            'needsPriceUpdate:days:%d:limit:%d:published:%d',
+            $daysThreshold,
+            $limit,
+            $publishedOnly ? 1 : 0
+        );
+
+        return $this->remember($cacheKey, function () use ($daysThreshold, $limit, $publishedOnly) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+            $builder = $publishedOnly ? $model->published() : $model->builder();
+            
+            // Products that haven't been checked for price updates in X days
+            $cutoffDate = (new Time())->subDays($daysThreshold)->toDateTimeString();
+            $builder->groupStart()
+                    ->where('last_price_check IS NULL')
+                    ->orWhere('last_price_check <', $cutoffDate)
+                    ->groupEnd();
+            
+            return $builder->findAll($limit);
+        }, 300); // Short cache TTL (5 minutes) for maintenance data
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findNeedsLinkValidation(
+        int $daysThreshold = 14,
+        int $limit = 50,
+        bool $publishedOnly = true
+    ): array {
+        $cacheKey = sprintf(
+            'needsLinkValidation:days:%d:limit:%d:published:%d',
+            $daysThreshold,
+            $limit,
+            $publishedOnly ? 1 : 0
+        );
+
+        return $this->remember($cacheKey, function () use ($daysThreshold, $limit, $publishedOnly) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+            $builder = $publishedOnly ? $model->published() : $model->builder();
+            
+            // Products that haven't been checked for link validation in X days
+            $cutoffDate = (new Time())->subDays($daysThreshold)->toDateTimeString();
+            $builder->groupStart()
+                    ->where('last_link_check IS NULL')
+                    ->orWhere('last_link_check <', $cutoffDate)
+                    ->groupEnd();
+            
+            return $builder->findAll($limit);
+        }, 300); // Short cache TTL (5 minutes)
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function countByStatus(?ProductStatus $status = null, bool $includeArchived = false): int
+    {
+        $cacheKey = sprintf(
+            'countByStatus:status:%s:archived:%d',
+            $status ? $status->value : 'all',
+            $includeArchived ? 1 : 0
+        );
+
+        return (int) $this->remember($cacheKey, function () use ($status, $includeArchived) {
+            $builder = $this->model->builder();
+            
+            if ($status !== null) {
+                $builder->where('status', $status->value);
+            }
+            
+            if (!$includeArchived) {
+                $builder->where('deleted_at IS NULL');
+            }
+            
+            return $builder->countAllResults();
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function countByCategory(?int $categoryId = null, bool $publishedOnly = false)
+    {
+        if ($categoryId !== null) {
+            $cacheKey = sprintf(
+                'countByCategory:cat:%d:published:%d',
+                $categoryId,
+                $publishedOnly ? 1 : 0
+            );
+            
+            return (int) $this->remember($cacheKey, function () use ($categoryId, $publishedOnly) {
+                $builder = $this->model->builder();
+                $builder->where('category_id', $categoryId);
+                
+                if ($publishedOnly) {
+                    $builder->where('status', ProductStatus::PUBLISHED->value);
+                    $builder->where('deleted_at IS NULL');
+                }
+                
+                return $builder->countAllResults();
+            });
+        }
+        
+        // Return array of counts for all categories
+        $cacheKey = 'countByCategory:all:published:' . ($publishedOnly ? 1 : 0);
+        
+        return $this->remember($cacheKey, function () use ($publishedOnly) {
+            $builder = $this->model->builder();
+            $builder->select('category_id, COUNT(*) as count');
+            $builder->groupBy('category_id');
+            
+            if ($publishedOnly) {
+                $builder->where('status', ProductStatus::PUBLISHED->value);
+                $builder->where('deleted_at IS NULL');
+            }
+            
+            $result = $builder->get()->getResultArray();
+            
+            $counts = [];
+            foreach ($result as $row) {
+                $counts[$row['category_id']] = (int) $row['count'];
+            }
+            
+            return $counts;
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatistics(string $period = 'month'): array
+    {
+        $cacheKey = "statistics:{$period}";
+        
+        return $this->remember($cacheKey, function () use ($period) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+            // Implement statistics logic based on period
+            $now = new Time();
+            
+            switch ($period) {
+                case 'day':
+                    $startDate = $now->subDays(1);
+                    break;
+                case 'week':
+                    $startDate = $now->subDays(7);
+                    break;
+                case 'month':
+                    $startDate = $now->subMonths(1);
+                    break;
+                case 'year':
+                    $startDate = $now->subYears(1);
+                    break;
+                default:
+                    $startDate = $now->subMonths(1);
+            }
+            
+            $builder = $model->builder();
+            
+            $stats = [
+                'total' => $builder->where('deleted_at IS NULL')->countAllResults(),
+                'published' => $builder->where('status', ProductStatus::PUBLISHED->value)
+                                      ->where('deleted_at IS NULL')
+                                      ->countAllResults(),
+                'draft' => $builder->where('status', ProductStatus::DRAFT->value)
+                                   ->where('deleted_at IS NULL')
+                                   ->countAllResults(),
+                'verified' => $builder->where('status', ProductStatus::VERIFIED->value)
+                                      ->where('deleted_at IS NULL')
+                                      ->countAllResults(),
+                'new_this_period' => $builder->where('created_at >=', $startDate->toDateTimeString())
+                                            ->where('deleted_at IS NULL')
+                                            ->countAllResults(),
+            ];
+            
+            return $stats;
+        }, 1800); // 30 minutes cache for statistics
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateProduct(int $productId, array $data): bool
+    {
+        $product = $this->find($productId, false);
+        if ($product === null) {
+            return false;
+        }
+        
+        // Update entity properties
+        foreach ($data as $key => $value) {
+            if (property_exists($product, $key) || method_exists($product, 'set' . ucfirst($key))) {
+                $setter = 'set' . ucfirst($key);
+                if (method_exists($product, $setter)) {
+                    $product->$setter($value);
+                }
+            }
+        }
+        
+        $success = $this->save($product);
+        
+        // Invalidate caches
+        if ($success) {
+            $this->deleteMatching('*');
+        }
+        
         return $success;
     }
 
-    // ==================== STATISTICS & AGGREGATION ====================
-
     /**
-     * Count products by status
-     *
-     * @param bool $withTrashed Include soft-deleted products
-     * @return array [status => count]
+     * {@inheritDoc}
      */
-    public function countByStatus(bool $withTrashed = false): array
+    public function bulkUpdateStatus(array $productIds, ProductStatus $status, ?int $changedBy = null): int
     {
-        $cacheKey = $this->getCacheKey('count_by_status_' . ($withTrashed ? 'with_trashed' : 'active'));
-
-        return $this->cache->remember($cacheKey, function () use ($withTrashed) {
-            $builder = $this->model->builder();
-            $builder->select('status, COUNT(*) as count');
-
-            if (!$withTrashed) {
-                $builder->where('deleted_at', null);
-            }
-
-            $builder->groupBy('status');
-
-            $results = $builder->get()->getResultArray();
-
-            $counts = [];
-            foreach (ProductStatus::cases() as $status) {
-                $counts[$status->value] = 0;
-            }
-
-            foreach ($results as $row) {
-                $counts[$row['status']] = (int) $row['count'];
-            }
-
-            return $counts;
-        }, 300); // 5 minutes for statistics
-    }
-
-    /**
-     * Count published products
-     *
-     * @return int
-     */
-    public function countPublished(): int
-    {
-        $cacheKey = $this->getCacheKey('count_published');
-
-        return $this->cache->remember($cacheKey, function () {
-            return $this->model->countPublished();
-        }, 300); // 5 minutes for statistics
-    }
-
-    /**
-     * Count total products
-     *
-     * @param bool $withTrashed Include soft-deleted products
-     * @return int
-     */
-    public function countAll(bool $withTrashed = false): int
-    {
-        $cacheKey = $this->getCacheKey('count_all_' . ($withTrashed ? 'with_trashed' : 'active'));
-
-        return $this->cache->remember($cacheKey, function () use ($withTrashed) {
-            if ($withTrashed) {
-                return $this->model->countAll();
-            }
-
-            return $this->model->countActive();
-        }, 300); // 5 minutes for statistics
-    }
-
-    /**
-     * Get product statistics for dashboard
-     *
-     * @return array
-     */
-    public function getStats(): array
-    {
-        $cacheKey = $this->getCacheKey('dashboard_stats');
-
-        return $this->cache->remember($cacheKey, function () {
-            $total = $this->countAll(false);
-            $published = $this->countPublished();
-            $draft = $this->countByStatus(false)[ProductStatus::DRAFT->value] ?? 0;
-            $pending = $this->countByStatus(false)[ProductStatus::PENDING_VERIFICATION->value] ?? 0;
-            $verified = $this->countByStatus(false)[ProductStatus::VERIFIED->value] ?? 0;
-            $archived = $this->countAll(true) - $total;
-
-            // Get recent products (last 7 days)
-            $builder = $this->model->builder();
-            $recent = $builder->where('created_at >=', date('Y-m-d H:i:s', strtotime('-7 days')))
-                             ->where('deleted_at', null)
-                             ->countAllResults();
-
-            // Get products needing updates
-            $needsPriceUpdate = count($this->findNeedsUpdate('price', 1000));
-            $needsLinkCheck = count($this->findNeedsUpdate('link', 1000));
-
-            return [
-                'total' => $total,
-                'published' => $published,
-                'draft' => $draft,
-                'pending_verification' => $pending,
-                'verified' => $verified,
-                'archived' => $archived,
-                'recent_7_days' => $recent,
-                'needs_price_update' => $needsPriceUpdate,
-                'needs_link_check' => $needsLinkCheck,
-                'publish_rate' => $total > 0 ? round(($published / $total) * 100, 2) : 0,
-                'business_limit' => [
-                    'current' => $total,
-                    'max' => 300,
-                    'remaining' => max(0, 300 - $total),
-                    'percentage' => round(($total / 300) * 100, 2),
-                ]
-            ];
-        }, 300); // 5 minutes for dashboard stats
-    }
-
-    // ==================== BATCH OPERATIONS ====================
-
-    /**
-     * Update multiple products in batch
-     *
-     * @param array $ids Product IDs
-     * @param array $data Update data
-     * @return int Number of affected rows
-     */
-    public function bulkUpdate(array $ids, array $data): int
-    {
-        if (empty($ids) || empty($data)) {
+        if (empty($productIds)) {
             return 0;
         }
-
-        $affected = $this->model->bulkUpdate($ids, $data);
-
-        if ($affected > 0) {
-            // Clear caches for all affected products
-            foreach ($ids as $id) {
-                $this->clearProductCachesById($id);
+        
+        $successCount = 0;
+        
+        foreach ($productIds as $productId) {
+            if ($this->updateStatus($productId, $status, $changedBy)) {
+                $successCount++;
             }
-
-            // Clear aggregate caches
-            $this->clearAggregateCaches();
         }
-
-        return $affected;
+        
+        // Invalidate all caches after bulk operation
+        $this->deleteMatching('*');
+        
+        return $successCount;
     }
 
     /**
-     * Archive multiple products in batch
-     *
-     * @param array $ids Product IDs
-     * @return int Number of archived products
+     * {@inheritDoc}
      */
-    public function bulkArchive(array $ids): int
+    public function bulkArchive(array $productIds, ?int $archivedBy = null): int
     {
-        if (empty($ids)) {
+        if (empty($productIds)) {
             return 0;
         }
-
-        $data = ['status' => ProductStatus::ARCHIVED->value];
-        return $this->bulkUpdate($ids, $data);
-    }
-
-    /**
-     * Publish multiple products in batch
-     *
-     * @param array $ids Product IDs
-     * @return int Number of published products
-     */
-    public function bulkPublish(array $ids): int
-    {
-        if (empty($ids)) {
-            return 0;
-        }
-
-        $data = [
-            'status' => ProductStatus::PUBLISHED->value,
-            'published_at' => date('Y-m-d H:i:s')
-        ];
-
-        return $this->bulkUpdate($ids, $data);
-    }
-
-    // ==================== VALIDATION OPERATIONS ====================
-
-    /**
-     * Check if slug is unique
-     *
-     * @param string $slug Slug to check
-     * @param int|null $excludeId Product ID to exclude from check
-     * @return bool True if unique
-     */
-    public function isSlugUnique(string $slug, ?int $excludeId = null): bool
-    {
-        $cacheKey = $this->getCacheKey("slug_unique_{$slug}_" . ($excludeId ?? 'no_exclude'));
-
-        return $this->cache->remember($cacheKey, function () use ($slug, $excludeId) {
-            $builder = $this->model->builder();
-            $builder->select('1')->where('slug', $slug);
-
-            if ($excludeId !== null) {
-                $builder->where('id !=', $excludeId);
+        
+        $successCount = 0;
+        
+        foreach ($productIds as $productId) {
+            if ($this->archive($productId, $archivedBy)) {
+                $successCount++;
             }
-
-            $builder->where('deleted_at', null);
-
-            $result = $builder->get()->getRow();
-
-            return $result === null;
-        }, $this->cacheTtl);
-    }
-
-    /**
-     * Validate product before save
-     *
-     * @param Product $product Product entity
-     * @return array Validation result [valid: bool, errors: string[]]
-     */
-    public function validate(Product $product): array
-    {
-        // Use entity's own validation
-        return $product->validate();
-    }
-
-    /**
-     * Check business rule: maximum 300 products
-     *
-     * @return array [can_create: bool, current_count: int, max_allowed: int]
-     */
-    public function checkProductLimit(): array
-    {
-        $current = $this->countAll(false);
-        $max = 300;
-        $canCreate = $current < $max;
-
-        return [
-            'can_create' => $canCreate,
-            'current_count' => $current,
-            'max_allowed' => $max,
-            'remaining' => max(0, $max - $current),
-            'message' => $canCreate
-                ? sprintf('You can create %d more products', $max - $current)
-                : 'Maximum product limit (300) reached'
-        ];
-    }
-
-    // ==================== CACHE MANAGEMENT ====================
-
-    /**
-     * Get cache key with prefix
-     *
-     * @param string $key
-     * @return string
-     */
-    private function getCacheKey(string $key): string
-    {
-        return "product_repo_{$key}";
-    }
-
-    /**
-     * Generate cache key for findAll operation
-     *
-     * @param array $filters
-     * @param array $sort
-     * @param int $limit
-     * @param int $offset
-     * @param bool $withTrashed
-     * @return string
-     */
-    private function getCacheKeyForFindAll(
-        array $filters,
-        array $sort,
-        int $limit,
-        int $offset,
-        bool $withTrashed
-    ): string {
-        $key = 'findall_' . md5(serialize($filters)) . '_' . md5(serialize($sort)) .
-               "_{$limit}_{$offset}_" . ($withTrashed ? 'withtrashed' : 'active');
-
-        return $this->getCacheKey($key);
-    }
-
-    /**
-     * Clear all caches for a specific product
-     *
-     * @param Product $product
-     * @return void
-     */
-    private function clearProductCaches(Product $product): void
-    {
-        $id = $product->getId();
-        $slug = $product->getSlug();
-
-        $this->clearProductCachesById($id);
-
-        // Also clear slug-based caches
-        if ($slug) {
-            $this->cache->deleteMultiple([
-                $this->getCacheKey("product_slug_{$slug}_active"),
-                $this->getCacheKey("product_slug_{$slug}_with_trashed"),
-            ]);
         }
+        
+        return $successCount;
     }
 
     /**
-     * Clear all caches for a product by ID
-     *
-     * @param int $productId
-     * @return void
+     * {@inheritDoc}
      */
-    private function clearProductCachesById(int $productId): void
-    {
-        $keys = [
-            $this->getCacheKey("product_{$productId}_active"),
-            $this->getCacheKey("product_{$productId}_with_trashed"),
-            $this->getCacheKey("with_links_{$productId}_active"),
-            $this->getCacheKey("with_links_{$productId}_all"),
-            $this->getCacheKey("exists_{$productId}_active"),
-            $this->getCacheKey("exists_{$productId}_with_trashed"),
-        ];
+    public function findByCategory(
+        int $categoryId,
+        bool $includeSubcategories = false,
+        ?int $limit = null,
+        int $offset = 0,
+        bool $publishedOnly = true,
+        bool $useCache = true
+    ): array {
+        $cacheKey = sprintf(
+            'byCategory:%d:subcats:%d:limit:%s:offset:%d:published:%d',
+            $categoryId,
+            $includeSubcategories ? 1 : 0,
+            $limit ?? 'all',
+            $offset,
+            $publishedOnly ? 1 : 0
+        );
 
-        $this->cache->deleteMultiple($keys);
-
-        // Also clear model's internal caches if they exist
-        if (method_exists($this->model, 'clearCache')) {
-            $this->model->clearCache($this->model->cacheKey("lookup_{$productId}_public"));
-            $this->model->clearCache($this->model->cacheKey("lookup_{$productId}_admin"));
-        }
+        return $this->remember($cacheKey, function () use ($categoryId, $includeSubcategories, $limit, $offset, $publishedOnly) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+         $builder = $model->builder();
+         if ($publishedOnly) {
+            $model->scopePublished($builder);
+         }
+            
+            if ($includeSubcategories) {
+                // This would require a subquery or join with categories table
+                // For simplicity, we'll assume a flat structure for now
+                $builder->where('category_id', $categoryId);
+            } else {
+                $builder->where('category_id', $categoryId);
+            }
+            
+            $builder->orderBy('created_at', 'DESC');
+            
+            return $builder->findAll($limit, $offset);
+        }, $useCache ? $this->defaultCacheTtl : 0);
     }
 
     /**
-     * Clear aggregate caches (lists, statistics, etc.)
-     *
-     * @return void
+     * {@inheritDoc}
      */
-    private function clearAggregateCaches(): void
-    {
-        // Clear all cache keys with product_repo prefix
-        // Note: This is a simplified approach. In production, you'd use cache tags.
-        $this->cache->flushTag(['product_repo']);
+    public function findByMarketplace(
+        int $marketplaceId,
+        bool $activeLinksOnly = true,
+        ?int $limit = null,
+        int $offset = 0,
+        bool $publishedOnly = true
+    ): array {
+        $cacheKey = sprintf(
+            'byMarketplace:%d:activeLinks:%d:limit:%s:offset:%d:published:%d',
+            $marketplaceId,
+            $activeLinksOnly ? 1 : 0,
+            $limit ?? 'all',
+            $offset,
+            $publishedOnly ? 1 : 0
+        );
+
+        return $this->remember($cacheKey, function () use ($marketplaceId, $activeLinksOnly, $limit, $offset, $publishedOnly) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+        $builder = $model->builder();
+            if ($publishedOnly) {
+                $model->scopePublished($builder);
+            }            
+            // Join with links table
+            $builder->distinct()
+                    ->select('products.*')
+                    ->join('links', 'links.product_id = products.id')
+                    ->where('links.marketplace_id', $marketplaceId);
+            
+            if ($activeLinksOnly) {
+                $builder->where('links.active', 1);
+            }
+            
+            $builder->orderBy('products.created_at', 'DESC');
+            
+            return $builder->findAll($limit, $offset);
+        });
     }
 
     /**
-     * Set cache TTL
-     *
-     * @param int $ttl
-     * @return self
+     * {@inheritDoc}
      */
-    public function setCacheTtl(int $ttl): self
-    {
-        $this->cacheTtl = $ttl;
-        return $this;
+    public function getRecommendations(
+        int $currentProductId,
+        int $limit = 4,
+        array $criteria = ['category', 'popular']
+    ): array {
+        $cacheKey = sprintf(
+            'recommendations:%d:limit:%d:criteria:%s',
+            $currentProductId,
+            $limit,
+            md5(serialize($criteria))
+        );
+
+        return $this->remember($cacheKey, function () use ($currentProductId, $limit, $criteria) {
+            /** @var ProductModel $model */
+            $model = $this->model;
+            
+            $currentProduct = $this->find($currentProductId, true);
+            if ($currentProduct === null) {
+                return [];
+            }
+            
+            $builder = $model->builder();
+$model->scopePublished($builder)
+      ->where('products.id !=', $currentProductId);
+
+            $conditions = [];
+            
+            if (in_array('category', $criteria) && $currentProduct->getCategoryId() !== null) {
+                $conditions[] = ['category_id' => $currentProduct->getCategoryId()];
+            }
+            
+            if (in_array('popular', $criteria)) {
+                $builder->orderBy('view_count', 'DESC');
+            }
+            
+            if (in_array('recent', $criteria)) {
+                $builder->orderBy('published_at', 'DESC');
+            }
+            
+            // If we have category condition, apply it
+            if (!empty($conditions)) {
+                $builder->groupStart();
+                foreach ($conditions as $condition) {
+                    $builder->orWhere($condition);
+                }
+                $builder->groupEnd();
+            }
+            
+            return $builder->findAll($limit);
+        }, 1800); // 30 minutes cache for recommendations
     }
 
     /**
-     * Get cache TTL
-     *
-     * @return int
+     * Helper method to get the model with proper type hint
+     * 
+     * @return ProductModel
      */
-    public function getCacheTtl(): int
+    protected function getProductModel(): ProductModel
     {
-        return $this->cacheTtl;
-    }
-
-    /**
-     * Factory method to create instance
-     *
-     * @return static
-     */
-    public static function create(): self
-    {
-        $model = model(ProductModel::class);
-        $cache = service('cache'); // Assuming we have a cache service
-        $db = \Config\Database::connect();
-
-        return new self($model, $cache, $db);
+        /** @var ProductModel $model */
+        $model = $this->model;
+        return $model;
     }
 }

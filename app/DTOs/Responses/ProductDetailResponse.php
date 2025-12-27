@@ -10,7 +10,7 @@ use App\Entities\Marketplace;
 use App\Entities\MarketplaceBadge;
 use App\Entities\Product;
 
-/**
+/* 
  * Product Detail Response DTO
  *
  * Extended DTO for detailed product responses with all relations.

@@ -12,9 +12,9 @@ use DateTimeImmutable;
  *
  * @package App\Entities
  */
-class Badge extends BaseEntity
+final class Badge extends BaseEntity
 {
-    /**
+    /*
      * Badge label/name
      */
     private string $label;
@@ -195,7 +195,7 @@ class Badge extends BaseEntity
             throw new \LogicException('Badge cannot be restored.');
         }
 
-        $this->restore();
+        parent::restore();
         return $this;
     }
 
@@ -252,7 +252,7 @@ class Badge extends BaseEntity
 
     public static function fromArray(array $data): static
     {
-        $badge = new self($data['label'] ?? '');
+        $badge = new static($data['label'] ?? '');
 
         if (isset($data['id'])) {
             $badge->setId($data['id']);

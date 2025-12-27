@@ -2,274 +2,283 @@
 
 namespace App\Repositories\Interfaces;
 
+use App\Repositories\BaseRepositoryInterface;
 use App\Entities\Product;
 use App\Enums\ProductStatus;
 
 /**
- * Product Repository Interface
- *
- * Contract for product data access operations.
- * Abstracts the data layer from business logic layer.
- *
- * @package App\Repositories\Interfaces
+ * ProductRepositoryInterface - Kontrak untuk repository Product
+ * 
+ * @extends App\Repositories\BaseRepositoryInterface<Product>
  */
-interface ProductRepositoryInterface
+interface ProductRepositoryInterface extends BaseRepositoryInterface
 {
-    // ==================== CRUD OPERATIONS ====================
-
     /**
-     * Find product by ID
-     *
-     * @param int $id Product ID
-     * @param bool $withTrashed Include soft-deleted products
+     * Temukan produk berdasarkan slug
+     * 
+     * @param string $slug
+     * @param bool $activeOnly Hanya produk aktif (tidak di-archive)
+     * @param bool $useCache
      * @return Product|null
      */
-    public function find(int $id, bool $withTrashed = false): ?Product;
+    public function findBySlug(string $slug, bool $activeOnly = true, bool $useCache = true): ?Product;
 
     /**
-     * Find product by slug
-     *
-     * @param string $slug Product slug
-     * @param bool $withTrashed Include soft-deleted products
-     * @return Product|null
+     * Temukan semua produk yang dipublikasi
+     * 
+     * @param int|null $limit
+     * @param int $offset
+     * @param array $orderBy [field => direction]
+     * @param bool $useCache
+     * @return array<Product>
      */
-    public function findBySlug(string $slug, bool $withTrashed = false): ?Product;
-
-    /**
-     * Find product by ID or slug (flexible lookup)
-     *
-     * @param int|string $identifier ID or slug
-     * @param bool $adminMode If true, returns any status (for admin)
-     * @param bool $withTrashed Include soft-deleted products
-     * @return Product|null
-     */
-    public function findByIdOrSlug($identifier, bool $adminMode = false, bool $withTrashed = false): ?Product;
-
-    /**
-     * Get all products
-     *
-     * @param array $filters Filter criteria
-     * @param array $sort Sorting criteria
-     * @param int $limit Maximum results
-     * @param int $offset Results offset
-     * @param bool $withTrashed Include soft-deleted products
-     * @return Product[]
-     */
-    public function findAll(
-        array $filters = [],
-        array $sort = [],
-        int $limit = 0,
+    public function findPublished(
+        ?int $limit = null,
         int $offset = 0,
-        bool $withTrashed = false
+        array $orderBy = ['published_at' => 'DESC'],
+        bool $useCache = true
     ): array;
 
     /**
-     * Save product (create or update)
-     *
-     * @param Product $product Product entity
-     * @return Product Saved product
+     * Temukan produk populer berdasarkan view count
+     * 
+     * @param int $limit
+     * @param int $offset
+     * @param bool $publishedOnly Hanya produk yang dipublikasi
+     * @param bool $useCache
+     * @return array<Product>
      */
-    public function save(Product $product): Product;
+    public function findPopular(
+        int $limit = 10,
+        int $offset = 0,
+        bool $publishedOnly = true,
+        bool $useCache = true
+    ): array;
 
     /**
-     * Delete product (soft delete if supported)
-     *
-     * @param int $id Product ID
-     * @param bool $force Force permanent deletion
-     * @return bool Success status
+     * Cari produk dengan keyword
+     * 
+     * @param string $keyword
+     * @param array $filters Filter tambahan [status, category_id, dll]
+     * @param int|null $limit
+     * @param int $offset
+     * @param array $orderBy
+     * @param bool $useCache
+     * @return array<Product>
      */
-    public function delete(int $id, bool $force = false): bool;
+    public function search(
+        string $keyword,
+        array $filters = [],
+        ?int $limit = null,
+        int $offset = 0,
+        array $orderBy = ['name' => 'ASC'],
+        bool $useCache = true
+    ): array;
 
     /**
-     * Restore soft-deleted product
-     *
-     * @param int $id Product ID
-     * @return bool Success status
-     */
-    public function restore(int $id): bool;
-
-    /**
-     * Check if product exists
-     *
-     * @param int $id Product ID
-     * @param bool $withTrashed Include soft-deleted products
+     * Publikasikan produk
+     * 
+     * @param int $productId
+     * @param int|null $publishedBy Admin ID yang mempublikasi
      * @return bool
      */
-    public function exists(int $id, bool $withTrashed = false): bool;
-
-    // ==================== BUSINESS OPERATIONS ====================
+    public function publish(int $productId, ?int $publishedBy = null): bool;
 
     /**
-     * Find published products for public display
-     *
-     * @param int $limit Maximum results
-     * @param int $offset Results offset
-     * @return Product[]
+     * Verifikasi produk
+     * 
+     * @param int $productId
+     * @param int $verifiedBy Admin ID yang memverifikasi
+     * @return bool
      */
-    public function findPublished(int $limit = 20, int $offset = 0): array;
+    public function verify(int $productId, int $verifiedBy): bool;
 
     /**
-     * Find product with its marketplace links (eager loading)
-     *
-     * @param int $productId Product ID
-     * @param bool $activeOnly Only active links
-     * @return Product|null
+     * Archive produk (soft delete)
+     * 
+     * @param int $productId
+     * @param int|null $archivedBy Admin ID yang meng-archive
+     * @return bool
      */
-    public function findWithLinks(int $productId, bool $activeOnly = true): ?Product;
+    public function archive(int $productId, ?int $archivedBy = null): bool;
 
     /**
-     * Increment product view count
-     *
-     * @param int $productId Product ID
-     * @return bool Success status
+     * Restore produk dari archive
+     * 
+     * @param int $productId
+     * @param int|null $restoredBy Admin ID yang merestore
+     * @return bool
+     */
+    public function restore(int $productId, ?int $restoredBy = null): bool;
+
+    /**
+     * Update status produk
+     * 
+     * @param int $productId
+     * @param ProductStatus $status
+     * @param int|null $changedBy Admin ID yang mengubah status
+     * @return bool
+     */
+    public function updateStatus(int $productId, ProductStatus $status, ?int $changedBy = null): bool;
+
+    /**
+     * Increment view count produk
+     * 
+     * @param int $productId
+     * @return bool
      */
     public function incrementViewCount(int $productId): bool;
 
     /**
-     * Update product status with validation
-     *
-     * @param int $productId Product ID
-     * @param ProductStatus $newStatus New status
-     * @param int|null $verifiedBy Admin ID for verification
-     * @return bool Success status
-     */
-    public function updateStatus(int $productId, ProductStatus $newStatus, ?int $verifiedBy = null): bool;
-
-    /**
-     * Find products that need maintenance updates
-     *
-     * @param string $type 'price' or 'link' or 'both'
-     * @param int $limit Maximum results
-     * @return Product[]
-     */
-    public function findNeedsUpdate(string $type = 'both', int $limit = 50): array;
-
-    /**
-     * Search products by keyword (public search)
-     *
-     * @param string $keyword Search keyword
-     * @param int $limit Maximum results
-     * @return Product[]
-     */
-    public function searchByKeyword(string $keyword, int $limit = 20): array;
-
-    /**
-     * Get popular products based on view count
-     *
-     * @param int $limit Maximum results
-     * @param string $period 'all', 'week', 'month'
-     * @return Product[]
-     */
-    public function getPopular(int $limit = 10, string $period = 'all'): array;
-
-    /**
-     * Find products by category
-     *
-     * @param int $categoryId Category ID
-     * @param int $limit Maximum results
-     * @param int $offset Results offset
-     * @return Product[]
-     */
-    public function findByCategory(int $categoryId, int $limit = 20, int $offset = 0): array;
-
-    /**
-     * Mark product price as checked
-     *
-     * @param int $productId Product ID
-     * @return bool Success status
+     * Mark price sebagai sudah di-check
+     * 
+     * @param int $productId
+     * @return bool
      */
     public function markPriceChecked(int $productId): bool;
 
     /**
-     * Mark product links as checked
-     *
-     * @param int $productId Product ID
-     * @return bool Success status
+     * Mark links sebagai sudah di-check
+     * 
+     * @param int $productId
+     * @return bool
      */
     public function markLinksChecked(int $productId): bool;
 
-    // ==================== STATISTICS & AGGREGATION ====================
-
     /**
-     * Count products by status
-     *
-     * @param bool $withTrashed Include soft-deleted products
-     * @return array [status => count]
+     * Temukan produk yang membutuhkan update harga
+     * (last_price_check lebih dari X hari)
+     * 
+     * @param int $daysThreshold
+     * @param int $limit
+     * @param bool $publishedOnly
+     * @return array<Product>
      */
-    public function countByStatus(bool $withTrashed = false): array;
+    public function findNeedsPriceUpdate(
+        int $daysThreshold = 7,
+        int $limit = 50,
+        bool $publishedOnly = true
+    ): array;
 
     /**
-     * Count published products
-     *
+     * Temukan produk yang membutuhkan validasi link
+     * (last_link_check lebih dari X hari)
+     * 
+     * @param int $daysThreshold
+     * @param int $limit
+     * @param bool $publishedOnly
+     * @return array<Product>
+     */
+    public function findNeedsLinkValidation(
+        int $daysThreshold = 14,
+        int $limit = 50,
+        bool $publishedOnly = true
+    ): array;
+
+    /**
+     * Hitung produk berdasarkan status
+     * 
+     * @param ProductStatus|null $status Jika null, hitung semua
+     * @param bool $includeArchived Termasuk yang di-archive?
      * @return int
      */
-    public function countPublished(): int;
+    public function countByStatus(?ProductStatus $status = null, bool $includeArchived = false): int;
 
     /**
-     * Count total products
-     *
-     * @param bool $withTrashed Include soft-deleted products
-     * @return int
+     * Hitung produk berdasarkan kategori
+     * 
+     * @param int|null $categoryId Jika null, hitung semua kategori
+     * @param bool $publishedOnly Hanya yang dipublikasi
+     * @return int|array Jika categoryId null, return array [category_id => count]
      */
-    public function countAll(bool $withTrashed = false): int;
+    public function countByCategory(?int $categoryId = null, bool $publishedOnly = false);
 
     /**
-     * Get product statistics for dashboard
-     *
+     * Dapatkan statistik produk
+     * 
+     * @param string $period Periode: 'day', 'week', 'month', 'year'
      * @return array
      */
-    public function getStats(): array;
-
-    // ==================== BATCH OPERATIONS ====================
+    public function getStatistics(string $period = 'month'): array;
 
     /**
-     * Update multiple products in batch
-     *
-     * @param array $ids Product IDs
-     * @param array $data Update data
-     * @return int Number of affected rows
+     * Update produk dengan data
+     * 
+     * @param int $productId
+     * @param array $data
+     * @return bool
      */
-    public function bulkUpdate(array $ids, array $data): int;
+    public function updateProduct(int $productId, array $data): bool;
 
     /**
-     * Archive multiple products in batch
-     *
-     * @param array $ids Product IDs
-     * @return int Number of archived products
+     * Bulk update status produk
+     * 
+     * @param array<int> $productIds
+     * @param ProductStatus $status
+     * @param int|null $changedBy
+     * @return int Jumlah produk yang berhasil diupdate
      */
-    public function bulkArchive(array $ids): int;
+    public function bulkUpdateStatus(array $productIds, ProductStatus $status, ?int $changedBy = null): int;
 
     /**
-     * Publish multiple products in batch
-     *
-     * @param array $ids Product IDs
-     * @return int Number of published products
+     * Bulk archive produk
+     * 
+     * @param array<int> $productIds
+     * @param int|null $archivedBy
+     * @return int Jumlah produk yang berhasil di-archive
      */
-    public function bulkPublish(array $ids): int;
-
-    // ==================== VALIDATION OPERATIONS ====================
-
-    /**
-     * Check if slug is unique
-     *
-     * @param string $slug Slug to check
-     * @param int|null $excludeId Product ID to exclude from check
-     * @return bool True if unique
-     */
-    public function isSlugUnique(string $slug, ?int $excludeId = null): bool;
+    public function bulkArchive(array $productIds, ?int $archivedBy = null): int;
 
     /**
-     * Validate product before save
-     *
-     * @param Product $product Product entity
-     * @return array Validation result [valid: bool, errors: string[]]
+     * Temukan produk dengan kategori
+     * 
+     * @param int $categoryId
+     * @param bool $includeSubcategories Termasuk sub-kategori?
+     * @param int|null $limit
+     * @param int $offset
+     * @param bool $publishedOnly
+     * @param bool $useCache
+     * @return array<Product>
      */
-    public function validate(Product $product): array;
+    public function findByCategory(
+        int $categoryId,
+        bool $includeSubcategories = false,
+        ?int $limit = null,
+        int $offset = 0,
+        bool $publishedOnly = true,
+        bool $useCache = true
+    ): array;
 
     /**
-     * Check business rule: maximum 300 products
-     *
-     * @return array [can_create: bool, current_count: int, max_allowed: int]
+     * Temukan produk dengan marketplace tertentu
+     * (melalui relasi links)
+     * 
+     * @param int $marketplaceId
+     * @param bool $activeLinksOnly Hanya link yang aktif
+     * @param int|null $limit
+     * @param int $offset
+     * @param bool $publishedOnly
+     * @return array<Product>
      */
-    public function checkProductLimit(): array;
+    public function findByMarketplace(
+        int $marketplaceId,
+        bool $activeLinksOnly = true,
+        ?int $limit = null,
+        int $offset = 0,
+        bool $publishedOnly = true
+    ): array;
+
+    /**
+     * Dapatkan produk rekomendasi
+     * 
+     * @param int $currentProductId ID produk saat ini (untuk di-exclude)
+     * @param int $limit
+     * @param array $criteria Kriteria rekomendasi: 'category', 'popular', 'recent'
+     * @return array<Product>
+     */
+    public function getRecommendations(
+        int $currentProductId,
+        int $limit = 4,
+        array $criteria = ['category', 'popular']
+    ): array;
 }

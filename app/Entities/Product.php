@@ -5,6 +5,7 @@ namespace App\Entities;
 use App\Enums\ImageSourceType;
 use App\Enums\ProductStatus;
 use DateTimeImmutable;
+use \App\Entities\Traits\StateMachineTrait;
 
 /**
  * Product Entity
@@ -14,8 +15,13 @@ use DateTimeImmutable;
  *
  * @package App\Entities
  */
-class Product extends BaseEntity
+final class Product extends BaseEntity
 {
+    /**
+     * @var array|null Menampung data link secara runtime
+     */
+    private array $links = []; 
+     
     /**
      * Category ID (foreign key)
      */
@@ -44,7 +50,7 @@ class Product extends BaseEntity
     /**
      * Market reference price (decimal)
      */
-    private float $market_price = '0.00';
+    private string $market_price = '0.00';
 
     /**
      * View count for popularity tracking
@@ -97,15 +103,47 @@ class Product extends BaseEntity
      * @param string $name Product name
      * @param string $slug URL slug
      */
+    
+     public function publish(): self
+     {
+         return $this->setStatus(ProductStatus::PUBLISHED);
+     } 
+     
     public function __construct(string $name, string $slug)
     {
         $this->name = $name;
         $this->slug = $slug;
         $this->initialize();
     }
+    
+    protected static array $stateConfig = [
+        'states' => ['draft', 'pending_verification', 'verified', 'published', 'archived'],
+        'initial' => 'draft',
+        'transitions' => [
+            ['from' => 'draft', 'to' => 'pending_verification'],
+            ['from' => 'draft', 'to' => 'published', 'guard' => 'canPublishDirectly'],
+            ['from' => 'pending_verification', 'to' => 'verified'],
+            ['from' => 'pending_verification', 'to' => 'draft'],
+            ['from' => 'verified', 'to' => 'published'],
+            ['from' => 'published', 'to' => 'archived'],
+            ['from' => 'archived', 'to' => 'published', 'guard' => 'isAdmin'],
+        ],
+    ];
+
 
     // ==================== GETTER METHODS ====================
+    
+    
+public function setLinks(array $links): self {
+    $this->links = $links;
+    return $this;
+}
 
+public function getLinks(): array {
+    return $this->links;
+}
+
+    
     public function getCategoryId(): ?int
     {
         return $this->category_id;
@@ -233,16 +271,16 @@ class Product extends BaseEntity
         return $this;
     }
 
-    public function setMarketPrice(float $market_price): self
+    public function setMarketPrice(string|float|int $market_price): self
     {
-        if (!preg_match('/^\d+\.\d{2}$/', $market_price)) {
-            throw new \InvalidArgumentException('Market price must be in decimal format with 2 decimal places (e.g., 1234.56)');
-        }
-
-        if ($this->market_price === $market_price) {
+        // Normalisasi input jadi string decimal
+        $normalized = number_format((float) $market_price, 2, '.', '');
+        
+        if ($this->market_price === $normalized) {
             return $this;
         }
-        $this->market_price = $market_price;
+        
+        $this->market_price = $normalized;
         $this->markAsUpdated();
         return $this;
     }
@@ -375,16 +413,6 @@ class Product extends BaseEntity
         return $this->setStatus(ProductStatus::VERIFIED);
     }
 
-    public function publish(): self
-    {
-        if ($this->status !== ProductStatus::VERIFIED) {
-            throw new \LogicException('Only verified products can be published');
-        }
-
-        $this->published_at = new DateTimeImmutable();
-        return $this->setStatus(ProductStatus::PUBLISHED);
-    }
-
     public function archive(): self
     {
         return $this->setStatus(ProductStatus::ARCHIVED);
@@ -470,7 +498,7 @@ class Product extends BaseEntity
 
     public function getFormattedMarketPrice(): string
     {
-        return 'Rp ' . number_format($this->market_price, 0, ',', '.');
+        return 'Rp ' . number_format((float) $this->market_price, 0, ',', '.');
     }
 
     public function getStatusLabel(): string
@@ -529,7 +557,7 @@ class Product extends BaseEntity
 
     public static function fromArray(array $data): static
     {
-        $product = new self(
+        $product = new static(
             $data['name'] ?? '',
             $data['slug'] ?? ''
         );

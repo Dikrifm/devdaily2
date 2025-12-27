@@ -121,7 +121,7 @@ class ProductResponse
     /**
      * Apply configuration options
      */
-    private function applyConfiguration(array $config): void
+    protected function applyConfiguration(array $config): void
     {
         $this->adminMode = $config['admin_mode'] ?? false;
         $this->includeTrashed = $config['include_trashed'] ?? false;
@@ -141,7 +141,7 @@ class ProductResponse
     /**
      * Populate data from Product entity
      */
-    private function populateFromEntity(Product $product): void
+    protected function populateFromEntity(Product $product): void
     {
         $this->id = $product->getId();
         $this->name = $product->getName();

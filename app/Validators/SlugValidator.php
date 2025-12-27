@@ -112,11 +112,21 @@ class SlugValidator
     private const CACHE_TTL_SUGGESTIONS = 600; // 10 minutes
 
     public function __construct(
-        Validation $validation,
-        CacheService $cacheService
+       //Validation $validation,
+       //CacheService $cacheService
     ) {
-        $this->validation = $validation;
-        $this->cacheService = $cacheService;
+        // 1. Ambil Validation service bawaan CI4
+        $this->validation = \Config\Services::validation();
+
+        // 2. Ambil CacheService custom Anda (menggunakan static create)
+        $this->cacheService = \App\Services\CacheService::create();
+
+        // 3. Load Model (agar properti model tidak error saat dipakai nanti)
+        $this->productModel     = model('App\Models\ProductModel');
+        $this->categoryModel    = model('App\Models\CategoryModel');
+        $this->marketplaceModel = model('App\Models\MarketplaceModel');
+        //$this->validation = $validation;
+        //$this->cacheService = $cacheService;
     }
 
     /**

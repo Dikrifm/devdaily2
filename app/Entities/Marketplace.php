@@ -4,13 +4,13 @@ namespace App\Entities;
 
 use DateTimeImmutable;
 
-/**
+/*b
  * Marketplace Entity
  * * Represents an e-commerce marketplace where products are sold.
  * Examples: Tokopedia, Shopee, Lazada, etc.
  * * @package App\Entities
  */
-class Marketplace extends BaseEntity
+final class Marketplace extends BaseEntity
 {
     /**
      * Marketplace name
@@ -262,7 +262,7 @@ class Marketplace extends BaseEntity
             throw new \LogicException('Marketplace cannot be restored.');
         }
 
-        $this->restore();
+        parent::restore();
         $this->activate();
         return $this;
     }
@@ -326,7 +326,7 @@ class Marketplace extends BaseEntity
 
     public static function fromArray(array $data): static
     {
-        $marketplace = new self(
+        $marketplace = new static(
             $data['name'] ?? '',
             $data['slug'] ?? ''
         );

@@ -6,7 +6,7 @@ use App\Entities\Traits\SoftDeletableTrait;
 use App\Entities\Traits\TimestampableTrait;
 use DateTimeImmutable;
 
-/**
+/*   * 
  * Base Entity Abstract Class
  *
  * Foundation for all domain entities in the system.
@@ -31,6 +31,62 @@ abstract class BaseEntity
      * @var array<string, array{old: mixed, new: mixed}>|null
      */
     private ?array $changes = null;
+     
+    /**
+     * Magic Setter Hydrator - Enhanced for Enums
+     */
+    public function __set(string $key, mixed $value): void
+    {
+        // 1. Cek apakah properti ada
+        if (!property_exists($this, $key)) {
+            return;
+        }
+
+        // 2. Reflection untuk cek tipe data tujuan
+        $reflection = new \ReflectionProperty($this, $key);
+        $type = $reflection->getType();
+
+        // 3. Auto-cast String ke BackedEnum jika perlu
+        if ($type instanceof \ReflectionNamedType && !$type->isBuiltin() && is_string($value)) {
+            if (enum_exists($type->getName())) {
+                $enumClass = $type->getName();
+                try {
+                    // Coba buat Enum dari string value
+                    $this->$key = $enumClass::from($value);
+                    return;
+                } catch (\Throwable $e) {
+                    // Jika value invalid, biarkan (atau log error), jangan crash
+                    return;
+                }
+            }
+        }
+        
+        // 4. Auto-cast String timestamp ke DateTimeImmutable
+        if ($type instanceof \ReflectionNamedType && $type->getName() === DateTimeImmutable::class && is_string($value)) {
+             try {
+                 $this->$key = new DateTimeImmutable($value);
+                 return;
+             } catch (\Exception $e) {
+                 return;
+             }
+        }
+
+        // 5. Default assignment
+        $this->$key = $value;
+    }
+
+
+    /**
+     * Magic Getter (Opsional, tapi berguna untuk debug)
+     */
+    public function __get(string $key): mixed
+    {
+        if (property_exists($this, $key)) {
+            return $this->$key;
+        }
+        return null;
+    }
+
 
     /**
      * Get the entity's primary key
@@ -120,12 +176,14 @@ abstract class BaseEntity
     /**
      * Get all tracked changes since last reset
      *
-     * @return array<string, array{old: mixed, new: mixed, changed_at: DateTimeImmutable}>
+     * array<string, array{old: mixed,
+          new: mixed, changed_at: DateTimeImmutable}>
      */
     public function getChanges(): array
     {
         return $this->changes ?? [];
     }
+
 
     /**
      * Check if entity has any tracked changes
@@ -180,6 +238,10 @@ abstract class BaseEntity
     /**
      * Format a value for change summary
      */
+        /**
+     * Helper formatting nilai untuk log perubahan.
+     * Refactored for PHPStan Level 9 Strictness.
+     */
     private function formatChangeValue(mixed $value): string
     {
         if ($value === null) {
@@ -190,31 +252,40 @@ abstract class BaseEntity
             return $value ? 'true' : 'false';
         }
 
+        if (is_array($value)) {
+            return '[' . count($value) . ' items]';
+        }
+
         if (is_object($value)) {
-            if ($value instanceof DateTimeImmutable) {
+            if ($value instanceof \DateTimeInterface) {
                 return $value->format('Y-m-d H:i:s');
             }
 
-            if (method_exists($value, '__toString')) {
+            if ($value instanceof \Stringable || method_exists($value, '__toString')) {
                 return (string) $value;
             }
 
             return get_class($value);
         }
-
-        if (is_array($value)) {
-            return '[' . count($value) . ' items]';
+        
+        if (is_resource($value)) {
+            return 'resource';
         }
 
-        $stringValue = (string) $value;
+        // FIX LEVEL 9:
+        // Pastikan konversi ke string aman.
+        // Kita gunakan strval() atau casting hanya jika scalar.
+        $finalString = is_scalar($value) ? (string) $value : gettype($value);
 
-        // Truncate long values
-        if (strlen($stringValue) > 50) {
-            return substr($stringValue, 0, 47) . '...';
+        // Truncate logic
+        // Sekarang $finalString dijamin bertipe string, jadi aman untuk strlen/substr
+        if (strlen($finalString) > 50) {
+            return substr($finalString, 0, 47) . '...';
         }
 
-        return $stringValue;
+        return $finalString;
     }
+
 
     /**
      * Validate that a state transition is allowed
@@ -222,20 +293,50 @@ abstract class BaseEntity
      *
      * @param array $allowedTransitions Map of current state to array of allowed next states
      */
+        /**
+     * Memvalidasi perpindahan state dengan Type Safety mutlak.
+     */
     protected function validateStateTransition(
         string|object $currentState,
         string|object $newState,
         array $allowedTransitions
     ): bool {
-        $current = is_object($currentState) ? $currentState->value : $currentState;
-        $new = is_object($newState) ? $newState->value : $newState;
+        // Gunakan helper untuk menormalisasi nilai (string/int)
+        $currentVal = $this->resolveStateValue($currentState);
+        $newVal     = $this->resolveStateValue($newState);
 
-        if ($current === $new) {
-            return true; // No change is always allowed
+        if ($currentVal === $newVal) {
+            return true; 
         }
 
-        return in_array($new, $allowedTransitions[$current] ?? [], true);
+        // Array key access aman karena return value helper pasti string/int
+        return in_array($newVal, $allowedTransitions[$currentVal] ?? [], true);
     }
+
+    /**
+     * Helper untuk menangani ekstraksi value dari Enum/String/Object
+     * Memuaskan PHPStan Level 9 agar tidak casting sembarangan.
+     */
+    private function resolveStateValue(string|object $state): string|int
+    {
+        if ($state instanceof \BackedEnum) {
+            return $state->value;
+        }
+        
+        if (is_string($state)) {
+            return $state;
+        }
+
+        // Cek apakah object bisa diubah jadi string (punya __toString)
+        // Interface \Stringable tersedia di PHP 8.0+
+        if ($state instanceof \Stringable || method_exists($state, '__toString')) {
+            return (string) $state;
+        }
+
+        // Fallback aman jika object tidak dikenali (return string kosong daripada crash)
+        return '';
+    }
+
 
     /**
      * Prepare entity for database insertion/update

@@ -13,10 +13,8 @@ use DateTimeImmutable;
  *
  * @package App\Entities
  */
-class AuditLog
-{
-    public $admin_name;
-    public $admin_username;
+final class AuditLog
+{   
     /**
      * Log entry ID
      */
@@ -140,16 +138,6 @@ class AuditLog
         return $this->performed_at;
     }
 
-    public function getAdminName(): ?string
-    {
-        return $this->admin_name;
-    }
-
-    public function getAdminUsername(): ?string
-    {
-        return $this->admin_username;
-    }
-
     // ==================== SETTER METHODS ====================
 
     public function setId(?int $id): self
@@ -212,7 +200,7 @@ class AuditLog
         return $this;
     }
 
-    public function setPerformedAt($performed_at): self
+    public function setPerformedAt(\DateTimeInterface|String|null $performed_at): self
     {
         if (is_string($performed_at)) {
             $this->performed_at = new DateTimeImmutable($performed_at);
@@ -221,18 +209,6 @@ class AuditLog
         } else {
             $this->performed_at = null;
         }
-        return $this;
-    }
-
-    public function setAdminName(?string $admin_name): self
-    {
-        $this->admin_name = $admin_name;
-        return $this;
-    }
-
-    public function setAdminUsername(?string $admin_username): self
-    {
-        $this->admin_username = $admin_username;
         return $this;
     }
 
@@ -259,14 +235,15 @@ class AuditLog
     public function getOldValuesArray(): ?array
     {
         if (!$this->hasOldValues()) {
+            
             return null;
         }
 
-        return json_decode((string) $this->old_values, true);
+        return json_decode((string) $this->old_values, true) ?? [];
     }
 
-    /**
-     * Get new values as array
+    /* 
+     * Get new values as array 
      */
     public function getNewValuesArray(): ?array
     {
@@ -274,7 +251,7 @@ class AuditLog
             return null;
         }
 
-        return json_decode((string) $this->new_values, true);
+        return json_decode((string) $this->new_values, true) ?? [];
     }
 
     /**
@@ -380,22 +357,6 @@ class AuditLog
         ];
 
         return $colors[$this->action_type] ?? 'bg-gray-100 text-gray-800';
-    }
-
-    /**
-     * Get admin display name (falls back to username or "System")
-     */
-    public function getAdminDisplayName(): string
-    {
-        if ($this->admin_name) {
-            return $this->admin_name;
-        }
-
-        if ($this->admin_username) {
-            return $this->admin_username;
-        }
-
-        return $this->wasSystemAction() ? 'System' : 'Unknown Admin';
     }
 
     /**
@@ -559,9 +520,6 @@ class AuditLog
             'performed_at' => $this->getPerformedAt(),
             'formatted_performed_at' => $this->getFormattedPerformedAt(),
             'time_ago' => $this->getTimeAgo(),
-            'admin_name' => $this->getAdminName(),
-            'admin_username' => $this->getAdminUsername(),
-            'admin_display_name' => $this->getAdminDisplayName(),
             'was_system_action' => $this->wasSystemAction(),
             'is_recent' => $this->isRecent(),
             'has_old_values' => $this->hasOldValues(),
@@ -569,15 +527,15 @@ class AuditLog
         ];
     }
 
-    /**
+    /*  
      * Create entity from array data
      */
     public static function fromArray(array $data): static
     {
         $auditLog = new self(
-            $data['action_type'] ?? '',
-            $data['entity_type'] ?? '',
-            $data['entity_id'] ?? 0
+            $data['action_type'],
+            $data['entity_type'],
+            $data['entity_id']
         );
 
         if (isset($data['id'])) {
@@ -612,15 +570,7 @@ class AuditLog
             $auditLog->setPerformedAt($data['performed_at']);
         }
 
-        if (isset($data['admin_name'])) {
-            $auditLog->setAdminName($data['admin_name']);
-        }
-
-        if (isset($data['admin_username'])) {
-            $auditLog->setAdminUsername($data['admin_username']);
-        }
-
-        return $auditLog;
+        return $auditLog; 
     }
 
     /**
@@ -629,9 +579,7 @@ class AuditLog
     public static function createSample(): static
     {
         $auditLog = new self('update', 'Product', 123);
-        $auditLog->setAdminId(1);
-        $auditLog->setAdminName('John Doe');
-        $auditLog->setAdminUsername('johndoe');
+        $auditLog->setAdminId(1);        
         $auditLog->setChangesSummary('Updated product name from "Old Product" to "New Product"');
         $auditLog->setIpAddress('192.168.1.100');
         $auditLog->setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');

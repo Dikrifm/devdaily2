@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Models;
 
 use App\Entities\BaseEntity;
 use CodeIgniter\Model;
+use CodeIgniter\Database\BaseResult;
 
 /**
  * Base Model Abstract Class
@@ -80,99 +80,46 @@ abstract class BaseModel extends Model
     protected $skipValidation = false;
 
     /**
-     * Get cache service instance
-     *
-     * @return \CodeIgniter\Cache\CacheInterface
-     */
-    protected function getCache()
-    {
-        return \Config\Services::cache();
-    }
-
-    /**
-     * Execute callback with cache support
-     * Simple MVP caching - no tagging, no complex invalidation
-     *
-     * @param string $cacheKey Unique cache key
-     * @param callable $callback Function that returns data
-     * @param int|null $ttl Cache TTL in seconds (null = use default)
-     * @return mixed
-     */
-    protected function cached(string $cacheKey, callable $callback, ?int $ttl = null)
-    {
-        $cache = $this->getCache();
-        $ttl = $ttl ?? static::DEFAULT_CACHE_TTL;
-
-        // Try to get from cache first
-        $data = $cache->get($cacheKey);
-
-        if ($data !== null) {
-            return $data;
-        }
-
-        // Execute callback if not in cache
-        $data = $callback();
-
-        // Save to cache
-        $cache->save($cacheKey, $data, $ttl);
-
-        return $data;
-    }
-
-    /**
-     * Clear cache by key
-     */
-    protected function clearCache(string $cacheKey): bool
-    {
-        return $this->getCache()->delete($cacheKey);
-    }
-
-    /**
-     * Generate cache key with prefix
-     */
-    protected function cacheKey(string $suffix): string
-    {
-        return $this->table . '_' . $suffix;
-    }
-
-    /**
-     * Kita override method hantu ini agar fleksibel.
-     * Menerima input apapun (int limit, bool stats, atau array columns)
-     * agar anak-anaknya tidak error.
-     */
-
-
-    /**
      * Find single active record by ID
      *
      * @param int|string|null $id
      * @return object|BaseEntity|null
-     */
-    public function findActiveById($id)
-    {
-        if ($id === null) {
-            return null;
-        }
-
-        return $this->where($this->table . '.' . $this->primaryKey, $id)
-                    ->where($this->deletedField)
-                    ->first();
+     */   
+public function findActiveById(int|string|null $id): ?BaseEntity
+{
+    if ($id === null) {
+        return null;
     }
+    
+    $result = $this->where($this->table . '.' . $this->primaryKey, $id)
+                ->where($this->deletedField, null)
+                ->first();
+
+    return $result instanceof BaseEntity ? $result : null;
+}
+
 
     /**
-     * Soft delete with validation
-     *
-     * @param int|string|null $id
-     * @return bool|BaseEntity
+     * Soft delete with Safety Latch.
+     * * @param int|string|array|null $id
+     * @param bool $purge
+     * @return bool
+     * @throws \RuntimeException If physical delete is attempted in MVP
      */
-    public function delete($id = null, bool $purge = false)
+    public function delete($id = null, bool $purge = false): bool
     {
-        // For MVP, we only allow soft deletes
         if ($purge) {
             throw new \RuntimeException('Physical deletes are disabled in MVP. Use archive() method.');
         }
 
-        return parent::delete($id);
+        $result = parent::delete($id, $purge);
+
+        // Normalisasi return type CI4 yang terkadang mengembalikan BaseResult
+        if ($result instanceof BaseResult) {
+            return true; 
+        }
+
+        return (bool) $result;
     }
 
     /**
@@ -180,7 +127,7 @@ abstract class BaseModel extends Model
      *
      * @param int|string $id
      */
-    public function archive($id): bool
+    public function archive(int|string $id): bool
     {
         $result = $this->delete($id, false);
         return $result !== false;
@@ -191,33 +138,10 @@ abstract class BaseModel extends Model
      *
      * @param int|string $id
      */
-    public function restore($id): bool
+    public function restore(int|string $id): bool
     {
         $data = [$this->deletedField => null];
         return $this->update($id, $data);
-    }
-
-    /**
-     * Get paginated results with simple pagination
-     */
-    public function paginateSimple(int $perPage = 20, ?int $page = null): array
-    {
-        $page = $page ?? 1;
-        $offset = ($page - 1) * $perPage;
-
-        $total = $this->countAllResults();
-        $results = $this->limit($perPage, $offset)->findAll();
-
-        return [
-            'data' => $results,
-            'pager' => [
-                'current_page' => $page,
-                'per_page' => $perPage,
-                'total' => $total,
-                'total_pages' => ceil($total / $perPage),
-                'has_more' => ($page * $perPage) < $total,
-            ]
-        ];
     }
 
     /**
@@ -226,7 +150,7 @@ abstract class BaseModel extends Model
      *
      * @param int|string|null $id
      */
-    public function updateIfChanged($id = null, array $data = []): bool
+    public function updateIfChanged(int|string|null $id = null, array $data = []): bool
     {
         if ($id === null) {
             return false;
@@ -241,7 +165,7 @@ abstract class BaseModel extends Model
         // Filter out unchanged values
         $changedData = [];
         foreach ($data as $key => $value) {
-            if (!property_exists($current, $key) || $current->$key != $value) {
+            if (!is_object($current) || !property_exists($current, $key) || $current->$key != $value) {
                 $changedData[$key] = $value;
             }
         }
@@ -255,27 +179,26 @@ abstract class BaseModel extends Model
     }
 
     /**
-     * Bulk update with simple validation
-     *
-     * @return int Number of affected rows
+     * Bulk update with manual timestamp injection.
+     * Note: This bypasses Model Events (Audit Logs won't trigger automatically).
+     * * @param array $ids List of Primary Keys
+     * @param array $data Key-Value pair of data to update
+     * @return int Number of affected rows (estimated)
      */
     public function bulkUpdate(array $ids, array $data): int
     {
-        if ($ids === [] || $data === []) {
+        if (empty($ids) || empty($data)) {
             return 0;
         }
 
         $builder = $this->builder();
         $builder->whereIn($this->primaryKey, $ids);
-
-        // Add updated_at timestamp
+        // Karena kita bypass Model, kita wajib isi updated_at manual
         if ($this->useTimestamps && !isset($data[$this->updatedField])) {
             $data[$this->updatedField] = date('Y-m-d H:i:s');
         }
-
         return $builder->update($data) ? count($ids) : 0;
     }
-
 
 
     /**
@@ -283,7 +206,8 @@ abstract class BaseModel extends Model
      */
     public function countActive(): int
     {
-        return $this->where($this->deletedField)->countAllResults();
+        $result = $this->where($this->deletedField, null)->countAllResults();
+        return (int) $result;
     }
 
     /**

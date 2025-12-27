@@ -2,417 +2,427 @@
 
 namespace App\Models;
 
-use App\Entities\Badge;
 use App\Entities\ProductBadge;
+use CodeIgniter\Database\BaseResult;
+use InvalidArgumentException;
 
 /**
  * ProductBadge Model
  *
- * Special handling for composite primary key table (product_id, badge_id)
- * Note: CodeIgniter 4 Models don't natively support composite primary keys
- *
+ * Data Gateway for product_badges junction table.
+ * Manages many-to-many relationship between Products and Badges.
+ * 
+ * Layer: 2 - SQL Encapsulator (0% Business Logic)
+ * Responsibility: Query translation, no business rules.
+ * 
  * @package App\Models
  */
 class ProductBadgeModel extends BaseModel
 {
     /**
      * Table name
-     *
+     * 
      * @var string
      */
     protected $table = 'product_badges';
 
     /**
-     * Primary key - using product_id as primary for CI4 Model compatibility
-     * Actual composite key: (product_id, badge_id)
-     *
-     * @var string
+     * Primary Key
+     * Note: This is a composite key (product_id + badge_id)
+     * CodeIgniter 4 doesn't natively support composite primary keys,
+     * so we set to false and handle composite operations manually.
+     * 
+     * @var string|bool
      */
-    protected $primaryKey = 'product_id';
+    protected $primaryKey = false;
 
     /**
-     * Return type
-     *
-     * @var string
+     * Return Type
+     * Must be set to corresponding Entity for strict type safety
+     * 
+     * @var class-string<ProductBadge>
      */
     protected $returnType = ProductBadge::class;
 
     /**
-     * Allowed fields
-     *
-     * @var array
-     */
-    protected $allowedFields = [
-        'product_id',
-        'badge_id',
-        'assigned_at',
-        'assigned_by'
-    ];
-
-    /**
-     * Use timestamps? NO - table uses assigned_at instead
-     *
+     * Whether to use timestamps
+     * Junction table doesn't use CI4's default timestamps
+     * but has custom assigned_at timestamp
+     * 
      * @var bool
      */
     protected $useTimestamps = false;
 
     /**
-     * Use soft deletes? NO - table doesn't have deleted_at
-     *
+     * Whether to use soft deletes
+     * Junction table doesn't need soft deletes
+     * 
      * @var bool
      */
     protected $useSoftDeletes = false;
 
     /**
+     * Allowed fields for insert/update
+     * 
+     * @var array<string>
+     */
+    protected $allowedFields = [
+        'product_id',
+        'badge_id',
+        'assigned_at',
+        'assigned_by',
+    ];
+
+    /**
      * Validation rules for insert
-     *
-     * @var array
+     * 
+     * @var array<string, string>
      */
     protected $validationRules = [
         'product_id' => 'required|integer|is_not_unique[products.id]',
-        'badge_id'   => 'required|integer|is_not_unique[badges.id]',
+        'badge_id' => 'required|integer|is_not_unique[badges.id]',
         'assigned_by' => 'permit_empty|integer|is_not_unique[admins.id]',
-        'assigned_at' => 'permit_empty|valid_date'
     ];
 
     /**
      * Validation messages
-     *
-     * @var array
+     * 
+     * @var array<string, string>
      */
     protected $validationMessages = [
         'product_id' => [
             'required' => 'Product ID is required',
-            'is_not_unique' => 'Product does not exist'
+            'integer' => 'Product ID must be an integer',
+            'is_not_unique' => 'Product does not exist',
         ],
         'badge_id' => [
             'required' => 'Badge ID is required',
-            'is_not_unique' => 'Badge does not exist'
+            'integer' => 'Badge ID must be an integer',
+            'is_not_unique' => 'Badge does not exist',
         ],
         'assigned_by' => [
-            'is_not_unique' => 'Admin does not exist'
-        ]
+            'integer' => 'Assigned by must be an integer',
+            'is_not_unique' => 'Admin does not exist',
+        ],
     ];
 
     /**
-     * Before insert callback
-     * Set assigned_at if not provided
+     * Find association by composite key
+     * 
+     * @param int $productId
+     * @param int $badgeId
+     * @return ProductBadge|null
      */
-    protected function beforeInsert(array $data): array
+    public function findByCompositeKey(int $productId, int $badgeId): ?ProductBadge
     {
-        // Set assigned_at to current time if not provided
-        if (!isset($data['assigned_at']) || empty($data['assigned_at'])) {
-            $data['assigned_at'] = date('Y-m-d H:i:s');
-        }
+        $result = $this->builder()
+            ->where('product_id', $productId)
+            ->where('badge_id', $badgeId)
+            ->get()
+            ->getFirstRow($this->returnType);
 
-        return $data;
+        return $result instanceof ProductBadge ? $result : null;
     }
 
     /**
-     * Find by composite key (product_id + badge_id)
-     * This is the actual primary key lookup
+     * Find all badges for a product
+     * 
+     * @param int $productId
+     * @return array<ProductBadge>
      */
-    public function findByCompositeKey(int $product_id, int $badge_id): ?ProductBadge
+    public function findByProductId(int $productId): array
     {
-        return $this->where('product_id', $product_id)
-                    ->where('badge_id', $badge_id)
-                    ->first();
+        $result = $this->builder()
+            ->where('product_id', $productId)
+            ->orderBy('assigned_at', 'DESC')
+            ->get()
+            ->getResult($this->returnType);
+
+        return $result ?? [];
     }
 
     /**
-     * Delete by composite key
-     * Override parent delete for composite key support
-     *
-     * @throws \Exception
+     * Find all products for a badge
+     * 
+     * @param int $badgeId
+     * @return array<ProductBadge>
      */
-    public function deleteByCompositeKey(int $product_id, int $badge_id): bool
+    public function findByBadgeId(int $badgeId): array
+    {
+        $result = $this->builder()
+            ->where('badge_id', $badgeId)
+            ->orderBy('assigned_at', 'DESC')
+            ->get()
+            ->getResult($this->returnType);
+
+        return $result ?? [];
+    }
+
+    /**
+     * Delete association by composite key
+     * 
+     * @param int $productId
+     * @param int $badgeId
+     * @return bool
+     */
+    public function deleteAssociation(int $productId, int $badgeId): bool
     {
         $builder = $this->builder();
-
-        $builder->where('product_id', $product_id);
-        $builder->where('badge_id', $badge_id);
-
+        $builder->where('product_id', $productId)
+                ->where('badge_id', $badgeId);
+        
         $result = $builder->delete();
-
-        // Clear relevant caches
-        $this->clearBadgeCache($product_id);
-
-        return $result !== false;
+        
+        // Normalize return type
+        if ($result instanceof BaseResult) {
+            return $result->connID->affected_rows > 0;
+        }
+        
+        return (bool) $result;
     }
 
     /**
-     * Assign badge to product
-     * Creates relationship if not exists
+     * Delete all badges for a product
+     * 
+     * @param int $productId
+     * @return bool
      */
-    public function assignBadge(int $product_id, int $badge_id, ?int $assigned_by = null): bool
+    public function deleteAllForProduct(int $productId): bool
     {
-        // Check if relationship already exists
-        $existing = $this->findByCompositeKey($product_id, $badge_id);
-        if ($existing instanceof \App\Entities\ProductBadge) {
-            // Already assigned
-            return true;
+        $builder = $this->builder();
+        $builder->where('product_id', $productId);
+        
+        $result = $builder->delete();
+        
+        if ($result instanceof BaseResult) {
+            return $result->connID->affected_rows > 0;
+        }
+        
+        return (bool) $result;
+    }
+
+    /**
+     * Delete all products for a badge
+     * 
+     * @param int $badgeId
+     * @return bool
+     */
+    public function deleteAllForBadge(int $badgeId): bool
+    {
+        $builder = $this->builder();
+        $builder->where('badge_id', $badgeId);
+        
+        $result = $builder->delete();
+        
+        if ($result instanceof BaseResult) {
+            return $result->connID->affected_rows > 0;
+        }
+        
+        return (bool) $result;
+    }
+
+    /**
+     * Insert multiple associations at once
+     * 
+     * @param array<array{product_id: int, badge_id: int, assigned_by?: int}> $associations
+     * @return int Number of inserted rows
+     * @throws InvalidArgumentException
+     */
+    public function bulkInsert(array $associations): int
+    {
+        if (empty($associations)) {
+            return 0;
         }
 
-        $data = [
-            'product_id'  => $product_id,
-            'badge_id'    => $badge_id,
-            'assigned_by' => $assigned_by
-        ];
+        // Validate each association
+        foreach ($associations as $index => $association) {
+            if (!isset($association['product_id']) || !isset($association['badge_id'])) {
+                throw new InvalidArgumentException(
+                    "Association at index {$index} must have product_id and badge_id"
+                );
+            }
 
-        $result = $this->insert($data, false); // Don't return ID
-
-        if ($result) {
-            $this->clearBadgeCache($product_id);
+            // Set assigned_at if not provided
+            if (!isset($association['assigned_at'])) {
+                $associations[$index]['assigned_at'] = date('Y-m-d H:i:s');
+            }
         }
 
-        return $result !== false;
+        $builder = $this->builder();
+        $result = $builder->insertBatch($associations);
+        
+        return $result ? count($associations) : 0;
     }
 
     /**
-     * Remove badge from product
+     * Check if association exists
+     * 
+     * @param int $productId
+     * @param int $badgeId
+     * @return bool
      */
-    public function removeBadge(int $product_id, int $badge_id): bool
+    public function associationExists(int $productId, int $badgeId): bool
     {
-        return $this->deleteByCompositeKey($product_id, $badge_id);
-    }
-
-    /**
-     * Get all badges for a product
-     */
-    public function getProductBadges(int $product_id): array
-    {
-        $cacheKey = $this->cacheKey("product_{$product_id}_badges");
-
-        return $this->cached($cacheKey, function () use ($product_id) {
-            $badgeModel = model(BadgeModel::class);
-
-            $badgeIds = $this->select('badge_id')
-                            ->where('product_id', $product_id)
-                            ->findAll();
-
-            if (empty($badgeIds)) {
-                return [];
-            }
-
-            $ids = array_column($badgeIds, 'badge_id');
-            return $badgeModel->findIn('id', $ids);
-        });
-    }
-
-    /**
-     * Get all products for a badge
-     */
-    public function getBadgeProducts(int $badge_id): array
-    {
-        $cacheKey = $this->cacheKey("badge_{$badge_id}_products");
-
-        return $this->cached($cacheKey, function () use ($badge_id) {
-            $productModel = model(ProductModel::class);
-
-            $productIds = $this->select('product_id')
-                              ->where('badge_id', $badge_id)
-                              ->findAll();
-
-            if (empty($productIds)) {
-                return [];
-            }
-
-            $ids = array_column($productIds, 'product_id');
-            return $productModel->findIn('id', $ids);
-        });
-    }
-
-    /**
-     * Update badge assignments for a product (replace all)
-     */
-    public function updateProductBadges(int $product_id, array $badge_ids, ?int $assigned_by = null): bool
-    {
-        $this->db->transStart();
-
-        try {
-            // Remove existing badges
-            $this->where('product_id', $product_id)->delete();
-
-            // Add new badges
-            foreach ($badge_ids as $badge_id) {
-                $this->assignBadge($product_id, $badge_id, $assigned_by);
-            }
-
-            $this->db->transComplete();
-
-            if ($this->db->transStatus() === false) {
-                return false;
-            }
-
-            $this->clearBadgeCache($product_id);
-            return true;
-
-        } catch (\Exception $e) {
-            $this->db->transRollback();
-            log_message('error', 'Failed to update product badges: ' . $e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Check if badge is assigned to product
-     */
-    public function isAssigned(int $product_id, int $badge_id): bool
-    {
-        $count = $this->where('product_id', $product_id)
-                      ->where('badge_id', $badge_id)
-                      ->countAllResults();
-
-        return $count > 0;
+        $builder = $this->builder();
+        $builder->select('1')
+                ->where('product_id', $productId)
+                ->where('badge_id', $badgeId);
+        
+        $result = $builder->get();
+        
+        return $result->getNumRows() > 0;
     }
 
     /**
      * Count badges for a product
+     * 
+     * @param int $productId
+     * @return int
      */
-    public function countProductBadges(int $product_id): int
+    public function countBadgesForProduct(int $productId): int
     {
-        return $this->where('product_id', $product_id)->countAllResults();
+        $builder = $this->builder();
+        $builder->where('product_id', $productId);
+        
+        $result = (int) $builder->countAllResults();
+        return $result;
     }
 
     /**
-     * Get assigned_at timestamp for a badge assignment
+     * Count products for a badge
+     * 
+     * @param int $badgeId
+     * @return int
      */
-    public function getAssignmentDate(int $product_id, int $badge_id): ?string
+    public function countProductsForBadge(int $badgeId): int
     {
-        $assignment = $this->select('assigned_at')
-                          ->where('product_id', $product_id)
-                          ->where('badge_id', $badge_id)
-                          ->first();
-
-        return $assignment ? $assignment->assigned_at : null;
+        $builder = $this->builder();
+        $builder->where('badge_id', $badgeId);
+        
+        $result = (int) $builder->countAllResults();
+        return $result;
     }
 
     /**
-     * Get admin who assigned a badge
+     * Get badges for multiple products (batch operation)
+     * 
+     * @param array<int> $productIds
+     * @return array<int, array<ProductBadge>> Product ID => array of badges
      */
-    public function getAssignedBy(int $product_id, int $badge_id): ?int
+    public function findForMultipleProducts(array $productIds): array
     {
-        $assignment = $this->select('assigned_by')
-                          ->where('product_id', $product_id)
-                          ->where('badge_id', $badge_id)
-                          ->first();
+        if (empty($productIds)) {
+            return [];
+        }
 
-        return $assignment ? $assignment->assigned_by : null;
-    }
+        $result = $this->builder()
+            ->whereIn('product_id', $productIds)
+            ->orderBy('product_id')
+            ->orderBy('assigned_at', 'DESC')
+            ->get()
+            ->getResult($this->returnType);
 
-    /**
-     * Clear badge cache for a product
-     */
-    private function clearBadgeCache(int $product_id): void
-    {
-        $this->clearCache($this->cacheKey("product_{$product_id}_badges"));
-
-        // Also clear any product list caches that might include this product
-        $this->clearCache($this->cacheKey('all_active'));
-    }
-
-    /**
-     * Find badges with assigned products (for admin dashboard)
-     */
-    public function getBadgeUsageStats(): array
-    {
-        $cacheKey = $this->cacheKey('badge_usage_stats');
-
-        return $this->cached($cacheKey, function () {
-            $sql = "SELECT 
-                    b.id as badge_id,
-                    b.label as badge_label,
-                    COUNT(pb.product_id) as product_count,
-                    GROUP_CONCAT(DISTINCT pb.assigned_by) as assigned_admins
-                FROM badges b
-                LEFT JOIN product_badges pb ON b.id = pb.badge_id
-                WHERE b.deleted_at IS NULL
-                GROUP BY b.id
-                ORDER BY product_count DESC";
-
-            $query = $this->db->query($sql);
-            return $query->getResultArray();
-        }, 1800); // 30 minutes cache
-    }
-
-    /**
-     * Bulk assign badges to multiple products
-     *
-     * @return array [success_count, failed_count]
-     */
-    public function bulkAssign(array $product_ids, array $badge_ids, ?int $assigned_by = null): array
-    {
-        $success = 0;
-        $failed = 0;
-
-        foreach ($product_ids as $product_id) {
-            foreach ($badge_ids as $badge_id) {
-                try {
-                    if ($this->assignBadge($product_id, $badge_id, $assigned_by)) {
-                        $success++;
-                    } else {
-                        $failed++;
-                    }
-                } catch (\Exception $e) {
-                    $failed++;
-                    log_message('error', "Failed to assign badge {$badge_id} to product {$product_id}: " . $e->getMessage());
+        $grouped = [];
+        foreach ($result as $association) {
+            if ($association instanceof ProductBadge) {
+                $productId = $association->getProductId();
+                if (!isset($grouped[$productId])) {
+                    $grouped[$productId] = [];
                 }
+                $grouped[$productId][] = $association;
             }
         }
 
-        return [$success, $failed];
+        return $grouped;
     }
 
     /**
-     * Override parent find method to prevent misuse
-     * ProductBadge table requires composite key lookup
-     *
-     * @param mixed $id
-     * @return ProductBadge|array|null
+     * Get products for multiple badges (batch operation)
+     * 
+     * @param array<int> $badgeIds
+     * @return array<int, array<ProductBadge>> Badge ID => array of products
      */
-    public function find($id = null)
+    public function findForMultipleBadges(array $badgeIds): array
     {
-        if ($id !== null) {
-            log_message('warning', 'ProductBadgeModel::find() called with single ID. Use findByCompositeKey() instead.');
+        if (empty($badgeIds)) {
+            return [];
         }
 
-        return parent::find($id);
-    }
+        $result = $this->builder()
+            ->whereIn('badge_id', $badgeIds)
+            ->orderBy('badge_id')
+            ->orderBy('assigned_at', 'DESC')
+            ->get()
+            ->getResult($this->returnType);
 
-    /**
-     * Override save to handle composite key uniqueness
-     *
-     * @param array|object $data
-     */
-    public function save($data): bool
-    {
-        // Convert to array if object
-        if (is_object($data)) {
-            $data = (array) $data;
-        }
-
-        // Check for composite key
-        if (isset($data['product_id']) && isset($data['badge_id'])) {
-            // Check if relationship already exists
-            $existing = $this->findByCompositeKey($data['product_id'], $data['badge_id']);
-            if ($existing instanceof \App\Entities\ProductBadge) {
-                // Update existing (though typically we don't update junction tables)
-                return $this->update($existing->id, $data);
+        $grouped = [];
+        foreach ($result as $association) {
+            if ($association instanceof ProductBadge) {
+                $badgeId = $association->getBadgeId();
+                if (!isset($grouped[$badgeId])) {
+                    $grouped[$badgeId] = [];
+                }
+                $grouped[$badgeId][] = $association;
             }
         }
 
-        return parent::save($data);
+        return $grouped;
     }
 
     /**
-     * Custom validation for composite key uniqueness
+     * Override parent insert to handle composite key uniqueness
+     * 
+     * @param array|null $data
+     * @return bool|int|string
      */
-    public function validateUniqueAssignment(int $product_id, int $badge_id): bool
+    public function insert($data = null, bool $returnID = true)
     {
-        $count = $this->where('product_id', $product_id)
-                      ->where('badge_id', $badge_id)
-                      ->countAllResults();
+        // Check if association already exists
+        if (isset($data['product_id'], $data['badge_id'])) {
+            if ($this->associationExists($data['product_id'], $data['badge_id'])) {
+                throw new InvalidArgumentException(
+                    'Association between product ' . $data['product_id'] . 
+                    ' and badge ' . $data['badge_id'] . ' already exists'
+                );
+            }
+        }
 
-        return $count === 0;
+        // Set assigned_at if not provided
+        if (is_array($data) && !isset($data['assigned_at'])) {
+            $data['assigned_at'] = date('Y-m-d H:i:s');
+        }
+
+        return parent::insert($data, $returnID);
+    }
+
+    /**
+     * Override parent update - not applicable for composite key without primary key
+     * Use deleteAssociation + insert instead
+     * 
+     * @param int|string|array|null $id
+     * @param array|null $data
+     * @return bool
+     */
+    public function update($id = null, $data = null): bool
+    {
+        throw new \BadMethodCallException(
+            'Direct update not supported for composite key tables. ' .
+            'Use deleteAssociation() + insert() instead.'
+        );
+    }
+
+    /**
+     * Override parent delete - use deleteAssociation instead
+     * 
+     * @param int|string|array|null $id
+     * @param bool $purge
+     * @return bool|BaseResult
+     */
+    public function delete($id = null, bool $purge = false)
+    {
+        throw new \BadMethodCallException(
+            'Direct delete not supported for composite key tables. ' .
+            'Use deleteAssociation() or deleteAllForProduct() instead.'
+        );
     }
 }

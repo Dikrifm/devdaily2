@@ -2,524 +2,572 @@
 
 namespace App\Controllers;
 
+use App\DTOs\BaseDTO;
+use App\Exceptions\AuthorizationException;
+use App\Exceptions\ValidationException;
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\Session\Session;
-use CodeIgniter\Validation\Validation;
 use Config\Services;
 use Psr\Log\LoggerInterface;
 
 /**
- * BaseController
- *
- * Semua controller harus extend BaseController untuk mendapatkan
- * fungsionalitas dasar dan standarisasi response.
+ * BASE CONTROLLER - PURE THIN CONTROLLER
+ * 
+ * PRINSIP: "Controller adalah 1:1 adapter antara HTTP dan Application Layer"
+ * - HANYA menerima request
+ * - HANYA memanggil Service
+ * - HANYA mengembalikan response
+ * - TIDAK ADA business logic
+ * - TIDAK ADA validation logic
+ * - TIDAK ADA data transformation
+ * 
+ * PROTOTYPE: Request → [Controller] → Service → Response
+ * 
+ * @package App\Controllers
  */
-class BaseController extends Controller
+abstract class BaseController extends Controller
 {
+    // ==================================================================
+    // CORE DEPENDENCIES (DI dari CI4 Container)
+    // ==================================================================
+    
     /**
-     * Instance dari Request
-     *
-     * @var \CodeIgniter\HTTP\IncomingRequest
+     * @var IncomingRequest
      */
     protected $request;
-
+    
     /**
-     * Instance dari Response
-     *
-     * @var \CodeIgniter\HTTP\Response
+     * @var ResponseInterface
      */
     protected $response;
-
+    
     /**
-     * Instance dari Logger
-     *
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
-
+    
     /**
-     * Session instance
-     *
-     * @var Session
+     * Request ID untuk tracing
      */
-    protected $session;
-
+    protected string $requestId;
+    
+    // ==================================================================
+    // CONTEXT-SPECIFIC SERVICES (DI via child constructor)
+    // ==================================================================
+    
     /**
-     * Validation instance
-     *
-     * @var Validation
+     * Service hanya di-inject di child class yang membutuhkan
+     * Contoh: ProductController akan inject ProductService
      */
-    protected $validation;
-
+    
+    // ==================================================================
+    // INITIALIZATION - CI4 LIFECYCLE
+    // ==================================================================
+    
     /**
-     * Array of helpers to be loaded automatically
-     *
-     * @var array
-     */
-    protected $helpers = ['url', 'form', 'text'];
-
-    /**
-     * Data yang akan dikirim ke view
-     *
-     * @var array
-     */
-    protected $viewData = [];
-
-    /**
-     * Layout template untuk view
-     *
-     * @var string|null
-     */
-    protected $layout = 'template/default';
-
-    /**
-     * Konfigurasi CSRF protection
-     *
-     * @var array
-     */
-    protected $csrfConfig = [
-        'token_name' => 'csrf_test_name',
-        'header_name' => 'X-CSRF-TOKEN',
-        'cookie_name' => 'csrf_cookie_name',
-    ];
-
-    /**
-     * Constructor
+     * Constructor - KOSONG (DI via child constructor)
      */
     public function __construct()
     {
-        // Inisialisasi sebelum initController
-        $this->session = Services::session();
-        $this->validation = Services::validation();
-
-        //parent::__construct();
+        // Dependency injection dilakukan di child class
+        // Sesuai prinsip: "Inject what you need"
     }
-
+    
     /**
-     * Initialize controller
-     *
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     * @param LoggerInterface $logger
-     * @return void
+     * Initialize controller - CI4 lifecycle
      */
     public function initController(
         RequestInterface $request,
         ResponseInterface $response,
         LoggerInterface $logger
-    ) {
-        // Do Not Edit This Line
+    ): void {
         parent::initController($request, $response, $logger);
-
-        // Assign properties
+        
         $this->request = $request;
         $this->response = $response;
         $this->logger = $logger;
-
-        // Preload common helpers
-        helper($this->helpers);
-
-        // Set default timezone
-        date_default_timezone_set(config('App')->appTimezone ?? 'UTC');
-
-        // Initialize CSRF protection
-        $this->initCsrfProtection();
-
-        // Set default view data
-        $this->viewData['title'] = config('App')->appName ?? 'My Application';
-        $this->viewData['site_name'] = config('App')->appName ?? 'My Application';
-        $this->viewData['base_url'] = base_url();
-        $this->viewData['current_url'] = current_url();
-        $this->viewData['session'] = $this->session;
-
-        // Load authentication jika ada
-        if (service('auth')->isLoggedIn()) {
-            $this->viewData['current_user'] = service('auth')->user();
-        }
+        
+        // Generate request ID
+        $this->requestId = $this->generateRequestId();
+        
+        // Log initialization
+        $this->logInitialization();
     }
-
+    
+    // ==================================================================
+    // PROTOKOL 1: REQUEST INGESTION & VALIDATION
+    // ==================================================================
+    
     /**
-     * Initialize CSRF protection
-     *
-     * @return void
+     * Extract raw input dari request
+     * HANYA mengambil data, TIDAK validasi
+     * 
+     * @return array Raw input data
      */
-    protected function initCsrfProtection(): void
-    {
-        $security = Services::security();
-
-        // Set CSRF token cookie
-        if (config('Security')->csrfProtection === 'cookie') {
-            $security->setHash(config('Security')->tokenRandomize ?? false)
-                    ->setTokenName($this->csrfConfig['token_name'])
-                    ->setHeaderName($this->csrfConfig['header_name'])
-                    ->setCookieName($this->csrfConfig['cookie_name'])
-                    ->setExpires(config('Security')->expires ?? 7200)
-                    ->setRegenerate(config('Security')->regenerate ?? true)
-                    ->setRedirect((ENVIRONMENT === 'production') || config('Security')->redirect ?? true);
-        }
-    }
-
-    /**
-     * Render view dengan layout
-     *
-     * @param string $view
-     * @param array $data
-     * @param bool $return
-     * @return string|void
-     */
-    protected function render(string $view, array $data = [], bool $return = false)
-    {
-        // Merge dengan viewData
-        $data = array_merge($this->viewData, $data);
-
-        if ($this->layout) {
-            $data['content'] = view($view, $data, ['saveData' => false]);
-            $output = view($this->layout, $data, ['saveData' => false]);
-        } else {
-            $output = view($view, $data, ['saveData' => false]);
-        }
-
-        if ($return) {
-            return $output;
-        }
-
-        echo $output;
-    }
-
-    /**
-     * Set flash message
-     *
-     * @param string $type success|error|warning|info
-     * @param string $message
-     * @return void
-     */
-    protected function setFlash(string $type, string $message): void
-    {
-        $this->session->setFlashdata('flash', [
-            'type' => $type,
-            'message' => $message
-        ]);
-    }
-
-    /**
-     * Get flash message
-     *
-     * @return array|null
-     */
-    protected function getFlash(): ?array
-    {
-        return $this->session->getFlashdata('flash');
-    }
-
-    /**
-     * Set page title
-     *
-     * @param string $title
-     * @return self
-     */
-    protected function setTitle(string $title): self
-    {
-        $this->viewData['title'] = $title . ' - ' . $this->viewData['site_name'];
-        return $this;
-    }
-
-    /**
-     * Redirect dengan flash message
-     *
-     * @param string $route
-     * @param string|null $message
-     * @param string $type
-     * @return \CodeIgniter\HTTP\RedirectResponse
-     */
-    protected function redirectWithMessage(string $route, ?string $message = null, string $type = 'success')
-    {
-        if ($message) {
-            $this->setFlash($type, $message);
-        }
-
-        return redirect()->to($route);
-    }
-
-    /**
-     * Validate request data
-     *
-     * @param array $rules
-     * @param array $messages
-     * @return bool
-     */
-    protected function validateRequest(array $rules, array $messages = []): bool
-    {
-        $this->validation->setRules($rules, $messages);
-
-        if (!$this->validation->run($this->request->getPost() ?? [])) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Get validation errors
-     *
-     * @return array
-     */
-    protected function getValidationErrors(): array
-    {
-        return $this->validation->getErrors();
-    }
-
-    /**
-     * Check if request is AJAX
-     *
-     * @return bool
-     */
-    protected function isAjax(): bool
-    {
-        return $this->request->isAJAX();
-    }
-
-    /**
-     * Send JSON response
-     *
-     * @param mixed $data
-     * @param int $statusCode
-     * @return \CodeIgniter\HTTP\Response
-     */
-    protected function jsonResponse($data, int $statusCode = 200)
-    {
-        return $this->response
-            ->setStatusCode($statusCode)
-            ->setJSON($data);
-    }
-
-    /**
-     * Send success JSON response
-     *
-     * @param mixed $data
-     * @param string $message
-     * @param int $statusCode
-     * @return \CodeIgniter\HTTP\Response
-     */
-    protected function jsonSuccess($data = null, string $message = 'Success', int $statusCode = 200)
-    {
-        return $this->jsonResponse([
-            'success' => true,
-            'message' => $message,
-            'data' => $data
-        ], $statusCode);
-    }
-
-    /**
-     * Send error JSON response
-     *
-     * @param string $message
-     * @param array $errors
-     * @param int $statusCode
-     * @return \CodeIgniter\HTTP\Response
-     */
-    protected function jsonError(string $message = 'Error', array $errors = [], int $statusCode = 400)
-    {
-        $response = [
-            'success' => false,
-            'message' => $message
-        ];
-
-        if (!empty($errors)) {
-            $response['errors'] = $errors;
-        }
-
-        return $this->jsonResponse($response, $statusCode);
-    }
-
-    /**
-     * Require authenticated user
-     *
-     * @param string|null $permission
-     * @return mixed
-     */
-    protected function requireAuth(?string $permission = null)
-    {
-        // Cek jika user sudah login
-        if (!service('auth')->isLoggedIn()) {
-            return $this->redirectWithMessage('/login', 'Please login to continue', 'error');
-        }
-
-        // Cek permission jika diperlukan
-        if ($permission && !service('auth')->can($permission)) {
-            return $this->redirectWithMessage('/', 'You do not have permission to access this page', 'error');
-        }
-
-        return true;
-    }
-
-    /**
-     * Get authenticated user ID
-     *
-     * @return int|null
-     */
-    protected function getUserId(): ?int
-    {
-        return service('auth')->userId();
-    }
-
-    /**
-     * Get authenticated user data
-     *
-     * @return mixed
-     */
-    protected function getUser()
-    {
-        return service('auth')->user();
-    }
-
-    /**
-     * Log activity
-     *
-     * @param string $action
-     * @param string $description
-     * @param array $context
-     * @return void
-     */
-    protected function logActivity(string $action, string $description, array $context = []): void
-    {
-        $userId = $this->getUserId();
-        $ipAddress = $this->request->getIPAddress();
-        $userAgent = $this->request->getUserAgent()->getAgentString();
-
-        log_message('info', "Activity: {$action} - {$description}", [
-            'user_id' => $userId,
-            'ip' => $ipAddress,
-            'user_agent' => $userAgent,
-            'context' => $context
-        ]);
-    }
-
-    /**
-     * Handle exception secara graceful
-     *
-     * @param \Throwable $e
-     * @param string $message
-     * @return mixed
-     */
-    protected function handleException(\Throwable $e, string $message = 'An error occurred')
-    {
-        // Log error
-        log_message('error', $e->getMessage(), [
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-            'trace' => $e->getTraceAsString()
-        ]);
-
-        if ($this->isAjax()) {
-            return $this->jsonError($message, [
-                'error' => ENVIRONMENT === 'development' ? $e->getMessage() : null
-            ], 500);
-        }
-
-        $this->setFlash('error', $message);
-        return $this->redirectWithMessage('/', $message, 'error');
-    }
-
-    /**
-     * Get pagination parameters dari request
-     *
-     * @return array
-     */
-    protected function getPaginationParams(): array
-    {
-        return [
-            'page' => (int) $this->request->getGet('page') ?? 1,
-            'per_page' => (int) $this->request->getGet('per_page') ?? 20,
-            'search' => $this->request->getGet('search') ?? null,
-            'sort' => $this->request->getGet('sort') ?? 'id',
-            'order' => $this->request->getGet('order') ?? 'desc'
-        ];
-    }
-
-    /**
-     * Generate pagination links
-     *
-     * @param int $total
-     * @param int $perPage
-     * @param int $currentPage
-     * @param string $baseUrl
-     * @return array
-     */
-    protected function generatePagination(int $total, int $perPage, int $currentPage, string $baseUrl): array
-    {
-        $totalPages = ceil($total / $perPage);
-
-        return [
-            'total' => $total,
-            'per_page' => $perPage,
-            'current_page' => $currentPage,
-            'total_pages' => $totalPages,
-            'first_page' => 1,
-            'last_page' => $totalPages,
-            'next_page' => $currentPage < $totalPages ? $currentPage + 1 : null,
-            'prev_page' => $currentPage > 1 ? $currentPage - 1 : null,
-            'links' => [
-                'first' => $baseUrl . '?page=1',
-                'last' => $baseUrl . '?page=' . $totalPages,
-                'next' => $currentPage < $totalPages ? $baseUrl . '?page=' . ($currentPage + 1) : null,
-                'prev' => $currentPage > 1 ? $baseUrl . '?page=' . ($currentPage - 1) : null
-            ]
-        ];
-    }
-
-    /**
-     * Get request data dengan sanitization
-     *
-     * @param string|null $key
-     * @param mixed $default
-     * @return mixed
-     */
-    protected function getInput(?string $key = null, $default = null)
+    protected function extractInput(): array
     {
         $method = $this->request->getMethod();
+        
+        switch ($method) {
+            case 'GET':
+                return $this->request->getGet() ?? [];
+                
+            case 'POST':
+            case 'PUT':
+            case 'PATCH':
+            case 'DELETE':
+                // Priority: JSON > Form > Raw
+                if ($this->isJsonRequest()) {
+                    $jsonData = json_decode($this->request->getBody(), true);
+                    return is_array($jsonData) ? $jsonData : [];
+                }
+                
+                return $this->request->getPost() ?? [];
+                
+            default:
+                return [];
+        }
+    }
+    
+    /**
+     * Create DTO dari request input
+     * DTO bertanggung jawab untuk validasi format
+     * 
+     * @template T of BaseDTO
+     * @param class-string<T> $dtoClass
+     * @param array $context Additional context data
+     * @return T
+     * @throws ValidationException
+     */
+    protected function createRequestDto(string $dtoClass, array $context = []): BaseDTO
+    {
+        $input = $this->extractInput();
+        
+        // Merge dengan context (route params, etc)
+        $data = array_merge($input, $context);
+        
+        // Delegate ke DTO factory method
+        if (method_exists($dtoClass, 'fromRequest')) {
+            return $dtoClass::fromRequest($data);
+        }
+        
+        // Fallback ke fromArray
+        return $dtoClass::fromArray($data);
+    }
+    
+    /**
+     * Create Query DTO untuk list operations
+     * 
+     * @template T of BaseDTO
+     * @param class-string<T> $queryDtoClass
+     * @param array $defaults Default values
+     * @return T
+     */
+    protected function createQueryDto(string $queryDtoClass, array $defaults = []): BaseDTO
+    {
+        $input = $this->request->getGet() ?? [];
+        $data = array_merge($defaults, $input);
+        
+        if (method_exists($queryDtoClass, 'fromRequest')) {
+            return $queryDtoClass::fromRequest($data);
+        }
+        
+        return $queryDtoClass::fromArray($data);
+    }
+    
+    /**
+     * Check if request is JSON
+     */
+    protected function isJsonRequest(): bool
+    {
+        $contentType = $this->request->getHeaderLine('Content-Type');
+        return strpos($contentType, 'application/json') !== false;
+    }
+    
+    // ==================================================================
+    // PROTOKOL 2: AUTHORIZATION & AUTHENTICATION
+    // ==================================================================
+    
+     /**
+     * Get authenticated user dari Security Pipeline
+     * Sinkron dengan AdminAuth Filter ($request->admin)
+     * * @return array|null
+     */
+    protected function getAuthenticatedUser(): ?array
+    {
+        // Cek properti yang di-inject oleh Filter AdminAuth
+        if (isset($this->request->admin)) {
+            return (array) $this->request->admin;
+        }
 
-        if ($method === 'GET') {
-            $data = $this->request->getGet();
+        // Cek properti user biasa (jika nanti ada)
+        if (isset($this->request->user)) {
+            return (array) $this->request->user;
+        }
+
+        return null;
+    }
+
+    
+    /**
+     * Get current user ID
+     */
+    protected function getCurrentUserId(): ?int
+    {
+        $user = $this->getAuthenticatedUser();
+        return $user['id'] ?? null;
+    }
+    
+    /**
+     * Get current user role
+     */
+    protected function getCurrentUserRole(): ?string
+    {
+        $user = $this->getAuthenticatedUser();
+        return $user['role'] ?? null;
+    }
+    
+    /**
+     * Require authentication - throw jika tidak authenticated
+     * 
+     * @throws AuthorizationException
+     */
+    protected function requireAuthentication(): void
+    {
+        if (!$this->getAuthenticatedUser()) {
+            throw AuthorizationException::forAdminAccess();
+        }
+    }
+    
+    /**
+     * Require specific role - throw jika tidak authorized
+     * 
+     * @param string|array $roles
+     * @throws AuthorizationException
+     */
+    protected function requireRole($roles): void
+    {
+        $this->requireAuthentication();
+        
+        $currentRole = $this->getCurrentUserRole();
+        $requiredRoles = is_array($roles) ? $roles : [$roles];
+        
+        if (!in_array($currentRole, $requiredRoles, true)) {
+            throw AuthorizationException::forRole($currentRole, $requiredRoles);
+        }
+    }
+    
+    // ==================================================================
+    // PROTOKOL 5: RESPONSE FORMATION
+    // ==================================================================
+    
+    /**
+     * Format success response (API Context)
+     * 
+     * @param mixed $data Response DTO atau array
+     * @param string $message
+     * @param int $code
+     * @param array $meta
+     */
+    protected function respondSuccess(
+        $data = null,
+        string $message = 'Success',
+        int $code = 200,
+        array $meta = []
+    ): ResponseInterface {
+        $response = [
+            'success' => true,
+            'message' => $message,
+            'data' => $data,
+            'meta' => array_merge($this->buildMeta(), $meta),
+            'timestamp' => date('c'),
+        ];
+        
+        return $this->response
+            ->setStatusCode($code)
+            ->setJSON($response);
+    }
+    
+    /**
+     * Format error response (API Context)
+     * 
+     * @param string $message
+     * @param int $code
+     * @param array $errors
+     */
+    protected function respondError(
+        string $message = 'An error occurred',
+        int $code = 500,
+        array $errors = []
+    ): ResponseInterface {
+        $response = [
+            'success' => false,
+            'message' => $message,
+            'errors' => $errors,
+            'meta' => $this->buildMeta(),
+            'timestamp' => date('c'),
+        ];
+        
+        return $this->response
+            ->setStatusCode($code)
+            ->setJSON($response);
+    }
+    
+    /**
+     * Format validation error response
+     * 
+     * @param ValidationException $exception
+     */
+    protected function respondValidationError(ValidationException $exception): ResponseInterface
+    {
+        return $this->respondError(
+            $exception->getMessage(),
+            400,
+            $exception->getErrors()
+        );
+    }
+    
+    /**
+     * Format not found response
+     * 
+     * @param string $message
+     * @param string|null $resource
+     */
+    protected function respondNotFound(
+        string $message = 'Resource not found',
+        ?string $resource = null
+    ): ResponseInterface {
+        $errors = $resource ? ["{$resource} not found"] : [];
+        
+        return $this->respondError($message, 404, $errors);
+    }
+    
+    /**
+     * Format unauthorized response
+     * 
+     * @param AuthorizationException $exception
+     */
+    protected function respondUnauthorized(AuthorizationException $exception): ResponseInterface
+    {
+        return $this->respondError($exception->getMessage(), 401);
+    }
+    
+    /**
+     * Format forbidden response
+     * 
+     * @param AuthorizationException $exception
+     */
+    protected function respondForbidden(AuthorizationException $exception): ResponseInterface
+    {
+        return $this->respondError($exception->getMessage(), 403);
+    }
+    
+    /**
+     * Format created response (201)
+     * 
+     * @param mixed $data
+     * @param string|null $location
+     */
+    protected function respondCreated($data = null, ?string $location = null): ResponseInterface
+    {
+        $response = $this->respondSuccess($data, 'Resource created', 201);
+        
+        if ($location) {
+            $response->setHeader('Location', $location);
+        }
+        
+        return $response;
+    }
+    
+    /**
+     * Format paginated response
+     * 
+     * @param array $data
+     * @param int $total
+     * @param int $page
+     * @param int $perPage
+     */
+    protected function respondPaginated(
+        array $data,
+        int $total,
+        int $page,
+        int $perPage
+    ): ResponseInterface {
+        $totalPages = ceil($total / $perPage);
+        
+        $meta = [
+            'pagination' => [
+                'total' => $total,
+                'count' => count($data),
+                'per_page' => $perPage,
+                'current_page' => $page,
+                'total_pages' => $totalPages,
+                'links' => $this->buildPaginationLinks($page, $totalPages),
+            ],
+        ];
+        
+        return $this->respondSuccess($data, 'Data retrieved', 200, $meta);
+    }
+    
+    /**
+     * Render HTML view (Web Context)
+     * 
+     * @param string $view
+     * @param array $data
+     */
+    protected function renderView(string $view, array $data = []): string
+    {
+        // Tambahkan global data
+        $data['_user'] = $this->getAuthenticatedUser();
+        $data['_requestId'] = $this->requestId;
+        $data['_csrf'] = csrf_hash();
+        
+        return view($view, $data);
+    }
+    
+    /**
+     * Render HTMX partial (HTMX Context)
+     * 
+     * @param string $partial
+     * @param array $data
+     */
+    protected function renderPartial(string $partial, array $data = []): string
+    {
+        // Hanya render partial tanpa layout
+        $data['_user'] = $this->getAuthenticatedUser();
+        
+        return view("partials/{$partial}", $data);
+    }
+    
+    // ==================================================================
+    // PROTOKOL 6: ERROR HANDLING
+    // ==================================================================
+    
+    /**
+     * Handle exception secara konsisten
+     * 
+     * @param \Throwable $exception
+     */
+    protected function handleException(\Throwable $exception): ResponseInterface
+    {
+        // Log berdasarkan exception type
+        $this->logException($exception);
+        
+        // Format response berdasarkan exception type
+        if ($exception instanceof ValidationException) {
+            return $this->respondValidationError($exception);
+        }
+        
+        if ($exception instanceof AuthorizationException) {
+            $code = $exception->getCode();
+            return $code === 401 
+                ? $this->respondUnauthorized($exception)
+                : $this->respondForbidden($exception);
+        }
+        
+        if ($exception->getCode() === 404) {
+            return $this->respondNotFound($exception->getMessage());
+        }
+        
+        // Default error response
+        $message = ENVIRONMENT === 'production'
+            ? 'An error occurred. Please try again later.'
+            : $exception->getMessage();
+        
+        return $this->respondError($message, $exception->getCode() ?: 500);
+    }
+    
+    // ==================================================================
+    // UTILITY METHODS
+    // ==================================================================
+    
+    /**
+     * Generate unique request ID
+     */
+    private function generateRequestId(): string
+    {
+        return uniqid('req_', true) . '_' . bin2hex(random_bytes(4));
+    }
+    
+    /**
+     * Build meta data untuk response
+     */
+    private function buildMeta(): array
+    {
+        return [
+            'request_id' => $this->requestId,
+            'timestamp' => time(),
+            'version' => '1.0',
+        ];
+    }
+    
+    /**
+     * Build pagination links
+     */
+    private function buildPaginationLinks(int $currentPage, int $totalPages): array
+    {
+        $links = [];
+        $baseUrl = current_url();
+        
+        if ($currentPage > 1) {
+            $links['first'] = $baseUrl . '?page=1';
+            $links['prev'] = $baseUrl . '?page=' . ($currentPage - 1);
+        }
+        
+        $links['current'] = $baseUrl . '?page=' . $currentPage;
+        
+        if ($currentPage < $totalPages) {
+            $links['next'] = $baseUrl . '?page=' . ($currentPage + 1);
+            $links['last'] = $baseUrl . '?page=' . $totalPages;
+        }
+        
+        return $links;
+    }
+    
+    // ==================================================================
+    // LOGGING
+    // ==================================================================
+    
+    /**
+     * Log controller initialization
+     */
+    private function logInitialization(): void
+    {
+        $this->logger->info('Controller initialized', [
+            'controller' => static::class,
+            'method' => $this->request->getMethod(),
+            'uri' => $this->request->getUri()->getPath(),
+            'request_id' => $this->requestId,
+            'user_id' => $this->getCurrentUserId(),
+        ]);
+    }
+    
+    /**
+     * Log exception
+     */
+    private function logException(\Throwable $exception): void
+    {
+        $context = [
+            'exception' => get_class($exception),
+            'message' => $exception->getMessage(),
+            'code' => $exception->getCode(),
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+            'request_id' => $this->requestId,
+            'user_id' => $this->getCurrentUserId(),
+            'uri' => $this->request->getUri()->getPath(),
+            'method' => $this->request->getMethod(),
+        ];
+        
+        // Log level berdasarkan exception type
+        if ($exception instanceof ValidationException) {
+            $this->logger->warning('Validation failed', $context);
+        } elseif ($exception instanceof AuthorizationException) {
+            $this->logger->notice('Authorization failed', $context);
         } else {
-            $data = $this->request->getPost();
+            $this->logger->error('Unhandled exception', $context);
         }
-
-        if ($key === null) {
-            return $data;
-        }
-
-        $value = $data[$key] ?? $default;
-
-        // Sanitize input
-        if (is_string($value)) {
-            $value = trim($value);
-            $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-        }
-
-        return $value;
-    }
-
-    /**
-     * Check if user has role
-     *
-     * @param string $role
-     * @return bool
-     */
-    protected function hasRole(string $role): bool
-    {
-        return service('auth')->hasRole($role);
-    }
-
-    /**
-     * Check if user has permission
-     *
-     * @param string $permission
-     * @return bool
-     */
-    protected function can(string $permission): bool
-    {
-        return service('auth')->can($permission);
     }
 }

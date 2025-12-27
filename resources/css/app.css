@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Glassmorphism Utilities (MVP) */
+@layer components {
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl;
+  }
+  .glass-dark {
+    @apply bg-black/30 backdrop-blur-lg border border-white/10 shadow-xl;
+  }
+}

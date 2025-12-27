@@ -3,36 +3,44 @@
 namespace App\Models;
 
 use App\Entities\Marketplace;
+use CodeIgniter\Database\BaseResult;
+use RuntimeException;
 
 /**
  * Marketplace Model
- * * Handles e-commerce marketplaces (Tokopedia, Shopee, etc.).
- * Simple CRUD for MVP.
- * * @package App\Models
+ * 
+ * Layer 2: SQL Encapsulator for Marketplace entities.
+ * 0% Business Logic - Pure data access layer for e-commerce marketplaces.
+ * 
+ * @package App\Models
  */
-class MarketplaceModel extends BaseModel
+final class MarketplaceModel extends BaseModel
 {
     /**
-     * Table name
-     * * @var string
+     * Database table name
+     * 
+     * @var string
      */
     protected $table = 'marketplaces';
 
     /**
-     * Primary key
-     * * @var string
+     * Primary key column
+     * 
+     * @var string
      */
     protected $primaryKey = 'id';
 
     /**
-     * Entity class for result objects
-     * * @var string
+     * Entity class for hydration
+     * 
+     * @var class-string<Marketplace>
      */
     protected $returnType = Marketplace::class;
 
     /**
-     * Allowed fields for mass assignment
-     * * @var array
+     * Fields allowed for mass assignment
+     * 
+     * @var array<string>
      */
     protected $allowedFields = [
         'name',
@@ -40,418 +48,898 @@ class MarketplaceModel extends BaseModel
         'icon',
         'color',
         'active',
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
-     * Validation rules for insert
-     * * @var array
+     * Validation rules for insert/update
+     * 
+     * @var array<string, array<string, string>>
      */
     protected $validationRules = [
-        'name'            => 'required|min_length[2]|max_length[100]',
-        'slug'            => 'required|alpha_dash|max_length[100]|is_unique[marketplaces.slug,id,{id}]',
-        'icon'            => 'permit_empty|max_length[255]',
-        'color'           => 'permit_empty|regex_match[/^#[0-9A-F]{6}$/i]',
-        'active'          => 'permit_empty|in_list[0,1]',
+        'name' => [
+            'label' => 'Marketplace Name',
+            'rules' => 'required|max_length[100]|is_unique[marketplaces.name,id,{id}]',
+            'errors' => [
+                'required' => 'Marketplace name is required',
+                'max_length' => 'Marketplace name cannot exceed 100 characters',
+                'is_unique' => 'This marketplace name already exists'
+            ]
+        ],
+        'slug' => [
+            'label' => 'Marketplace Slug',
+            'rules' => 'required|alpha_dash|max_length[50]|is_unique[marketplaces.slug,id,{id}]',
+            'errors' => [
+                'required' => 'Marketplace slug is required',
+                'alpha_dash' => 'Slug can only contain letters, numbers, dashes, and underscores',
+                'max_length' => 'Slug cannot exceed 50 characters',
+                'is_unique' => 'This slug is already taken'
+            ]
+        ],
+        'icon' => [
+            'label' => 'Marketplace Icon',
+            'rules' => 'permit_empty|max_length[100]',
+            'errors' => [
+                'max_length' => 'Icon class cannot exceed 100 characters'
+            ]
+        ],
+        'color' => [
+            'label' => 'Marketplace Color',
+            'rules' => 'required|regex_match[/^#[0-9A-F]{6}$/i]',
+            'errors' => [
+                'required' => 'Marketplace color is required',
+                'regex_match' => 'Color must be a valid hex code (e.g., #3b82f6)'
+            ]
+        ],
+        'active' => [
+            'label' => 'Active Status',
+            'rules' => 'required|in_list[0,1]',
+            'errors' => [
+                'required' => 'Active status is required',
+                'in_list' => 'Active status must be either 0 or 1'
+            ]
+        ]
     ];
 
     /**
-     * Default ordering for queries
-     * * @var array
+     * Whether to use timestamps
+     * Override from BaseModel for explicit declaration
+     * 
+     * @var bool
      */
-    protected $orderBy = [
-        'name' => 'ASC'
-    ];
-
-    // ==================== CORE BUSINESS METHODS (5 METHODS) ====================
+    protected $useTimestamps = true;
 
     /**
-     * Find active marketplaces for public display
-     * Cached for 60 minutes as marketplaces rarely change
-     * * @param bool $withStats Include link count statistics
+     * Whether to use soft deletes
+     * Override from BaseModel for explicit declaration
+     * 
+     * @var bool
+     */
+    protected $useSoftDeletes = true;
+
+    /**
+     * Date format for timestamps
+     * 
+     * @var string
+     */
+    protected $dateFormat = 'datetime';
+
+    // ==================== CORE QUERY METHODS ====================
+
+    /**
+     * Find marketplace by slug (case-insensitive)
+     * 
+     * @param string $slug Marketplace slug
+     * @return Marketplace|null
+     */
+    public function findBySlug(string $slug): ?Marketplace
+    {
+        $result = $this->where('LOWER(slug)', strtolower($slug))
+                      ->where($this->deletedField, null)
+                      ->first();
+
+        return $result instanceof Marketplace ? $result : null;
+    }
+
+    /**
+     * Find marketplace by name (case-insensitive)
+     * 
+     * @param string $name Marketplace name
+     * @return Marketplace|null
+     */
+    public function findByName(string $name): ?Marketplace
+    {
+        $result = $this->where('LOWER(name)', strtolower($name))
+                      ->where($this->deletedField, null)
+                      ->first();
+
+        return $result instanceof Marketplace ? $result : null;
+    }
+
+    /**
+     * Find active marketplaces
+     * 
+     * @param string $orderDirection 'ASC' or 'DESC'
      * @return Marketplace[]
      */
-    public function findActive(bool $withStats = false): array
+    public function findActive(string $orderDirection = 'ASC'): array
     {
-        $cacheKey = $this->cacheKey('active_' . ($withStats ? 'with_stats' : 'basic'));
+        $result = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', $orderDirection)
+                      ->findAll();
 
-        return $this->cached($cacheKey, function () use ($withStats) {
-            $marketplaces = $this->where('active', 1)
-                                ->where('deleted_at')
-                                ->orderBy('name', 'ASC')
-                                ->findAll();
-
-            if ($withStats && !empty($marketplaces)) {
-                $this->attachLinkCounts($marketplaces);
-            }
-
-            return $marketplaces;
-        }, 3600); // 60 minutes cache
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
     }
 
     /**
-     * Get marketplaces with link count statistics
-     * Used for admin dashboard and analytics
-     * * @param int $limit
-     * @return Marketplace[] With attached link_count property
+     * Find inactive marketplaces
+     * 
+     * @param string $orderDirection 'ASC' or 'DESC'
+     * @return Marketplace[]
      */
-    public function withLinkCount(int $limit = 50): array
+    public function findInactive(string $orderDirection = 'ASC'): array
     {
-        $cacheKey = $this->cacheKey("with_link_count_{$limit}");
+        $result = $this->where($this->deletedField, null)
+                      ->where('active', 0)
+                      ->orderBy('name', $orderDirection)
+                      ->findAll();
 
-        return $this->cached($cacheKey, function () use ($limit) {
-            // Get all active marketplaces
-            $marketplaces = $this->where('deleted_at')
-                                ->orderBy('name', 'ASC')
-                                ->limit($limit)
-                                ->findAll();
-
-            if (empty($marketplaces)) {
-                return [];
-            }
-
-            // Attach link counts
-            $this->attachLinkCounts($marketplaces);
-
-            return $marketplaces;
-        }, 1800); // 30 minutes cache
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
     }
 
     /**
-     * Get commission statistics per marketplace
-     * Returns aggregated revenue and performance data
-     * * @param string $period 'day', 'week', 'month', or 'all'
+     * Find marketplaces with icons
+     * 
+     * @return Marketplace[]
      */
-    public function getCommissionStats(string $period = 'month'): array
+    public function findWithIcons(): array
     {
-        $cacheKey = $this->cacheKey("commission_stats_{$period}");
+        $result = $this->where('icon IS NOT NULL', null)
+                      ->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
 
-        return $this->cached($cacheKey, function () use ($period) {
-            // Get all active marketplaces
-            $marketplaces = $this->where('active', 1)
-                                ->where('deleted_at')
-                                ->orderBy('name', 'ASC')
-                                ->findAll();
-
-            if (empty($marketplaces)) {
-                return [];
-            }
-
-            $linkModel = model(LinkModel::class);
-            $stats = [];
-
-            foreach ($marketplaces as $marketplace) {
-                $marketplaceId = $marketplace->getId();
-
-                // Get link stats for this marketplace
-                $linkStats = $linkModel->getClickStats($period, null, $marketplaceId);
-
-                // Use actual revenue from links (manually input by admin)
-                $totalRevenue = (float) $linkStats['total_revenue'];
-
-                $stats[] = [
-                    'marketplace' => $marketplace,
-                    'link_stats' => $linkStats,
-                    'total_revenue' => number_format($totalRevenue, 2, '.', ''), // Renamed from estimated_commission
-                    'total_links' => $linkStats['total_links'],
-                    'total_clicks' => $linkStats['total_clicks'],
-                ];
-            }
-
-            // Sort by total revenue (descending)
-            usort($stats, function ($a, $b) {
-                return (float) $b['total_revenue'] <=> (float) $a['total_revenue'];
-            });
-
-            return $stats;
-        }, 300); // 5 minutes cache for stats
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
     }
 
     /**
-     * Find marketplace by slug
-     * Used for routing and URL resolution
-     * * @param string $slug
-     * @param bool $activeOnly Only return active marketplaces
+     * Find marketplaces without icons
+     * 
+     * @return Marketplace[]
      */
-    public function findBySlug(string $slug, bool $activeOnly = true): ?Marketplace
+    public function findWithoutIcons(): array
     {
-        $cacheKey = $this->cacheKey("slug_{$slug}_" . ($activeOnly ? 'active' : 'all'));
+        $result = $this->where('icon IS NULL', null)
+                      ->orWhere('icon', '')
+                      ->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
 
-        return $this->cached($cacheKey, function () use ($slug, $activeOnly) {
-            $builder = $this->builder();
-            $builder->where('slug', $slug)
-                    ->where('deleted_at');
-
-            if ($activeOnly) {
-                $builder->where('active', 1);
-            }
-
-            $result = $builder->get()->getFirstRow($this->returnType);
-
-            return $result instanceof Marketplace ? $result : null;
-        }, 3600); // 60 minutes cache
-    }
-
-    // ==================== HELPER METHODS ====================
-    /**
-     * Attach link counts to marketplaces
-     * * @param Marketplace[] $marketplaces
-     */
-    private function attachLinkCounts(array &$marketplaces): void
-    {
-        if ($marketplaces === []) {
-            return;
-        }
-
-        $marketplaceIds = array_map(fn ($mp) => $mp->getId(), $marketplaces);
-
-        // Get link counts in a single query
-        $linkModel = model(LinkModel::class);
-        $builder = $linkModel->builder();
-
-        $result = $builder->select('marketplace_id, COUNT(*) as link_count, SUM(clicks) as total_clicks')
-                         ->whereIn('marketplace_id', $marketplaceIds)
-                         ->where('active', 1)
-                         ->where('deleted_at', null)
-                         ->groupBy('marketplace_id')
-                         ->get()
-                         ->getResultArray();
-
-        // Create lookup array
-        $counts = [];
-        foreach ($result as $row) {
-            $counts[$row['marketplace_id']] = [
-                'link_count' => (int) $row['link_count'],
-                'total_clicks' => (int) $row['total_clicks']
-            ];
-        }
-
-        // Attach counts to marketplaces
-        foreach ($marketplaces as $marketplace) {
-            $marketplaceId = $marketplace->getId();
-            $marketplace->link_count = $counts[$marketplaceId]['link_count'] ?? 0;
-            $marketplace->total_clicks = $counts[$marketplaceId]['total_clicks'] ?? 0;
-            $marketplace->is_in_use = ($counts[$marketplaceId]['link_count'] ?? 0) > 0;
-        }
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
     }
 
     /**
-     * Clear all caches related to a marketplace
-     * * @param int $marketplaceId
+     * Find marketplace by color
+     * 
+     * @param string $color Hex color code (e.g., #3B82F6)
+     * @return Marketplace[]
      */
-    private function clearMarketplaceCaches(int $marketplaceId): void
+    public function findByColor(string $color): array
     {
-        $cacheKeys = [
-            'active_basic',
-            'active_with_stats',
-            'with_link_count_50',
-            "slug_{$marketplaceId}_active",
-            "slug_{$marketplaceId}_all",
+        $result = $this->where('color', strtoupper($color))
+                      ->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
+    }
+
+    /**
+     * Search marketplaces by name
+     * 
+     * @param string $searchTerm Search term
+     * @param int $limit Result limit
+     * @param int $offset Result offset
+     * @return Marketplace[]
+     */
+    public function searchByName(string $searchTerm, int $limit = 20, int $offset = 0): array
+    {
+        $result = $this->like('name', $searchTerm, 'both')
+                      ->where($this->deletedField, null)
+                      ->orderBy('name', 'ASC')
+                      ->findAll($limit, $offset);
+
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
+    }
+
+    /**
+     * Get all active marketplaces ordered by name
+     * 
+     * @param string $orderDirection 'ASC' or 'DESC'
+     * @return Marketplace[]
+     */
+    public function findAllActive(string $orderDirection = 'ASC'): array
+    {
+        $result = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', $orderDirection)
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
+    }
+
+    /**
+     * Get paginated active marketplaces
+     * 
+     * @param int $perPage Items per page
+     * @param int $page Current page
+     * @return array{data: Marketplace[], pager: \CodeIgniter\Pager\Pager}
+     */
+    public function paginateActive(int $perPage = 20, int $page = 1): array
+    {
+        $total = $this->where($this->deletedField, null)
+                     ->where('active', 1)
+                     ->countAllResults(false);
+        
+        $data = $this->where($this->deletedField, null)
+                    ->where('active', 1)
+                    ->orderBy('name', 'ASC')
+                    ->paginate($perPage, 'default', $page);
+
+        $pager = $this->pager;
+
+        return [
+            'data' => array_filter($data, fn($item) => $item instanceof Marketplace),
+            'pager' => $pager
         ];
-
-        // Also clear commission stats caches
-        $periods = ['day', 'week', 'month', 'all'];
-        foreach ($periods as $period) {
-            $cacheKeys[] = "commission_stats_{$period}";
-        }
-
-        foreach ($cacheKeys as $key) {
-            $this->clearCache($this->cacheKey($key));
-        }
     }
 
     /**
-     * Check if marketplace can be deleted
-     * Business rule: marketplace with active links cannot be deleted
-     * * @param int $marketplaceId
-     * @return array [bool $canDelete, string $reason]
-     */
-    public function canDelete(int $marketplaceId): array
-    {
-        $marketplace = $this->findActiveById($marketplaceId);
-        if (!$marketplace) {
-            return [false, 'Marketplace not found'];
-        }
-
-        // Check if marketplace has any active links
-        $linkModel = model(LinkModel::class);
-        $linkCount = $linkModel->where('marketplace_id', $marketplaceId)
-                              ->where('active', 1)
-                              ->where('deleted_at', null)
-                              ->countAllResults();
-
-        if ($linkCount > 0) {
-            return [false, "Marketplace has {$linkCount} active link(s). Remove links first."];
-        }
-
-        return [true, ''];
-    }
-
-    /**
-     * Get marketplace statistics for admin dashboard
-     * * @return array
-     */
-    public function getStats(): array
-    {
-        $cacheKey = $this->cacheKey('stats');
-
-        return $this->cached($cacheKey, function () {
-            $total = $this->countActive();
-            $active = $this->where('active', 1)
-                          ->where('deleted_at')
-                          ->countAllResults();
-
-            $inactive = $this->where('active', 0)
-                            ->where('deleted_at')
-                            ->countAllResults();
-
-            $archived = $this->where('deleted_at IS NOT NULL')
-                            ->countAllResults();
-
-            // Get marketplace with most links
-            $linkModel = model(LinkModel::class);
-            $builder = $linkModel->builder();
-            $mostLinks = $builder->select('marketplace_id, COUNT(*) as link_count')
-                                ->where('marketplace_id IS NOT NULL')
-                                ->where('active', 1)
-                                ->where('deleted_at', null)
-                                ->groupBy('marketplace_id')
-                                ->orderBy('link_count', 'DESC')
-                                ->limit(1)
-                                ->get()
-                                ->getRowArray();
-
-            return [
-                'total' => $total,
-                'active' => $active,
-                'inactive' => $inactive,
-                'archived' => $archived,
-                'most_used_marketplace' => $mostLinks ? [
-                    'marketplace_id' => $mostLinks['marketplace_id'],
-                    'link_count' => (int) $mostLinks['link_count']
-                ] : null,
-            ];
-        }, 300); // 5 minutes cache for stats
-    }
-
-    /**
-     * Find marketplaces by IDs
-     * * @param array $marketplaceIds
+     * Find marketplaces by IDs (batch lookup)
+     * 
+     * @param array<int|string> $ids Array of marketplace IDs
      * @return Marketplace[]
      */
-    public function findByIds(array $marketplaceIds, bool $activeOnly = true): array
+    public function findByIds(array $ids): array
     {
-        if ($marketplaceIds === []) {
+        if (empty($ids)) {
             return [];
         }
 
-        $cacheKey = $this->cacheKey('ids_' . md5(implode(',', $marketplaceIds)) . '_' . ($activeOnly ? 'active' : 'all'));
+        $result = $this->whereIn($this->primaryKey, $ids)
+                      ->where($this->deletedField, null)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
 
-        return $this->cached($cacheKey, function () use ($marketplaceIds, $activeOnly) {
-            $builder = $this->builder();
-            $builder->whereIn('id', $marketplaceIds)
-                    ->where('deleted_at');
-
-            if ($activeOnly) {
-                $builder->where('active', 1);
-            }
-
-            $builder->orderBy('name', 'ASC');
-
-            return $builder->get()->getResult($this->returnType);
-        }, 3600);
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
     }
 
     /**
-     * Create default marketplaces for system initialization
-     * * @return array IDs of created marketplaces
+     * Check if slug exists (excluding current ID)
+     * 
+     * @param string $slug Slug to check
+     * @param int|string|null $excludeId ID to exclude (for updates)
+     * @return bool
      */
-    public function createDefaultMarketplaces(): array
+    public function slugExists(string $slug, int|string|null $excludeId = null): bool
     {
-        $defaultMarketplaces = [
-            [
-                'name' => 'Tokopedia',
-                'slug' => 'tokopedia',
-                'icon' => 'fas fa-store',
-                'color' => '#42B549',
-                'active' => 1,
-            ],
-            [
-                'name' => 'Shopee',
-                'slug' => 'shopee',
-                'icon' => 'fas fa-shopping-cart',
-                'color' => '#FF5316',
-                'active' => 1,
-            ],
-            [
-                'name' => 'Lazada',
-                'slug' => 'lazada',
-                'icon' => 'fas fa-bolt',
-                'color' => '#0F146C',
-                'active' => 1,
-            ],
-            [
-                'name' => 'Blibli',
-                'slug' => 'blibli',
-                'icon' => 'fas fa-box',
-                'color' => '#E60012',
-                'active' => 1,
-            ],
-            [
-                'name' => 'Bukalapak',
-                'slug' => 'bukalapak',
-                'icon' => 'fas fa-shopping-bag',
-                'color' => '#E31B23',
-                'active' => 1,
-            ],
+        $query = $this->where('LOWER(slug)', strtolower($slug))
+                     ->where($this->deletedField, null);
+
+        if ($excludeId !== null) {
+            $query->where($this->primaryKey . ' !=', $excludeId);
+        }
+
+        return $query->countAllResults() > 0;
+    }
+
+    /**
+     * Check if marketplace name exists (excluding current ID)
+     * 
+     * @param string $name Name to check
+     * @param int|string|null $excludeId ID to exclude (for updates)
+     * @return bool
+     */
+    public function nameExists(string $name, int|string|null $excludeId = null): bool
+    {
+        $query = $this->where('LOWER(name)', strtolower($name))
+                     ->where($this->deletedField, null);
+
+        if ($excludeId !== null) {
+            $query->where($this->primaryKey . ' !=', $excludeId);
+        }
+
+        return $query->countAllResults() > 0;
+    }
+
+    // ==================== LINK & STATISTICS QUERY METHODS ====================
+
+    /**
+     * Get marketplace link statistics
+     * Counts how many active links each marketplace has
+     * 
+     * @return array<array{marketplace: Marketplace, link_count: int, active_links: int}>
+     */
+    public function getLinkStatistics(): array
+    {
+        $builder = $this->builder();
+        
+        // Join with links table to count all links and active links
+        $query = $builder->select('marketplaces.*, 
+                                   COUNT(links.id) as link_count,
+                                   SUM(CASE WHEN links.active = 1 THEN 1 ELSE 0 END) as active_links')
+                        ->join('links', 'links.marketplace_id = marketplaces.id', 'left')
+                        ->where('marketplaces.deleted_at', null)
+                        ->where('marketplaces.active', 1)
+                        ->groupBy('marketplaces.id')
+                        ->orderBy('link_count', 'DESC')
+                        ->orderBy('marketplaces.name', 'ASC')
+                        ->get();
+
+        $results = [];
+        foreach ($query->getResultArray() as $row) {
+            $marketplace = new Marketplace($row['name'], $row['slug']);
+            $marketplace->setId($row['id']);
+            $marketplace->setIcon($row['icon']);
+            $marketplace->setColor($row['color']);
+            $marketplace->setActive((bool) $row['active']);
+            
+            $results[] = [
+                'marketplace' => $marketplace,
+                'link_count' => (int) $row['link_count'],
+                'active_links' => (int) $row['active_links']
+            ];
+        }
+
+        return $results;
+    }
+
+    /**
+     * Find marketplaces with active links
+     * 
+     * @return Marketplace[]
+     */
+    public function findWithActiveLinks(): array
+    {
+        $builder = $this->builder();
+        
+        // Subquery to find marketplace IDs with active links
+        $subQuery = $builder->db->table('links')
+                               ->select('marketplace_id')
+                               ->where('deleted_at', null)
+                               ->where('active', 1)
+                               ->groupBy('marketplace_id');
+
+        $query = $builder->select('marketplaces.*')
+                        ->where('marketplaces.deleted_at', null)
+                        ->where('marketplaces.active', 1)
+                        ->whereIn('marketplaces.id', $subQuery)
+                        ->orderBy('marketplaces.name', 'ASC')
+                        ->get();
+
+        $results = [];
+        foreach ($query->getResultArray() as $row) {
+            $marketplace = new Marketplace($row['name'], $row['slug']);
+            $marketplace->setId($row['id']);
+            $marketplace->setIcon($row['icon']);
+            $marketplace->setColor($row['color']);
+            $marketplace->setActive((bool) $row['active']);
+            
+            $results[] = $marketplace;
+        }
+
+        return $results;
+    }
+
+    /**
+     * Find marketplaces without any active links
+     * Useful for identifying unused marketplaces
+     * 
+     * @return Marketplace[]
+     */
+    public function findWithoutActiveLinks(): array
+    {
+        $builder = $this->builder();
+        
+        // Subquery to find marketplace IDs with active links
+        $subQuery = $builder->db->table('links')
+                               ->select('marketplace_id')
+                               ->where('deleted_at', null)
+                               ->where('active', 1)
+                               ->groupBy('marketplace_id');
+
+        $query = $builder->select('marketplaces.*')
+                        ->where('marketplaces.deleted_at', null)
+                        ->where('marketplaces.active', 1)
+                        ->whereNotIn('marketplaces.id', $subQuery)
+                        ->orderBy('marketplaces.name', 'ASC')
+                        ->get();
+
+        $results = [];
+        foreach ($query->getResultArray() as $row) {
+            $marketplace = new Marketplace($row['name'], $row['slug']);
+            $marketplace->setId($row['id']);
+            $marketplace->setIcon($row['icon']);
+            $marketplace->setColor($row['color']);
+            $marketplace->setActive((bool) $row['active']);
+            
+            $results[] = $marketplace;
+        }
+
+        return $results;
+    }
+
+    /**
+     * Get most used marketplaces (by link count)
+     * 
+     * @param int $limit Limit results
+     * @return array<array{marketplace: Marketplace, link_count: int}>
+     */
+    public function findMostUsed(int $limit = 10): array
+    {
+        $builder = $this->builder();
+        
+        $query = $builder->select('marketplaces.*, COUNT(links.id) as link_count')
+                        ->join('links', 'links.marketplace_id = marketplaces.id', 'left')
+                        ->where('marketplaces.deleted_at', null)
+                        ->where('marketplaces.active', 1)
+                        ->where('links.deleted_at', null)
+                        ->groupBy('marketplaces.id')
+                        ->orderBy('link_count', 'DESC')
+                        ->orderBy('marketplaces.name', 'ASC')
+                        ->limit($limit)
+                        ->get();
+
+        $results = [];
+        foreach ($query->getResultArray() as $row) {
+            $marketplace = new Marketplace($row['name'], $row['slug']);
+            $marketplace->setId($row['id']);
+            $marketplace->setIcon($row['icon']);
+            $marketplace->setColor($row['color']);
+            $marketplace->setActive((bool) $row['active']);
+            
+            $results[] = [
+                'marketplace' => $marketplace,
+                'link_count' => (int) $row['link_count']
+            ];
+        }
+
+        return $results;
+    }
+
+    // ==================== ADVANCED QUERY METHODS ====================
+
+    /**
+     * Get paginated marketplaces with optional filters
+     * 
+     * @param array{
+     *     active?: bool|null,
+     *     has_icon?: bool|null,
+     *     search?: string|null
+     * } $filters
+     * @param int $perPage Items per page
+     * @param int $page Current page
+     * @return array{data: Marketplace[], pager: \CodeIgniter\Pager\Pager, total: int}
+     */
+    public function paginateWithFilters(array $filters = [], int $perPage = 25, int $page = 1): array
+    {
+        $builder = $this->builder();
+
+        // Apply base filter
+        $builder->where($this->deletedField, null);
+
+        if (isset($filters['active']) && $filters['active'] !== null) {
+            $builder->where('active', $filters['active'] ? 1 : 0);
+        }
+
+        if (isset($filters['has_icon']) && $filters['has_icon'] !== null) {
+            if ($filters['has_icon']) {
+                $builder->where('icon IS NOT NULL', null)
+                       ->where('icon !=', '');
+            } else {
+                $builder->groupStart()
+                       ->where('icon IS NULL', null)
+                       ->orWhere('icon', '')
+                       ->groupEnd();
+            }
+        }
+
+        if (isset($filters['search']) && $filters['search'] !== null) {
+            $builder->groupStart()
+                   ->like('name', $filters['search'], 'both')
+                   ->orLike('slug', $filters['search'], 'both')
+                   ->groupEnd();
+        }
+
+        // Get total count
+        $total = $builder->countAllResults(false);
+        
+        // Get paginated data
+        $data = $builder->orderBy('name', 'ASC')
+                       ->paginate($perPage, 'default', $page);
+
+        $pager = $this->pager;
+
+        return [
+            'data' => array_filter($data, fn($item) => $item instanceof Marketplace),
+            'pager' => $pager,
+            'total' => (int) $total
         ];
-
-        $createdIds = [];
-
-        foreach ($defaultMarketplaces as $marketplaceData) {
-            // Check if marketplace already exists by slug
-            $existing = $this->where('slug', $marketplaceData['slug'])
-                            ->where('deleted_at')
-                            ->first();
-
-            if (!$existing && $id = $this->insert($marketplaceData)) {
-                $createdIds[] = $id;
-            }
-        }
-
-        // Clear caches after creating defaults
-        $this->clearCache($this->cacheKey('active_basic'));
-        $this->clearCache($this->cacheKey('active_with_stats'));
-
-        return $createdIds;
     }
 
     /**
-     * Deactivate marketplace
-     * * @param int $marketplaceId
+     * Find marketplaces with FontAwesome icons
+     * 
+     * @return Marketplace[]
      */
-    public function deactivate(int $marketplaceId): bool
+    public function findWithFontAwesomeIcons(): array
     {
-        $result = $this->update($marketplaceId, ['active' => 0]);
+        $result = $this->like('icon', 'fas fa-', 'after')
+                      ->orLike('icon', 'far fa-', 'after')
+                      ->orLike('icon', 'fab fa-', 'after')
+                      ->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
 
-        if ($result) {
-            $this->clearMarketplaceCaches($marketplaceId);
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
+    }
+
+    /**
+     * Find archived (soft-deleted) marketplaces
+     * 
+     * @param string $orderDirection 'ASC' or 'DESC'
+     * @return Marketplace[]
+     */
+    public function findArchived(string $orderDirection = 'ASC'): array
+    {
+        $result = $this->where($this->deletedField . ' IS NOT NULL', null)
+                      ->orderBy('name', $orderDirection)
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Marketplace);
+    }
+
+    /**
+     * Get marketplace statistics
+     * 
+     * @return array{
+     *     total: int,
+     *     active: int,
+     *     inactive: int,
+     *     archived: int,
+     *     with_icon: int,
+     *     without_icon: int,
+     *     with_links: int,
+     *     without_links: int
+     * }
+     */
+    public function getStatistics(): array
+    {
+        $total = $this->countAllResults(false);
+        
+        $active = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->countAllResults(false);
+        
+        $inactive = $this->where($this->deletedField, null)
+                        ->where('active', 0)
+                        ->countAllResults(false);
+        
+        $archived = $this->where($this->deletedField . ' IS NOT NULL', null)
+                        ->countAllResults(false);
+        
+        $withIcon = $this->where('icon IS NOT NULL', null)
+                        ->where($this->deletedField, null)
+                        ->where('active', 1)
+                        ->countAllResults(false);
+        
+        $withoutIcon = $this->where('icon IS NULL', null)
+                           ->where($this->deletedField, null)
+                           ->where('active', 1)
+                           ->countAllResults(false);
+        
+        // Count marketplaces with active links
+        $builder = $this->builder();
+        $subQuery = $builder->db->table('links')
+                               ->select('marketplace_id')
+                               ->where('deleted_at', null)
+                               ->where('active', 1)
+                               ->groupBy('marketplace_id');
+        
+        $withLinks = $builder->select('marketplaces.id')
+                           ->from('marketplaces')
+                           ->join('(' . $subQuery->getCompiledSelect() . ')', 'marketplace_id = marketplaces.id', 'inner')
+                           ->where('marketplaces.deleted_at', null)
+                           ->where('marketplaces.active', 1)
+                           ->countAllResults();
+        
+        // Count marketplaces without active links
+        $withoutLinks = $active - $withLinks;
+
+        return [
+            'total' => (int) $total,
+            'active' => (int) $active,
+            'inactive' => (int) $inactive,
+            'archived' => (int) $archived,
+            'with_icon' => (int) $withIcon,
+            'without_icon' => (int) $withoutIcon,
+            'with_links' => (int) $withLinks,
+            'without_links' => (int) $withoutLinks
+        ];
+    }
+
+    /**
+     * Get color distribution of marketplaces
+     * 
+     * @return array<array{color: string, count: int}>
+     */
+    public function getColorDistribution(): array
+    {
+        $builder = $this->builder();
+        
+        $query = $builder->select('color, COUNT(*) as count')
+                        ->where($this->deletedField, null)
+                        ->where('active', 1)
+                        ->groupBy('color')
+                        ->orderBy('count', 'DESC')
+                        ->get();
+
+        $results = [];
+        foreach ($query->getResultArray() as $row) {
+            $results[] = [
+                'color' => $row['color'],
+                'count' => (int) $row['count']
+            ];
         }
 
-        return $result;
+        return $results;
+    }
+
+    // ==================== OVERRIDDEN METHODS ====================
+
+    /**
+     * Insert data with validation
+     * Override to ensure type safety for Marketplace entity
+     * 
+     * @param array<string, mixed>|object|null $data
+     * @return int|string|false
+     */
+    public function insert($data = null, bool $returnID = true)
+    {
+        // Convert Marketplace entity to array if needed
+        if ($data instanceof Marketplace) {
+            $data = [
+                'name' => $data->getName(),
+                'slug' => $data->getSlug(),
+                'icon' => $data->getIcon(),
+                'color' => strtoupper($data->getColor()),
+                'active' => $data->isActive() ? 1 : 0,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+        } elseif (is_array($data) && isset($data['color'])) {
+            // Ensure color is uppercase
+            $data['color'] = strtoupper($data['color']);
+        }
+
+        return parent::insert($data, $returnID);
+    }
+
+    /**
+     * Update data with validation
+     * Override to ensure type safety for Marketplace entity
+     * 
+     * @param array<string, mixed>|int|string|null $id
+     * @param array<string, mixed>|object|null $data
+     * @return bool
+     */
+    public function update($id = null, $data = null): bool
+    {
+        // Convert Marketplace entity to array if needed
+        if ($data instanceof Marketplace) {
+            $updateData = [
+                'name' => $data->getName(),
+                'slug' => $data->getSlug(),
+                'icon' => $data->getIcon(),
+                'color' => strtoupper($data->getColor()),
+                'active' => $data->isActive() ? 1 : 0,
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+
+            // Only update if values changed
+            return $this->updateIfChanged($id, $updateData);
+        } elseif (is_array($data) && isset($data['color'])) {
+            // Ensure color is uppercase
+            $data['color'] = strtoupper($data['color']);
+        }
+
+        return parent::update($id, $data);
+    }
+
+    /**
+     * Physical delete protection
+     * Override to enforce soft delete only for marketplaces
+     * 
+     * @throws RuntimeException Always, since physical deletes are disabled
+     */
+    public function delete($id = null, bool $purge = false): bool
+    {
+        if ($purge) {
+            throw new RuntimeException('Physical deletes are disabled in MVP. Use archive() method.');
+        }
+
+        return parent::delete($id, false);
     }
 
     /**
      * Activate marketplace
-     * * @param int $marketplaceId
+     * 
+     * @param int|string $id Marketplace ID
+     * @return bool
      */
-    public function activate(int $marketplaceId): bool
+    public function activate(int|string $id): bool
     {
-        $result = $this->update($marketplaceId, ['active' => 1]);
+        $data = [
+            'active' => 1,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
 
-        if ($result) {
-            $this->clearMarketplaceCaches($marketplaceId);
+        return $this->update($id, $data);
+    }
+
+    /**
+     * Deactivate marketplace
+     * 
+     * @param int|string $id Marketplace ID
+     * @return bool
+     */
+    public function deactivate(int|string $id): bool
+    {
+        $data = [
+            'active' => 0,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($id, $data);
+    }
+
+    /**
+     * Bulk archive marketplaces
+     * 
+     * @param array<int|string> $ids Marketplace IDs to archive
+     * @return int Number of archived marketplaces
+     */
+    public function bulkArchive(array $ids): int
+    {
+        if (empty($ids)) {
+            return 0;
         }
 
-        return $result;
+        $data = [
+            $this->deletedField => date('Y-m-d H:i:s'),
+            $this->updatedField => date('Y-m-d H:i:s')
+        ];
+
+        return $this->bulkUpdate($ids, $data);
+    }
+
+    /**
+     * Bulk restore archived marketplaces
+     * 
+     * @param array<int|string> $ids Marketplace IDs to restore
+     * @return int Number of restored marketplaces
+     */
+    public function bulkRestore(array $ids): int
+    {
+        if (empty($ids)) {
+            return 0;
+        }
+
+        $data = [
+            $this->deletedField => null,
+            $this->updatedField => date('Y-m-d H:i:s')
+        ];
+
+        return $this->bulkUpdate($ids, $data);
+    }
+
+    /**
+     * Bulk activate marketplaces
+     * 
+     * @param array<int|string> $ids Marketplace IDs to activate
+     * @return int Number of activated marketplaces
+     */
+    public function bulkActivate(array $ids): int
+    {
+        if (empty($ids)) {
+            return 0;
+        }
+
+        $data = [
+            'active' => 1,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->bulkUpdate($ids, $data);
+    }
+
+    /**
+     * Bulk deactivate marketplaces
+     * 
+     * @param array<int|string> $ids Marketplace IDs to deactivate
+     * @return int Number of deactivated marketplaces
+     */
+    public function bulkDeactivate(array $ids): int
+    {
+        if (empty($ids)) {
+            return 0;
+        }
+
+        $data = [
+            'active' => 0,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->bulkUpdate($ids, $data);
+    }
+
+    /**
+     * Initialize sample marketplaces if they don't exist
+     * Useful for database seeding
+     * 
+     * @return array{created: int, existing: int}
+     */
+    public function initializeSamples(): array
+    {
+        $sampleMarketplaces = Marketplace::createSamples();
+        $created = 0;
+        $existing = 0;
+
+        foreach ($sampleMarketplaces as $marketplace) {
+            if (!$this->slugExists($marketplace->getSlug())) {
+                $this->insert($marketplace);
+                $created++;
+            } else {
+                $existing++;
+            }
+        }
+
+        return [
+            'created' => $created,
+            'existing' => $existing
+        ];
+    }
+
+    /**
+     * Create a sample marketplace (for testing/demo)
+     * 
+     * @param array<string, mixed> $overrides Override default values
+     * @return Marketplace
+     */
+    public function createSample(array $overrides = []): Marketplace
+    {
+        $defaults = [
+            'name' => 'Sample Marketplace',
+            'slug' => 'sample-marketplace',
+            'icon' => 'fas fa-store',
+            'color' => '#3B82F6',
+            'active' => true
+        ];
+
+        $data = array_merge($defaults, $overrides);
+
+        $marketplace = new Marketplace($data['name'], $data['slug']);
+        $marketplace->setIcon($data['icon']);
+        $marketplace->setColor($data['color']);
+        $marketplace->setActive($data['active']);
+
+        return $marketplace;
     }
 }

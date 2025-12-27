@@ -6,6 +6,9 @@ use App\Entities\Category;
 
 class CategoryResponse
 {
+    public int $id;
+    public string $name;
+    public string $slug;
     public ?array $statistics = null;
     public ?int $product_count = null;
     public ?int $children_count = null;

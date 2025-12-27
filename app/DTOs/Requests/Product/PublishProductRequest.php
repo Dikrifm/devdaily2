@@ -1,152 +1,236 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DTOs\Requests\Product;
 
-use App\Enums\ProductStatus;
+use App\DTOs\BaseDTO;
+use App\Exceptions\ValidationException;
 use DateTimeImmutable;
 use DateTimeZone;
 
 /**
- * Publish Product Request DTO
- *
- * Data Transfer Object for product publishing requests.
- * Enterprise-grade with immutable design and comprehensive validation.
- *
- * @package App\DTOs\Requests\Product
+ * DTO for publishing a product (immediate, scheduled, or force publish)
+ * 
+ * @package DevDaily\DTOs\Requests\Product
  */
-final class PublishProductRequest
+final class PublishProductRequest extends BaseDTO
 {
-    /**
-     * Product ID to publish
-     */
-    private readonly int $productId;
+    private int $productId;
+    private int $adminId;
+    private ?DateTimeImmutable $scheduledAt = null;
+    private ?string $notes = null;
+    private bool $forcePublish = false;
+    private DateTimeImmutable $requestedAt;
+    private string $publishType;
 
     /**
-     * Admin ID performing the publish action
+     * Private constructor - use factory methods
      */
-    private readonly int $adminId;
-
-    /**
-     * Custom publish timestamp (for scheduling)
-     * Null means publish immediately
-     */
-    private readonly ?DateTimeImmutable $scheduledAt;
-
-    /**
-     * Publishing notes for audit trail
-     */
-    private readonly ?string $notes;
-
-    /**
-     * Force publish ignoring some validations
-     */
-    private readonly bool $forcePublish;
-
-    /**
-     * Private constructor for immutability
-     */
-    private function __construct(
-        int $productId,
-        int $adminId,
-        ?DateTimeImmutable $scheduledAt = null,
-        ?string $notes = null,
-        bool $forcePublish = false
-    ) {
+    private function __construct(int $productId, int $adminId)
+    {
         $this->productId = $productId;
         $this->adminId = $adminId;
-        $this->scheduledAt = $scheduledAt;
-        $this->notes = $notes;
-        $this->forcePublish = $forcePublish;
+        $this->requestedAt = new DateTimeImmutable('now', new DateTimeZone('Asia/Jakarta'));
     }
 
     /**
-     * Create PublishProductRequest from HTTP request data
+     * Create DTO from request data
      */
     public static function fromRequest(int $productId, int $adminId, array $requestData): self
     {
-        $scheduledAt = null;
-        if (!empty($requestData['scheduled_at'])) {
-            $scheduledAt = DateTimeImmutable::createFromFormat(
-                'Y-m-d\TH:i:s',
-                $requestData['scheduled_at'],
-                new DateTimeZone('UTC')
-            );
-
-            if ($scheduledAt === false) {
-                $scheduledAt = DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i:s',
-                    $requestData['scheduled_at'],
-                    new DateTimeZone('UTC')
-                );
-            }
-        }
-
-        return new self(
-            productId: $productId,
-            adminId: $adminId,
-            scheduledAt: $scheduledAt,
-            notes: $requestData['notes'] ?? null,
-            forcePublish: filter_var($requestData['force_publish'] ?? false, FILTER_VALIDATE_BOOLEAN)
-        );
+        $dto = new self($productId, $adminId);
+        $dto->validateAndHydrate($requestData);
+        
+        return $dto;
     }
 
     /**
-     * Create immediate publish request
+     * Create DTO for immediate publish
      */
     public static function forImmediatePublish(int $productId, int $adminId, ?string $notes = null): self
     {
-        return new self(
-            productId: $productId,
-            adminId: $adminId,
-            scheduledAt: null,
-            notes: $notes,
-            forcePublish: false
-        );
+        $dto = new self($productId, $adminId);
+        $dto->publishType = 'immediate';
+        $dto->notes = $notes;
+        $dto->validatePublishData();
+        
+        return $dto;
     }
 
     /**
-     * Create scheduled publish request
+     * Create DTO for scheduled publish
      */
     public static function forScheduledPublish(
-        int $productId,
-        int $adminId,
-        DateTimeImmutable $scheduledAt,
+        int $productId, 
+        int $adminId, 
+        DateTimeImmutable $scheduledAt, 
         ?string $notes = null
     ): self {
-        return new self(
-            productId: $productId,
-            adminId: $adminId,
-            scheduledAt: $scheduledAt,
-            notes: $notes,
-            forcePublish: false
-        );
+        $dto = new self($productId, $adminId);
+        $dto->publishType = 'scheduled';
+        $dto->scheduledAt = $scheduledAt;
+        $dto->notes = $notes;
+        $dto->validatePublishData();
+        
+        return $dto;
     }
 
     /**
-     * Create force publish request (bypasses some validations)
+     * Create DTO for force publish (bypass validations)
      */
     public static function forForcePublish(int $productId, int $adminId, ?string $notes = null): self
     {
-        return new self(
-            productId: $productId,
-            adminId: $adminId,
-            scheduledAt: null,
-            notes: $notes,
-            forcePublish: true
-        );
+        $dto = new self($productId, $adminId);
+        $dto->publishType = 'force';
+        $dto->forcePublish = true;
+        $dto->notes = $notes;
+        $dto->validatePublishData();
+        
+        return $dto;
     }
 
     /**
-     * Get validation rules for request data
+     * Validate and hydrate from request data
+     */
+    private function validateAndHydrate(array $data): void
+    {
+        $errors = [];
+        
+        // Determine publish type
+        if (isset($data['publish_type'])) {
+            $this->publishType = $this->sanitizeString($data['publish_type']);
+            
+            // Validate publish type
+            if (!in_array($this->publishType, ['immediate', 'scheduled', 'force'], true)) {
+                $errors['publish_type'] = 'Invalid publish type. Must be: immediate, scheduled, or force';
+            }
+        } else {
+            $this->publishType = 'immediate';
+        }
+        
+        // Parse scheduled datetime if provided
+        if ($this->publishType === 'scheduled') {
+            if (empty($data['scheduled_at'])) {
+                $errors['scheduled_at'] = 'Scheduled datetime is required for scheduled publish';
+            } else {
+                $this->scheduledAt = $this->parseScheduledAt($data['scheduled_at'], $errors);
+            }
+        }
+        
+        // Parse force publish flag
+        if ($this->publishType === 'force') {
+            $this->forcePublish = true;
+        } elseif (isset($data['force_publish'])) {
+            $this->forcePublish = filter_var($data['force_publish'], FILTER_VALIDATE_BOOLEAN);
+        }
+        
+        // Parse notes
+        if (isset($data['notes']) && $data['notes'] !== '') {
+            $this->notes = $this->sanitizeString($data['notes']);
+            
+            // Validate notes length
+            if (strlen($this->notes) > 500) {
+                $errors['notes'] = 'Notes cannot exceed 500 characters';
+            }
+        }
+        
+        // Validate scheduled datetime is in future
+        if ($this->scheduledAt !== null) {
+            $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Jakarta'));
+            if ($this->scheduledAt <= $now) {
+                $errors['scheduled_at'] = 'Scheduled datetime must be in the future';
+            }
+            
+            // Limit scheduling to max 30 days in future (MVP constraint)
+            $maxScheduled = $now->modify('+30 days');
+            if ($this->scheduledAt > $maxScheduled) {
+                $errors['scheduled_at'] = 'Cannot schedule publish more than 30 days in advance';
+            }
+        }
+        
+        if (!empty($errors)) {
+            throw new ValidationException('Publish request validation failed', $errors);
+        }
+    }
+
+    /**
+     * Parse scheduled datetime string
+     */
+    private function parseScheduledAt(string $dateString, array &$errors): ?DateTimeImmutable
+    {
+        try {
+            // Try ISO 8601 format first
+            $date = DateTimeImmutable::createFromFormat(DateTimeImmutable::ATOM, $dateString);
+            
+            if (!$date) {
+                // Try with timezone
+                $date = DateTimeImmutable::createFromFormat('Y-m-d\TH:i:sP', $dateString);
+            }
+            
+            if (!$date) {
+                // Try simple format (assuming Jakarta timezone)
+                $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateString, new DateTimeZone('Asia/Jakarta'));
+            }
+            
+            if (!$date) {
+                $errors['scheduled_at'] = 'Invalid datetime format. Use ISO 8601 format (e.g., 2025-12-25T14:30:00+07:00)';
+                return null;
+            }
+            
+            return $date;
+        } catch (\Exception $e) {
+            $errors['scheduled_at'] = 'Invalid datetime format: ' . $e->getMessage();
+            return null;
+        }
+    }
+
+    /**
+     * Validate publish data after factory methods
+     */
+    private function validatePublishData(): void
+    {
+        $errors = [];
+        
+        // Validate scheduled datetime for scheduled publish
+        if ($this->publishType === 'scheduled' && $this->scheduledAt === null) {
+            $errors['scheduled_at'] = 'Scheduled datetime is required for scheduled publish';
+        }
+        
+        // Validate scheduled datetime is in future
+        if ($this->scheduledAt !== null) {
+            $now = new DateTimeImmutable('now', new DateTimeZone('Asia/Jakarta'));
+            if ($this->scheduledAt <= $now) {
+                $errors['scheduled_at'] = 'Scheduled datetime must be in the future';
+            }
+            
+            // Limit scheduling to max 30 days in future
+            $maxScheduled = $now->modify('+30 days');
+            if ($this->scheduledAt > $maxScheduled) {
+                $errors['scheduled_at'] = 'Cannot schedule publish more than 30 days in advance';
+            }
+        }
+        
+        // Validate notes length
+        if ($this->notes !== null && strlen($this->notes) > 500) {
+            $errors['notes'] = 'Notes cannot exceed 500 characters';
+        }
+        
+        if (!empty($errors)) {
+            throw new ValidationException('Publish request validation failed', $errors);
+        }
+    }
+
+    /**
+     * Get validation rules for form validation
      */
     public static function rules(): array
     {
         return [
-            'productId' => 'required|integer|greater_than[0]',
-            'adminId' => 'required|integer|greater_than[0]',
-            'scheduled_at' => 'permit_empty|valid_date|future_date',
-            'notes' => 'permit_empty|string|max_length[1000]',
-            'force_publish' => 'permit_empty|in_list[true,false,1,0]',
+            'publish_type' => 'permit_empty|string|in_list[immediate,scheduled,force]',
+            'scheduled_at' => 'permit_empty|valid_date',
+            'force_publish' => 'permit_empty|in_list[0,1,true,false]',
+            'notes' => 'permit_empty|string|max:500',
         ];
     }
 
@@ -156,236 +240,71 @@ final class PublishProductRequest
     public static function messages(): array
     {
         return [
-            'productId.required' => 'Product ID is required for publishing',
-            'productId.greater_than' => 'Product ID must be valid',
-            'adminId.required' => 'Admin ID is required for audit trail',
-            'adminId.greater_than' => 'Admin ID must be valid',
-            'scheduled_at.valid_date' => 'Scheduled date must be a valid date/time',
-            'scheduled_at.future_date' => 'Scheduled date must be in the future',
-            'notes.max_length' => 'Notes cannot exceed 1000 characters',
-            'force_publish.in_list' => 'Force publish must be true or false',
+            'publish_type' => [
+                'in_list' => 'Publish type must be: immediate, scheduled, or force',
+            ],
+            'scheduled_at' => [
+                'valid_date' => 'Please provide a valid datetime in ISO 8601 format',
+            ],
+            'notes' => [
+                'max' => 'Notes cannot exceed 500 characters',
+            ],
         ];
     }
 
     /**
-     * Validate the request data
-     *
-     * @return array [valid: bool, errors: array]
-     */
-    public function validate(): array
-    {
-        $errors = [];
-
-        // Basic data validation
-        if ($this->productId <= 0) {
-            $errors[] = 'Invalid product ID';
-        }
-
-        if ($this->adminId <= 0) {
-            $errors[] = 'Invalid admin ID';
-        }
-
-        if ($this->notes !== null && strlen($this->notes) > 1000) {
-            $errors[] = 'Notes cannot exceed 1000 characters';
-        }
-
-        // Scheduled date validation
-        if ($this->scheduledAt instanceof \DateTimeImmutable) {
-            $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
-            if ($this->scheduledAt <= $now) {
-                $errors[] = 'Scheduled publish date must be in the future';
-            }
-        }
-
-        return [
-            'valid' => $errors === [],
-            'errors' => $errors,
-        ];
-    }
-
-    /**
-     * Validate publishing prerequisites
-     *
-     * @param array $productData Current product data from database
-     * @param array $linksData Product links data
-     * @return array [valid: bool, errors: array]
+     * Validate prerequisites for publishing
      */
     public function validatePrerequisites(array $productData, array $linksData = []): array
     {
         $errors = [];
-
-        // Skip validation for force publish
-        if ($this->forcePublish) {
-            return [
-                'valid' => true,
-                'warnings' => ['Force publish enabled - some validations bypassed'],
-                'errors' => [],
-            ];
+        
+        // MVP: Basic prerequisites
+        if (empty($productData['name'])) {
+            $errors['product'] = 'Product must have a name';
         }
-
-        // 1. Check current status
-        $currentStatus = $productData['status'] ?? null;
-        $allowedFromStatuses = [ProductStatus::VERIFIED->value, ProductStatus::DRAFT->value];
-
-        if (!in_array($currentStatus, $allowedFromStatuses, true)) {
-            $errors[] = sprintf(
-                'Product cannot be published from status "%s". Allowed statuses: %s',
-                $currentStatus,
-                implode(', ', $allowedFromStatuses)
-            );
-        }
-
-        // 2. Check required fields
-        $requiredFields = [
-            'name' => 'Product name',
-            'slug' => 'Product slug',
-            'category_id' => 'Category',
-            'image' => 'Product image',
-            'description' => 'Product description',
-        ];
-
-        foreach ($requiredFields as $field => $label) {
-            if (empty($productData[$field])) {
-                $errors[] = sprintf('%s is required before publishing', $label);
-            }
-        }
-
-        // 3. Check market price
+        
         if (empty($productData['market_price']) || (float)$productData['market_price'] <= 0) {
-            $errors[] = 'Valid market price is required before publishing';
+            $errors['product'] = 'Product must have a valid price';
         }
-
-        // 4. Check active links (at least one)
-        $hasActiveLink = false;
-        foreach ($linksData as $link) {
-            if (($link['active'] ?? false) && !empty($link['url'])) {
-                $hasActiveLink = true;
-                break;
+        
+        // For non-force publish, require at least one active link
+        if (!$this->forcePublish) {
+            if (empty($linksData)) {
+                $errors['links'] = 'Product must have at least one affiliate link to publish';
+            } else {
+                $hasActiveLink = false;
+                foreach ($linksData as $link) {
+                    if ($link['active'] ?? false) {
+                        $hasActiveLink = true;
+                        break;
+                    }
+                }
+                
+                if (!$hasActiveLink) {
+                    $errors['links'] = 'Product must have at least one active affiliate link';
+                }
             }
         }
-
-        if (!$hasActiveLink) {
-            $errors[] = 'At least one active product link is required before publishing';
-        }
-
-        // 5. Check image source type compatibility
-        $imageSourceType = $productData['image_source_type'] ?? null;
-        $image = $productData['image'] ?? null;
-        $imagePath = $productData['image_path'] ?? null;
-
-        if ($imageSourceType === 'url' && empty($image)) {
-            $errors[] = 'External image URL is required for URL source type';
-        }
-
-        if ($imageSourceType === 'upload' && empty($imagePath)) {
-            $errors[] = 'Image path is required for uploaded images';
-        }
-
-        return [
-            'valid' => $errors === [],
-            'errors' => $errors,
-        ];
+        
+        return $errors;
     }
 
-    /**
-     * Transform to database update array
-     */
-    public function toDatabaseArray(): array
-    {
-        $data = [
-            'status' => ProductStatus::PUBLISHED->value,
-            'updated_at' => date('Y-m-d H:i:s'),
-        ];
-
-        // Set published_at timestamp
-        $data['published_at'] = $this->scheduledAt !== null ? $this->scheduledAt->format('Y-m-d H:i:s') : date('Y-m-d H:i:s');
-
-        // If coming from draft, set verified timestamp as well
-        // This assumes publishing also implies verification
-        $data['verified_at'] = date('Y-m-d H:i:s');
-        $data['verified_by'] = $this->adminId;
-
-        return $data;
-    }
-
-    /**
-     * Transform to admin action log data
-     *
-     * @param array $oldProductData Product data before changes
-     */
-    public function toAdminActionLog(array $oldProductData): array
-    {
-        $newData = array_merge($oldProductData, $this->toDatabaseArray());
-
-        return [
-            'admin_id' => $this->adminId,
-            'action_type' => $this->scheduledAt instanceof \DateTimeImmutable ? 'schedule_publish' : 'publish',
-            'entity_type' => 'Product',
-            'entity_id' => $this->productId,
-            'old_values' => json_encode($oldProductData, JSON_PRETTY_PRINT),
-            'new_values' => json_encode($newData, JSON_PRETTY_PRINT),
-            'changes_summary' => $this->generateChangeSummary($oldProductData),
-            'notes' => $this->notes,
-            'scheduled_for' => $this->scheduledAt?->format('Y-m-d H:i:s'),
-        ];
-    }
-
-    /**
-     * Generate human-readable change summary
-     */
-    private function generateChangeSummary(array $oldProductData): string
-    {
-        $oldStatus = $oldProductData['status'] ?? 'unknown';
-        $summary = sprintf(
-            'Published product from status "%s" to "published"',
-            $oldStatus
-        );
-
-        if ($this->scheduledAt instanceof \DateTimeImmutable) {
-            $summary .= sprintf(' (scheduled for: %s)', $this->scheduledAt->format('Y-m-d H:i:s'));
-        }
-
-        if ($this->notes) {
-            $summary .= sprintf(' - Notes: %s', substr($this->notes, 0, 100));
-        }
-
-        if ($this->forcePublish) {
-            $summary .= ' [FORCE PUBLISH - Validations bypassed]';
-        }
-
-        return $summary;
-    }
-
-    /**
-     * Get product ID
-     */
-    public function getProductId(): int
-    {
-        return $this->productId;
-    }
-
-    /**
-     * Get admin ID
-     */
-    public function getAdminId(): int
-    {
-        return $this->adminId;
-    }
-
-    /**
-     * Get scheduled publish time
-     */
-    public function getScheduledAt(): ?DateTimeImmutable
-    {
-        return $this->scheduledAt;
-    }
+    // Getters
+    public function getProductId(): int { return $this->productId; }
+    public function getAdminId(): int { return $this->adminId; }
+    public function getScheduledAt(): ?DateTimeImmutable { return $this->scheduledAt; }
+    public function getNotes(): ?string { return $this->notes; }
+    public function isForcePublish(): bool { return $this->forcePublish; }
+    public function getRequestedAt(): DateTimeImmutable { return $this->requestedAt; }
+    public function getPublishType(): string { return $this->publishType; }
 
     /**
      * Check if this is a scheduled publish
      */
     public function isScheduled(): bool
     {
-        return $this->scheduledAt instanceof \DateTimeImmutable;
+        return $this->publishType === 'scheduled';
     }
 
     /**
@@ -393,36 +312,108 @@ final class PublishProductRequest
      */
     public function isImmediate(): bool
     {
-        return !$this->scheduledAt instanceof \DateTimeImmutable;
+        return $this->publishType === 'immediate';
     }
 
     /**
-     * Check if force publish is enabled
-     */
-    public function isForcePublish(): bool
-    {
-        return $this->forcePublish;
-    }
-
-    /**
-     * Get publishing notes
-     */
-    public function getNotes(): ?string
-    {
-        return $this->notes;
-    }
-
-    /**
-     * Get calculated publish timestamp
-     * Returns scheduled time if set, otherwise current time
+     * Get the actual publish timestamp (now for immediate, scheduledAt for scheduled)
      */
     public function getPublishTimestamp(): DateTimeImmutable
     {
-        if ($this->scheduledAt instanceof \DateTimeImmutable) {
+        if ($this->isScheduled() && $this->scheduledAt !== null) {
             return $this->scheduledAt;
         }
+        
+        return $this->requestedAt;
+    }
 
-        return new DateTimeImmutable('now', new DateTimeZone('UTC'));
+    /**
+     * Convert to database array for audit/queue
+     */
+    public function toDatabaseArray(): array
+    {
+        return [
+            'product_id' => $this->productId,
+            'admin_id' => $this->adminId,
+            'publish_type' => $this->publishType,
+            'scheduled_at' => $this->scheduledAt?->format('Y-m-d H:i:s'),
+            'force_publish' => $this->forcePublish ? 1 : 0,
+            'notes' => $this->notes,
+            'requested_at' => $this->requestedAt->format('Y-m-d H:i:s'),
+        ];
+    }
+
+    /**
+     * Generate change summary for audit log
+     */
+    public function toAdminActionLog(array $oldProductData): array
+    {
+        $changeSummary = $this->generateChangeSummary($oldProductData);
+        
+        return [
+            'action' => 'PUBLISH',
+            'entity_type' => 'PRODUCT',
+            'entity_id' => $this->productId,
+            'admin_id' => $this->adminId,
+            'changes_summary' => $changeSummary,
+            'metadata' => [
+                'publish_type' => $this->publishType,
+                'force_publish' => $this->forcePublish,
+                'scheduled_at' => $this->scheduledAt?->format('Y-m-d H:i:s'),
+                'notes' => $this->notes,
+            ],
+        ];
+    }
+
+    /**
+     * Generate change summary
+     */
+    private function generateChangeSummary(array $oldProductData): string
+    {
+        $changes = [];
+        
+        // Status change
+        $oldStatus = $oldProductData['status'] ?? 'unknown';
+        $changes[] = sprintf('Status: %s → published', $oldStatus);
+        
+        // Add publish type info
+        if ($this->isScheduled()) {
+            $changes[] = sprintf('Scheduled for: %s', $this->scheduledAt?->format('Y-m-d H:i:s') ?? 'unknown');
+        }
+        
+        if ($this->forcePublish) {
+            $changes[] = 'Force published (bypassed validations)';
+        }
+        
+        if ($this->notes) {
+            $changes[] = 'Notes: ' . (strlen($this->notes) > 50 ? substr($this->notes, 0, 47) . '...' : $this->notes);
+        }
+        
+        return implode('; ', $changes);
+    }
+
+    /**
+     * Create new instance with updated scheduled datetime
+     */
+    public function withScheduledAt(DateTimeImmutable $newScheduledAt): self
+    {
+        $new = clone $this;
+        $new->scheduledAt = $newScheduledAt;
+        $new->validatePublishData();
+        
+        return $new;
+    }
+
+    /**
+     * Create new instance with updated notes
+     */
+    public function withNotes(string $notes): self
+    {
+        $new = clone $this;
+        $new->notes = $notes;
+        $new->validatePublishData();
+        
+        return $new;
     }
 
     /**
@@ -430,42 +421,26 @@ final class PublishProductRequest
      */
     public function toArray(): array
     {
-        return [
+        $data = [
             'product_id' => $this->productId,
             'admin_id' => $this->adminId,
-            'scheduled_at' => $this->scheduledAt?->format(DateTimeImmutable::ATOM),
-            'notes' => $this->notes,
+            'publish_type' => $this->publishType,
             'force_publish' => $this->forcePublish,
-            'publish_type' => $this->isScheduled() ? 'scheduled' : 'immediate',
-            'estimated_publish_time' => $this->getPublishTimestamp()->format(DateTimeImmutable::ATOM),
+            'requested_at' => $this->requestedAt->format('Y-m-d H:i:s'),
+            'is_scheduled' => $this->isScheduled(),
+            'is_immediate' => $this->isImmediate(),
+            'publish_timestamp' => $this->getPublishTimestamp()->format('Y-m-d H:i:s'),
         ];
-    }
-
-    /**
-     * Create a copy with different scheduled time
-     */
-    public function withScheduledAt(DateTimeImmutable $newScheduledAt): self
-    {
-        return new self(
-            productId: $this->productId,
-            adminId: $this->adminId,
-            scheduledAt: $newScheduledAt,
-            notes: $this->notes,
-            forcePublish: $this->forcePublish
-        );
-    }
-
-    /**
-     * Create a copy with notes
-     */
-    public function withNotes(string $notes): self
-    {
-        return new self(
-            productId: $this->productId,
-            adminId: $this->adminId,
-            scheduledAt: $this->scheduledAt,
-            notes: $notes,
-            forcePublish: $this->forcePublish
-        );
+        
+        if ($this->scheduledAt !== null) {
+            $data['scheduled_at'] = $this->scheduledAt->format('Y-m-d H:i:s');
+            $data['scheduled_at_iso'] = $this->scheduledAt->format(DateTimeImmutable::ATOM);
+        }
+        
+        if ($this->notes !== null) {
+            $data['notes'] = $this->notes;
+        }
+        
+        return $data;
     }
 }

@@ -17,7 +17,7 @@ trait SoftDeletableTrait
     /**
      * Deletion timestamp
      */
-    private ?DateTimeImmutable $deleted_at = null;
+    protected ?DateTimeImmutable $deleted_at = null;
 
     /**
      * Get deletion timestamp

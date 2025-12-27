@@ -4,7 +4,7 @@ namespace App\Entities;
 
 use DateTimeImmutable;
 
-/**
+/*
  * MarketplaceBadge Entity
  *
  * Represents a badge specific to marketplace stores/sellers.
@@ -13,7 +13,7 @@ use DateTimeImmutable;
  *
  * @package App\Entities
  */
-class MarketplaceBadge extends BaseEntity
+final class MarketplaceBadge extends BaseEntity
 {
     /**
      * Badge label/name
@@ -232,7 +232,7 @@ class MarketplaceBadge extends BaseEntity
             throw new \LogicException('Marketplace badge cannot be restored.');
         }
 
-        $this->restore();
+        parent::restore();
         return $this;
     }
 
@@ -295,7 +295,7 @@ class MarketplaceBadge extends BaseEntity
 
     public static function fromArray(array $data): static
     {
-        $badge = new self($data['label'] ?? '');
+        $badge = new static($data['label'] ?? '');
 
         if (isset($data['id'])) {
             $badge->setId($data['id']);

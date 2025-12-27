@@ -3,626 +3,940 @@
 namespace App\Models;
 
 use App\Entities\Admin;
-use CodeIgniter\Exceptions\ModelException;
-use Exception;
+use CodeIgniter\Database\BaseResult;
+use RuntimeException;
 
 /**
  * Admin Model
- *
- * Handles admin authentication, authorization, and management.
- * Core security model with brute force protection and audit logging.
- *
+ * 
+ * Layer 2: SQL Encapsulator for Admin entities.
+ * 0% Business Logic - Pure data access layer for administrator accounts.
+ * 
  * @package App\Models
  */
-class AdminModel extends BaseModel
+final class AdminModel extends BaseModel
 {
     /**
-     * Table name
-     *
+     * Database table name
+     * 
      * @var string
      */
     protected $table = 'admins';
 
     /**
-     * Primary key
-     *
+     * Primary key column
+     * 
      * @var string
      */
     protected $primaryKey = 'id';
 
     /**
-     * Return type
-     *
-     * @var string
+     * Entity class for hydration
+     * 
+     * @var class-string<Admin>
      */
     protected $returnType = Admin::class;
 
     /**
-     * Allowed fields for mass assignment
-     * Note: password_hash should only be set via setPassword() method
-     *
-     * @var array
+     * Fields allowed for mass assignment
+     * 
+     * @var array<string>
      */
     protected $allowedFields = [
         'username',
         'email',
+        'password_hash',
         'name',
         'role',
         'active',
         'last_login',
         'login_attempts',
-        'password_hash' // Only for updates via changePassword()
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
-     * Validation rules for insert
-     *
-     * @var array
+     * Validation rules for insert/update
+     * 
+     * @var array<string, array<string, string>>
      */
     protected $validationRules = [
-        'username' => 'required|alpha_numeric_space|min_length[3]|max_length[50]|is_unique[admins.username,id,{id}]',
-        'email'    => 'required|valid_email|max_length[100]|is_unique[admins.email,id,{id}]',
-        'name'     => 'required|string|max_length[100]',
-        'role'     => 'required|in_list[admin,super_admin]',
-        'active'   => 'required|in_list[0,1]',
-        'password' => 'permit_empty|min_length[8]' // Only for validation, not saved
-    ];
-
-    /**
-     * Validation messages
-     *
-     * @var array
-     */
-    protected $validationMessages = [
         'username' => [
-            'is_unique' => 'This username is already taken.',
-            'required'  => 'Username is required.'
+            'label' => 'Username',
+            'rules' => 'required|alpha_numeric|min_length[3]|max_length[50]|is_unique[admins.username,id,{id}]',
+            'errors' => [
+                'required' => 'Username is required',
+                'alpha_numeric' => 'Username can only contain letters and numbers',
+                'min_length' => 'Username must be at least 3 characters',
+                'max_length' => 'Username cannot exceed 50 characters',
+                'is_unique' => 'This username is already taken'
+            ]
         ],
         'email' => [
-            'valid_email' => 'Please provide a valid email address.',
-            'is_unique'   => 'This email is already registered.'
+            'label' => 'Email',
+            'rules' => 'required|valid_email|max_length[100]|is_unique[admins.email,id,{id}]',
+            'errors' => [
+                'required' => 'Email is required',
+                'valid_email' => 'Email must be a valid email address',
+                'max_length' => 'Email cannot exceed 100 characters',
+                'is_unique' => 'This email is already registered'
+            ]
+        ],
+        'name' => [
+            'label' => 'Name',
+            'rules' => 'required|max_length[100]',
+            'errors' => [
+                'required' => 'Name is required',
+                'max_length' => 'Name cannot exceed 100 characters'
+            ]
         ],
         'role' => [
-            'in_list' => 'Role must be either admin or super_admin.'
+            'label' => 'Role',
+            'rules' => 'required|in_list[admin,super_admin]',
+            'errors' => [
+                'required' => 'Role is required',
+                'in_list' => 'Role must be either admin or super_admin'
+            ]
+        ],
+        'active' => [
+            'label' => 'Active Status',
+            'rules' => 'required|in_list[0,1]',
+            'errors' => [
+                'required' => 'Active status is required',
+                'in_list' => 'Active status must be either 0 or 1'
+            ]
         ]
     ];
 
     /**
-     * Maximum login attempts before lockout
-     *
-     * @var int
+     * Whether to use timestamps
+     * Override from BaseModel for explicit declaration
+     * 
+     * @var bool
      */
-    public const MAX_LOGIN_ATTEMPTS = 5;
+    protected $useTimestamps = true;
 
     /**
-     * Lockout duration in minutes
-     *
-     * @var int
+     * Whether to use soft deletes
+     * Override from BaseModel for explicit declaration
+     * 
+     * @var bool
      */
-    public const LOCKOUT_DURATION = 15;
+    protected $useSoftDeletes = true;
 
     /**
-     * Password hash options (bcrypt)
-     *
-     * @var array
+     * Date format for timestamps
+     * 
+     * @var string
      */
-    public const PASSWORD_OPTIONS = [
-        'cost' => 12 // Higher cost = more secure but slower
-    ];
+    protected $dateFormat = 'datetime';
+
+    // ==================== AUTHENTICATION QUERY METHODS ====================
 
     /**
-     * Before insert callback
+     * Find admin by username (case-insensitive)
+     * 
+     * @param string $username Username to search
+     * @return Admin|null
      */
-    protected function beforeInsert(array $data): array
+    public function findByUsername(string $username): ?Admin
     {
-        // Set default active status if not provided
-        if (!isset($data['active'])) {
-            $data['active'] = 1;
-        }
-
-        // Set default role if not provided
-        if (!isset($data['role'])) {
-            $data['role'] = 'admin';
-        }
-
-        // Set timestamps
-        $data['created_at'] = date('Y-m-d H:i:s');
-        $data['updated_at'] = date('Y-m-d H:i:s');
-
-        return $data;
-    }
-
-    /**
-     * Before update callback
-     */
-    protected function beforeUpdate(array $data): array
-    {
-        $data['updated_at'] = date('Y-m-d H:i:s');
-        return $data;
-    }
-
-    /**
-     * Authenticate admin by credentials
-     *
-     * @param string $identifier Username or email
-     * @param string $password Plain text password
-     * @param string $ipAddress Client IP for logging
-     * @return Admin|false Returns Admin entity on success, false on failure
-     */
-    public function authenticate(string $identifier, string $password, string $ipAddress)
-    {
-        // Find admin by username or email
-        $admin = $this->where('username', $identifier)
-                      ->orWhere('email', $identifier)
+        $result = $this->where('LOWER(username)', strtolower($username))
+                      ->where($this->deletedField, null)
                       ->first();
 
-        if (!$admin) {
-            log_message('info', "Failed login attempt for identifier '{$identifier}' from IP {$ipAddress}: User not found");
-            return false;
+        return $result instanceof Admin ? $result : null;
+    }
+
+    /**
+     * Find admin by email (case-insensitive)
+     * 
+     * @param string $email Email to search
+     * @return Admin|null
+     */
+    public function findByEmail(string $email): ?Admin
+    {
+        $result = $this->where('LOWER(email)', strtolower($email))
+                      ->where($this->deletedField, null)
+                      ->first();
+
+        return $result instanceof Admin ? $result : null;
+    }
+
+    /**
+     * Find admin by username or email (for login)
+     * 
+     * @param string $identifier Username or email
+     * @return Admin|null
+     */
+    public function findByUsernameOrEmail(string $identifier): ?Admin
+    {
+        $result = $this->groupStart()
+                      ->where('LOWER(username)', strtolower($identifier))
+                      ->orWhere('LOWER(email)', strtolower($identifier))
+                      ->groupEnd()
+                      ->where($this->deletedField, null)
+                      ->first();
+
+        return $result instanceof Admin ? $result : null;
+    }
+
+    /**
+     * Verify admin credentials
+     * 
+     * @param string $identifier Username or email
+     * @param string $password Plain text password
+     * @return Admin|null Returns Admin if credentials are valid, null otherwise
+     */
+    public function verifyCredentials(string $identifier, string $password): ?Admin
+    {
+        $admin = $this->findByUsernameOrEmail($identifier);
+        
+        if (!$admin instanceof Admin) {
+            return null;
         }
 
         // Check if account is active
-        if (!$admin->active) {
-            log_message('warning', "Inactive admin account login attempt: {$admin->username} (ID: {$admin->id})");
-            return false;
+        if (!$admin->isActive()) {
+            return null;
         }
 
         // Check if account is locked
-        if ($this->isAccountLocked($admin)) {
-            log_message('warning', "Locked admin account login attempt: {$admin->username} (ID: {$admin->id})");
-            return false;
+        if ($admin->isLocked()) {
+            return null;
         }
 
         // Verify password
-        if (!$this->verifyPassword($password, $admin->password_hash)) {
-            // Increment login attempts
-            $this->incrementLoginAttempts($admin->id);
-
-            log_message('info', "Failed password for admin: {$admin->username} (ID: {$admin->id}) from IP {$ipAddress}");
-            return false;
+        if (!$admin->verifyPassword($password)) {
+            return null;
         }
-
-        // Reset login attempts on successful login
-        $this->resetLoginAttempts($admin->id);
-
-        // Update last login
-        $this->updateLastLogin($admin->id);
-
-        log_message('info', "Successful login for admin: {$admin->username} (ID: {$admin->id}) from IP {$ipAddress}");
 
         return $admin;
     }
 
     /**
-     * Verify password against hash
-     *
-     * @param string $password Plain text password
-     * @param string $hash Password hash
+     * Find active admin by ID
+     * Override from BaseModel to ensure only active admins are returned
+     * 
+     * @param int|string|null $id
+     * @return Admin|null
      */
-    public function verifyPassword(string $password, string $hash): bool
+    public function findActiveById(int|string|null $id): ?Admin
     {
-        return password_verify($password, $hash);
-    }
-
-    /**
-     * Create password hash
-     *
-     * @param string $password Plain text password
-     * @return string Hashed password
-     */
-    public function hashPassword(string $password): string
-    {
-        return password_hash($password, PASSWORD_BCRYPT, self::PASSWORD_OPTIONS);
-    }
-
-    /**
-     * Check if password needs rehash
-     *
-     * @param string $hash Current password hash
-     */
-    public function passwordNeedsRehash(string $hash): bool
-    {
-        return password_needs_rehash($hash, PASSWORD_BCRYPT, self::PASSWORD_OPTIONS);
-    }
-
-    /**
-     * Update admin password
-     */
-    public function updatePassword(int $adminId, string $newPassword): bool
-    {
-        $hash = $this->hashPassword($newPassword);
-
-        return $this->update($adminId, [
-            'password_hash' => $hash,
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-    }
-
-    /**
-     * Increment login attempts
-     */
-    public function incrementLoginAttempts(int $adminId): bool
-    {
-        $admin = $this->find($adminId);
-        if (!$admin) {
-            return false;
-        }
-
-        $attempts = $admin->login_attempts + 1;
-
-        return $this->update($adminId, [
-            'login_attempts' => $attempts,
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-    }
-
-    /**
-     * Reset login attempts
-     */
-    public function resetLoginAttempts(int $adminId): bool
-    {
-        return $this->update($adminId, [
-            'login_attempts' => 0,
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-    }
-
-    /**
-     * Update last login timestamp
-     */
-    public function updateLastLogin(int $adminId): bool
-    {
-        return $this->update($adminId, [
-            'last_login' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-    }
-
-    /**
-     * Check if account is locked due to too many login attempts
-     */
-    public function isAccountLocked(Admin $admin): bool
-    {
-        if ($admin->login_attempts < self::MAX_LOGIN_ATTEMPTS) {
-            return false;
-        }
-
-        // Check if lockout duration has passed
-        if ($admin->last_login instanceof \DateTimeImmutable) {
-            $lastAttempt = strtotime($admin->updated_at);
-            $lockoutUntil = $lastAttempt + (self::LOCKOUT_DURATION * 60);
-
-            if (time() > $lockoutUntil) {
-                // Lockout period expired, reset attempts
-                $this->resetLoginAttempts($admin->id);
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Get lockout time remaining in minutes
-     *
-     * @return int|null Minutes remaining, null if not locked
-     */
-    public function getLockoutRemaining(Admin $admin): ?int
-    {
-        if ($admin->login_attempts < self::MAX_LOGIN_ATTEMPTS) {
+        if ($id === null) {
             return null;
         }
+        
+        $result = $this->where($this->table . '.' . $this->primaryKey, $id)
+                      ->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->first();
 
-        if (!$admin->updated_at) {
-            return null;
-        }
-
-        $lastAttempt = strtotime($admin->updated_at);
-        $lockoutUntil = $lastAttempt + (self::LOCKOUT_DURATION * 60);
-        $remaining = ceil(($lockoutUntil - time()) / 60);
-
-        return max(0, (int) $remaining);
+        return $result instanceof Admin ? $result : null;
     }
 
-    /**
-     * Find admin by username
-     */
-    public function findByUsername(string $username): ?Admin
-    {
-        return $this->where('username', $username)->first();
-    }
-
-    /**
-     * Find admin by email
-     */
-    public function findByEmail(string $email): ?Admin
-    {
-        return $this->where('email', $email)->first();
-    }
-
-    /**
-     * Find all active admins
-     */
-    public function findAllActive(): array
-    {
-        return $this->where('active', 1)
-                    ->where('deleted_at')
-                    ->orderBy('name', 'ASC')
-                    ->findAll();
-    }
+    // ==================== ROLE-BASED QUERY METHODS ====================
 
     /**
      * Find all super admins
+     * 
+     * @return Admin[]
      */
     public function findSuperAdmins(): array
     {
-        return $this->where('role', 'super_admin')
-                    ->where('active', 1)
-                    ->where('deleted_at')
-                    ->findAll();
+        $result = $this->where('role', 'super_admin')
+                      ->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Admin);
     }
 
     /**
-     * Activate admin account
+     * Find all regular admins
+     * 
+     * @return Admin[]
      */
-    public function activate(int $adminId): bool
+    public function findRegularAdmins(): array
     {
-        return $this->update($adminId, [
-            'active' => 1,
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
+        $result = $this->where('role', 'admin')
+                      ->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Admin);
     }
 
     /**
-     * Deactivate admin account
+     * Count super admins
+     * 
+     * @return int
      */
-    public function deactivate(int $adminId): bool
+    public function countSuperAdmins(): int
     {
-        return $this->update($adminId, [
-            'active' => 0,
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
+        $result = $this->where('role', 'super_admin')
+                      ->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->countAllResults();
+
+        return (int) $result;
     }
 
     /**
-     * Promote admin to super admin
+     * Check if admin is the last super admin
+     * 
+     * @param int $adminId Admin ID to check
+     * @return bool
      */
-    public function promoteToSuperAdmin(int $adminId): bool
+    public function isLastSuperAdmin(int $adminId): bool
     {
-        return $this->update($adminId, [
-            'role' => 'super_admin',
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-    }
-
-    /**
-     * Demote super admin to admin
-     */
-    public function demoteToAdmin(int $adminId): bool
-    {
-        return $this->update($adminId, [
-            'role' => 'admin',
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
-    }
-
-    /**
-     * Check if admin can be deleted (business rules)
-     *
-     * @return array [bool $canDelete, string $reason]
-     */
-    public function canDelete(int $adminId): array
-    {
-        $admin = $this->find($adminId);
-        if (!$admin) {
-            return [false, 'Admin not found'];
-        }
-
-        // Cannot delete self
-        if ($adminId == session('admin_id')) {
-            return [false, 'Cannot delete your own account'];
-        }
-
-        // Check if admin is a super admin
-        if ($admin->role === 'super_admin') {
-            // Check if this is the last super admin
-            $superAdmins = $this->findSuperAdmins();
-            if (count($superAdmins) <= 1) {
-                return [false, 'Cannot delete the last super admin'];
-            }
-        }
-
-        // Check if admin has verified products (foreign key constraint)
-        // This would require a check in products table
-        // For now, we'll assume it's okay
-
-        return [true, ''];
-    }
-
-    /**
-     * Create new admin with password
-     *
-     * @param array $data Admin data including 'password'
-     * @return int|false Insert ID or false on failure
-     */
-    public function createAdmin(array $data)
-    {
-        $this->db->transStart();
-
-        try {
-            // Hash password if provided
-            if (isset($data['password']) && !empty($data['password'])) {
-                $data['password_hash'] = $this->hashPassword($data['password']);
-                unset($data['password']);
-            }
-
-            // Insert admin
-            $adminId = $this->insert($data, true); // Return ID
-
-            $this->db->transComplete();
-
-            if ($this->db->transStatus() === false) {
-                log_message('error', 'Failed to create admin: ' . json_encode($data));
-                return false;
-            }
-
-            log_message('info', "Admin created: {$data['username']} (ID: {$adminId})");
-            return $adminId;
-
-        } catch (Exception $e) {
-            $this->db->transRollback();
-            log_message('error', 'Admin creation failed: ' . $e->getMessage());
+        // Get the admin
+        $admin = $this->findActiveById($adminId);
+        if (!$admin instanceof Admin || !$admin->isSuperAdmin()) {
             return false;
         }
+
+        // Count super admins excluding this one
+        $count = $this->where('role', 'super_admin')
+                     ->where($this->deletedField, null)
+                     ->where('active', 1)
+                     ->where($this->primaryKey . ' !=', $adminId)
+                     ->countAllResults();
+
+        return $count === 0;
+    }
+
+    // ==================== STATUS & SECURITY QUERY METHODS ====================
+
+    /**
+     * Find active admins
+     * 
+     * @return Admin[]
+     */
+    public function findActiveAdmins(): array
+    {
+        $result = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Admin);
     }
 
     /**
-     * Update admin profile (excluding password)
+     * Find inactive admins
+     * 
+     * @return Admin[]
      */
-    public function updateProfile(int $adminId, array $data): bool
+    public function findInactiveAdmins(): array
     {
-        // Remove password fields if present
-        unset($data['password'], $data['password_hash']);
+        $result = $this->where($this->deletedField, null)
+                      ->where('active', 0)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Admin);
+    }
+
+    /**
+     * Find locked admins (too many login attempts)
+     * 
+     * @param int $maxAttempts Maximum allowed attempts before lockout
+     * @return Admin[]
+     */
+    public function findLockedAdmins(int $maxAttempts = 5): array
+    {
+        $result = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->where('login_attempts >=', $maxAttempts)
+                      ->orderBy('login_attempts', 'DESC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Admin);
+    }
+
+    /**
+     * Find admins who haven't logged in recently
+     * 
+     * @param int $days Number of days since last login
+     * @return Admin[]
+     */
+    public function findInactiveForDays(int $days = 30): array
+    {
+        $date = new \DateTime("-{$days} days");
+        $threshold = $date->format('Y-m-d H:i:s');
+
+        $result = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->groupStart()
+                      ->where('last_login IS NULL', null)
+                      ->orWhere('last_login <', $threshold)
+                      ->groupEnd()
+                      ->orderBy('last_login', 'ASC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Admin);
+    }
+
+    /**
+     * Find admins with password that needs rehash
+     * 
+     * @return Admin[]
+     */
+    public function findAdminsNeedingPasswordRehash(): array
+    {
+        $result = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->findAll();
+
+        return array_filter(
+            $result,
+            fn($admin) => $admin instanceof Admin && $admin->passwordNeedsRehash()
+        );
+    }
+
+    // ==================== SEARCH & FILTER METHODS ====================
+
+    /**
+     * Search admins by name, username, or email
+     * 
+     * @param string $searchTerm Search term
+     * @param int $limit Result limit
+     * @param int $offset Result offset
+     * @return Admin[]
+     */
+    public function searchAdmins(string $searchTerm, int $limit = 20, int $offset = 0): array
+    {
+        $result = $this->groupStart()
+                      ->like('name', $searchTerm, 'both')
+                      ->orLike('username', $searchTerm, 'both')
+                      ->orLike('email', $searchTerm, 'both')
+                      ->groupEnd()
+                      ->where($this->deletedField, null)
+                      ->orderBy('name', 'ASC')
+                      ->findAll($limit, $offset);
+
+        return array_filter($result, fn($item) => $item instanceof Admin);
+    }
+
+    /**
+     * Get paginated admins with optional filters
+     * 
+     * @param array{
+     *     role?: string|null,
+     *     active?: bool|null,
+     *     search?: string|null
+     * } $filters
+     * @param int $perPage Items per page
+     * @param int $page Current page
+     * @return array{data: Admin[], pager: \CodeIgniter\Pager\Pager, total: int}
+     */
+    public function paginateWithFilters(array $filters = [], int $perPage = 25, int $page = 1): array
+    {
+        $builder = $this->builder();
+
+        // Apply filters
+        $builder->where($this->deletedField, null);
+
+        if (isset($filters['role']) && $filters['role'] !== null) {
+            $builder->where('role', $filters['role']);
+        }
+
+        if (isset($filters['active']) && $filters['active'] !== null) {
+            $builder->where('active', $filters['active'] ? 1 : 0);
+        }
+
+        if (isset($filters['search']) && $filters['search'] !== null) {
+            $builder->groupStart()
+                   ->like('name', $filters['search'], 'both')
+                   ->orLike('username', $filters['search'], 'both')
+                   ->orLike('email', $filters['search'], 'both')
+                   ->groupEnd();
+        }
+
+        // Get total count
+        $total = $builder->countAllResults(false);
+        
+        // Get paginated data
+        $data = $builder->orderBy('name', 'ASC')
+                       ->paginate($perPage, 'default', $page);
+
+        $pager = $this->pager;
+
+        return [
+            'data' => array_filter($data, fn($item) => $item instanceof Admin),
+            'pager' => $pager,
+            'total' => (int) $total
+        ];
+    }
+
+    /**
+     * Find admins by IDs (batch lookup)
+     * 
+     * @param array<int|string> $ids Array of admin IDs
+     * @return Admin[]
+     */
+    public function findByIds(array $ids): array
+    {
+        if (empty($ids)) {
+            return [];
+        }
+
+        $result = $this->whereIn($this->primaryKey, $ids)
+                      ->where($this->deletedField, null)
+                      ->orderBy('name', 'ASC')
+                      ->findAll();
+
+        return array_filter($result, fn($item) => $item instanceof Admin);
+    }
+
+    // ==================== SECURITY UPDATE METHODS ====================
+
+    /**
+     * Record successful login for admin
+     * 
+     * @param int $adminId Admin ID
+     * @return bool
+     */
+    public function recordSuccessfulLogin(int $adminId): bool
+    {
+        $data = [
+            'last_login' => date('Y-m-d H:i:s'),
+            'login_attempts' => 0,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
 
         return $this->update($adminId, $data);
     }
 
     /**
-     * Count total admins
+     * Record failed login attempt for admin
+     * 
+     * @param int $adminId Admin ID
+     * @return bool
      */
-    public function countTotal(): int
+    public function recordFailedLoginAttempt(int $adminId): bool
     {
-        return $this->where('deleted_at')->countAllResults();
+        // Get current attempts
+        $admin = $this->findActiveById($adminId);
+        if (!$admin instanceof Admin) {
+            return false;
+        }
+
+        $newAttempts = $admin->getLoginAttempts() + 1;
+        $data = [
+            'login_attempts' => $newAttempts,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($adminId, $data);
     }
 
     /**
-     * Count active admins
+     * Reset login attempts for admin
+     * 
+     * @param int $adminId Admin ID
+     * @return bool
      */
-    public function countActive(): int
+    public function resetLoginAttempts(int $adminId): bool
     {
-        return $this->where('active', 1)
-                    ->where('deleted_at')
-                    ->countAllResults();
+        $data = [
+            'login_attempts' => 0,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($adminId, $data);
     }
 
     /**
-     * Get admin statistics for dashboard
+     * Update admin password
+     * 
+     * @param int $adminId Admin ID
+     * @param string $newPasswordHash New password hash
+     * @return bool
      */
-    public function getDashboardStats(): array
+    public function updatePassword(int $adminId, string $newPasswordHash): bool
     {
-        $cacheKey = $this->cacheKey('dashboard_stats');
+        $data = [
+            'password_hash' => $newPasswordHash,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
 
-        return $this->cached($cacheKey, function () {
-            return [
-                'total_admins' => $this->countTotal(),
-                'active_admins' => $this->countActive(),
-                'super_admins' => $this->where('role', 'super_admin')
-                                      ->where('deleted_at')
-                                      ->countAllResults(),
-                'recent_logins' => $this->where('last_login >=', date('Y-m-d H:i:s', strtotime('-7 days')))
-                                       ->where('deleted_at')
-                                       ->countAllResults(),
-            ];
-        }, 300); // 5 minutes cache
+        return $this->update($adminId, $data);
     }
 
     /**
-     * Search admins with filters
-     *
-     * @param array $filters [search, role, active]
+     * Activate admin account
+     * 
+     * @param int $adminId Admin ID
+     * @return bool
      */
-    public function searchAdmins(array $filters = [], int $limit = 50, int $offset = 0): array
+    public function activateAccount(int $adminId): bool
     {
-        $builder = $this->builder();
+        $data = [
+            'active' => 1,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
 
-        // Apply filters
-        if (!empty($filters['search'])) {
-            $search = $filters['search'];
-            $builder->groupStart()
-                    ->like('username', $search)
-                    ->orLike('email', $search)
-                    ->orLike('name', $search)
-                    ->groupEnd();
+        return $this->update($adminId, $data);
+    }
+
+    /**
+     * Deactivate admin account
+     * 
+     * @param int $adminId Admin ID
+     * @return bool
+     */
+    public function deactivateAccount(int $adminId): bool
+    {
+        $data = [
+            'active' => 0,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->update($adminId, $data);
+    }
+
+    /**
+     * Update admin role
+     * 
+     * @param int $adminId Admin ID
+     * @param string $newRole New role (admin or super_admin)
+     * @return bool
+     */
+    public function updateRole(int $adminId, string $newRole): bool
+    {
+        if (!in_array($newRole, ['admin', 'super_admin'])) {
+            return false;
         }
 
-        if (isset($filters['role']) && in_array($filters['role'], ['admin', 'super_admin'])) {
-            $builder->where('role', $filters['role']);
-        }
+        $data = [
+            'role' => $newRole,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
 
-        if (isset($filters['active'])) {
-            $builder->where('active', (int) $filters['active']);
-        }
+        return $this->update($adminId, $data);
+    }
 
-        // Exclude deleted
-        $builder->where('deleted_at');
+    // ==================== STATISTICS & REPORTING ====================
 
-        // Count total for pagination
-        $total = $builder->countAllResults(false);
-
-        // Get results
-        $results = $builder->orderBy('name', 'ASC')
-                          ->limit($limit, $offset)
-                          ->get()
-                          ->getResult($this->returnType);
+    /**
+     * Get admin statistics
+     * 
+     * @return array{
+     *     total: int,
+     *     active: int,
+     *     inactive: int,
+     *     super_admins: int,
+     *     regular_admins: int,
+     *     locked: int,
+     *     recently_active: int
+     * }
+     */
+    public function getStatistics(): array
+    {
+        $total = $this->where($this->deletedField, null)
+                     ->countAllResults();
+        
+        $active = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->countAllResults();
+        
+        $inactive = $this->where($this->deletedField, null)
+                        ->where('active', 0)
+                        ->countAllResults();
+        
+        $superAdmins = $this->where($this->deletedField, null)
+                           ->where('role', 'super_admin')
+                           ->where('active', 1)
+                           ->countAllResults();
+        
+        $regularAdmins = $this->where($this->deletedField, null)
+                             ->where('role', 'admin')
+                             ->where('active', 1)
+                             ->countAllResults();
+        
+        // Locked admins (5 or more attempts)
+        $locked = $this->where($this->deletedField, null)
+                      ->where('active', 1)
+                      ->where('login_attempts >=', 5)
+                      ->countAllResults();
+        
+        // Recently active (within 24 hours)
+        $date = new \DateTime('-24 hours');
+        $recentlyActive = $this->where($this->deletedField, null)
+                              ->where('active', 1)
+                              ->where('last_login >=', $date->format('Y-m-d H:i:s'))
+                              ->countAllResults();
 
         return [
-            'total' => $total,
-            'results' => $results,
-            'limit' => $limit,
-            'offset' => $offset
+            'total' => (int) $total,
+            'active' => (int) $active,
+            'inactive' => (int) $inactive,
+            'super_admins' => (int) $superAdmins,
+            'regular_admins' => (int) $regularAdmins,
+            'locked' => (int) $locked,
+            'recently_active' => (int) $recentlyActive
         ];
     }
 
     /**
-     * Override delete to prevent deleting certain admins
-     *
-     * @param mixed $id
+     * Get admin activity timeline (logins per day)
+     * 
+     * @param int $days Number of days to look back
+     * @return array<array{date: string, login_count: int}>
+     */
+    public function getActivityTimeline(int $days = 30): array
+    {
+        $startDate = date('Y-m-d', strtotime("-{$days} days"));
+        
+        $builder = $this->builder();
+        
+        $query = $builder->select("DATE(last_login) as date, COUNT(*) as login_count")
+                        ->where($this->deletedField, null)
+                        ->where('active', 1)
+                        ->where('last_login >=', $startDate . ' 00:00:00')
+                        ->where('last_login IS NOT NULL', null)
+                        ->groupBy('DATE(last_login)')
+                        ->orderBy('date', 'ASC')
+                        ->get();
+
+        $results = [];
+        foreach ($query->getResultArray() as $row) {
+            $results[] = [
+                'date' => $row['date'],
+                'login_count' => (int) $row['login_count']
+            ];
+        }
+
+        return $results;
+    }
+
+    /**
+     * Check if username exists (excluding current ID)
+     * 
+     * @param string $username Username to check
+     * @param int|string|null $excludeId ID to exclude (for updates)
      * @return bool
      */
-    public function delete($id = null, bool $purge = false)
+    public function usernameExists(string $username, int|string|null $excludeId = null): bool
     {
-        if ($id !== null) {
-            [$canDelete, $reason] = $this->canDelete($id);
+        $query = $this->where('LOWER(username)', strtolower($username))
+                     ->where($this->deletedField, null);
 
-            if (!$canDelete) {
-                throw new ModelException("Cannot delete admin: {$reason}");
+        if ($excludeId !== null) {
+            $query->where($this->primaryKey . ' !=', $excludeId);
+        }
+
+        return $query->countAllResults() > 0;
+    }
+
+    /**
+     * Check if email exists (excluding current ID)
+     * 
+     * @param string $email Email to check
+     * @param int|string|null $excludeId ID to exclude (for updates)
+     * @return bool
+     */
+    public function emailExists(string $email, int|string|null $excludeId = null): bool
+    {
+        $query = $this->where('LOWER(email)', strtolower($email))
+                     ->where($this->deletedField, null);
+
+        if ($excludeId !== null) {
+            $query->where($this->primaryKey . ' !=', $excludeId);
+        }
+
+        return $query->countAllResults() > 0;
+    }
+
+    // ==================== OVERRIDDEN METHODS ====================
+
+    /**
+     * Insert admin with validation
+     * Override to handle password hashing through entity
+     * 
+     * @param array<string, mixed>|object|null $data
+     * @return int|string|false
+     */
+    public function insert($data = null, bool $returnID = true)
+    {
+        // Convert Admin entity to array if needed
+        if ($data instanceof Admin) {
+            // Let the entity prepare itself
+            $data->prepareForSave(false);
+            
+            $data = [
+                'username' => $data->getUsername(),
+                'email' => $data->getEmail(),
+                'password_hash' => $data->getPasswordHash(),
+                'name' => $data->getName(),
+                'role' => $data->getRole(),
+                'active' => $data->isActive() ? 1 : 0,
+                'login_attempts' => $data->getLoginAttempts(),
+                'last_login' => $data->getLastLogin()?->format('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+        }
+
+        return parent::insert($data, $returnID);
+    }
+
+    /**
+     * Update admin with validation
+     * Override to handle password hashing through entity
+     * 
+     * @param array<string, mixed>|int|string|null $id
+     * @param array<string, mixed>|object|null $data
+     * @return bool
+     */
+    public function update($id = null, $data = null): bool
+    {
+        // Convert Admin entity to array if needed
+        if ($data instanceof Admin) {
+            // Let the entity prepare itself
+            $data->prepareForSave(true);
+            
+            $updateData = [
+                'username' => $data->getUsername(),
+                'email' => $data->getEmail(),
+                'name' => $data->getName(),
+                'role' => $data->getRole(),
+                'active' => $data->isActive() ? 1 : 0,
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+
+            // Only update password_hash if it has changed
+            if ($data->getPasswordHash() !== '') {
+                $updateData['password_hash'] = $data->getPasswordHash();
             }
+
+            // Only update if values changed
+            return $this->updateIfChanged($id, $updateData);
         }
 
-        return parent::delete($id, $purge);
+        return parent::update($id, $data);
     }
 
     /**
-     * Generate a secure random password
+     * Physical delete protection
+     * Override to enforce soft delete only for admins
+     * 
+     * @throws RuntimeException Always, since physical deletes are disabled
      */
-    public function generateRandomPassword(int $length = 12): string
+    public function delete($id = null, bool $purge = false): bool
     {
-        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+';
-        $password = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            $password .= $chars[random_int(0, strlen($chars) - 1)];
+        if ($purge) {
+            throw new RuntimeException('Physical deletes are disabled in MVP. Use archive() method.');
         }
 
-        return $password;
+        return parent::delete($id, false);
     }
 
     /**
-     * Validate admin data for update
-     *
-     * @return array [bool $valid, array $errors]
+     * Bulk archive admins with safety checks
+     * 
+     * @param array<int|string> $ids Admin IDs to archive
+     * @return int Number of archived admins
      */
-    public function validateAdminData(array $data, int $adminId): array
+    public function bulkArchive(array $ids): int
     {
-        // Remove password from validation if present
-        unset($data['password']);
-
-        // Temporarily set the ID for unique validation
-        if (isset($data['username']) || isset($data['email'])) {
-            $this->validationRules['username'] = "required|alpha_numeric_space|min_length[3]|max_length[50]|is_unique[admins.username,id,{$adminId}]";
-            $this->validationRules['email'] = "required|valid_email|max_length[100]|is_unique[admins.email,id,{$adminId}]";
+        if (empty($ids)) {
+            return 0;
         }
 
-        return $this->validateData($data);
+        $data = [
+            $this->deletedField => date('Y-m-d H:i:s'),
+            $this->updatedField => date('Y-m-d H:i:s')
+        ];
+
+        return $this->bulkUpdate($ids, $data);
+    }
+
+    /**
+     * Bulk restore archived admins
+     * 
+     * @param array<int|string> $ids Admin IDs to restore
+     * @return int Number of restored admins
+     */
+    public function bulkRestore(array $ids): int
+    {
+        if (empty($ids)) {
+            return 0;
+        }
+
+        $data = [
+            $this->deletedField => null,
+            $this->updatedField => date('Y-m-d H:i:s')
+        ];
+
+        return $this->bulkUpdate($ids, $data);
+    }
+
+    /**
+     * Initialize system admin if not exists
+     * Useful for database seeding
+     * 
+     * @return array{created: bool, message: string}
+     */
+    public function initializeSystemAdmin(): array
+    {
+        $systemAdmin = Admin::createSystemAdmin();
+        
+        // Check if system admin already exists
+        $existing = $this->findByUsername('system');
+        if ($existing instanceof Admin) {
+            return [
+                'created' => false,
+                'message' => 'System admin already exists'
+            ];
+        }
+
+        // Check if email exists
+        $existingEmail = $this->findByEmail('system@devdaily.local');
+        if ($existingEmail instanceof Admin) {
+            return [
+                'created' => false,
+                'message' => 'System admin email already registered'
+            ];
+        }
+
+        $this->insert($systemAdmin);
+        
+        return [
+            'created' => true,
+            'message' => 'System admin created successfully'
+        ];
+    }
+
+    /**
+     * Create sample admin (for testing/demo)
+     * 
+     * @param array<string, mixed> $overrides Override default values
+     * @return Admin
+     */
+    public function createSample(array $overrides = []): Admin
+    {
+        $defaults = [
+            'username' => 'sample_admin',
+            'email' => 'sample@example.com',
+            'name' => 'Sample Admin',
+            'role' => 'admin',
+            'active' => true
+        ];
+
+        $data = array_merge($defaults, $overrides);
+
+        $admin = new Admin($data['username'], $data['email'], $data['name']);
+        $admin->setRole($data['role']);
+        $admin->setActive($data['active']);
+        $admin->setPasswordWithHash('SamplePassword123!');
+        $admin->setLastLogin(new \DateTimeImmutable('-2 hours'));
+
+        return $admin;
     }
 }

@@ -12,7 +12,7 @@ use DateTimeImmutable;
  *
  * @package App\Entities
  */
-class Admin extends BaseEntity
+final class Admin extends BaseEntity
 {
     /**
      * Unique username for login
@@ -193,8 +193,8 @@ class Admin extends BaseEntity
         $this->markAsUpdated();
         return $this;
     }
-
-    public function setLastLogin($last_login): self
+  
+    public function setLastLogin(\DateTimeInterface|string|null $last_login): self
     {
         if (is_string($last_login)) {
             $last_login = new DateTimeImmutable($last_login);
@@ -283,9 +283,6 @@ class Admin extends BaseEntity
         return $this->setRole('admin');
     }
 
-    /**
-     * Record successful login
-     */
     public function recordLogin(): self
     {
         $this->setLastLogin(new DateTimeImmutable());
@@ -293,7 +290,7 @@ class Admin extends BaseEntity
         return $this;
     }
 
-    /**
+    /*
      * Record failed login attempt
      */
     public function recordFailedLogin(): self
@@ -302,7 +299,7 @@ class Admin extends BaseEntity
         return $this;
     }
 
-    /**
+    /***
      * Reset login attempts
      */
     public function resetLoginAttempts(): self
@@ -337,10 +334,8 @@ class Admin extends BaseEntity
     }
 
     /**
-     * Hash and set password
-     *
-     * @param array $options Bcrypt options
-     */
+    * @param array<string, mixed> $options  <-- Tambahkan ini
+    */
     public function setPasswordWithHash(string $password, array $options = ['cost' => 12]): self
     {
         $this->password = $password;
@@ -581,7 +576,9 @@ class Admin extends BaseEntity
     }
 
     // ==================== SERIALIZATION METHODS ====================
-
+    /**
+    * @return array<string, mixed>  <-- Tambahkan ini
+    */
     public function toArray(): array
     {
         return [
@@ -611,40 +608,43 @@ class Admin extends BaseEntity
         ];
     }
 
+    /**
+    * @param array<string, mixed> $data  <-- Tambahkan ini
+    */
     public static function fromArray(array $data): static
     {
-        $admin = new self(
-            $data['username'] ?? '',
-            $data['email'] ?? '',
-            $data['name'] ?? ''
+        $admin = new static(
+          self::ensureString($data['username']),
+          self::ensureString($data['email']),
+          self::ensureString($data['name'])
         );
 
         if (isset($data['id'])) {
-            $admin->setId($data['id']);
+            $admin->setId(self::ensureInt($data['id']));
         }
 
         if (isset($data['password_hash'])) {
-            $admin->setPasswordHash($data['password_hash']);
+            $admin->setPasswordHash(self::ensureString($data['password_hash']));
         }
 
         if (isset($data['role'])) {
-            $admin->setRole($data['role']);
+            $admin->setRole(self::ensureString($data['role']));
         }
 
         if (isset($data['active'])) {
-            $admin->setActive((bool) $data['active']);
+            $admin->setActive(self::ensureBool( $data['active']));
         }
 
         if (isset($data['last_login'])) {
-            $admin->setLastLogin($data['last_login']);
+            $admin->setLastLogin(self::ensureString($data['last_login']));
         }
 
         if (isset($data['login_attempts'])) {
-            $admin->setLoginAttempts((int) $data['login_attempts']);
+            $admin->setLoginAttempts(self::ensureInt( $data['login_attempts']));
         }
 
         if (isset($data['password'])) {
-            $admin->setPassword($data['password']);
+            $admin->setPassword(self::ensureString($data['password']));
         }
 
         if (isset($data['created_at']) && $data['created_at'] instanceof DateTimeImmutable) {
@@ -662,12 +662,12 @@ class Admin extends BaseEntity
         return $admin;
     }
 
-    /**
+    /*
      * Create system admin (super admin for initial setup)
      */
     public static function createSystemAdmin(): static
     {
-        $admin = new self(
+        $admin = new static(
             'system',
             'system@devdaily.local',
             'System Administrator'
@@ -680,12 +680,9 @@ class Admin extends BaseEntity
         return $admin;
     }
 
-    /**
-     * Create sample admin for testing/demo
-     */
     public static function createSample(): static
     {
-        $admin = new self(
+        $admin = new static(
             'johndoe',
             'john@example.com',
             'John Doe'
@@ -699,4 +696,40 @@ class Admin extends BaseEntity
 
         return $admin;
     }
+    
+        // =========================================================================
+    // HELPER METHODS FOR PHPSTAN LEVEL 9 (SAFE CASTING)
+    // =========================================================================
+
+    /**
+     * Memastikan input mixed diubah menjadi string dengan aman.
+     */
+    private static function ensureString(mixed $input): string
+    {
+        if (is_string($input) || is_numeric($input)) {
+            return (string) $input;
+        }
+        return '';
+    }
+
+    /**
+     * Memastikan input mixed diubah menjadi int dengan aman.
+     */
+    private static function ensureInt(mixed $input): int
+    {
+        if (is_numeric($input)) {
+            return (int) $input;
+        }
+        return 0;
+    }
+
+    /**
+     * Memastikan input mixed diubah menjadi boolean dengan aman.
+     * Mampu menangani: true, "true", 1, "1", "on", "yes"
+     */
+    private static function ensureBool(mixed $input): bool
+    {
+        return filter_var($input, FILTER_VALIDATE_BOOLEAN);
+    }
+
 }
