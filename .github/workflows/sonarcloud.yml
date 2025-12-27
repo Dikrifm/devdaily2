@@ -1,0 +1,26 @@
+name: SonarCloud Audit
+
+on:
+  # Trigger scan setiap kali ada push ke branch main atau master
+  push:
+    branches:
+      - main
+      - master
+  # Juga trigger saat ada Pull Request
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Bawaan GitHub (biarkan saja)
+          SONAR_TOKEN: ${{ce1a948911037839a6aac7bb122b2d0d18222422}}    # Yang kita set di Tahap 2
