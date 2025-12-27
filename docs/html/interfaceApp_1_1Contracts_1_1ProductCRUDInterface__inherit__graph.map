@@ -1,9 +1,0 @@
-<map id="App\Contracts\ProductCRUDInterface" name="App\Contracts\ProductCRUDInterface">
-<area shape="rect" id="Node000001" title=" " alt="" coords="109,81,370,109"/>
-<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1ProductInterface.html" title=" " alt="" coords="5,165,229,193"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,117,138,167,135,162,205,118"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService.html" title=" " alt="" coords="252,157,475,201"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="273,115,333,156,328,156,272,120"/>
-<area shape="rect" id="Node000002" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="136,5,343,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,47,242,82,237,79,238,51"/>
-</map>

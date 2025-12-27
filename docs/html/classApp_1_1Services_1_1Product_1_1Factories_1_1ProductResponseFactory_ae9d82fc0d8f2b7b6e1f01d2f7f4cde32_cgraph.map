@@ -1,9 +1,0 @@
-<map id="App\Services\Product\Factories\ProductResponseFactory\withFullDetails" name="App\Services\Product\Factories\ProductResponseFactory\withFullDetails">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,44,252,106"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1Product_1_1Factories_1_1ProductResponseFactory.html#a7b81fc9d9d5a5657470f36b23774745f" title=" " alt="" coords="300,5,546,67"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="252,56,287,54,282,55,253,61"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1BaseEntity.html#abd3968de45a25a8f3817bc0eb3270602" title=" " alt="" coords="336,91,510,136"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="252,88,323,100,318,100,252,94"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1Product_1_1Factories_1_1ProductResponseFactory.html#a7d8ccc7e256ea92ff7e03bd132287e30" title=" " alt="" coords="594,5,840,67"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="546,34,581,36,576,36,547,39"/>
-</map>

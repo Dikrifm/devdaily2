@@ -1,9 +1,0 @@
-<map id="App\Repositories\Concrete\CategoryRepository\findCategoryPath" name="App\Repositories\Concrete\CategoryRepository\findCategoryPath">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,275,119"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#ae129f313c21dc4adf01ef9a847a941e0" title=" " alt="" coords="323,5,560,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,71,329,53,324,55,241,77"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="323,75,560,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="275,94,309,97,304,97,275,100"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="323,144,560,189"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="241,117,329,140,324,140,240,123"/>
-</map>

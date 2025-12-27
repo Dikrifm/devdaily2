@@ -1,7 +1,0 @@
-<map id="App\Entities\Badge\createCommon" name="App\Entities\Badge\createCommon">
-<area shape="rect" id="Node000001" title=" " alt="" coords="198,40,342,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Badge.html#a64100739c17d5fd4e7091f804c7a8cb9" title=" " alt="" coords="5,5,150,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,47,150,43,150,38,185,46"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Badge.html#a102e4ccbf7808cfb995b36db65d8130a" title=" " alt="" coords="5,75,150,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,79,150,87,149,81,185,77"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="App\Contracts\BadgeInterface" name="App\Contracts\BadgeInterface">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,221,109"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BadgeService.html" title=" " alt="" coords="14,157,212,184"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,123,115,157,111,155,111,126"/>
-<area shape="rect" id="Node000002" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="10,5,216,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,46,116,81,110,80,112,51"/>
-</map>

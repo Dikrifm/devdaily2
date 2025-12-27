@@ -1,7 +1,0 @@
-<map id="App\Services\BaseService\getEntity" name="App\Services\BaseService\getEntity">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,195,85"/>
-<area shape="rect" id="Node000002" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#a38d9ab2d0824b99771271d060f0bff0b" title=" " alt="" coords="243,5,480,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,47,230,45,225,46,196,52"/>
-<area shape="rect" id="Node000003" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#aa726479e16efedb5edfd1892b3c7fe4c" title=" " alt="" coords="243,75,480,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,72,230,79,225,79,195,78"/>
-</map>

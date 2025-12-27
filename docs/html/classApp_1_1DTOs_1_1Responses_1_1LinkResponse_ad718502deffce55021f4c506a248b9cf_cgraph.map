@@ -1,7 +1,0 @@
-<map id="App\DTOs\Responses\LinkResponse\getStatusBadge" name="App\DTOs\Responses\LinkResponse\getStatusBadge">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,228,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1LinkResponse.html#a60707cff1a25b8a0f843f74f5fb5d9ff" title=" " alt="" coords="276,5,513,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,46,263,44,258,45,229,51"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1LinkResponse.html#aad5f35c22287f8223b338c49e4c64aed" title=" " alt="" coords="283,75,506,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,74,270,81,264,81,228,79"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="App\Services\MarketplaceService\getInactiveMarketplaces" name="App\Services\MarketplaceService\getInactiveMarketplaces">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,239,50"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a162954e4ebaca73a0555a09b7c5b7793" title=" " alt="" coords="287,5,476,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="239,25,274,28,268,28,239,30"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a4cecbeaea9ede2f98fd82c89245b6b4d" title=" " alt="" coords="524,5,713,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="476,25,511,28,506,28,476,30"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="761,5,951,50"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="714,25,748,28,743,28,714,30"/>
-</map>

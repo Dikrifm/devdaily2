@@ -1,7 +1,0 @@
-<map id="App\Entities\Admin\setActive" name="App\Entities\Admin\setActive">
-<area shape="rect" id="Node000001" title=" " alt="" coords="199,40,344,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Admin.html#a3c832f35dec8043d8942a2324b36f9ae" title=" " alt="" coords="5,5,151,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,47,151,43,151,38,186,46"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Admin.html#a840a4adfef73f3e40bd3740c42ed0a2e" title=" " alt="" coords="5,75,151,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,79,152,87,151,81,186,78"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="App\Repositories\Concrete\AdminRepository\countSuperAdmins" name="App\Repositories\Concrete\AdminRepository\countSuperAdmins">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,269,119"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#ae129f313c21dc4adf01ef9a847a941e0" title=" " alt="" coords="317,5,554,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,71,324,53,319,55,237,77"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="317,75,554,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="269,94,304,97,298,97,270,100"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="317,144,554,189"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="237,117,324,139,319,140,236,123"/>
-</map>

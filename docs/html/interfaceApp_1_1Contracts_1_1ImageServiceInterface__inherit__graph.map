@@ -1,7 +1,0 @@
-<map id="App\Contracts\ImageServiceInterface" name="App\Contracts\ImageServiceInterface">
-<area shape="rect" id="Node000001" title=" " alt="" coords="6,81,211,126"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1ImageService.html" title=" " alt="" coords="9,174,208,201"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="110,140,111,174,106,172,107,143"/>
-<area shape="rect" id="Node000002" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="5,5,212,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,46,111,81,106,80,107,51"/>
-</map>

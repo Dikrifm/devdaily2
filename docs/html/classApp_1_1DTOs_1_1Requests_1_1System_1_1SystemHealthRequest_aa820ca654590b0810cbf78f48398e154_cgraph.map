@@ -1,7 +1,0 @@
-<map id="App\DTOs\Requests\System\SystemHealthRequest\checkDatabase" name="App\DTOs\Requests\System\SystemHealthRequest\checkDatabase">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,280,50"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#a016f5f9692ce71a448fcc2c37fddb46d" title=" " alt="" coords="328,5,615,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="280,25,315,28,310,28,280,30"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#ab0d084a051f5da2f509e8af46ff50917" title=" " alt="" coords="663,5,940,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="615,25,650,28,645,28,615,30"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="App\DTOs\Requests\Product\ProductBulkActionRequest\isLargeBatch" name="App\DTOs\Requests\Product\ProductBulkActionRequest\isLargeBatch">
-<area shape="rect" id="Node000001" title=" " alt="" coords="555,32,757,93"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductBulkActionRequest.html#ae378a9cc8243a30e4a7d8fee2c299182" title=" " alt="" coords="305,32,507,93"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="537,62,507,65,507,60,542,62"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a8ab395e84b323485c0a3cacc138d6d79" title=" " alt="" coords="22,5,240,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="287,48,241,44,240,39,292,47"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a27c36649c65327ee2e53c0c12ad59d06" title=" " alt="" coords="5,75,257,119"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="287,77,258,84,257,78,292,77"/>
-</map>

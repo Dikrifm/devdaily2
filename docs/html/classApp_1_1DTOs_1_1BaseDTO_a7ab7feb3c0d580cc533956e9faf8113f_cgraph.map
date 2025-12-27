@@ -1,9 +1,0 @@
-<map id="App\DTOs\BaseDTO\__toString" name="App\DTOs\BaseDTO\__toString">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,166,50"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1BaseDTO.html#a5909828013ac08fbdf0553fa12654be1" title=" " alt="" coords="214,14,407,42"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,25,201,27,195,28,166,30"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1BaseDTO.html#a225a0a2db9d1794e93807b29110fc0bf" title=" " alt="" coords="455,14,691,42"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="407,25,442,28,437,28,407,30"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1BaseDTO.html#a817d48885a150e3e349ac011909f19c1" title=" " alt="" coords="739,14,941,42"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="692,25,726,28,721,28,692,30"/>
-</map>

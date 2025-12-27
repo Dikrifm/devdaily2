@@ -1,9 +1,0 @@
-<map id="App\DTOs\Requests\Product\PublishProductRequest\isForcePublish" name="App\DTOs\Requests\Product\PublishProductRequest\isForcePublish">
-<area shape="rect" id="Node000001" title=" " alt="" coords="572,44,774,106"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService.html#a95341abb39ce626d17abddb571d69f27" title=" " alt="" coords="280,5,524,67"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="554,58,524,56,524,51,559,58"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Validators_1_1ProductValidator.html#a117b3481438db2b4ca9b7cb30f3fd693" title=" " alt="" coords="289,91,515,136"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="559,91,516,100,515,95,554,92"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Validators_1_1ProductValidator.html#a5a19165b580446f803aa38aaf3ed6cdc" title=" " alt="" coords="5,91,232,136"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="270,114,232,116,232,111,276,113"/>
-</map>

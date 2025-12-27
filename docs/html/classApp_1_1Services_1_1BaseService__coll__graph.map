@@ -1,7 +1,0 @@
-<map id="App\Services\BaseService" name="App\Services\BaseService">
-<area shape="rect" id="Node000001" title=" " alt="" coords="131,106,320,134"/>
-<area shape="rect" id="Node000002" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="5,5,212,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,41,213,105,208,106,135,46"/>
-<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1CacheInterface.html" title=" " alt="" coords="236,5,450,33"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="319,42,243,108,240,103,314,44"/>
-</map>

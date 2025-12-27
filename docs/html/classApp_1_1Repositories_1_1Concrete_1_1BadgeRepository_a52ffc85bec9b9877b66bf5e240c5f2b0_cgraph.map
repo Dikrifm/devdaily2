@@ -1,7 +1,0 @@
-<map id="App\Repositories\Concrete\BadgeRepository\searchByLabel" name="App\Repositories\Concrete\BadgeRepository\searchByLabel">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,241,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="289,5,526,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,45,276,43,270,45,241,51"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="289,75,526,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="241,74,276,80,270,81,241,79"/>
-</map>

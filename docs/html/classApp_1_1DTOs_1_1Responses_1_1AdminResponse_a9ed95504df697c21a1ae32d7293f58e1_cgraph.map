@@ -1,7 +1,0 @@
-<map id="App\DTOs\Responses\AdminResponse\collection" name="App\DTOs\Responses\AdminResponse\collection">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,203,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1AdminResponse.html#a85e99de717d739c0813542a0d536ddd6" title=" " alt="" coords="252,5,452,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,46,239,43,234,45,204,51"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1AdminResponse.html#a112dd5f2b7296ddc4227dd65bd8c90f3" title=" " alt="" coords="251,75,454,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,73,238,80,233,81,203,79"/>
-</map>

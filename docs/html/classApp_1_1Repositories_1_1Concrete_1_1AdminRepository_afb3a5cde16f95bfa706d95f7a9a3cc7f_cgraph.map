@@ -1,9 +1,0 @@
-<map id="App\Repositories\Concrete\AdminRepository\getStatistics" name="App\Repositories\Concrete\AdminRepository\getStatistics">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,228,119"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#ae129f313c21dc4adf01ef9a847a941e0" title=" " alt="" coords="276,5,513,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,71,290,53,285,55,210,77"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="276,75,513,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,94,263,96,258,98,229,100"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="276,144,513,189"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="209,117,290,139,285,140,209,123"/>
-</map>

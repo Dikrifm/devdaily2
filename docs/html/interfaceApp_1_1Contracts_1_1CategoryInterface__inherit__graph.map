@@ -1,7 +1,0 @@
-<map id="App\Contracts\CategoryInterface" name="App\Contracts\CategoryInterface">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,239,109"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1CategoryService.html" title=" " alt="" coords="14,157,230,184"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="124,123,124,157,120,155,120,126"/>
-<area shape="rect" id="Node000002" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="19,5,225,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,47,125,81,119,80,121,51"/>
-</map>

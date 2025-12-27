@@ -1,7 +1,0 @@
-<map id="App\Models\LinkModel" name="App\Models\LinkModel">
-<area shape="rect" id="Node000001" title=" " alt="" coords="8,157,176,184"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Models_1_1BaseModel.html" title=" " alt="" coords="5,81,179,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,123,94,157,90,155,90,126"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="61,5,123,33"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,46,95,81,89,80,91,51"/>
-</map>

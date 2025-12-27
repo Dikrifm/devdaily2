@@ -1,9 +1,0 @@
-<map id="App\Repositories\Concrete\AdminRepository\updatePassword" name="App\Repositories\Concrete\AdminRepository\updatePassword">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,253,119"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#ac514ac26f5336490bf9400066e82fccc" title=" " alt="" coords="301,5,538,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,71,310,53,306,55,227,77"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#ae129f313c21dc4adf01ef9a847a941e0" title=" " alt="" coords="301,75,538,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="253,94,288,96,283,98,254,100"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#afa26ca0c396bfeeefa58f8189538b518" title=" " alt="" coords="301,144,538,189"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="226,117,311,139,305,140,226,123"/>
-</map>

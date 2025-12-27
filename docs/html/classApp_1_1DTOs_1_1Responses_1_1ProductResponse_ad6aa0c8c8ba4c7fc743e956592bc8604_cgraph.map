@@ -1,7 +1,0 @@
-<map id="App\DTOs\Responses\ProductResponse\collection" name="App\DTOs\Responses\ProductResponse\collection">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,210,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1ProductResponse.html#a913e8771c9bc873a4ebde2eef2b95427" title=" " alt="" coords="259,5,466,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,46,246,43,241,45,211,51"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1ProductResponse.html#a9268ca4bdc7f31c15c664fd5f5e7bdd8" title=" " alt="" coords="258,75,468,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,74,245,80,240,81,210,79"/>
-</map>

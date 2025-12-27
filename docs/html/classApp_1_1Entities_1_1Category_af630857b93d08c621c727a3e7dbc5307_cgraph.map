@@ -1,7 +1,0 @@
-<map id="App\Entities\Category\__construct" name="App\Entities\Category\__construct">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,168,50"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1BaseEntity.html#a096787112af4622a424a8e2d98090f7d" title=" " alt="" coords="216,5,389,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,25,203,27,197,28,168,30"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1BaseEntity.html#adf7d2202f7b3bd10e5ed6b87a9a8e380" title=" " alt="" coords="437,5,610,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,25,424,28,419,28,390,30"/>
-</map>

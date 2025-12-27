@@ -1,5 +1,0 @@
-<map id="App\DTOs\Requests\Product\PublishProductRequest\getProductId" name="App\DTOs\Requests\Product\PublishProductRequest\getProductId">
-<area shape="rect" id="Node000001" title=" " alt="" coords="298,5,500,67"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService.html#a95341abb39ce626d17abddb571d69f27" title=" " alt="" coords="5,5,250,67"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="279,36,250,39,250,34,284,36"/>
-</map>

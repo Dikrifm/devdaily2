@@ -1,7 +1,0 @@
-<map id="App\DTOs\BaseDTO\getValidationErrors" name="App\DTOs\BaseDTO\getValidationErrors">
-<area shape="rect" id="Node000001" title=" " alt="" coords="256,36,495,81"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1BaseDTO.html#abf7ec302d5d2e4ca6c166da0fd289b25" title=" " alt="" coords="5,5,208,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,43,208,42,208,37,243,43"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1BaseDTO.html#abe3d732ee4e66e0c985e91708d08898f" title=" " alt="" coords="8,74,205,102"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="238,73,205,80,205,74,243,73"/>
-</map>

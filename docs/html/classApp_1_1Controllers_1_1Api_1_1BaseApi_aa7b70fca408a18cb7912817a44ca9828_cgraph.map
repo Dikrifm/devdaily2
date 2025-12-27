@@ -1,7 +1,0 @@
-<map id="App\Controllers\Api\BaseApi\handleApiWriteRequest" name="App\Controllers\Api\BaseApi\handleApiWriteRequest">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,241,50"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Controllers_1_1Api_1_1BaseApi.html#aa9db27e93d4aaebacb3d823f668aee32" title=" " alt="" coords="289,5,456,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,25,276,28,271,28,241,30"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Controllers_1_1Api_1_1BaseApi.html#a97b8884a236fb16651fb8b4306ca3767" title=" " alt="" coords="504,5,712,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="456,25,491,28,486,28,457,30"/>
-</map>

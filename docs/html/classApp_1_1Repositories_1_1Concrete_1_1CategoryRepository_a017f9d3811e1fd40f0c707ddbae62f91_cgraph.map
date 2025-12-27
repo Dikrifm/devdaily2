@@ -1,7 +1,0 @@
-<map id="App\Repositories\Concrete\CategoryRepository\createSample" name="App\Repositories\Concrete\CategoryRepository\createSample">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,254,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Category.html#a568522b4d04dd2ce911a2c9a9e1085a3" title=" " alt="" coords="339,5,502,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="254,45,326,39,321,40,255,50"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#ae129f313c21dc4adf01ef9a847a941e0" title=" " alt="" coords="302,75,539,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,75,289,81,284,81,254,80"/>
-</map>

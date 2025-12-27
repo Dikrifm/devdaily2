@@ -1,9 +1,0 @@
-<map id="App\DTOs\Requests\Auth\LoginRequest\getIdentifierType" name="App\DTOs\Requests\Auth\LoginRequest\getIdentifierType">
-<area shape="rect" id="Node000001" title=" " alt="" coords="281,75,507,119"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest.html#aa943f6030749cc4693414910587ffafb" title=" " alt="" coords="27,5,211,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="285,71,210,53,210,48,290,69"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest.html#af6edc423ce36658fd279924de28d7a76" title=" " alt="" coords="5,75,233,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="263,98,234,100,233,94,268,96"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest.html#adda29645e86af3a6721c3f821891f287" title=" " alt="" coords="25,144,213,189"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="290,123,211,146,210,141,285,124"/>
-</map>

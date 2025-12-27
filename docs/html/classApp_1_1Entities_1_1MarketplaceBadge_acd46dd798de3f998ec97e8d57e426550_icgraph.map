@@ -1,7 +1,0 @@
-<map id="App\Entities\MarketplaceBadge\createCommon" name="App\Entities\MarketplaceBadge\createCommon">
-<area shape="rect" id="Node000001" title=" " alt="" coords="237,40,420,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#a2c58267c5f40a9cf24c91095d7445974" title=" " alt="" coords="5,5,189,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,47,189,44,189,39,224,46"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#aa711c3f3de4c0164cdae62184e4c5bc6" title=" " alt="" coords="5,75,189,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,79,190,86,189,81,224,78"/>
-</map>

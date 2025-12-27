@@ -1,9 +1,0 @@
-<map id="App\Entities\Category\activate" name="App\Entities\Category\activate">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,168,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Category.html#a7bfc097f64f8670ad8ccbb9f43c6022b" title=" " alt="" coords="216,40,378,85"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,60,203,62,197,63,168,65"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1BaseEntity.html#a3770c7f469a55d30192e7ae8f6723a6b" title=" " alt="" coords="426,5,599,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="378,47,413,44,408,44,379,52"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1BaseEntity.html#a17a98596fe86b95304fb1f9dbf28f56d" title=" " alt="" coords="426,75,599,119"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="378,73,413,81,408,81,378,78"/>
-</map>

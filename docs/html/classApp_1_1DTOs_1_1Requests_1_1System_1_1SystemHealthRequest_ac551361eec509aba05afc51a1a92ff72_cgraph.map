@@ -1,7 +1,0 @@
-<map id="App\DTOs\Requests\System\SystemHealthRequest\toArray" name="App\DTOs\Requests\System\SystemHealthRequest\toArray">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,228,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#a4c0745320994aebf312fe75118ecd3ba" title=" " alt="" coords="282,5,547,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,47,269,44,264,45,229,52"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#ab0d084a051f5da2f509e8af46ff50917" title=" " alt="" coords="276,75,553,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,73,263,79,257,79,228,78"/>
-</map>

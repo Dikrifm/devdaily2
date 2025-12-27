@@ -1,9 +1,0 @@
-<map id="App\DTOs\Responses\DashboardStatisticsResponse\addChart" name="App\DTOs\Responses\DashboardStatisticsResponse\addChart">
-<area shape="rect" id="Node000001" title=" " alt="" coords="272,91,490,152"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1DashboardStatisticsResponse.html#ae28387aef724eaf5961f4987bd1f1b28" title=" " alt="" coords="5,5,224,67"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="265,86,213,70,213,65,271,85"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1DashboardStatisticsResponse.html#a274909c6e6ccfe1f0481e5ec15b53fa5" title=" " alt="" coords="5,91,224,152"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,122,225,124,224,119,259,121"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Responses_1_1DashboardStatisticsResponse.html#ae54f1d1f171a36e285b9859296f23545" title=" " alt="" coords="5,176,224,238"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="271,157,214,178,212,173,265,158"/>
-</map>

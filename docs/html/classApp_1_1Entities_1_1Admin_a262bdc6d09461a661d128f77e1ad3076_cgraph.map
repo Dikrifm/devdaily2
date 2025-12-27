@@ -1,9 +1,0 @@
-<map id="App\Entities\Admin\promoteToSuperAdmin" name="App\Entities\Admin\promoteToSuperAdmin">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,179,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Admin.html#a0b8ed38ca3a3de34ef834422907e5d4c" title=" " alt="" coords="227,40,372,85"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,60,214,62,208,63,179,65"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1BaseEntity.html#a3770c7f469a55d30192e7ae8f6723a6b" title=" " alt="" coords="420,5,593,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="372,48,407,44,402,45,373,53"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1BaseEntity.html#a17a98596fe86b95304fb1f9dbf28f56d" title=" " alt="" coords="420,75,593,119"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="372,72,407,80,402,80,372,77"/>
-</map>

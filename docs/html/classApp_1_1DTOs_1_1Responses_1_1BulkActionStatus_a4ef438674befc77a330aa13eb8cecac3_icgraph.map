@@ -1,8 +1,0 @@
-<map id="App\DTOs\Responses\BulkActionStatus\getDuration" name="App\DTOs\Responses\BulkActionStatus\getDuration">
-<area shape="rect" id="Node000001" title=" " alt="" coords="518,48,735,93"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a3e24b693b2ae419b301622d5ff3161de" title=" " alt="" coords="242,5,470,67"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="500,55,470,53,471,48,505,55"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a11482bedc2a9eeaa3e7b7ae0510b101e" title=" " alt="" coords="5,48,194,93"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="505,78,470,81,356,84,242,81,194,80,194,74,242,76,356,78,470,76,500,78"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="223,54,194,61,194,55,229,53"/>
-</map>

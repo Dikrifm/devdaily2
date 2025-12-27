@@ -1,9 +1,0 @@
-<map id="App\Contracts\ProductQueryInterface" name="App\Contracts\ProductQueryInterface">
-<area shape="rect" id="Node000001" title=" " alt="" coords="139,81,343,126"/>
-<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1ProductInterface.html" title=" " alt="" coords="5,182,229,210"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,134,136,184,134,179,197,136"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductQueryService.html" title=" " alt="" coords="253,174,477,218"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="283,132,338,173,333,173,282,137"/>
-<area shape="rect" id="Node000002" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="138,5,344,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,47,243,81,239,79,240,51"/>
-</map>

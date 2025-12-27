@@ -1,7 +1,0 @@
-<map id="App\Entities\Badge\canBeArchived" name="App\Entities\Badge\canBeArchived">
-<area shape="rect" id="Node000001" title=" " alt="" coords="198,40,342,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Badge.html#ada4d1cd2d65feb6f9082c8daeb2f0160" title=" " alt="" coords="5,5,150,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,47,150,43,150,38,185,46"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Badge.html#a5a8c6fcedc02627cf7df1a5c9d175935" title=" " alt="" coords="5,75,150,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,79,150,87,149,81,185,77"/>
-</map>

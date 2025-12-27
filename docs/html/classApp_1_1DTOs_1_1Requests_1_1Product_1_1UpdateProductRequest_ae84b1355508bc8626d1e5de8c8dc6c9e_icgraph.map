@@ -1,7 +1,0 @@
-<map id="App\DTOs\Requests\Product\UpdateProductRequest\getChangeSummary" name="App\DTOs\Requests\Product\UpdateProductRequest\getChangeSummary">
-<area shape="rect" id="Node000001" title=" " alt="" coords="550,5,798,67"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1UpdateProductRequest.html#a2baa82c271afd55a37b366b67b96a401" title=" " alt="" coords="276,14,502,58"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="532,36,502,39,502,34,537,36"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService.html#af4e64285ae46c548f812eda6bb604796" title=" " alt="" coords="5,5,228,67"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="257,36,228,39,228,34,262,36"/>
-</map>

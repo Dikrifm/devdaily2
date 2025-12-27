@@ -1,9 +1,0 @@
-<map id="App\Services\AuthorizationService\getAuthorizationStatistics" name="App\Services\AuthorizationService\getAuthorizationStatistics">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,247,50"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a162954e4ebaca73a0555a09b7c5b7793" title=" " alt="" coords="295,5,484,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,25,281,28,276,28,247,30"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a4cecbeaea9ede2f98fd82c89245b6b4d" title=" " alt="" coords="532,5,721,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="484,25,519,28,514,28,484,30"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="769,5,959,50"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="722,25,756,28,751,28,722,30"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="App\Services\BaseService\validateDTO" name="App\Services\BaseService\validateDTO">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,28,195,72"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1BaseDTO.html#a77e99ca94405a82c786c808723044805" title=" " alt="" coords="243,5,449,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,35,230,33,225,35,196,41"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#ade35f7376c38932ef43bd3fa9fcffd48" title=" " alt="" coords="251,57,440,102"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,58,238,66,233,66,195,64"/>
-</map>

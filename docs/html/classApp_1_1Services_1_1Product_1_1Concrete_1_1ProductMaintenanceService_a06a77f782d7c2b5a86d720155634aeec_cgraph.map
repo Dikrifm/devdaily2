@@ -1,9 +1,0 @@
-<map id="App\Services\Product\Concrete\ProductMaintenanceService\preloadFrequentProductCache" name="App\Services\Product\Concrete\ProductMaintenanceService\preloadFrequentProductCache">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,32,274,93"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a0dd17606e7db80a4123316e04b9e251a" title=" " alt="" coords="322,5,511,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="274,43,309,41,303,42,275,48"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a0559a52c16f4d6099cafc0386c2c53e9" title=" " alt="" coords="322,75,511,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="274,77,309,83,303,83,274,82"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="559,75,748,119"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="511,94,546,97,541,97,511,100"/>
-</map>

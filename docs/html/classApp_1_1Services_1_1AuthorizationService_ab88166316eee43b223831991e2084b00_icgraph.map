@@ -1,9 +1,0 @@
-<map id="App\Services\AuthorizationService\getAdminRoles" name="App\Services\AuthorizationService\getAdminRoles">
-<area shape="rect" id="Node000001" title=" " alt="" coords="250,75,446,119"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1AuthorizationService.html#a9b877ee82bf0a258a7042047120933db" title=" " alt="" coords="5,5,202,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,71,185,53,185,48,254,69"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1AuthorizationService.html#ac9891f31e8bb09073c577c95e76b5a57" title=" " alt="" coords="5,75,202,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="232,98,203,100,202,94,237,96"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1AuthorizationService.html#a57ea6d3e2caf25ae5f85c9fe22c3f795" title=" " alt="" coords="5,144,202,189"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="255,123,185,146,184,141,249,125"/>
-</map>

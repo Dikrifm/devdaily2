@@ -1,7 +1,0 @@
-<map id="App\Entities\MarketplaceBadge\archive" name="App\Entities\MarketplaceBadge\archive">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,189,50"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#ad5d9a2dac0b7c48fc74756ee5c3481ca" title=" " alt="" coords="237,5,420,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,25,224,27,218,28,189,30"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#a1c40c590e6b00ccee5a0faa50532c7f3" title=" " alt="" coords="468,5,651,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="420,25,455,28,450,28,420,30"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="App\Controllers\Api\BaseApi\getApiKeyScopes" name="App\Controllers\Api\BaseApi\getApiKeyScopes">
-<area shape="rect" id="Node000001" title=" " alt="" coords="415,5,609,50"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Controllers_1_1Api_1_1BaseApi.html#a63ac85d73201c66b80bec2bf617acf45" title=" " alt="" coords="221,5,367,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="397,28,368,30,368,25,402,28"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Controllers_1_1Api_1_1BaseApi.html#add6ef1fcf8c33b933789062cf4661851" title=" " alt="" coords="5,5,173,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="202,28,173,30,173,25,208,27"/>
-</map>

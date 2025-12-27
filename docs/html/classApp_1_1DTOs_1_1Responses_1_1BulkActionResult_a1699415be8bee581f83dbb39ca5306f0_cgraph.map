@@ -1,7 +1,0 @@
-<map id="App\DTOs\Responses\BulkActionResult\getSummaryMessage" name="App\DTOs\Responses\BulkActionResult\getSummaryMessage">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,48,230,110"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#a915365116438b7105cbe95f515015648" title=" " alt="" coords="278,5,470,67"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,58,265,54,260,55,231,63"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#a06ecd641a8c9d2c92852c11061bf19e1" title=" " alt="" coords="278,91,471,152"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="230,95,265,103,260,103,230,100"/>
-</map>

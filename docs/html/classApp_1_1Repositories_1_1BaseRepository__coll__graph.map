@@ -1,7 +1,0 @@
-<map id="App\Repositories\BaseRepository" name="App\Repositories\BaseRepository">
-<area shape="rect" id="Node000001" title=" " alt="" coords="129,123,367,151"/>
-<area shape="rect" id="Node000002" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html" title=" " alt="" coords="5,5,243,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,58,235,122,230,123,159,63"/>
-<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1CacheInterface.html" title=" " alt="" coords="266,14,480,42"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="349,51,265,125,262,120,344,53"/>
-</map>

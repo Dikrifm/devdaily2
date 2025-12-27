@@ -1,9 +1,0 @@
-<map id="App\Repositories\Concrete\ProductBadgeRepository\exists" name="App\Repositories\Concrete\ProductBadgeRepository\exists">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,234,85"/>
-<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository.html#ac3f6156dc8dc6c97900f6fa258213167" title=" " alt="" coords="282,32,475,93"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,60,269,62,263,63,235,65"/>
-<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="523,5,760,50"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="475,47,510,45,505,46,476,52"/>
-<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="523,75,760,119"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="476,72,510,79,505,79,476,78"/>
-</map>
