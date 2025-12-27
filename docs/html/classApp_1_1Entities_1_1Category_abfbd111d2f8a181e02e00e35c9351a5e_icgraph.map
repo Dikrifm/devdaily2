@@ -1,0 +1,7 @@
+<map id="App\Entities\Category\getSlug" name="App\Entities\Category\getSlug">
+<area shape="rect" id="Node000001" title=" " alt="" coords="274,40,436,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1CategoryResponse.html#ac94437dc458d56cd359d79f1970c7e3c" title=" " alt="" coords="5,5,226,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,49,226,46,226,41,261,48"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Category.html#a3bede066c082c09579820bc7dfea3b27" title=" " alt="" coords="34,75,197,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="256,77,198,88,197,83,261,76"/>
+</map>

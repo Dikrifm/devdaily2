@@ -1,0 +1,5 @@
+<map id="App\DTOs\Requests\Product\UpdateProductRequest\getProductId" name="App\DTOs\Requests\Product\UpdateProductRequest\getProductId">
+<area shape="rect" id="Node000001" title=" " alt="" coords="276,14,536,58"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService.html#af4e64285ae46c548f812eda6bb604796" title=" " alt="" coords="5,5,228,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,36,228,39,228,34,263,36"/>
+</map>

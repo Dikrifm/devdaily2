@@ -1,0 +1,17 @@
+<map id="App\DTOs\Requests\Marketplace\CreateMarketplaceRequest\toArray" name="App\DTOs\Requests\Marketplace\CreateMarketplaceRequest\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,261,239,323"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1CreateMarketplaceRequest.html#a20f94f65f1358c74ca306b6a3615f886" title=" " alt="" coords="287,5,546,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,260,161,218,194,169,236,120,285,77,294,73,290,77,288,81,240,123,199,173,165,221,142,262"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1CreateMarketplaceRequest.html#a12c21037b7fed580156eec1863e4ed73" title=" " alt="" coords="289,91,544,152"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="154,259,213,210,285,162,298,157,294,161,288,166,216,214,158,263"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1CreateMarketplaceRequest.html#a224d28eb241ff229cbf91ac13d655415" title=" " alt="" coords="300,176,533,238"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="229,258,295,241,291,244,232,263"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1CreateMarketplaceRequest.html#a9f800d160eae3e831266971622fde615" title=" " alt="" coords="300,261,533,323"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="238,290,287,291,282,293,240,295"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1CreateMarketplaceRequest.html#af6d9305446777fb0b0f9a362da9baed0" title=" " alt="" coords="300,347,533,408"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="230,321,296,341,291,343,231,326"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1CreateMarketplaceRequest.html#a0df08ab7abd117633a78391d8cd1cecd" title=" " alt="" coords="300,432,533,494"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="156,321,216,370,288,418,299,425,294,425,285,422,213,375,156,326"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1CreateMarketplaceRequest.html#ac1a456904495b279fd19fd46770b53f3" title=" " alt="" coords="300,517,533,579"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="140,321,165,363,199,412,240,461,288,503,295,510,290,509,285,508,236,465,194,415,161,366,139,326"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="App\Services\Product\Concrete\ProductQueryService" name="App\Services\Product\Concrete\ProductQueryService">
+<area shape="rect" id="Node000001" title=" " alt="" coords="130,200,354,245"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html" title=" " alt="" coords="235,114,424,142"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="309,153,264,202,261,197,304,155"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="5,5,212,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="150,37,305,112,300,115,149,43"/>
+<area shape="rect" id="Node000005" href="$interfaceApp_1_1Contracts_1_1ProductQueryInterface.html" title=" " alt="" coords="6,106,211,151"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="110,46,111,106,106,105,107,51"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Contracts_1_1CacheInterface.html" title=" " alt="" coords="236,5,450,33"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="341,47,334,115,329,113,338,51"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="153,157,213,199,208,200,152,162"/>
+</map>

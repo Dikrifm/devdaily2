@@ -1,0 +1,14 @@
+<map id="App\Repositories\Concrete\ProductBadgeRepository\bulkCreate" name="App\Repositories\Concrete\ProductBadgeRepository\bulkCreate">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,76,199,137"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository.html#aaddd7a9edb9cc716a611d06d2702af3a" title=" " alt="" coords="247,41,440,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,90,234,87,229,88,200,95"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Repositories_1_1BaseRepository.html#afa26ca0c396bfeeefa58f8189538b518" title=" " alt="" coords="488,117,725,162"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="199,110,473,128,471,133,199,115"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository.html#ac3f6156dc8dc6c97900f6fa258213167" title=" " alt="" coords="510,32,703,93"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="440,66,497,66,492,67,441,71"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="441,94,505,113,500,113,440,99"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="773,5,1011,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="703,48,761,44,756,44,704,53"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="773,75,1011,119"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="704,71,761,81,756,81,704,77"/>
+</map>

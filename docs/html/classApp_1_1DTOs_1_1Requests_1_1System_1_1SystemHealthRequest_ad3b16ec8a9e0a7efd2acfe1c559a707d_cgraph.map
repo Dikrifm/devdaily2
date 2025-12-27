@@ -1,0 +1,7 @@
+<map id="App\DTOs\Requests\System\SystemHealthRequest\checkEmail" name="App\DTOs\Requests\System\SystemHealthRequest\checkEmail">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,255,50"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#a016f5f9692ce71a448fcc2c37fddb46d" title=" " alt="" coords="303,5,590,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,25,290,28,284,28,255,30"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#ab0d084a051f5da2f509e8af46ff50917" title=" " alt="" coords="638,5,915,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="590,25,625,28,620,28,590,30"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="App\Repositories\Concrete\AdminRepository\recordSuccessfulLogin" name="App\Repositories\Concrete\AdminRepository\recordSuccessfulLogin">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,292,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#ac514ac26f5336490bf9400066e82fccc" title=" " alt="" coords="340,5,577,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="251,71,343,53,338,55,252,77"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#ae129f313c21dc4adf01ef9a847a941e0" title=" " alt="" coords="340,75,577,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="292,94,326,97,321,97,293,100"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#afa26ca0c396bfeeefa58f8189538b518" title=" " alt="" coords="340,144,577,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="252,117,343,140,338,140,251,123"/>
+</map>

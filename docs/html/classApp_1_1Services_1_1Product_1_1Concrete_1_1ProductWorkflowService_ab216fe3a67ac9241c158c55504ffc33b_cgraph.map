@@ -1,0 +1,11 @@
+<map id="App\Services\Product\Concrete\ProductWorkflowService\schedulePublication" name="App\Services\Product\Concrete\ProductWorkflowService\schedulePublication">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,66,250,128"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a0dd17606e7db80a4123316e04b9e251a" title=" " alt="" coords="298,5,487,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,63,292,53,287,55,249,68"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#aad49acc732ebc886340eb7c0617e0e83" title=" " alt="" coords="298,75,487,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="250,94,285,96,280,98,251,100"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#a0559a52c16f4d6099cafc0386c2c53e9" title=" " alt="" coords="298,144,487,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="248,126,292,139,287,140,247,131"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="535,144,724,189"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="487,164,522,166,517,166,487,169"/>
+</map>

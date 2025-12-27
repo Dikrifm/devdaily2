@@ -1,0 +1,10 @@
+<map id="App\Entities\Admin\recordLogin" name="App\Entities\Admin\recordLogin">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,151,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Admin.html#aa25311e586f7414e1dc5a184217422d2" title=" " alt="" coords="199,5,344,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,47,186,43,181,44,152,52"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1Admin.html#a728cf6365b9129cde0501bbe2fe5b486" title=" " alt="" coords="199,75,344,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="151,73,186,81,180,81,151,78"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1BaseEntity.html#a17a98596fe86b95304fb1f9dbf28f56d" title=" " alt="" coords="392,40,565,85"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="344,37,379,45,374,45,344,42"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="344,82,374,80,379,79,345,88"/>
+</map>

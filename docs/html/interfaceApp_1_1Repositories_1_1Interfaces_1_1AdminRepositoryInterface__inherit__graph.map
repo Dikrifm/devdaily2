@@ -1,0 +1,9 @@
+<map id="App\Repositories\Interfaces\AdminRepositoryInterface" name="App\Repositories\Interfaces\AdminRepositoryInterface">
+<area shape="rect" id="Node000001" title=" " alt="" coords="11,98,211,143"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1Concrete_1_1AdminRepository.html" title=" " alt="" coords="14,191,208,235"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="113,156,114,191,109,189,109,160"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,14,52,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,50,94,96,89,98,50,56"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html" title=" " alt="" coords="75,5,312,50"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,63,133,100,129,96,166,59"/>
+</map>

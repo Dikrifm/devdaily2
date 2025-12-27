@@ -1,0 +1,19 @@
+<map id="App\Contracts\ProductInterface" name="App\Contracts\ProductInterface">
+<area shape="rect" id="Node000001" title=" " alt="" coords="569,135,792,162"/>
+<area shape="rect" id="Node000002" href="$interfaceApp_1_1Contracts_1_1ProductCRUDInterface.html" title=" " alt="" coords="260,5,521,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="502,35,522,42,564,63,604,87,665,134,660,134,601,92,562,67,520,47,502,40"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="5,135,212,162"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="135,122,190,81,223,60,259,42,294,32,290,35,261,47,226,64,193,85,139,126"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Contracts_1_1ProductWorkflowInterface.html" title=" " alt="" coords="278,57,503,102"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="181,128,299,100,295,104,184,133"/>
+<area shape="rect" id="Node000005" href="$interfaceApp_1_1Contracts_1_1ProductQueryInterface.html" title=" " alt="" coords="288,126,492,171"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="227,146,290,147,285,150,228,151"/>
+<area shape="rect" id="Node000006" href="$interfaceApp_1_1Contracts_1_1ProductBulkInterface.html" title=" " alt="" coords="293,196,488,240"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="183,164,299,194,294,196,182,169"/>
+<area shape="rect" id="Node000007" href="$interfaceApp_1_1Contracts_1_1ProductMaintenanceInterface.html" title=" " alt="" coords="266,265,515,310"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="138,170,194,211,261,250,292,264,287,264,259,255,191,215,137,175"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="502,103,622,134,617,134,502,108"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="508,146,571,148,566,149,509,151"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="501,189,617,164,622,162,502,194"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="504,257,520,250,561,229,600,204,659,164,664,162,603,209,564,233,522,255,505,262"/>
+</map>

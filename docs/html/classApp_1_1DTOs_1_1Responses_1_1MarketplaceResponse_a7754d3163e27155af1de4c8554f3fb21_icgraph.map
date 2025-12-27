@@ -1,0 +1,9 @@
+<map id="App\DTOs\Responses\MarketplaceResponse\getDefaultCommissionRatePercentage" name="App\DTOs\Responses\MarketplaceResponse\getDefaultCommissionRatePercentage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="654,5,933,67"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1MarketplaceResponse.html#ab8b2c0b50a190ae93b7be7fdb8b7003d" title=" " alt="" coords="438,5,606,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="636,36,607,39,607,34,642,36"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1MarketplaceResponse.html#ae6be9cdce6dd206320e4c8911c5575d4" title=" " alt="" coords="222,5,390,67"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="420,36,391,39,390,34,425,36"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Responses_1_1MarketplaceResponse.html#adc436f200a6e066de8aa4a1de5ad500c" title=" " alt="" coords="5,5,174,67"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="204,36,174,39,174,34,209,36"/>
+</map>

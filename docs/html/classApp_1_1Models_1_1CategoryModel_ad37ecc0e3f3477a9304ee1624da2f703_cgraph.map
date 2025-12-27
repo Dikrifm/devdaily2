@@ -1,0 +1,7 @@
+<map id="App\Models\CategoryModel\getSubtreeIds" name="App\Models\CategoryModel\getSubtreeIds">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,206,50"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Models_1_1CategoryModel.html#ac943286f6624a1d798820f506e65c88a" title=" " alt="" coords="254,5,454,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,25,241,27,236,28,206,30"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Models_1_1CategoryModel.html#abd6ced9a11593f86def27a976177187c" title=" " alt="" coords="502,5,702,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="454,25,489,28,484,28,454,30"/>
+</map>

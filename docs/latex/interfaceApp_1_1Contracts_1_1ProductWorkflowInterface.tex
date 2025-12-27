@@ -1,0 +1,790 @@
+\doxysection{App\textbackslash{}Contracts\textbackslash{}Product\+Workflow\+Interface Interface Reference}
+\hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface}{}\label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Contracts\textbackslash{}Product\+Workflow\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Contracts\textbackslash{}Product\+Workflow\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3c0f322d8b3c3b4ddb4a185d55faed44}{publish\+Product}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1PublishProductRequest}{Publish\+Product\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a4e5ab8e5eaa165db88a18b45a80352ae}{verify\+Product}} (int \$product\+Id, int \$admin\+Id, ?string \$notes=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a9277a5071d51d95efd81566288439e0c}{request\+Verification}} (int \$product\+Id, int \$admin\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3804cea85f4398ead5a24e8d152e1fcd}{archive\+Product}} (int \$product\+Id, int \$admin\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a431bf9aa2a6666026e26c9dc2eb975cd}{unarchive\+Product}} (int \$product\+Id, int \$admin\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a90e5b4d1f8da0968024c1a7122406c0e}{toggle\+Product\+Status}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductToggleStatusRequest}{Product\+Toggle\+Status\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_af4f88a10f9db34ade06b0404bcc3e062}{update\+Product\+Status}} (int \$product\+Id, \mbox{\hyperlink{namespaceApp_1_1Enums_a3097fbf2541c76df35cc5039b8057bb9}{Product\+Status}} \$status, int \$admin\+Id, ?string \$notes=null, bool \$force=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_aba59d161d3b3cf9e77c15aa5ac30ca4b}{revert\+To\+Draft}} (int \$product\+Id, int \$admin\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a2e0645c55da625f89420f438c08163e7}{can\+Transition\+To}} (int \$product\+Id, \mbox{\hyperlink{namespaceApp_1_1Enums_a3097fbf2541c76df35cc5039b8057bb9}{Product\+Status}} \$target\+Status, bool \$include\+Business\+Rules=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ad616f866629050d3c2316db7c6173743}{validate\+For\+Publication}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a96c8ec505306efb9f090465ee456623d}{validate\+For\+Verification}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a199b4f308face3358f49057c15231228}{can\+Publish\+Product}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ada9ef4e684aa3ccc0cdb133358a08878}{can\+Archive\+Product}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a1c5024b5ec1b375c63f3c20b96d4f84c}{get\+Allowed\+Transitions}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ae6b13e7ae016eb3676513516018ea872}{send\+For\+Review}} (int \$product\+Id, int \$admin\+Id, ?string \$notes=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a52104caf3ad6397b0f9f1691e95386f4}{reject\+Product}} (int \$product\+Id, int \$admin\+Id, string \$reason)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ab33baf0fa4ee519869f4f7ac64420b20}{schedule\+Publication}} (int \$product\+Id, \textbackslash{}Date\+Time\+Interface \$publish\+At, int \$admin\+Id, ?string \$notes=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_adf0941dc27894b197ecb6b38954c086b}{cancel\+Scheduled\+Publication}} (int \$product\+Id, int \$admin\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a47c3efacb2d941a7b4c62f0420fecf4c}{get\+Scheduled\+Publications}} (?int \$limit=null, int \$offset=0)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a4bf834e7dc7129b23030fb7bc248d64b}{process\+Scheduled\+Publications}} (int \$batch\+Size=50)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ab94b09066a38c7950b098ef76b41d20a}{get\+Products\+By\+Status}} (\mbox{\hyperlink{namespaceApp_1_1Enums_a3097fbf2541c76df35cc5039b8057bb9}{Product\+Status}} \$status, ?int \$limit=null, int \$offset=0, bool \$include\+Relations=false, bool \$admin\+Mode=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ae76d2a776a2f2dd7eb6ccf808540a0cb}{count\+Products\+By\+Status}} (?\mbox{\hyperlink{namespaceApp_1_1Enums_a3097fbf2541c76df35cc5039b8057bb9}{Product\+Status}} \$status=null, bool \$include\+Archived=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_aafdd5b51506e670509a20c278dcc1d2f}{get\+Products\+Needing\+Verification}} (?int \$limit=null, int \$offset=0, bool \$include\+Relations=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3a96cf1bf34c10244d1e07737a314d33}{get\+Products\+Pending\+Publication}} (?int \$limit=null, int \$offset=0, bool \$include\+Relations=false)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface}{App\textbackslash{}\+Contracts\textbackslash{}\+Base\+Interface}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a513eec59fe7e9c0e402e46a78f8297d0}{transaction}} (Closure \$operation, ?string \$transaction\+Name=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a0f185075b3351f187e5d3a8254542226}{transaction\+With\+Retry}} (Closure \$operation, int \$max\+Retries=3, int \$retry\+Delay\+Ms=100)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a82b6e384c3fe6c7bfc54ea447281646d}{authorize}} (string \$permission, \$resource=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a873fb3b4fa96531b0e5783f7a99ae5fa}{validate\+DTO}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a91d3c6630411461cb087d01f44a51d78}{validate\+DTOOr\+Fail}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4ab64479468cdd5d2d1ff20e57288eb9}{validate\+Business\+Rules}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a659738ef6a66310bf5d776f0c30d069d}{coordinate\+Repositories}} (array \$repositories, Closure \$operation)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a614962d78135eed382f83ce29869a98e}{get\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$id, bool \$throw\+If\+Not\+Found=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_aed17577b644e1cd393d27d7bb8df0079}{audit}} (string \$action\+Type, string \$entity\+Type, int \$entity\+Id, ?array \$old\+Values=null, ?array \$new\+Values=null, array \$additional\+Context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a2e883260221a98d0a1460e60e9f5471a}{clear\+Cache\+For\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$entity\+Id=null, ?string \$pattern=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a44f55353c98e0aaa8b34958b616edf26}{clear\+Service\+Cache}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4eb6b3a73481036645de2cd9c1b52d0b}{with\+Caching}} (string \$cache\+Key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adca74bf9f67291760288556be736d719}{batch\+Operation}} (array \$items, Closure \$item\+Operation, int \$batch\+Size=100, ?callable \$progress\+Callback=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ab545a2b47b89a7e3024a6f49ec8925d1}{set\+Admin\+Context}} (?int \$admin\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_add7778041b0a400e381071f3ff73c738}{get\+Current\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adf003d75eba7ca916b60f3060ab99f69}{get\+Service\+Name}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a8217d5efa6e88215cb262bf40f347e0c}{get\+Service\+Cache\+Key}} (string \$operation, array \$parameters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_af738fd9359e1bbbf4aa1f3e7dd3842db}{get\+Initialized\+At}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a86fa6c01142fed51838997cde357ebcc}{is\+Ready}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a3cf8cac523af3644379fa92fea310552}{get\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ac73ccbd402a29fa7d8b0afec6f47ff24}{get\+Performance\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a572bfd5dd56831a44813c2a5f0d0d4a9}{reset\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_abd29e7ea159bb15a299066801bded75e}{validate\+Configuration}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3804cea85f4398ead5a24e8d152e1fcd}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!archiveProduct@{archiveProduct}}
+\index{archiveProduct@{archiveProduct}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{archiveProduct()}{archiveProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3804cea85f4398ead5a24e8d152e1fcd} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::archive\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Archive product (soft delete with business rules) Transition\+: \mbox{[}ANY\mbox{]} → ARCHIVED
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+string | null & {\em \$reason} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_ae92278f4d47063f4df1f2f2693756ea8}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ada9ef4e684aa3ccc0cdb133358a08878}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!canArchiveProduct@{canArchiveProduct}}
+\index{canArchiveProduct@{canArchiveProduct}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{canArchiveProduct()}{canArchiveProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ada9ef4e684aa3ccc0cdb133358a08878} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::can\+Archive\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Check if product can be archived
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ can\+\_\+archive\+: bool, reasons\+: array$<$string$>$, warnings\+: array$<$string$>$ \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_ac6cdafc3980fa3a73cd329073980d953}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_adf0941dc27894b197ecb6b38954c086b}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!cancelScheduledPublication@{cancelScheduledPublication}}
+\index{cancelScheduledPublication@{cancelScheduledPublication}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{cancelScheduledPublication()}{cancelScheduledPublication()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_adf0941dc27894b197ecb6b38954c086b} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::cancel\+Scheduled\+Publication (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Cancel scheduled publication
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+string | null & {\em \$reason} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a5b1ca1b57335a46fc7d86c32cc6b14c0}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a199b4f308face3358f49057c15231228}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!canPublishProduct@{canPublishProduct}}
+\index{canPublishProduct@{canPublishProduct}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{canPublishProduct()}{canPublishProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a199b4f308face3358f49057c15231228} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::can\+Publish\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Check if product can be published
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ can\+\_\+publish\+: bool, reasons\+: array$<$string$>$, requirements\+: array$<$string$>$, has\+\_\+warnings\+: bool, missing\+\_\+requirements\+: array$<$string$>$ \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a31139a4d1a3f6cd89273d0f643a3dfb2}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a2e0645c55da625f89420f438c08163e7}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!canTransitionTo@{canTransitionTo}}
+\index{canTransitionTo@{canTransitionTo}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{canTransitionTo()}{canTransitionTo()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a2e0645c55da625f89420f438c08163e7} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::can\+Transition\+To (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{\mbox{\hyperlink{namespaceApp_1_1Enums_a3097fbf2541c76df35cc5039b8057bb9}{Product\+Status}}}]{\$target\+Status}{, }\item[{bool}]{\$include\+Business\+Rules}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Check if product can transition to target status
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+Product\+Status & {\em \$target\+Status} & \\
+\hline
+bool & {\em \$include\+Business\+Rules} & Include business validation (not just state machine) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ allowed\+: bool, current\+\_\+status\+: Product\+Status, target\+\_\+status\+: Product\+Status, state\+\_\+machine\+\_\+allowed\+: bool, business\+\_\+rules\+\_\+allowed\+: bool, reasons\+: array$<$string$>$, requirements\+: array$<$string$>$ \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a407511082f9d0333fdcaee264682e3c0}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ae76d2a776a2f2dd7eb6ccf808540a0cb}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!countProductsByStatus@{countProductsByStatus}}
+\index{countProductsByStatus@{countProductsByStatus}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{countProductsByStatus()}{countProductsByStatus()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ae76d2a776a2f2dd7eb6ccf808540a0cb} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::count\+Products\+By\+Status (\begin{DoxyParamCaption}\item[{?\mbox{\hyperlink{namespaceApp_1_1Enums_a3097fbf2541c76df35cc5039b8057bb9}{Product\+Status}}}]{\$status}{ = {\ttfamily null}, }\item[{bool}]{\$include\+Archived}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Count products by status
+
+
+\begin{DoxyParams}[1]{Parameters}
+Product\+Status | null & {\em \$status} & If null, returns array of all status counts \\
+\hline
+bool & {\em \$include\+Archived} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int\texorpdfstring{$\vert$}{|}array\texorpdfstring{$<$}{<}Product\+Status, int\texorpdfstring{$>$}{>} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_ad965fcad23529591170dba21a32da793}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a1c5024b5ec1b375c63f3c20b96d4f84c}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!getAllowedTransitions@{getAllowedTransitions}}
+\index{getAllowedTransitions@{getAllowedTransitions}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{getAllowedTransitions()}{getAllowedTransitions()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a1c5024b5ec1b375c63f3c20b96d4f84c} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::get\+Allowed\+Transitions (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Get allowed transitions for current product status
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Status$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_adb694721820c9402f7a30248c96b010d}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ab94b09066a38c7950b098ef76b41d20a}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!getProductsByStatus@{getProductsByStatus}}
+\index{getProductsByStatus@{getProductsByStatus}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{getProductsByStatus()}{getProductsByStatus()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ab94b09066a38c7950b098ef76b41d20a} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::get\+Products\+By\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceApp_1_1Enums_a3097fbf2541c76df35cc5039b8057bb9}{Product\+Status}}}]{\$status}{, }\item[{?int}]{\$limit}{ = {\ttfamily null}, }\item[{int}]{\$offset}{ = {\ttfamily 0}, }\item[{bool}]{\$include\+Relations}{ = {\ttfamily false}, }\item[{bool}]{\$admin\+Mode}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Get products by status
+
+
+\begin{DoxyParams}[1]{Parameters}
+Product\+Status & {\em \$status} & \\
+\hline
+int | null & {\em \$limit} & \\
+\hline
+int & {\em \$offset} & \\
+\hline
+bool & {\em \$include\+Relations} & \\
+\hline
+bool & {\em \$admin\+Mode} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a4006f3ecc310cd907b4c282479e9de71}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_aafdd5b51506e670509a20c278dcc1d2f}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!getProductsNeedingVerification@{getProductsNeedingVerification}}
+\index{getProductsNeedingVerification@{getProductsNeedingVerification}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{getProductsNeedingVerification()}{getProductsNeedingVerification()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_aafdd5b51506e670509a20c278dcc1d2f} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::get\+Products\+Needing\+Verification (\begin{DoxyParamCaption}\item[{?int}]{\$limit}{ = {\ttfamily null}, }\item[{int}]{\$offset}{ = {\ttfamily 0}, }\item[{bool}]{\$include\+Relations}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Get products needing verification
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | null & {\em \$limit} & \\
+\hline
+int & {\em \$offset} & \\
+\hline
+bool & {\em \$include\+Relations} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a5b80dc87445bb860d39b9a5c96b041da}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3a96cf1bf34c10244d1e07737a314d33}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!getProductsPendingPublication@{getProductsPendingPublication}}
+\index{getProductsPendingPublication@{getProductsPendingPublication}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{getProductsPendingPublication()}{getProductsPendingPublication()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3a96cf1bf34c10244d1e07737a314d33} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::get\+Products\+Pending\+Publication (\begin{DoxyParamCaption}\item[{?int}]{\$limit}{ = {\ttfamily null}, }\item[{int}]{\$offset}{ = {\ttfamily 0}, }\item[{bool}]{\$include\+Relations}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Get products pending publication
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | null & {\em \$limit} & \\
+\hline
+int & {\em \$offset} & \\
+\hline
+bool & {\em \$include\+Relations} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a748eccc3788862f5d8f9eb17b900c41d}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a47c3efacb2d941a7b4c62f0420fecf4c}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!getScheduledPublications@{getScheduledPublications}}
+\index{getScheduledPublications@{getScheduledPublications}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{getScheduledPublications()}{getScheduledPublications()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a47c3efacb2d941a7b4c62f0420fecf4c} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::get\+Scheduled\+Publications (\begin{DoxyParamCaption}\item[{?int}]{\$limit}{ = {\ttfamily null}, }\item[{int}]{\$offset}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+Get scheduled publications
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | null & {\em \$limit} & \\
+\hline
+int & {\em \$offset} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_ae3f8a538529e9e3afe4597523a0fb6c6}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a4bf834e7dc7129b23030fb7bc248d64b}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!processScheduledPublications@{processScheduledPublications}}
+\index{processScheduledPublications@{processScheduledPublications}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{processScheduledPublications()}{processScheduledPublications()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a4bf834e7dc7129b23030fb7bc248d64b} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::process\+Scheduled\+Publications (\begin{DoxyParamCaption}\item[{int}]{\$batch\+Size}{ = {\ttfamily 50}}\end{DoxyParamCaption})}
+
+Process due scheduled publications
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$batch\+Size} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{processed\+: int, succeeded\+: array$<$int$>$, failed\+: array$<$int, string$>$\} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a04374e6634111128c8c38e6e98084bce}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3c0f322d8b3c3b4ddb4a185d55faed44}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!publishProduct@{publishProduct}}
+\index{publishProduct@{publishProduct}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{publishProduct()}{publishProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a3c0f322d8b3c3b4ddb4a185d55faed44} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::publish\+Product (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1PublishProductRequest}{Publish\+Product\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Publish product with business validation Transition\+: \mbox{[}DRAFT\texorpdfstring{$\vert$}{|}\+VERIFIED\mbox{]} → PUBLISHED
+
+
+\begin{DoxyParams}[1]{Parameters}
+Publish\+Product\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Validation\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a95341abb39ce626d17abddb571d69f27}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a52104caf3ad6397b0f9f1691e95386f4}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!rejectProduct@{rejectProduct}}
+\index{rejectProduct@{rejectProduct}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{rejectProduct()}{rejectProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a52104caf3ad6397b0f9f1691e95386f4} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::reject\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{, }\item[{string}]{\$reason}{}\end{DoxyParamCaption})}
+
+Reject product (failed verification) Transition\+: PENDING\+\_\+\+VERIFICATION → DRAFT
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+string & {\em \$reason} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_adb2cd095e364034e85049bdaa567036b}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a9277a5071d51d95efd81566288439e0c}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!requestVerification@{requestVerification}}
+\index{requestVerification@{requestVerification}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{requestVerification()}{requestVerification()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a9277a5071d51d95efd81566288439e0c} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::request\+Verification (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{}\end{DoxyParamCaption})}
+
+Request verification for product Transition\+: DRAFT → PENDING\+\_\+\+VERIFICATION
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a58f11a523a40889ce196ab25d954a622}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_aba59d161d3b3cf9e77c15aa5ac30ca4b}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!revertToDraft@{revertToDraft}}
+\index{revertToDraft@{revertToDraft}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{revertToDraft()}{revertToDraft()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_aba59d161d3b3cf9e77c15aa5ac30ca4b} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::revert\+To\+Draft (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Revert product to draft status Transition\+: \mbox{[}PENDING\+\_\+\+VERIFICATION\texorpdfstring{$\vert$}{|}\+VERIFIED\mbox{]} → DRAFT
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+string | null & {\em \$reason} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a71285b6d6a0f75cc02af6a8ecde0233b}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ab33baf0fa4ee519869f4f7ac64420b20}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!schedulePublication@{schedulePublication}}
+\index{schedulePublication@{schedulePublication}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{schedulePublication()}{schedulePublication()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ab33baf0fa4ee519869f4f7ac64420b20} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::schedule\+Publication (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{\textbackslash{}Date\+Time\+Interface}]{\$publish\+At}{, }\item[{int}]{\$admin\+Id}{, }\item[{?string}]{\$notes}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Schedule product for future publication
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\textbackslash{}\+Date\+Time\+Interface & {\em \$publish\+At} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+string | null & {\em \$notes} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_ab216fe3a67ac9241c158c55504ffc33b}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ae6b13e7ae016eb3676513516018ea872}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!sendForReview@{sendForReview}}
+\index{sendForReview@{sendForReview}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{sendForReview()}{sendForReview()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ae6b13e7ae016eb3676513516018ea872} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::send\+For\+Review (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{, }\item[{?string}]{\$notes}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Send product for review (internal workflow)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+string | null & {\em \$notes} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_ab5d576d0bacae7c649436dff777ce0a1}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a90e5b4d1f8da0968024c1a7122406c0e}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!toggleProductStatus@{toggleProductStatus}}
+\index{toggleProductStatus@{toggleProductStatus}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{toggleProductStatus()}{toggleProductStatus()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a90e5b4d1f8da0968024c1a7122406c0e} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::toggle\+Product\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductToggleStatusRequest}{Product\+Toggle\+Status\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Toggle product status with state machine validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+Product\+Toggle\+Status\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Validation\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_adc138fcec4621e152855b9cb6860bb08}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a431bf9aa2a6666026e26c9dc2eb975cd}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!unarchiveProduct@{unarchiveProduct}}
+\index{unarchiveProduct@{unarchiveProduct}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{unarchiveProduct()}{unarchiveProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a431bf9aa2a6666026e26c9dc2eb975cd} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::unarchive\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{}\end{DoxyParamCaption})}
+
+Unarchive/\+Restore product from archive Transition\+: ARCHIVED → DRAFT (or previous state)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a21c33b05917b84573f449840a90f4ed7}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_af4f88a10f9db34ade06b0404bcc3e062}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!updateProductStatus@{updateProductStatus}}
+\index{updateProductStatus@{updateProductStatus}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{updateProductStatus()}{updateProductStatus()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_af4f88a10f9db34ade06b0404bcc3e062} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::update\+Product\+Status (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{\mbox{\hyperlink{namespaceApp_1_1Enums_a3097fbf2541c76df35cc5039b8057bb9}{Product\+Status}}}]{\$status}{, }\item[{int}]{\$admin\+Id}{, }\item[{?string}]{\$notes}{ = {\ttfamily null}, }\item[{bool}]{\$force}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Update product status directly (admin override)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+Product\+Status & {\em \$status} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+string | null & {\em \$notes} & \\
+\hline
+bool & {\em \$force} & Force transition even if not allowed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a7556ff34ff072b04c7101037da2cb8b0}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ad616f866629050d3c2316db7c6173743}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!validateForPublication@{validateForPublication}}
+\index{validateForPublication@{validateForPublication}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{validateForPublication()}{validateForPublication()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_ad616f866629050d3c2316db7c6173743} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::validate\+For\+Publication (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Validate product for publication
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ valid\+: bool, errors\+: array$<$string$>$, warnings\+: array$<$string$>$, has\+\_\+warnings\+: bool, requirements\+\_\+met\+: bool, missing\+\_\+requirements\+: array$<$string$>$ \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_aa5f02f9ccfcbb03a8aa8f78775e7980e}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a96c8ec505306efb9f090465ee456623d}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!validateForVerification@{validateForVerification}}
+\index{validateForVerification@{validateForVerification}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{validateForVerification()}{validateForVerification()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a96c8ec505306efb9f090465ee456623d} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::validate\+For\+Verification (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Validate product for verification
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ valid\+: bool, errors\+: array$<$string$>$, warnings\+: array$<$string$>$ \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a0d3aa8baf4ed5f7e771a63a1f4c70538}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a4e5ab8e5eaa165db88a18b45a80352ae}\index{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}!verifyProduct@{verifyProduct}}
+\index{verifyProduct@{verifyProduct}!App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface@{App\textbackslash{}Contracts\textbackslash{}ProductWorkflowInterface}}
+\doxysubsubsection{\texorpdfstring{verifyProduct()}{verifyProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductWorkflowInterface_a4e5ab8e5eaa165db88a18b45a80352ae} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+Workflow\+Interface\+::verify\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{, }\item[{?string}]{\$notes}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Verify product (admin approval) Transition\+: PENDING\+\_\+\+VERIFICATION → VERIFIED
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+string | null & {\em \$notes} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService_a443f5bbf47a742a969dd49a95426392b}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+Workflow\+Service}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Contracts/\mbox{\hyperlink{ProductWorkflowInterface_8php}{Product\+Workflow\+Interface.\+php}}\end{DoxyCompactItemize}

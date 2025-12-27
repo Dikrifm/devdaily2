@@ -1,0 +1,7 @@
+<map id="App\DTOs\Requests\Product\CreateProductRequest" name="App\DTOs\Requests\Product\CreateProductRequest">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,157,208,201"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1BaseDTO.html" title=" " alt="" coords="32,81,181,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,123,109,157,104,155,105,127"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="44,5,169,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="108,46,109,81,104,80,105,51"/>
+</map>

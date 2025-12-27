@@ -1,0 +1,11 @@
+<map id="App\Entities\BaseEntity\canBeRestored" name="App\Entities\BaseEntity\canBeRestored">
+<area shape="rect" id="Node000001" title=" " alt="" coords="237,109,410,154"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Badge.html#a04681549e0eda987eb9b54e9a7515d30" title=" " alt="" coords="25,5,169,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="265,103,188,65,161,53,160,48,190,60,270,101"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Category.html#a44e64075de069cfeaaee80df3dbbbe54" title=" " alt="" coords="16,75,178,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,117,179,112,178,107,224,115"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1Marketplace.html#a3842ca4985284802121fb77264f4ffd0" title=" " alt="" coords="5,144,189,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="219,148,190,155,188,150,224,146"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#a25ca9201d7f9bf7ee3a049ec88fd0bc3" title=" " alt="" coords="5,213,189,258"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="270,161,190,203,162,215,160,210,188,199,265,163"/>
+</map>

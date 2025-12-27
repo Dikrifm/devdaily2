@@ -1,0 +1,9 @@
+<map id="App\Services\Product\Concrete\ProductBulkService\bulkPublish" name="App\Services\Product\Concrete\ProductBulkService\bulkPublish">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,74,219,136"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a0dd17606e7db80a4123316e04b9e251a" title=" " alt="" coords="279,5,468,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,71,283,54,279,56,220,76"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductBulkService.html#a631dc698be4f794e55f6ce6f57d8fea9" title=" " alt="" coords="267,74,480,136"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,102,254,104,249,106,220,108"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#aad49acc732ebc886340eb7c0617e0e83" title=" " alt="" coords="279,160,468,205"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="219,134,284,155,278,155,218,139"/>
+</map>

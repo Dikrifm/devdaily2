@@ -1,0 +1,15 @@
+<map id="App\Entities\Category\archive" name="App\Entities\Category\archive">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,168,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Category.html#a1a12651a3c64cfd934f938588243a3f4" title=" " alt="" coords="216,5,378,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,46,203,43,198,45,169,51"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1Category.html#ad3791f3bbcb6200c0478e45d6b9bbe5c" title=" " alt="" coords="216,75,378,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="168,73,203,81,197,82,168,78"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Category.html#ac1c1693ac7db72f730c1407e6f5c520b" title=" " alt="" coords="426,5,588,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="378,25,413,27,408,28,379,30"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Entities_1_1Category.html#a7bfc097f64f8670ad8ccbb9f43c6022b" title=" " alt="" coords="426,75,588,119"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="378,94,413,97,408,97,379,100"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Entities_1_1BaseEntity.html#a3770c7f469a55d30192e7ae8f6723a6b" title=" " alt="" coords="636,40,810,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="588,81,618,79,624,78,589,87"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Entities_1_1BaseEntity.html#a17a98596fe86b95304fb1f9dbf28f56d" title=" " alt="" coords="636,109,810,154"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="589,107,624,115,618,115,588,113"/>
+</map>

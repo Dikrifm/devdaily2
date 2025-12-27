@@ -1,0 +1,29 @@
+<map id="App\Entities\BaseEntity\isNew" name="App\Entities\BaseEntity\isNew">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1084,213,1257,258"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1BaseEntity.html#a49b09aae9b10a19454507f26dc7bf6c1" title=" " alt="" coords="852,144,1026,189"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1077,209,1016,192,1016,187,1082,208"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1BaseEntity.html#a096787112af4622a424a8e2d98090f7d" title=" " alt="" coords="852,213,1026,258"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1066,236,1027,238,1026,233,1071,235"/>
+<area shape="rect" id="Node000014" href="$classApp_1_1Repositories_1_1Concrete_1_1LinkRepository.html#a3205c12a9e665e6a2e031374481bd977" title=" " alt="" coords="842,283,1036,327"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="1082,262,1017,285,1015,279,1077,264"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1Admin.html#ae49ca5d9d94cb0c07897b8bafe60e214" title=" " alt="" coords="630,5,775,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="843,203,840,203,827,185,819,167,816,132,812,98,805,81,792,64,776,51,776,46,796,60,810,79,817,97,821,132,824,166,831,182,844,199,848,204"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Entities_1_1Badge.html#aa088a8fbdcd3dc0dcc09601885e3a1b2" title=" " alt="" coords="630,75,775,119"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="845,205,841,203,824,185,816,168,808,151,793,134,775,122,775,117,796,130,812,148,821,165,829,182,844,199,851,205"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Entities_1_1Category.html#af630857b93d08c621c727a3e7dbc5307" title=" " alt="" coords="622,144,784,189"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="843,209,781,192,781,187,849,208"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Entities_1_1Marketplace.html#a636981809ce0c94ab0c4bac6f471e00b" title=" " alt="" coords="611,213,794,258"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="834,236,795,238,794,233,840,235"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#a6a4bea9dead0a1d0486448243382b3bd" title=" " alt="" coords="611,283,794,327"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="849,262,782,285,781,279,843,264"/>
+<area shape="rect" id="Node000009" href="$classApp_1_1Entities_1_1Product.html#ad274aa109ab728d9d462a33693ae12de" title=" " alt="" coords="626,352,779,397"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="850,265,844,272,829,289,821,306,812,324,796,342,777,354,775,349,793,338,808,321,816,304,824,286,841,268,845,267"/>
+<area shape="rect" id="Node000010" href="$classApp_1_1Entities_1_1BaseEntity.html#a1851c2cb32bed1965e36bade245355be" title=" " alt="" coords="616,421,789,466"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="848,266,844,272,831,289,824,306,821,340,817,375,810,393,796,411,781,423,779,418,792,407,805,390,812,373,816,339,819,304,827,286,840,269,843,269"/>
+<area shape="rect" id="Node000011" href="$classApp_1_1Repositories_1_1BaseRepository.html#a18c67664fc7542832e8570a164c4f792" title=" " alt="" coords="291,430,563,458"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="598,444,564,446,563,441,603,444"/>
+<area shape="rect" id="Node000012" href="$classApp_1_1Repositories_1_1BaseRepository.html#a2d6281f5ce5922fac742177fdaafba9a" title=" " alt="" coords="5,387,243,431"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="283,428,243,425,243,420,288,427"/>
+<area shape="rect" id="Node000013" href="$classApp_1_1Repositories_1_1BaseRepository.html#a6c850af08441fc8937e01b3155de6899" title=" " alt="" coords="5,456,243,501"/>
+<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="283,460,243,467,243,462,288,460"/>
+</map>

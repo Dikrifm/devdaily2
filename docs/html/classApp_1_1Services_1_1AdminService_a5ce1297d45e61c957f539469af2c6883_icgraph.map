@@ -1,0 +1,18 @@
+<map id="App\Services\AdminService\isLastSuperAdmin" name="App\Services\AdminService\isLastSuperAdmin">
+<area shape="rect" id="Node000001" title=" " alt="" coords="747,107,947,151"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1AdminService.html#a40440fa12f5259afedf3bb60943e1bd4" title=" " alt="" coords="253,5,452,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="792,99,748,80,699,62,636,48,571,39,453,30,452,25,572,34,637,43,700,57,750,75,797,99"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1AdminService.html#aabf1917174d18f2678f9cbe1410e90e5" title=" " alt="" coords="500,72,699,117"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="729,113,700,111,700,106,734,113"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1AdminService.html#a1fcc5fc89d7546a35192eba6396b04b8" title=" " alt="" coords="500,141,699,186"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="729,146,700,152,699,147,734,145"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1Services_1_1AdminService.html#affa51cfa460833902499861cfa36ea10" title=" " alt="" coords="500,211,699,255"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="790,158,700,201,670,213,668,207,698,196,784,159"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="497,68,438,53,438,48,502,67"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1AdminService.html#a3b37fbd39978c6373d66762720e9a4be" title=" " alt="" coords="253,75,452,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="482,96,453,99,452,93,487,95"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Services_1_1AdminService.html#a4972609fc976b6e2754ced4ee6f3ecc3" title=" " alt="" coords="253,144,452,189"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="482,165,453,168,452,163,487,165"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Services_1_1AdminService.html#abcad8174fff7e0c08a469985de452bc3" title=" " alt="" coords="5,144,205,189"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="235,167,206,169,205,164,240,166"/>
+</map>

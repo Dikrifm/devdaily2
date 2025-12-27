@@ -1,0 +1,7 @@
+<map id="App\Models\AuditLogModel\insertAuditLog" name="App\Models\AuditLogModel\insertAuditLog">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,204,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1AuditLog.html#acccd68f9c0ced9e29afdb0e4ae331836" title=" " alt="" coords="252,5,412,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,45,239,42,234,43,204,50"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1AuditLog.html#add71bce6aafc905d4afba7288790d02f" title=" " alt="" coords="252,75,412,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,75,239,82,234,83,204,80"/>
+</map>

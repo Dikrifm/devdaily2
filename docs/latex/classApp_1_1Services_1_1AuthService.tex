@@ -1,0 +1,1731 @@
+\doxysection{App\textbackslash{}Services\textbackslash{}Auth\+Service Class Reference}
+\hypertarget{classApp_1_1Services_1_1AuthService}{}\label{classApp_1_1Services_1_1AuthService}\index{App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}}
+
+
+Inheritance diagram for App\textbackslash{}Services\textbackslash{}Auth\+Service\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthService__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Services\textbackslash{}Auth\+Service\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthService__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthService_a3bafc23b0373b21cd63cc8cc66ea3863}{\+\_\+\+\_\+construct}} (Connection\+Interface \$db, \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \$cache, Audit\+Service \$audit\+Service, \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1AdminRepositoryInterface}{Admin\+Repository\+Interface}} \$admin\+Repository, \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1AuditLogRepositoryInterface}{Audit\+Log\+Repository\+Interface}} \$audit\+Log\+Repository, Auth\+Validator \$auth\+Validator)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthService_a6f4796cee4c042722a59a3bec66316ef}{login}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest}{Login\+Request}} \$request)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthService_a012df6bed6c01802103dd60d6f835dcf}{logout}} (string \$session\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthService_ab566e7a7e0ca3b67e2a0db14760b9506}{logout\+All}} (int \$admin\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthService_ad29fcb78309a68e82aabc924c1aa90e9}{refresh\+Session}} (string \$session\+Id, string \$refresh\+Token)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ac1c2996f005d7350b8bcd56626d996b2}{\+\_\+\+\_\+construct}} (Connection\+Interface \$db, \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \$cache, Audit\+Service \$audit\+Service)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0559a52c16f4d6099cafc0386c2c53e9}{transaction}} (Closure \$operation, ?string \$transaction\+Name=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a50aa80d639cf3939556802da72c0cc43}{transaction\+With\+Retry}} (Closure \$operation, int \$max\+Retries=3, int \$retry\+Delay\+Ms=100)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0dd17606e7db80a4123316e04b9e251a}{authorize}} (string \$permission, \$resource=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a326c5e784061453d9807ceba0d360fc4}{validate\+DTO}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aa354e0c9f696897086612a8ad54cd405}{validate\+DTOOr\+Fail}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a5cab69aa8de35af4e774bfbeb844223b}{coordinate\+Repositories}} (array \$repositories, Closure \$operation)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_adc9ce0842f818c3f976972557922d59c}{get\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$id, bool \$throw\+If\+Not\+Found=true)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a7ef2f481b5afcf427d56c8e68a66e3b9}{audit}} (string \$action\+Type, string \$entity\+Type, int \$entity\+Id, ?array \$old\+Values=null, ?array \$new\+Values=null, array \$additional\+Context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a7356b713dd3dd6bfdabdf65ec38a6198}{clear\+Cache\+For\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$entity\+Id=null, ?string \$pattern=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0ffea7ef1f6ff6445d6766415877d481}{clear\+Service\+Cache}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a162954e4ebaca73a0555a09b7c5b7793}{with\+Caching}} (string \$cache\+Key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a71c46cd3d0e617ebf3ede585c3cce503}{batch\+Operation}} (array \$items, Closure \$item\+Operation, int \$batch\+Size=100, ?callable \$progress\+Callback=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aad49acc732ebc886340eb7c0617e0e83}{set\+Admin\+Context}} (?int \$admin\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0adb04e069280a92fc66e12b2e0bac2a}{get\+Current\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a4cecbeaea9ede2f98fd82c89245b6b4d}{get\+Service\+Cache\+Key}} (string \$operation, array \$parameters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0caa15c8f578f64ad2511c2fd53fb94a}{get\+Initialized\+At}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ad0304b958be1914e86428214b8f9cd9c}{is\+Ready}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a9e9c6c224257643835271823837deb2b}{get\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a5743370c5832cc85bd4a731d5190f007}{get\+Performance\+Metrics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ab9d754d9c3405024c7dc66a25acbc13c}{reset\+Metrics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_abeab1d89965da6d66fa99e9014476d02}{validate\+Configuration}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ade35f7376c38932ef43bd3fa9fcffd48}{validate\+Business\+Rules}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ae5683c63e89a0d7127abc66d78228cf4}{get\+Service\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a3b7149e93e74a0d14f7617552980564d}{queue\+Cache\+Operation}} (\$operation)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+Connection\+Interface \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aeab4375cec38530d5a979bb5a7b69ee7}{\$db}}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a4e70c9c80c8b0787eb8d378b5f5a5b3b}{\$cache}}
+\item 
+Audit\+Service \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aa8c5356538f0bcac49efc678bf82fb98}{\$audit\+Service}}
+\item 
+int \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a406970729a52dacf1a802a90b5dfe2fd}{\$current\+Admin\+Id}} = null
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classApp_1_1Services_1_1AuthService_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Services_1_1AuthService_a3bafc23b0373b21cd63cc8cc66ea3863}\index{App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthService_a3bafc23b0373b21cd63cc8cc66ea3863} 
+App\textbackslash{}\+Services\textbackslash{}\+Auth\+Service\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Connection\+Interface}]{\$db}{, }\item[{\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}}}]{\$cache}{, }\item[{Audit\+Service}]{\$audit\+Service}{, }\item[{\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1AdminRepositoryInterface}{Admin\+Repository\+Interface}}}]{\$admin\+Repository}{, }\item[{\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1AuditLogRepositoryInterface}{Audit\+Log\+Repository\+Interface}}}]{\$audit\+Log\+Repository}{, }\item[{Auth\+Validator}]{\$auth\+Validator}{}\end{DoxyParamCaption})}
+
+Constructor with dependency injection
+
+
+\begin{DoxyParams}[1]{Parameters}
+Connection\+Interface & {\em \$db} & \\
+\hline
+Cache\+Interface & {\em \$cache} & \\
+\hline
+Audit\+Service & {\em \$audit\+Service} & \\
+\hline
+Admin\+Repository\+Interface & {\em \$admin\+Repository} & \\
+\hline
+Audit\+Log\+Repository\+Interface & {\em \$audit\+Log\+Repository} & \\
+\hline
+Auth\+Validator & {\em \$auth\+Validator} & \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Services_1_1AuthService_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Services_1_1AuthService_a6f4796cee4c042722a59a3bec66316ef}\index{App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}!login@{login}}
+\index{login@{login}!App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}}
+\doxysubsubsection{\texorpdfstring{login()}{login()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthService_a6f4796cee4c042722a59a3bec66316ef} 
+App\textbackslash{}\+Services\textbackslash{}\+Auth\+Service\+::login (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest}{Login\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Authenticate admin credentials and create session
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxylink{classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest}{Login\+Request} & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1ValidationException}{Validation\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthInterface_a861fd3e5438bde37bdcf91437087f205}{App\textbackslash{}\+Contracts\textbackslash{}\+Auth\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthService_a6f4796cee4c042722a59a3bec66316ef_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthService_a012df6bed6c01802103dd60d6f835dcf}\index{App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}!logout@{logout}}
+\index{logout@{logout}!App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}}
+\doxysubsubsection{\texorpdfstring{logout()}{logout()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthService_a012df6bed6c01802103dd60d6f835dcf} 
+App\textbackslash{}\+Services\textbackslash{}\+Auth\+Service\+::logout (\begin{DoxyParamCaption}\item[{string}]{\$session\+Id}{}\end{DoxyParamCaption})}
+
+Logout current admin and invalidate session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthInterface_a24137de24779262e9b0c28a531a0f9c3}{App\textbackslash{}\+Contracts\textbackslash{}\+Auth\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthService_a012df6bed6c01802103dd60d6f835dcf_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthService_ab566e7a7e0ca3b67e2a0db14760b9506}\index{App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}!logoutAll@{logoutAll}}
+\index{logoutAll@{logoutAll}!App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}}
+\doxysubsubsection{\texorpdfstring{logoutAll()}{logoutAll()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthService_ab566e7a7e0ca3b67e2a0db14760b9506} 
+App\textbackslash{}\+Services\textbackslash{}\+Auth\+Service\+::logout\+All (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Logout admin from all devices
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+string | null & {\em \$reason} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of sessions invalidated 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthInterface_a644c7c600acd3cdce6b4359330428ea0}{App\textbackslash{}\+Contracts\textbackslash{}\+Auth\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthService_ab566e7a7e0ca3b67e2a0db14760b9506_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthService_ad29fcb78309a68e82aabc924c1aa90e9}\index{App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}!refreshSession@{refreshSession}}
+\index{refreshSession@{refreshSession}!App\textbackslash{}Services\textbackslash{}AuthService@{App\textbackslash{}Services\textbackslash{}AuthService}}
+\doxysubsubsection{\texorpdfstring{refreshSession()}{refreshSession()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthService_ad29fcb78309a68e82aabc924c1aa90e9} 
+App\textbackslash{}\+Services\textbackslash{}\+Auth\+Service\+::refresh\+Session (\begin{DoxyParamCaption}\item[{string}]{\$session\+Id}{, }\item[{string}]{\$refresh\+Token}{}\end{DoxyParamCaption})}
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+ Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Validate and refresh authentication session
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+string & {\em \$refresh\+Token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Login\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{classApp_1_1Exceptions_1_1AuthorizationException}{Authorization\+Exception}} & \\
+\hline
+{\em \doxylink{classApp_1_1Exceptions_1_1DomainException}{Domain\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Load authentication configuration
+
+\begin{DoxyReturn}{Returns}
+array$<$string, mixed$>$
+\end{DoxyReturn}
+Save configuration
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$config \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+Validate authentication configuration
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$config \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$string, string$>$
+\end{DoxyReturn}
+Get session from storage
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$\vert$}{|}null
+\end{DoxyReturn}
+Get all sessions for admin from storage
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$string, array$>$
+\end{DoxyReturn}
+Store session in storage
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+array & {\em \$session\+Data} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+Remove session from storage
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$session\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+Check if session is expired
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$session} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+Create Session\+Response from session data
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$session} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Session\+Response
+\end{DoxyReturn}
+Get current session ID for admin
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string\texorpdfstring{$\vert$}{|}null
+\end{DoxyReturn}
+Record anonymous failed attempt (admin not found)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$identifier} & \\
+\hline
+string | null & {\em \$ip\+Address} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+Handle suspicious login
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+array & {\em \$suspicious\+Activity} & \\
+\hline
+Login\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+Extract device info from user agent
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$user\+Agent} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array
+\end{DoxyReturn}
+Extract location from IP address
+
+
+\begin{DoxyParams}[1]{Parameters}
+string | null & {\em \$ip} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$\vert$}{|}null
+\end{DoxyReturn}
+Get admin\textquotesingle{}s known IPs
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$string$>$
+\end{DoxyReturn}
+Get admin\textquotesingle{}s known devices
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$string$>$
+\end{DoxyReturn}
+Get recent login count
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+int & {\em \$hours} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int
+\end{DoxyReturn}
+Get last login location
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$\vert$}{|}null
+\end{DoxyReturn}
+Calculate distance between two locations (Haversine formula)
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$location1} & \\
+\hline
+array & {\em \$location2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float
+\end{DoxyReturn}
+Cleanup expired password reset tokens
+
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+Validate JWT token
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Admin 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+Get valid API scopes
+
+\begin{DoxyReturn}{Returns}
+array$<$string$>$
+\end{DoxyReturn}
+Get valid delegation permissions
+
+\begin{DoxyReturn}{Returns}
+array$<$string$>$
+\end{DoxyReturn}
+Calculate security score for admin
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int
+\end{DoxyReturn}
+Generate security recommendations
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$admin\+Id} & \\
+\hline
+int & {\em \$security\+Score} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$string$>$
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthInterface_ab10f47404ef66f4dd947f62937df9270}{App\textbackslash{}\+Contracts\textbackslash{}\+Auth\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthService_ad29fcb78309a68e82aabc924c1aa90e9_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Services/\mbox{\hyperlink{AuthService_8php}{Auth\+Service.\+php}}\end{DoxyCompactItemize}

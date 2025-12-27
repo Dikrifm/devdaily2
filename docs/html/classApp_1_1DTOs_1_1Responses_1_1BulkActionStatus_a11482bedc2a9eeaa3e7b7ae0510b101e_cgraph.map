@@ -1,0 +1,18 @@
+<map id="App\DTOs\Responses\BulkActionStatus\toArray" name="App\DTOs\Responses\BulkActionStatus\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,214,194,259"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a4ef438674befc77a330aa13eb8cecac3" title=" " alt="" coords="518,61,735,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,213,123,171,151,119,190,68,214,47,240,29,281,13,325,5,369,3,413,7,497,26,568,54,563,55,495,32,412,12,369,9,325,10,283,18,243,34,217,51,194,72,155,122,128,173,111,215"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#aa6515beb4864f74e15a466fb2974cc51" title=" " alt="" coords="242,43,470,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="120,212,173,164,240,115,252,110,248,114,243,119,176,168,124,216"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a3e24b693b2ae419b301622d5ff3161de" title=" " alt="" coords="242,129,470,190"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,212,239,194,235,197,178,216"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#aae75634428c7051ff311e12de23c4591" title=" " alt="" coords="245,214,467,259"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="193,234,231,236,226,238,195,239"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a1dcdbc667d2ccaa705261b6b4c27f40a" title=" " alt="" coords="261,284,450,328"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="185,257,259,278,254,280,185,262"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a1ba03be6623a10b9609065848f72d9d8" title=" " alt="" coords="254,353,458,398"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="126,257,179,298,243,338,258,347,252,347,240,343,176,303,126,262"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html#a3f91788d6e09cd1e2bbc54fefb92061b" title=" " alt="" coords="245,422,466,467"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="114,257,165,332,201,373,243,408,252,415,247,415,240,412,198,377,161,335,112,262"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="467,126,532,109,528,112,469,130"/>
+</map>

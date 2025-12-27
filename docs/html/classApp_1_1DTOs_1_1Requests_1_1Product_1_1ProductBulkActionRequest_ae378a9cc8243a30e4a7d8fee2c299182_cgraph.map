@@ -1,0 +1,10 @@
+<map id="App\DTOs\Requests\Product\ProductBulkActionRequest\toArray" name="App\DTOs\Requests\Product\ProductBulkActionRequest\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,73,208,135"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductBulkActionRequest.html#aabd63332cf0de7344fdb6100425237f0" title=" " alt="" coords="256,5,458,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,74,243,67,238,69,209,79"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductBulkActionRequest.html#a0230af09463485308a87282a0b99f3de" title=" " alt="" coords="506,108,708,170"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,108,492,128,489,133,208,114"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductBulkActionRequest.html#a5dbd9bd1f8e8b2b75309092c70310d96" title=" " alt="" coords="256,141,458,203"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="208,129,243,140,238,141,208,134"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="458,156,488,155,493,154,459,161"/>
+</map>

@@ -1,0 +1,41 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,603,130,631"/>
+<area shape="rect" id="Node000001" href="$classApp_1_1DTOs_1_1BaseDTO.html" title=" " alt="" coords="178,603,327,631"/>
+<area shape="poly" id="edge136_Node000000_Node000001" title=" " alt="" coords="144,615,179,615,175,619,147,619"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest.html" title=" " alt="" coords="400,5,583,50"/>
+<area shape="poly" id="edge137_Node000001_Node000002" title=" " alt="" coords="254,587,266,473,289,315,305,235,325,162,347,102,373,61,401,42,398,46,377,64,352,104,330,164,311,236,295,316,271,473,259,588"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Category_1_1CreateCategoryRequest.html" title=" " alt="" coords="386,75,598,119"/>
+<area shape="poly" id="edge138_Node000001_Node000003" title=" " alt="" coords="255,587,269,486,294,349,310,280,329,217,350,165,373,130,391,118,388,122,377,133,354,168,334,219,315,281,299,350,274,487,260,588"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Requests_1_1Category_1_1UpdateCategoryRequest.html" title=" " alt="" coords="386,144,598,189"/>
+<area shape="poly" id="edge139_Node000001_Node000004" title=" " alt="" coords="251,587,255,511,271,407,286,351,308,296,336,245,373,199,391,187,388,191,377,203,341,248,313,298,291,353,276,408,260,511,256,588"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1DTOs_1_1Requests_1_1Link_1_1BulkLinkUpdateRequest.html" title=" " alt="" coords="401,213,582,258"/>
+<area shape="poly" id="edge140_Node000001_Node000005" title=" " alt="" coords="253,587,261,522,280,437,295,391,316,347,341,305,373,268,402,251,399,255,377,272,346,308,320,349,300,393,285,438,266,523,258,588"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1DTOs_1_1Requests_1_1Link_1_1CreateLinkRequest.html" title=" " alt="" coords="402,283,582,327"/>
+<area shape="poly" id="edge141_Node000001_Node000006" title=" " alt="" coords="256,588,267,535,289,467,324,398,346,366,373,338,403,321,399,325,377,342,351,369,328,401,294,469,272,536,261,589"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1DTOs_1_1Requests_1_1Link_1_1UpdateLinkRequest.html" title=" " alt="" coords="402,352,582,397"/>
+<area shape="poly" id="edge142_Node000001_Node000007" title=" " alt="" coords="260,587,276,547,300,498,332,449,373,407,403,391,399,396,377,411,336,453,304,501,281,549,265,589"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1CreateMarketplaceRequest.html" title=" " alt="" coords="375,421,608,466"/>
+<area shape="poly" id="edge143_Node000001_Node000008" title=" " alt="" coords="268,589,311,532,341,502,374,476,399,465,395,469,376,481,344,506,315,535,273,591"/>
+<area shape="rect" id="Node000009" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html" title=" " alt="" coords="375,491,608,535"/>
+<area shape="poly" id="edge144_Node000001_Node000009" title=" " alt="" coords="286,593,328,568,374,545,408,534,404,538,376,550,330,573,290,596"/>
+<area shape="rect" id="Node000010" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1CreateProductRequest.html" title=" " alt="" coords="390,560,593,605"/>
+<area shape="poly" id="edge145_Node000001_Node000010" title=" " alt="" coords="341,602,392,595,388,599,344,606"/>
+<area shape="rect" id="Node000011" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductBulkActionRequest.html" title=" " alt="" coords="390,629,593,674"/>
+<area shape="poly" id="edge146_Node000001_Node000011" title=" " alt="" coords="341,628,392,636,387,638,343,632"/>
+<area shape="rect" id="Node000012" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductDeleteRequest.html" title=" " alt="" coords="390,699,593,743"/>
+<area shape="poly" id="edge147_Node000001_Node000012" title=" " alt="" coords="288,637,330,661,376,684,408,697,403,699,374,689,328,666,289,642"/>
+<area shape="rect" id="Node000013" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductQuickEditRequest.html" title=" " alt="" coords="390,768,593,813"/>
+<area shape="poly" id="edge148_Node000001_Node000013" title=" " alt="" coords="270,641,315,699,344,728,376,753,400,767,394,768,374,758,341,732,311,702,270,647"/>
+<area shape="rect" id="Node000014" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductToggleStatusRequest.html" title=" " alt="" coords="386,837,597,882"/>
+<area shape="poly" id="edge149_Node000001_Node000014" title=" " alt="" coords="263,643,281,685,304,733,336,781,377,823,396,836,391,837,373,827,332,785,300,736,276,687,262,648"/>
+<area shape="rect" id="Node000015" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1PublishProductRequest.html" title=" " alt="" coords="390,907,593,951"/>
+<area shape="poly" id="edge150_Node000001_Node000015" title=" " alt="" coords="258,643,272,698,294,765,328,833,351,865,377,892,394,906,389,906,373,896,346,868,324,836,289,767,267,699,258,648"/>
+<area shape="rect" id="Node000016" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1UpdateProductRequest.html" title=" " alt="" coords="390,976,593,1021"/>
+<area shape="poly" id="edge151_Node000001_Node000016" title=" " alt="" coords="256,644,266,711,285,796,300,841,320,885,346,926,377,962,393,975,388,975,373,966,341,929,316,887,295,843,280,797,261,712,255,649"/>
+<area shape="rect" id="Node000017" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html" title=" " alt="" coords="390,1045,593,1090"/>
+<area shape="poly" id="edge152_Node000001_Node000017" title=" " alt="" coords="254,644,260,723,276,826,291,881,313,936,341,986,377,1031,393,1045,388,1045,373,1035,336,989,308,938,286,883,271,827,255,723,253,649"/>
+<area shape="rect" id="Node000018" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html" title=" " alt="" coords="412,1115,571,1159"/>
+<area shape="poly" id="edge153_Node000001_Node000018" title=" " alt="" coords="258,644,274,747,299,884,315,953,334,1015,354,1066,377,1101,393,1114,414,1125,409,1125,390,1118,373,1104,350,1069,329,1017,310,954,294,885,269,748,257,649"/>
+<area shape="rect" id="Node000019" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionStatus.html" title=" " alt="" coords="412,1184,571,1229"/>
+<area shape="poly" id="edge154_Node000001_Node000019" title=" " alt="" coords="257,644,271,761,295,918,311,998,330,1070,352,1130,377,1170,393,1183,415,1195,409,1195,391,1188,373,1173,347,1132,325,1072,305,999,289,919,266,761,255,649"/>
+</map>

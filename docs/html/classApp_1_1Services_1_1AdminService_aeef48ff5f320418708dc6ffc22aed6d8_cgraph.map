@@ -1,0 +1,11 @@
+<map id="App\Services\AdminService\getInactiveAdmins" name="App\Services\AdminService\getInactiveAdmins">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,205,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a0dd17606e7db80a4123316e04b9e251a" title=" " alt="" coords="253,5,442,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,45,240,43,235,44,206,51"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a162954e4ebaca73a0555a09b7c5b7793" title=" " alt="" coords="253,75,442,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="205,74,240,81,235,81,205,79"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#a4cecbeaea9ede2f98fd82c89245b6b4d" title=" " alt="" coords="490,75,679,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="442,94,477,97,472,97,442,100"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="727,75,917,119"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="680,94,714,97,709,97,680,100"/>
+</map>

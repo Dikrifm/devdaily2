@@ -1,0 +1,9 @@
+<map id="App\Validators\FileValidator\file_dimensions" name="App\Validators\FileValidator\file_dimensions">
+<area shape="rect" id="Node000001" title=" " alt="" coords="272,75,472,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Validators_1_1ImageValidator.html#a37c55950e972dc4088006ddc0fb172ec" title=" " alt="" coords="5,5,224,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="269,71,200,53,200,48,274,69"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Validators_1_1ImageValidator.html#a9664b50b7eb542ea70a09b9ded3c8a50" title=" " alt="" coords="5,75,224,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,98,224,100,224,94,259,96"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Validators_1_1ImageValidator.html#a058d0940e59ea0f5167e239a18b0c154" title=" " alt="" coords="5,144,224,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="274,123,201,146,199,141,269,125"/>
+</map>

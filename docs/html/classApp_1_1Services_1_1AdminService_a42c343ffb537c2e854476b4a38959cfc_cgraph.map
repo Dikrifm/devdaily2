@@ -1,0 +1,9 @@
+<map id="App\Services\AdminService\isSuperAdmin" name="App\Services\AdminService\isSuperAdmin">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,205,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#adc9ce0842f818c3f976972557922d59c" title=" " alt="" coords="253,40,442,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,60,240,62,235,63,205,65"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#a38d9ab2d0824b99771271d060f0bff0b" title=" " alt="" coords="490,5,727,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="442,47,477,45,472,46,443,52"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#aa726479e16efedb5edfd1892b3c7fe4c" title=" " alt="" coords="490,75,727,119"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="442,72,477,79,472,79,442,78"/>
+</map>

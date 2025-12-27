@@ -1,0 +1,17 @@
+<map id="App\Services\AuditLogService\getLog" name="App\Services\AuditLogService\getLog">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,220,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a0dd17606e7db80a4123316e04b9e251a" title=" " alt="" coords="268,5,457,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,72,267,54,262,56,197,77"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#adc9ce0842f818c3f976972557922d59c" title=" " alt="" coords="268,75,457,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="220,94,255,96,250,98,221,100"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Services_1_1BaseService.html#a162954e4ebaca73a0555a09b7c5b7793" title=" " alt="" coords="268,144,457,189"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="196,117,267,139,262,140,196,123"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#a38d9ab2d0824b99771271d060f0bff0b" title=" " alt="" coords="505,5,742,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="449,71,519,55,525,54,450,77"/>
+<area shape="rect" id="Node000005" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#aa726479e16efedb5edfd1892b3c7fe4c" title=" " alt="" coords="505,75,742,119"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="457,94,492,97,487,97,458,100"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Services_1_1BaseService.html#a4cecbeaea9ede2f98fd82c89245b6b4d" title=" " alt="" coords="529,144,718,189"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="457,164,516,166,511,166,457,169"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="790,144,980,189"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="719,164,778,166,772,166,719,169"/>
+</map>

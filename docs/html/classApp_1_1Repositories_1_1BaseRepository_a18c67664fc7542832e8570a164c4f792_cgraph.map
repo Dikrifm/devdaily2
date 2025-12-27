@@ -1,0 +1,23 @@
+<map id="App\Repositories\BaseRepository\save" name="App\Repositories\BaseRepository\save">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,222,278,250"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1BaseEntity.html#abb6339ec7eadfb3e55c5bd77151c83f8" title=" " alt="" coords="358,5,531,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,220,219,144,269,99,324,60,345,52,341,55,327,65,272,103,223,148,156,223"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#ac514ac26f5336490bf9400066e82fccc" title=" " alt="" coords="326,75,563,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,219,233,176,325,129,345,123,340,127,327,134,236,181,166,224"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1BaseEntity.html#abd3968de45a25a8f3817bc0eb3270602" title=" " alt="" coords="358,144,531,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="204,219,345,188,341,191,206,224"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Entities_1_1BaseEntity.html#a1851c2cb32bed1965e36bade245355be" title=" " alt="" coords="358,213,531,258"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="277,233,345,235,340,237,279,238"/>
+<area shape="rect" id="Node000009" href="$classApp_1_1Entities_1_1BaseEntity.html#ad16de632b2009e816bc5a0815746d7fc" title=" " alt="" coords="358,283,531,327"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="205,247,345,280,340,283,206,253"/>
+<area shape="rect" id="Node000010" href="$classApp_1_1Repositories_1_1BaseRepository.html#afa26ca0c396bfeeefa58f8189538b518" title=" " alt="" coords="326,352,563,397"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="164,247,236,291,327,337,345,346,340,346,325,342,233,295,164,252"/>
+<area shape="rect" id="Node000011" href="$classApp_1_1Entities_1_1BaseEntity.html#a14bec4c497a9857991cb5bc80df75359" title=" " alt="" coords="358,421,531,466"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="155,248,223,324,272,368,327,407,346,418,340,417,324,411,269,372,219,327,153,253"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Entities_1_1BaseEntity.html#a096787112af4622a424a8e2d98090f7d" title=" " alt="" coords="611,179,784,223"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="531,221,598,214,593,216,532,226"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1Entities_1_1BaseEntity.html#a3770c7f469a55d30192e7ae8f6723a6b" title=" " alt="" coords="611,248,784,293"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="531,245,598,256,593,257,532,250"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Entities_1_1BaseEntity.html#adf7d2202f7b3bd10e5ed6b87a9a8e380" title=" " alt="" coords="832,179,1006,223"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="784,198,819,201,814,201,785,204"/>
+</map>

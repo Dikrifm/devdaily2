@@ -1,0 +1,27 @@
+<map id="App\DTOs\Requests\Marketplace\UpdateMarketplaceRequest\toArray" name="App\DTOs\Requests\Marketplace\UpdateMarketplaceRequest\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,243,239,304"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#aaab3a8b3739686019fc125cd89c4e927" title=" " alt="" coords="300,5,533,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,241,200,163,240,121,285,83,306,73,302,77,288,88,244,125,204,167,145,244"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#a288c6f1c9f6c17e6fd92fa52f234871b" title=" " alt="" coords="594,39,827,100"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="162,240,219,201,286,166,359,138,435,116,581,87,576,90,436,121,361,144,288,171,221,206,165,244"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#a1c9b3a562504e858854adec65ec0395d" title=" " alt="" coords="287,429,546,491"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,302,215,356,288,409,311,422,306,423,285,413,211,360,154,307"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#ac185f34d450e08a8ba70368c8cae6ba4" title=" " alt="" coords="289,515,544,576"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="138,302,163,347,196,401,238,454,288,501,295,507,289,506,285,505,234,458,192,404,158,350,137,307"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#a6286950714626e6ab59f0496d35831b2" title=" " alt="" coords="300,243,533,304"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="238,271,287,272,282,275,240,276"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#afa714d3f7335e9e83967869f1499d9de" title=" " alt="" coords="594,124,827,186"/>
+<area shape="poly" id="edge12_Node000001_Node000007" title=" " alt="" coords="189,240,237,221,286,206,360,189,437,176,581,161,576,164,437,181,361,194,287,211,238,226,192,244"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#ad2ac1235a681472c38a61b0a86f2189c" title=" " alt="" coords="594,209,827,271"/>
+<area shape="poly" id="edge13_Node000001_Node000008" title=" " alt="" coords="226,240,286,228,361,222,438,220,581,226,576,228,438,225,362,227,287,233,229,244"/>
+<area shape="rect" id="Node000009" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#a90f6ac71385f10148b3fab5b8c5e78d3" title=" " alt="" coords="594,295,827,356"/>
+<area shape="poly" id="edge14_Node000001_Node000009" title=" " alt="" coords="228,302,287,314,362,322,437,326,581,330,576,331,437,332,361,327,286,319,229,308"/>
+<area shape="rect" id="Node000010" href="$classApp_1_1DTOs_1_1Requests_1_1Marketplace_1_1UpdateMarketplaceRequest.html#af3c4028c25a120cc2d74b04a01bf1595" title=" " alt="" coords="594,380,827,442"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="196,302,287,334,438,368,581,394,576,395,437,373,286,339,197,308"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="533,47,581,54,576,56,534,52"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="443,240,507,175,549,141,593,110,604,106,600,109,595,114,552,145,511,179,447,244"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="487,240,593,195,611,190,606,193,595,200,489,245"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="533,258,581,254,576,256,534,263"/>
+<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="533,291,581,302,576,303,534,297"/>
+<area shape="poly" id="edge10_Node000006_Node000010" title=" " alt="" coords="472,302,595,366,609,374,604,374,593,371,471,308"/>
+</map>

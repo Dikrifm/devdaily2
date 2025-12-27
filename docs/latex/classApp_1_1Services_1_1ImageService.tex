@@ -1,0 +1,174 @@
+\doxysection{App\textbackslash{}Services\textbackslash{}Image\+Service Class Reference}
+\hypertarget{classApp_1_1Services_1_1ImageService}{}\label{classApp_1_1Services_1_1ImageService}\index{App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}}
+
+
+Inheritance diagram for App\textbackslash{}Services\textbackslash{}Image\+Service\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1ImageService__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Services\textbackslash{}Image\+Service\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1ImageService__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1ImageService_a8689e477c896f2789ea4c587d6878bbe}{\+\_\+\+\_\+construct}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1ImageService_a8a7669aac28eaec41a31585bc1518168}{get\+Service\+Name}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1ImageService_a655d80b245f6624b3ab2ba010f11071c}{process}} (Uploaded\+File \$file)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1ImageService_a792d21843df5ac248a534a47bbd29e45}{delete}} (?string \$base\+Path)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ac1c2996f005d7350b8bcd56626d996b2}{\+\_\+\+\_\+construct}} (Connection\+Interface \$db, \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \$cache, Audit\+Service \$audit\+Service)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0559a52c16f4d6099cafc0386c2c53e9}{transaction}} (Closure \$operation, ?string \$transaction\+Name=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a50aa80d639cf3939556802da72c0cc43}{transaction\+With\+Retry}} (Closure \$operation, int \$max\+Retries=3, int \$retry\+Delay\+Ms=100)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0dd17606e7db80a4123316e04b9e251a}{authorize}} (string \$permission, \$resource=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a326c5e784061453d9807ceba0d360fc4}{validate\+DTO}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aa354e0c9f696897086612a8ad54cd405}{validate\+DTOOr\+Fail}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a5cab69aa8de35af4e774bfbeb844223b}{coordinate\+Repositories}} (array \$repositories, Closure \$operation)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_adc9ce0842f818c3f976972557922d59c}{get\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$id, bool \$throw\+If\+Not\+Found=true)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a7ef2f481b5afcf427d56c8e68a66e3b9}{audit}} (string \$action\+Type, string \$entity\+Type, int \$entity\+Id, ?array \$old\+Values=null, ?array \$new\+Values=null, array \$additional\+Context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a7356b713dd3dd6bfdabdf65ec38a6198}{clear\+Cache\+For\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$entity\+Id=null, ?string \$pattern=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0ffea7ef1f6ff6445d6766415877d481}{clear\+Service\+Cache}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a162954e4ebaca73a0555a09b7c5b7793}{with\+Caching}} (string \$cache\+Key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a71c46cd3d0e617ebf3ede585c3cce503}{batch\+Operation}} (array \$items, Closure \$item\+Operation, int \$batch\+Size=100, ?callable \$progress\+Callback=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aad49acc732ebc886340eb7c0617e0e83}{set\+Admin\+Context}} (?int \$admin\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0adb04e069280a92fc66e12b2e0bac2a}{get\+Current\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a4cecbeaea9ede2f98fd82c89245b6b4d}{get\+Service\+Cache\+Key}} (string \$operation, array \$parameters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0caa15c8f578f64ad2511c2fd53fb94a}{get\+Initialized\+At}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ad0304b958be1914e86428214b8f9cd9c}{is\+Ready}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a9e9c6c224257643835271823837deb2b}{get\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a5743370c5832cc85bd4a731d5190f007}{get\+Performance\+Metrics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ab9d754d9c3405024c7dc66a25acbc13c}{reset\+Metrics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_abeab1d89965da6d66fa99e9014476d02}{validate\+Configuration}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ade35f7376c38932ef43bd3fa9fcffd48}{validate\+Business\+Rules}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Libraries_1_1ImageProcessor}{Image\+Processor}} \mbox{\hyperlink{classApp_1_1Services_1_1ImageService_aaecbaf2fcf0573bacb3b89747ed9c20c}{\$processor}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+Connection\+Interface \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aeab4375cec38530d5a979bb5a7b69ee7}{\$db}}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a4e70c9c80c8b0787eb8d378b5f5a5b3b}{\$cache}}
+\item 
+Audit\+Service \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aa8c5356538f0bcac49efc678bf82fb98}{\$audit\+Service}}
+\item 
+int \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a406970729a52dacf1a802a90b5dfe2fd}{\$current\+Admin\+Id}} = null
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a3b7149e93e74a0d14f7617552980564d}{queue\+Cache\+Operation}} (\$operation)
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classApp_1_1Services_1_1ImageService_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Services_1_1ImageService_a8689e477c896f2789ea4c587d6878bbe}\index{App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1ImageService_a8689e477c896f2789ea4c587d6878bbe} 
+App\textbackslash{}\+Services\textbackslash{}\+Image\+Service\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Services_1_1ImageService_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Services_1_1ImageService_a792d21843df5ac248a534a47bbd29e45}\index{App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}!delete@{delete}}
+\index{delete@{delete}!App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1ImageService_a792d21843df5ac248a534a47bbd29e45} 
+App\textbackslash{}\+Services\textbackslash{}\+Image\+Service\+::delete (\begin{DoxyParamCaption}\item[{?string}]{\$base\+Path}{}\end{DoxyParamCaption})}
+
+@inherit\+Doc 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ImageServiceInterface_abecfb51bf4b0550390fbd905b8cd627b}{App\textbackslash{}\+Contracts\textbackslash{}\+Image\+Service\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1ImageService_a8a7669aac28eaec41a31585bc1518168}\index{App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}!getServiceName@{getServiceName}}
+\index{getServiceName@{getServiceName}!App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}}
+\doxysubsubsection{\texorpdfstring{getServiceName()}{getServiceName()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1ImageService_a8a7669aac28eaec41a31585bc1518168} 
+App\textbackslash{}\+Services\textbackslash{}\+Image\+Service\+::get\+Service\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+@inherit\+Doc 
+
+Reimplemented from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ae5683c63e89a0d7127abc66d78228cf4}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}.
+
+\Hypertarget{classApp_1_1Services_1_1ImageService_a655d80b245f6624b3ab2ba010f11071c}\index{App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}!process@{process}}
+\index{process@{process}!App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1ImageService_a655d80b245f6624b3ab2ba010f11071c} 
+App\textbackslash{}\+Services\textbackslash{}\+Image\+Service\+::process (\begin{DoxyParamCaption}\item[{Uploaded\+File}]{\$file}{}\end{DoxyParamCaption})}
+
+@inherit\+Doc 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ImageServiceInterface_a5b009ee9880aa95694235ce6607906f7}{App\textbackslash{}\+Contracts\textbackslash{}\+Image\+Service\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1ImageService_a655d80b245f6624b3ab2ba010f11071c_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Services_1_1ImageService_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Services_1_1ImageService_aaecbaf2fcf0573bacb3b89747ed9c20c}\index{App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}!\$processor@{\$processor}}
+\index{\$processor@{\$processor}!App\textbackslash{}Services\textbackslash{}ImageService@{App\textbackslash{}Services\textbackslash{}ImageService}}
+\doxysubsubsection{\texorpdfstring{\$processor}{\$processor}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1ImageService_aaecbaf2fcf0573bacb3b89747ed9c20c} 
+\mbox{\hyperlink{classApp_1_1Libraries_1_1ImageProcessor}{Image\+Processor}} App\textbackslash{}\+Services\textbackslash{}\+Image\+Service\+::\$processor\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Services/\mbox{\hyperlink{ImageService_8php}{Image\+Service.\+php}}\end{DoxyCompactItemize}

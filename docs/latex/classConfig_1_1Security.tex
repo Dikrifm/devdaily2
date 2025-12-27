@@ -1,0 +1,120 @@
+\doxysection{Config\textbackslash{}Security Class Reference}
+\hypertarget{classConfig_1_1Security}{}\label{classConfig_1_1Security}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+
+
+Inheritance diagram for Config\textbackslash{}Security\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{classConfig_1_1Security__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Config\textbackslash{}Security\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{classConfig_1_1Security__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{classConfig_1_1Security_aa9854f4d09f913ee4ac1d02086956875}{\$csrf\+Protection}} = \textquotesingle{}cookie\textquotesingle{}
+\item 
+bool \mbox{\hyperlink{classConfig_1_1Security_a79817e8400dae6a7bf8d26b6d65d3045}{\$token\+Randomize}} = false
+\item 
+string \mbox{\hyperlink{classConfig_1_1Security_ae40ec664bc176275651bc072ceffe8d6}{\$token\+Name}} = \textquotesingle{}csrf\+\_\+test\+\_\+name\textquotesingle{}
+\item 
+string \mbox{\hyperlink{classConfig_1_1Security_a5cc51a91e8d421970af9b3c955a050ac}{\$header\+Name}} = \textquotesingle{}X-\/CSRF-\/TOKEN\textquotesingle{}
+\item 
+string \mbox{\hyperlink{classConfig_1_1Security_a722bd1aeea538dfc3a711feda3ad1502}{\$cookie\+Name}} = \textquotesingle{}csrf\+\_\+cookie\+\_\+name\textquotesingle{}
+\item 
+int \mbox{\hyperlink{classConfig_1_1Security_a4088b9f8d9c97c6f48ff2b5b711d5a54}{\$expires}} = 7200
+\item 
+bool \mbox{\hyperlink{classConfig_1_1Security_a12f8e512c5844e6415bf591dabecf40e}{\$regenerate}} = true
+\item 
+bool \mbox{\hyperlink{classConfig_1_1Security_a6dea070bb70f52bb965e8c3e9e335d86}{\$redirect}} = (ENVIRONMENT === \textquotesingle{}production\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{classConfig_1_1Security_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classConfig_1_1Security_a722bd1aeea538dfc3a711feda3ad1502}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}!\$cookieName@{\$cookieName}}
+\index{\$cookieName@{\$cookieName}!Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+\doxysubsubsection{\texorpdfstring{\$cookieName}{\$cookieName}}
+{\footnotesize\ttfamily \label{classConfig_1_1Security_a722bd1aeea538dfc3a711feda3ad1502} 
+string Config\textbackslash{}\+Security\+::\$cookie\+Name = \textquotesingle{}csrf\+\_\+cookie\+\_\+name\textquotesingle{}}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Security_autotoc_md145}{}\doxysubsubsection{\texorpdfstring{CSRF Cookie Name}{CSRF Cookie Name}}\label{classConfig_1_1Security_autotoc_md145}
+Cookie name for Cross Site Request Forgery protection. \Hypertarget{classConfig_1_1Security_aa9854f4d09f913ee4ac1d02086956875}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}!\$csrfProtection@{\$csrfProtection}}
+\index{\$csrfProtection@{\$csrfProtection}!Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+\doxysubsubsection{\texorpdfstring{\$csrfProtection}{\$csrfProtection}}
+{\footnotesize\ttfamily \label{classConfig_1_1Security_aa9854f4d09f913ee4ac1d02086956875} 
+string Config\textbackslash{}\+Security\+::\$csrf\+Protection = \textquotesingle{}cookie\textquotesingle{}}
+
+\Hypertarget{classConfig_1_1Security_a4088b9f8d9c97c6f48ff2b5b711d5a54}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}!\$expires@{\$expires}}
+\index{\$expires@{\$expires}!Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+\doxysubsubsection{\texorpdfstring{\$expires}{\$expires}}
+{\footnotesize\ttfamily \label{classConfig_1_1Security_a4088b9f8d9c97c6f48ff2b5b711d5a54} 
+int Config\textbackslash{}\+Security\+::\$expires = 7200}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Security_autotoc_md147}{}\doxysubsubsection{\texorpdfstring{CSRF Expires}{CSRF Expires}}\label{classConfig_1_1Security_autotoc_md147}
+Expiration time for Cross Site Request Forgery protection cookie.
+
+Defaults to two hours (in seconds). \Hypertarget{classConfig_1_1Security_a5cc51a91e8d421970af9b3c955a050ac}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}!\$headerName@{\$headerName}}
+\index{\$headerName@{\$headerName}!Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+\doxysubsubsection{\texorpdfstring{\$headerName}{\$headerName}}
+{\footnotesize\ttfamily \label{classConfig_1_1Security_a5cc51a91e8d421970af9b3c955a050ac} 
+string Config\textbackslash{}\+Security\+::\$header\+Name = \textquotesingle{}X-\/CSRF-\/TOKEN\textquotesingle{}}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Security_autotoc_md143}{}\doxysubsubsection{\texorpdfstring{CSRF Header Name}{CSRF Header Name}}\label{classConfig_1_1Security_autotoc_md143}
+Header name for Cross Site Request Forgery protection. \Hypertarget{classConfig_1_1Security_a6dea070bb70f52bb965e8c3e9e335d86}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}!\$redirect@{\$redirect}}
+\index{\$redirect@{\$redirect}!Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+\doxysubsubsection{\texorpdfstring{\$redirect}{\$redirect}}
+{\footnotesize\ttfamily \label{classConfig_1_1Security_a6dea070bb70f52bb965e8c3e9e335d86} 
+bool Config\textbackslash{}\+Security\+::\$redirect = (ENVIRONMENT === \textquotesingle{}production\textquotesingle{})}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Security_autotoc_md151}{}\doxysubsubsection{\texorpdfstring{CSRF Redirect}{CSRF Redirect}}\label{classConfig_1_1Security_autotoc_md151}
+Redirect to previous page with error on failure.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://codeigniter4.github.io/userguide/libraries/security.html\#redirection-on-failure}{\texttt{https\+://codeigniter4.\+github.\+io/userguide/libraries/security.\+html\#redirection-\/on-\/failure}} 
+\end{DoxySeeAlso}
+\Hypertarget{classConfig_1_1Security_a12f8e512c5844e6415bf591dabecf40e}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}!\$regenerate@{\$regenerate}}
+\index{\$regenerate@{\$regenerate}!Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+\doxysubsubsection{\texorpdfstring{\$regenerate}{\$regenerate}}
+{\footnotesize\ttfamily \label{classConfig_1_1Security_a12f8e512c5844e6415bf591dabecf40e} 
+bool Config\textbackslash{}\+Security\+::\$regenerate = true}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Security_autotoc_md149}{}\doxysubsubsection{\texorpdfstring{CSRF Regenerate}{CSRF Regenerate}}\label{classConfig_1_1Security_autotoc_md149}
+Regenerate CSRF Token on every submission. \Hypertarget{classConfig_1_1Security_ae40ec664bc176275651bc072ceffe8d6}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}!\$tokenName@{\$tokenName}}
+\index{\$tokenName@{\$tokenName}!Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+\doxysubsubsection{\texorpdfstring{\$tokenName}{\$tokenName}}
+{\footnotesize\ttfamily \label{classConfig_1_1Security_ae40ec664bc176275651bc072ceffe8d6} 
+string Config\textbackslash{}\+Security\+::\$token\+Name = \textquotesingle{}csrf\+\_\+test\+\_\+name\textquotesingle{}}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Security_autotoc_md141}{}\doxysubsubsection{\texorpdfstring{CSRF Token Name}{CSRF Token Name}}\label{classConfig_1_1Security_autotoc_md141}
+Token name for Cross Site Request Forgery protection. \Hypertarget{classConfig_1_1Security_a79817e8400dae6a7bf8d26b6d65d3045}\index{Config\textbackslash{}Security@{Config\textbackslash{}Security}!\$tokenRandomize@{\$tokenRandomize}}
+\index{\$tokenRandomize@{\$tokenRandomize}!Config\textbackslash{}Security@{Config\textbackslash{}Security}}
+\doxysubsubsection{\texorpdfstring{\$tokenRandomize}{\$tokenRandomize}}
+{\footnotesize\ttfamily \label{classConfig_1_1Security_a79817e8400dae6a7bf8d26b6d65d3045} 
+bool Config\textbackslash{}\+Security\+::\$token\+Randomize = false}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Security_autotoc_md139}{}\doxysubsubsection{\texorpdfstring{CSRF Token Randomization}{CSRF Token Randomization}}\label{classConfig_1_1Security_autotoc_md139}
+Randomize the CSRF Token for added security. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Config/\mbox{\hyperlink{Security_8php}{Security.\+php}}\end{DoxyCompactItemize}

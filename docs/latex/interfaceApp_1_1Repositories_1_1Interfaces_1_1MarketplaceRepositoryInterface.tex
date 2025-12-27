@@ -1,0 +1,121 @@
+\doxysection{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}Marketplace\+Repository\+Interface Interface Reference}
+\hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface}{}\label{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}Marketplace\+Repository\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ac1da02b1ff40e730e772df7c4620abd9}{find}} (int \$id, bool \$with\+Trashed=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ab1e018d65eb89be578f4e47dfd10ddf3}{find\+By\+Slug}} (string \$slug, bool \$with\+Trashed=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_a29ddd00affab15be04f5ea1276890afd}{find\+By\+Name}} (string \$name, bool \$with\+Trashed=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ab0f1757643e8d7b7ad46c020a1b24e37}{find\+By\+Id\+Or\+Slug}} (\$identifier, bool \$with\+Trashed=false)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ac1da02b1ff40e730e772df7c4620abd9}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}!find@{find}}
+\index{find@{find}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{find()}{find()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ac1da02b1ff40e730e772df7c4620abd9} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Marketplace\+Repository\+Interface\+::find (\begin{DoxyParamCaption}\item[{int}]{\$id}{, }\item[{bool}]{\$with\+Trashed}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Find marketplace by ID
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id} & Marketplace ID \\
+\hline
+bool & {\em \$with\+Trashed} & Include soft deleted marketplaces \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1MarketplaceRepository_a3f274f2010e35d7848d0e333c388c22c}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Marketplace\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ab0f1757643e8d7b7ad46c020a1b24e37}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}!findByIdOrSlug@{findByIdOrSlug}}
+\index{findByIdOrSlug@{findByIdOrSlug}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findByIdOrSlug()}{findByIdOrSlug()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ab0f1757643e8d7b7ad46c020a1b24e37} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Marketplace\+Repository\+Interface\+::find\+By\+Id\+Or\+Slug (\begin{DoxyParamCaption}\item[{}]{\$identifier}{, }\item[{bool}]{\$with\+Trashed}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Find marketplace by ID or slug
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$identifier} & ID or slug \\
+\hline
+bool & {\em \$with\+Trashed} & Include soft deleted marketplaces \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1MarketplaceRepository_a18cd12feb1881a96622cd8c657977cb0}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Marketplace\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_a29ddd00affab15be04f5ea1276890afd}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}!findByName@{findByName}}
+\index{findByName@{findByName}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findByName()}{findByName()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_a29ddd00affab15be04f5ea1276890afd} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Marketplace\+Repository\+Interface\+::find\+By\+Name (\begin{DoxyParamCaption}\item[{string}]{\$name}{, }\item[{bool}]{\$with\+Trashed}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Find marketplace by name (case-\/insensitive)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Marketplace name \\
+\hline
+bool & {\em \$with\+Trashed} & Include soft deleted marketplaces \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1MarketplaceRepository_af8b0f48cef249d1d7df174a43892bd7c}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Marketplace\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ab1e018d65eb89be578f4e47dfd10ddf3}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}!findBySlug@{findBySlug}}
+\index{findBySlug@{findBySlug}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}MarketplaceRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findBySlug()}{findBySlug()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceRepositoryInterface_ab1e018d65eb89be578f4e47dfd10ddf3} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Marketplace\+Repository\+Interface\+::find\+By\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$slug}{, }\item[{bool}]{\$with\+Trashed}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Find marketplace by slug
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & Marketplace slug \\
+\hline
+bool & {\em \$with\+Trashed} & Include soft deleted marketplaces \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1MarketplaceRepository_aa463c20806e3daacc0e9b281a4184102}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Marketplace\+Repository}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Repositories/\+Interfaces/\mbox{\hyperlink{MarketplaceRepositoryInterface_8php}{Marketplace\+Repository\+Interface.\+php}}\end{DoxyCompactItemize}

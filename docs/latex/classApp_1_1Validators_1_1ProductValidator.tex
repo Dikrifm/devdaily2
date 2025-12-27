@@ -1,0 +1,284 @@
+\doxysection{App\textbackslash{}Validators\textbackslash{}Product\+Validator Class Reference}
+\hypertarget{classApp_1_1Validators_1_1ProductValidator}{}\label{classApp_1_1Validators_1_1ProductValidator}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a709caf43b139deaa4fbf67e472c40437}{\+\_\+\+\_\+construct}} (Validation \$validation, \mbox{\hyperlink{classApp_1_1Models_1_1ProductModel}{Product\+Model}} \$product\+Model, \mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel}{Category\+Model}} \$category\+Model, \mbox{\hyperlink{classApp_1_1Models_1_1LinkModel}{Link\+Model}} \$link\+Model, \mbox{\hyperlink{classApp_1_1Services_1_1CacheService}{Cache\+Service}} \$cache\+Service)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a1645b0e239d7b60f3412443cf0d4e1c0}{validate\+Create}} (array \$data, array \$options=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a776f754ce3dda7368a8a3156a44e920f}{validate\+Update}} (int \$product\+Id, array \$data, array \$options=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a117b3481438db2b4ca9b7cb30f3fd693}{validate\+Publish}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1PublishProductRequest}{Publish\+Product\+Request}} \$request, \mbox{\hyperlink{classApp_1_1Entities_1_1Product}{Product}} \$product)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a5bb79e45ed03d7386bcc3cfd13d444d3}{validate\+Delete}} (int \$product\+Id, bool \$force=false, array \$options=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_aaeccff9307f6e8f1b5ce84ad2124f437}{validate\+Archive}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_ac1a6892e2f886891d552c4f0b4ddaf95}{validate\+Restore}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_ac01b07340be95e0009c29c706fc1d210}{validate\+Verify}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a5a19165b580446f803aa38aaf3ed6cdc}{validate\+Bulk}} (array \$product\+Ids, string \$operation, array \$options=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a9946640fd39a18754c942449fbb0fb9b}{validate\+Price}} (string \$price, array \$options=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a61270d09f9bdc4bcbe9510b773b80332}{validate\+Image}} (array \$image\+Data, \mbox{\hyperlink{namespaceApp_1_1Enums_a624ce111e66b6717c67801e1a6a70771}{Image\+Source\+Type}} \$source\+Type)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a0f0c37b50b6fdc6ea71074ba7b8e7527}{validate\+Name}} (string \$name, ?int \$exclude\+Product\+Id=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_ac99128f73b75214329ca046ae1b0c554}{validate\+Description}} (?string \$description)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a53b79d61e41114811934f5c56cd32ac1}{get\+Rules\+For\+Context}} (string \$context, array \$data=\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a1bbb439726a86ff2695bab2f3b056ee7}{create}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a36e13c7bde4320eeac2a35a64f77dc03}{CONTEXT\+\_\+\+CREATE}} = \textquotesingle{}\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a1bbb439726a86ff2695bab2f3b056ee7}{create}}\textquotesingle{}
+\item 
+const \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_acd6f19c2788ff5518050a574e9fcff3f}{CONTEXT\+\_\+\+UPDATE}} = \textquotesingle{}update\textquotesingle{}
+\item 
+const \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_ac8cc5fed944f7a454994d99b093c72d0}{CONTEXT\+\_\+\+PUBLISH}} = \textquotesingle{}publish\textquotesingle{}
+\item 
+const \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a8da3d17687797712c05e1e483f6a3118}{CONTEXT\+\_\+\+DELETE}} = \textquotesingle{}delete\textquotesingle{}
+\item 
+const \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_ae9e427835f1947854917f03fac820dbb}{CONTEXT\+\_\+\+ARCHIVE}} = \textquotesingle{}archive\textquotesingle{}
+\item 
+const \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_ad590c679b19896f7051f2c66771170e0}{CONTEXT\+\_\+\+RESTORE}} = \textquotesingle{}restore\textquotesingle{}
+\item 
+const \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_afbc5e808956b3c66e8b1c377e44a2d83}{CONTEXT\+\_\+\+VERIFY}} = \textquotesingle{}verify\textquotesingle{}
+\item 
+const \mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a385979f057aebfbfd39318a01f3ff3b0}{CONTEXT\+\_\+\+BULK}} = \textquotesingle{}bulk\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Enterprise-\/grade Product Validator
+
+Comprehensive validation rules for product operations with caching, business rule validation, and multi-\/context support. 
+
+\label{doc-constructors}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_a709caf43b139deaa4fbf67e472c40437}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a709caf43b139deaa4fbf67e472c40437} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Validation}]{\$validation}{, }\item[{\mbox{\hyperlink{classApp_1_1Models_1_1ProductModel}{Product\+Model}}}]{\$product\+Model}{, }\item[{\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel}{Category\+Model}}}]{\$category\+Model}{, }\item[{\mbox{\hyperlink{classApp_1_1Models_1_1LinkModel}{Link\+Model}}}]{\$link\+Model}{, }\item[{\mbox{\hyperlink{classApp_1_1Services_1_1CacheService}{Cache\+Service}}}]{\$cache\+Service}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_a1bbb439726a86ff2695bab2f3b056ee7}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!create@{create}}
+\index{create@{create}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a1bbb439726a86ff2695bab2f3b056ee7} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::create (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Create Product\+Validator instance with default dependencies \Hypertarget{classApp_1_1Validators_1_1ProductValidator_a53b79d61e41114811934f5c56cd32ac1}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!getRulesForContext@{getRulesForContext}}
+\index{getRulesForContext@{getRulesForContext}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{getRulesForContext()}{getRulesForContext()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a53b79d61e41114811934f5c56cd32ac1} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::get\+Rules\+For\+Context (\begin{DoxyParamCaption}\item[{string}]{\$context}{, }\item[{array}]{\$data}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Get validation rules for a specific context Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1ProductValidator_a53b79d61e41114811934f5c56cd32ac1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_aaeccff9307f6e8f1b5ce84ad2124f437}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateArchive@{validateArchive}}
+\index{validateArchive@{validateArchive}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateArchive()}{validateArchive()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_aaeccff9307f6e8f1b5ce84ad2124f437} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Archive (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Validate product archive operation Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1ProductValidator_aaeccff9307f6e8f1b5ce84ad2124f437_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_a5a19165b580446f803aa38aaf3ed6cdc}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateBulk@{validateBulk}}
+\index{validateBulk@{validateBulk}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateBulk()}{validateBulk()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a5a19165b580446f803aa38aaf3ed6cdc} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Bulk (\begin{DoxyParamCaption}\item[{array}]{\$product\+Ids}{, }\item[{string}]{\$operation}{, }\item[{array}]{\$options}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Validate bulk product operations Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1ProductValidator_a5a19165b580446f803aa38aaf3ed6cdc_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_a1645b0e239d7b60f3412443cf0d4e1c0}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateCreate@{validateCreate}}
+\index{validateCreate@{validateCreate}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateCreate()}{validateCreate()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a1645b0e239d7b60f3412443cf0d4e1c0} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Create (\begin{DoxyParamCaption}\item[{array}]{\$data}{, }\item[{array}]{\$options}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Validate product creation data Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1ProductValidator_a1645b0e239d7b60f3412443cf0d4e1c0_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_a5bb79e45ed03d7386bcc3cfd13d444d3}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateDelete@{validateDelete}}
+\index{validateDelete@{validateDelete}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateDelete()}{validateDelete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a5bb79e45ed03d7386bcc3cfd13d444d3} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Delete (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{bool}]{\$force}{ = {\ttfamily false}, }\item[{array}]{\$options}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Validate product deletion Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1ProductValidator_a5bb79e45ed03d7386bcc3cfd13d444d3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_ac99128f73b75214329ca046ae1b0c554}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateDescription@{validateDescription}}
+\index{validateDescription@{validateDescription}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateDescription()}{validateDescription()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_ac99128f73b75214329ca046ae1b0c554} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Description (\begin{DoxyParamCaption}\item[{?string}]{\$description}{}\end{DoxyParamCaption})}
+
+Validate product description \Hypertarget{classApp_1_1Validators_1_1ProductValidator_a61270d09f9bdc4bcbe9510b773b80332}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateImage@{validateImage}}
+\index{validateImage@{validateImage}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateImage()}{validateImage()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a61270d09f9bdc4bcbe9510b773b80332} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Image (\begin{DoxyParamCaption}\item[{array}]{\$image\+Data}{, }\item[{\mbox{\hyperlink{namespaceApp_1_1Enums_a624ce111e66b6717c67801e1a6a70771}{Image\+Source\+Type}}}]{\$source\+Type}{}\end{DoxyParamCaption})}
+
+Validate product image \Hypertarget{classApp_1_1Validators_1_1ProductValidator_a0f0c37b50b6fdc6ea71074ba7b8e7527}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateName@{validateName}}
+\index{validateName@{validateName}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateName()}{validateName()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a0f0c37b50b6fdc6ea71074ba7b8e7527} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Name (\begin{DoxyParamCaption}\item[{string}]{\$name}{, }\item[{?int}]{\$exclude\+Product\+Id}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Validate product name \Hypertarget{classApp_1_1Validators_1_1ProductValidator_a9946640fd39a18754c942449fbb0fb9b}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validatePrice@{validatePrice}}
+\index{validatePrice@{validatePrice}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validatePrice()}{validatePrice()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a9946640fd39a18754c942449fbb0fb9b} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Price (\begin{DoxyParamCaption}\item[{string}]{\$price}{, }\item[{array}]{\$options}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Validate product price \Hypertarget{classApp_1_1Validators_1_1ProductValidator_a117b3481438db2b4ca9b7cb30f3fd693}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validatePublish@{validatePublish}}
+\index{validatePublish@{validatePublish}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validatePublish()}{validatePublish()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a117b3481438db2b4ca9b7cb30f3fd693} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Publish (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1PublishProductRequest}{Publish\+Product\+Request}}}]{\$request}{, }\item[{\mbox{\hyperlink{classApp_1_1Entities_1_1Product}{Product}}}]{\$product}{}\end{DoxyParamCaption})}
+
+Validate product publish data Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1ProductValidator_a117b3481438db2b4ca9b7cb30f3fd693_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1ProductValidator_a117b3481438db2b4ca9b7cb30f3fd693_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_ac1a6892e2f886891d552c4f0b4ddaf95}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateRestore@{validateRestore}}
+\index{validateRestore@{validateRestore}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateRestore()}{validateRestore()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_ac1a6892e2f886891d552c4f0b4ddaf95} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Restore (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Validate product restore operation \Hypertarget{classApp_1_1Validators_1_1ProductValidator_a776f754ce3dda7368a8a3156a44e920f}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateUpdate@{validateUpdate}}
+\index{validateUpdate@{validateUpdate}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateUpdate()}{validateUpdate()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a776f754ce3dda7368a8a3156a44e920f} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Update (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{array}]{\$data}{, }\item[{array}]{\$options}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Validate product update data Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1ProductValidator_a776f754ce3dda7368a8a3156a44e920f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_ac01b07340be95e0009c29c706fc1d210}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!validateVerify@{validateVerify}}
+\index{validateVerify@{validateVerify}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{validateVerify()}{validateVerify()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_ac01b07340be95e0009c29c706fc1d210} 
+App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::validate\+Verify (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Validate product verification 
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_ae9e427835f1947854917f03fac820dbb}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!CONTEXT\_ARCHIVE@{CONTEXT\_ARCHIVE}}
+\index{CONTEXT\_ARCHIVE@{CONTEXT\_ARCHIVE}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_ARCHIVE}{CONTEXT\_ARCHIVE}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_ae9e427835f1947854917f03fac820dbb} 
+const App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+CONTEXT\+\_\+\+ARCHIVE = \textquotesingle{}archive\textquotesingle{}}
+
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_a385979f057aebfbfd39318a01f3ff3b0}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!CONTEXT\_BULK@{CONTEXT\_BULK}}
+\index{CONTEXT\_BULK@{CONTEXT\_BULK}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_BULK}{CONTEXT\_BULK}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a385979f057aebfbfd39318a01f3ff3b0} 
+const App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+CONTEXT\+\_\+\+BULK = \textquotesingle{}bulk\textquotesingle{}}
+
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_a36e13c7bde4320eeac2a35a64f77dc03}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!CONTEXT\_CREATE@{CONTEXT\_CREATE}}
+\index{CONTEXT\_CREATE@{CONTEXT\_CREATE}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_CREATE}{CONTEXT\_CREATE}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a36e13c7bde4320eeac2a35a64f77dc03} 
+const App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+CONTEXT\+\_\+\+CREATE = \textquotesingle{}\mbox{\hyperlink{classApp_1_1Validators_1_1ProductValidator_a1bbb439726a86ff2695bab2f3b056ee7}{create}}\textquotesingle{}}
+
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_a8da3d17687797712c05e1e483f6a3118}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!CONTEXT\_DELETE@{CONTEXT\_DELETE}}
+\index{CONTEXT\_DELETE@{CONTEXT\_DELETE}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_DELETE}{CONTEXT\_DELETE}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_a8da3d17687797712c05e1e483f6a3118} 
+const App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+CONTEXT\+\_\+\+DELETE = \textquotesingle{}delete\textquotesingle{}}
+
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_ac8cc5fed944f7a454994d99b093c72d0}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!CONTEXT\_PUBLISH@{CONTEXT\_PUBLISH}}
+\index{CONTEXT\_PUBLISH@{CONTEXT\_PUBLISH}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_PUBLISH}{CONTEXT\_PUBLISH}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_ac8cc5fed944f7a454994d99b093c72d0} 
+const App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+CONTEXT\+\_\+\+PUBLISH = \textquotesingle{}publish\textquotesingle{}}
+
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_ad590c679b19896f7051f2c66771170e0}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!CONTEXT\_RESTORE@{CONTEXT\_RESTORE}}
+\index{CONTEXT\_RESTORE@{CONTEXT\_RESTORE}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_RESTORE}{CONTEXT\_RESTORE}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_ad590c679b19896f7051f2c66771170e0} 
+const App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+CONTEXT\+\_\+\+RESTORE = \textquotesingle{}restore\textquotesingle{}}
+
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_acd6f19c2788ff5518050a574e9fcff3f}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!CONTEXT\_UPDATE@{CONTEXT\_UPDATE}}
+\index{CONTEXT\_UPDATE@{CONTEXT\_UPDATE}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_UPDATE}{CONTEXT\_UPDATE}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_acd6f19c2788ff5518050a574e9fcff3f} 
+const App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+CONTEXT\+\_\+\+UPDATE = \textquotesingle{}update\textquotesingle{}}
+
+\Hypertarget{classApp_1_1Validators_1_1ProductValidator_afbc5e808956b3c66e8b1c377e44a2d83}\index{App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}!CONTEXT\_VERIFY@{CONTEXT\_VERIFY}}
+\index{CONTEXT\_VERIFY@{CONTEXT\_VERIFY}!App\textbackslash{}Validators\textbackslash{}ProductValidator@{App\textbackslash{}Validators\textbackslash{}ProductValidator}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_VERIFY}{CONTEXT\_VERIFY}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1ProductValidator_afbc5e808956b3c66e8b1c377e44a2d83} 
+const App\textbackslash{}\+Validators\textbackslash{}\+Product\+Validator\+::\+CONTEXT\+\_\+\+VERIFY = \textquotesingle{}verify\textquotesingle{}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Validators/\mbox{\hyperlink{ProductValidator_8php}{Product\+Validator.\+php}}\end{DoxyCompactItemize}

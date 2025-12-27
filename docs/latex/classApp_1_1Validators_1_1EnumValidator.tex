@@ -1,0 +1,169 @@
+\doxysection{App\textbackslash{}Validators\textbackslash{}Enum\+Validator Class Reference}
+\hypertarget{classApp_1_1Validators_1_1EnumValidator}{}\label{classApp_1_1Validators_1_1EnumValidator}\index{App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EnumValidator_abb7b73c34be1023225b5aa5c46d142be}{enum}} (\$value, string \$enum\+Class, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EnumValidator_a24d81b1b54f644dfb3865735940b76da}{enum\+\_\+array}} (\$value, string \$enum\+Class, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EnumValidator_ac789c4bb28bf2023000143ad7be60e46}{not\+\_\+in\+\_\+enum}} (\$value, string \$excluded\+Cases, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EnumValidator_a4da1c825b695a35618dd060a11fcf9d2}{in\+\_\+enum}} (\$value, string \$allowed\+Cases, array \$data, ?string \&\$error=null)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classApp_1_1Validators_1_1EnumValidator_afd8cafa576fba5a1bc793f0c0f7109ee}{get\+Enum\+Cases}} (string \$enum\+Class)
+\item 
+static \mbox{\hyperlink{classApp_1_1Validators_1_1EnumValidator_af5fb8a84b91d3027129f30c3548eeff0}{get\+Enum\+Message}} (string \$enum\+Class)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Validator untuk validasi nilai enum 
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Validators_1_1EnumValidator_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Validators_1_1EnumValidator_abb7b73c34be1023225b5aa5c46d142be}\index{App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}!enum@{enum}}
+\index{enum@{enum}!App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}}
+\doxysubsubsection{\texorpdfstring{enum()}{enum()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EnumValidator_abb7b73c34be1023225b5aa5c46d142be} 
+App\textbackslash{}\+Validators\textbackslash{}\+Enum\+Validator\+::enum (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$enum\+Class}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Validates that a value is a valid enum case
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$enum\+Class} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Validators_1_1EnumValidator_a24d81b1b54f644dfb3865735940b76da}\index{App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}!enum\_array@{enum\_array}}
+\index{enum\_array@{enum\_array}!App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}}
+\doxysubsubsection{\texorpdfstring{enum\_array()}{enum\_array()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EnumValidator_a24d81b1b54f644dfb3865735940b76da} 
+App\textbackslash{}\+Validators\textbackslash{}\+Enum\+Validator\+::enum\+\_\+array (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$enum\+Class}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Validates that a value is a valid enum array
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$enum\+Class} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Validators_1_1EnumValidator_afd8cafa576fba5a1bc793f0c0f7109ee}\index{App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}!getEnumCases@{getEnumCases}}
+\index{getEnumCases@{getEnumCases}!App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}}
+\doxysubsubsection{\texorpdfstring{getEnumCases()}{getEnumCases()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EnumValidator_afd8cafa576fba5a1bc793f0c0f7109ee} 
+App\textbackslash{}\+Validators\textbackslash{}\+Enum\+Validator\+::get\+Enum\+Cases (\begin{DoxyParamCaption}\item[{string}]{\$enum\+Class}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get all cases from an enum class
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$enum\+Class} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1EnumValidator_afd8cafa576fba5a1bc793f0c0f7109ee_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1EnumValidator_af5fb8a84b91d3027129f30c3548eeff0}\index{App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}!getEnumMessage@{getEnumMessage}}
+\index{getEnumMessage@{getEnumMessage}!App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}}
+\doxysubsubsection{\texorpdfstring{getEnumMessage()}{getEnumMessage()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EnumValidator_af5fb8a84b91d3027129f30c3548eeff0} 
+App\textbackslash{}\+Validators\textbackslash{}\+Enum\+Validator\+::get\+Enum\+Message (\begin{DoxyParamCaption}\item[{string}]{\$enum\+Class}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Create rule message for enum validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$enum\+Class} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1EnumValidator_af5fb8a84b91d3027129f30c3548eeff0_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1EnumValidator_a4da1c825b695a35618dd060a11fcf9d2}\index{App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}!in\_enum@{in\_enum}}
+\index{in\_enum@{in\_enum}!App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}}
+\doxysubsubsection{\texorpdfstring{in\_enum()}{in\_enum()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EnumValidator_a4da1c825b695a35618dd060a11fcf9d2} 
+App\textbackslash{}\+Validators\textbackslash{}\+Enum\+Validator\+::in\+\_\+enum (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$allowed\+Cases}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if value is one of the allowed enum cases
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$allowed\+Cases} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Validators_1_1EnumValidator_ac789c4bb28bf2023000143ad7be60e46}\index{App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}!not\_in\_enum@{not\_in\_enum}}
+\index{not\_in\_enum@{not\_in\_enum}!App\textbackslash{}Validators\textbackslash{}EnumValidator@{App\textbackslash{}Validators\textbackslash{}EnumValidator}}
+\doxysubsubsection{\texorpdfstring{not\_in\_enum()}{not\_in\_enum()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EnumValidator_ac789c4bb28bf2023000143ad7be60e46} 
+App\textbackslash{}\+Validators\textbackslash{}\+Enum\+Validator\+::not\+\_\+in\+\_\+enum (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$excluded\+Cases}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if value is not one of the excluded enum cases
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$excluded\+Cases} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Validators/\mbox{\hyperlink{EnumValidator_8php}{Enum\+Validator.\+php}}\end{DoxyCompactItemize}

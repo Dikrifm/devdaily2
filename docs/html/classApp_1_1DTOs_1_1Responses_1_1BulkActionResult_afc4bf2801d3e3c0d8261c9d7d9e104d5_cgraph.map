@@ -1,0 +1,16 @@
+<map id="App\DTOs\Responses\BulkActionResult\toArray" name="App\DTOs\Responses\BulkActionResult\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,142,194,186"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#aed718b7f5663da235a3b48b97c7cb684" title=" " alt="" coords="246,5,459,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,139,240,83,268,72,264,75,243,88,141,143"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#a915365116438b7105cbe95f515015648" title=" " alt="" coords="512,40,704,102"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="188,139,241,127,373,103,498,85,494,87,374,108,242,132,190,144"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#aa9fe933d2c36e5417dd69b4ecda84954" title=" " alt="" coords="246,142,459,186"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="193,162,232,163,227,165,195,167"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#a2aaf0a77e902d96bb1a10695238beb6e" title=" " alt="" coords="245,211,460,272"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="175,184,237,205,232,206,175,190"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#adf926c00a53e2931a5f0865b7e5f1bb5" title=" " alt="" coords="242,296,463,341"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="122,184,175,234,208,259,243,282,255,290,250,290,240,286,205,264,172,238,121,189"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="459,48,499,55,494,56,460,53"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#a06ecd641a8c9d2c92852c11061bf19e1" title=" " alt="" coords="511,288,704,350"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="463,316,498,319,493,319,463,321"/>
+</map>

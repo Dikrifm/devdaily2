@@ -1,0 +1,1144 @@
+\doxysection{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}Category\+Repository Class Reference}
+\hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository}{}\label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+
+
+Inheritance diagram for App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}Category\+Repository\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}Category\+Repository\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac2e4c031e0585dc79d7045e7d6e8f21a}{\+\_\+\+\_\+construct}} (\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel}{Category\+Model}} \$model, \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \$cache, Connection\+Interface \$db)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_af5c7c89f11a1e06ed8710c7edb5daeb4}{find\+By\+Slug}} (string \$slug)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a3f30d7a6dde0267ecdd1b70535beb2bd}{find\+With\+Parent}} (int \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b0f59c5dfa8db8c95d5e2081c73a1b}{find\+Root\+Categories}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a843ae9386fbad8b08e6ac710ab4053e5}{find\+Sub\+Categories}} (int \$parent\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aea375578e6d0c6afe8eb80f17917a707}{find\+Category\+Tree}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b84cffcef8bd5ecd85036e21f98d37}{find\+With\+Product\+Counts}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad989102ff6369b26d36a16cd85c4e533}{find\+With\+Children\+Counts}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ace6b1772697197669d63fe6938240300}{find\+With\+All\+Counts}} (int \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a166a63cb24832b22d2dafe1542f1cfd6}{find\+Descendants}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_af0d703a6bd03281912c6dcfc6a90750e}{find\+Category\+Path}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a87240550c563d3bd596048f9bf30e61b}{is\+Ancestor\+Of}} (int \$ancestor\+Id, int \$descendant\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad32d6eceb8cd7d82938091cdd033aa13}{bulk\+Reparent}} (array \$category\+Ids, int \$new\+Parent\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac237a4a1183deb433a51ed673a9ae7aa}{bulk\+Update\+Sort\+Order}} (array \$sort\+Orders)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac20905e4663edcffc1f1b833453711b4}{bulk\+Set\+Active}} (array \$category\+Ids, bool \$active)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ace25fab185d8de5104cbbe425af6d8c7}{slug\+Exists}} (string \$slug, ?int \$exclude\+Id=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ae4f08d1382cc5c382bcec413369cc9de}{is\+Valid\+Parent}} (int \$parent\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a1395ab032b8441e89027af98d8276af4}{check\+Deletion\+Preconditions}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a01e43bc3db81774b068e2022dc1eb588}{get\+Total\+Active\+Count}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_adb4f9828314c0af87b628d0a60738d15}{get\+Max\+Depth}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ae61ca349cde422e082822be2cd408862}{generate\+Slug}} (string \$name, ?int \$exclude\+Id=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a467582973632fd5010f42bb126fee385}{is\+Valid\+Slug\+Format}} (string \$slug)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a42b461dbfade1b70e40b2c53280747c8}{get\+Subtree\+Ids}} (int \$parent\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a51265d2c32616ca84e2816609929b60f}{activate}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a2d3fe4ce5506a709ff1e0ee1ee832d7f}{deactivate}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad36709d598da338d060e088447d5f604}{find\+Active\+Categories}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_abfad21c1105e7deb910bbe4fc0f00ece}{find\+Inactive\+Categories}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a854d6dfb4dfeb75167ebb5294c1c0eb9}{is\+In\+Use}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ab166b0f4a34595ec82a0aad4a99d049e}{get\+Statistics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a017f9d3811e1fd40f0c707ddbae62f91}{create\+Sample}} (array \$overrides=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac82b48279586a64e7c5b5390b949fd60}{save}} (\textbackslash{}\mbox{\hyperlink{classApp_1_1Entities_1_1BaseEntity}{App\textbackslash{}\+Entities\textbackslash{}\+Base\+Entity}} \$entity)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a100e44e2302fc964c6af740b596811e8}{delete}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a7a3e0c7257b09bb4293afdb91386f78d}{restore}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_aa6ab7ede77bbd1bafd72db60482d4d24}{\+\_\+\+\_\+construct}} (Model \$model, \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \$cache, Connection\+Interface \$db, string \$entity\+Class, string \$table\+Name)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ab55087a1e7d22511fb017fa36848f61e}{find\+By\+Id}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a67d486276e5c8d49ed7aadfafd4d3323}{find\+By\+Id\+Or\+Fail}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_abe63001afccdd5ca53ca4f10ff9caf33}{find\+All}} (array \$criteria=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a655d213b803de6c4aac3084579d05335}{paginate}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$query, array \$filters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a18c67664fc7542832e8570a164c4f792}{save}} (\mbox{\hyperlink{classApp_1_1Entities_1_1BaseEntity}{Base\+Entity}} \$entity)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a2d6281f5ce5922fac742177fdaafba9a}{create}} (array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a6c850af08441fc8937e01b3155de6899}{update}} (int\texorpdfstring{$\vert$}{|}string \$id, array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_aca8a55f8e2c946de1f2ecdd8bc708a21}{force\+Delete}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a2915cd9fdd236113a899140e3369613e}{bulk\+Update}} (array \$ids, array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a1417b561af414080cfe14f964894b0e6}{bulk\+Delete}} (array \$ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a0b0bf62e4f5326598775014e13edc90a}{bulk\+Restore}} (array \$ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a887505b5d0bbde996c951acf1f67a3df}{exists}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a5e82383bd41cb1f0e06a2ff68d9a7550}{count}} (array \$criteria=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_afa26ca0c396bfeeefa58f8189538b518}{transaction}} (Closure \$callback)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a12c55797cebc32ae3fa5f664c50c4ff4}{clear\+Cache}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a60922f1f20d5af3706767cd70eed96df}{clear\+Entity\+Cache}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ac312d9bbb1216ede8e2e38a26cf50c35}{clear\+Cache\+Matching}} (string \$pattern)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ac514ac26f5336490bf9400066e82fccc}{get\+Entity\+Cache\+Key}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_af6ab15e18af27531d79a69affb141e8b}{get\+Query\+Cache\+Key}} (array \$parameters)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ab01953a3e928a498cbd0c1d414f8b4cd}{remember}} (string \$key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_acda177dc48d79f45d2b4f5d049c9661f}{remember\+Forever}} (string \$key, Closure \$callback)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_adf79faad8ca4d8e82c2b0f670fa689b4}{find\+By\+Ids}} (array \$ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a2e490227cda650732ae97ea35d3fb4de}{find\+By}} (array \$criteria, array \$order\+By=\mbox{[}$\,$\mbox{]}, ?int \$limit=null, ?int \$offset=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_aab37d501c2d40f7ba1188674be9bcad3}{find\+One\+By}} (array \$criteria)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a37292db90a7b257a805ec46620a4a301}{get\+Entity\+Class}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a98605b58fd8c05506089d0e7bd27100e}{get\+Table\+Name}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a8b047515a48a8c2c16fd94a54e911e4d}{get\+Cache\+Stats}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a604cce1f4e1efbe8a35293e0ca8b90cf}{preload\+Cache}} (array \$ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a38712eec93ab96ae01bc92aa33832808}{atomic\+Cache\+Operation}} (string \$cache\+Key, Closure \$data\+Callback, ?Closure \$cache\+Callback=null, ?int \$ttl=null)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa4e815a60e9e5e8656cc62fa00927edc}{apply\+Criteria}} (Base\+Builder \$builder, array \$criteria)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_acc7740dbfc3cae4f284a886d4a99c214}{apply\+Criteria}} (\textbackslash{}Code\+Igniter\textbackslash{}\+Database\textbackslash{}\+Base\+Builder \$builder, array \$criteria)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a2f8d098cc461d93a398bb5baea714a5b}{get\+Cache}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository}}}
+\begin{DoxyCompactItemize}
+\item 
+Model \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a8acc2aca3e481f86ac82a3724b568983}{\$model}}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_af99764099972b1f09b799f587f55486e}{\$cache}}
+\item 
+Connection\+Interface \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a198d50a2ca05949556f84657f75456aa}{\$db}}
+\item 
+string \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a96f26d39004a09f6dc931652f2a093cf}{\$entity\+Class}}
+\item 
+string \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ac863b5cd1d3949b8f1abbeae0f9d9793}{\$table\+Name}}
+\item 
+string \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a0698ac1577a95ab204deab72f2169334}{\$cache\+Prefix}}
+\item 
+int \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a99ce23fbdc3748948762398d9d48219c}{\$default\+Cache\+Ttl}} = 3600
+\item 
+bool \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a5afe77f8560e7a49cb194ee1badc1b3a}{\$use\+Atomic\+Cache}} = true
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Category Repository Concrete Implementation
+
+Data Orchestrator Layer (Layer 3)\+: Persistence Abstraction \& Cache Manager for Category entity. Implements Category-\/specific operations with transaction safety and caching strategies. Handles tree structure operations with proper cache invalidation.
+
+\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository$<$\+Category$>$ 
+
+\label{doc-constructors}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac2e4c031e0585dc79d7045e7d6e8f21a}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac2e4c031e0585dc79d7045e7d6e8f21a} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel}{Category\+Model}}}]{\$model}{, }\item[{\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}}}]{\$cache}{, }\item[{Connection\+Interface}]{\$db}{}\end{DoxyParamCaption})}
+
+Constructor with dependency injection
+
+
+\begin{DoxyParams}[1]{Parameters}
+Category\+Model & {\em \$model} & \\
+\hline
+Cache\+Interface & {\em \$cache} & \\
+\hline
+Connection\+Interface & {\em \$db} & \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a51265d2c32616ca84e2816609929b60f}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!activate@{activate}}
+\index{activate@{activate}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{activate()}{activate()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a51265d2c32616ca84e2816609929b60f} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::activate (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Activate category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a80a140d69abc0fbbf0f95270fff904e4}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a51265d2c32616ca84e2816609929b60f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa4e815a60e9e5e8656cc62fa00927edc}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!applyCriteria@{applyCriteria}}
+\index{applyCriteria@{applyCriteria}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{applyCriteria()}{applyCriteria()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa4e815a60e9e5e8656cc62fa00927edc} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::apply\+Criteria (\begin{DoxyParamCaption}\item[{Base\+Builder}]{\$builder}{, }\item[{array}]{\$criteria}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Apply Category-\/specific criteria to query builder
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+Builder & {\em \$builder} & \\
+\hline
+ & {\em array$<$string,mixed$>$} & \$criteria \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad32d6eceb8cd7d82938091cdd033aa13}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!bulkReparent@{bulkReparent}}
+\index{bulkReparent@{bulkReparent}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{bulkReparent()}{bulkReparent()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad32d6eceb8cd7d82938091cdd033aa13} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::bulk\+Reparent (\begin{DoxyParamCaption}\item[{array}]{\$category\+Ids}{, }\item[{int}]{\$new\+Parent\+Id}{}\end{DoxyParamCaption})}
+
+Bulk reparent categories
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$category\+Ids \\
+\hline
+int & {\em \$new\+Parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_ad700a89e852af7c1f2533ef4a8881ad9}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad32d6eceb8cd7d82938091cdd033aa13_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac20905e4663edcffc1f1b833453711b4}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!bulkSetActive@{bulkSetActive}}
+\index{bulkSetActive@{bulkSetActive}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{bulkSetActive()}{bulkSetActive()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac20905e4663edcffc1f1b833453711b4} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::bulk\+Set\+Active (\begin{DoxyParamCaption}\item[{array}]{\$category\+Ids}{, }\item[{bool}]{\$active}{}\end{DoxyParamCaption})}
+
+Bulk set active/inactive status
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$category\+Ids \\
+\hline
+bool & {\em \$active} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_ac9851e366eb6ffb29610958049db720f}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac20905e4663edcffc1f1b833453711b4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac237a4a1183deb433a51ed673a9ae7aa}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!bulkUpdateSortOrder@{bulkUpdateSortOrder}}
+\index{bulkUpdateSortOrder@{bulkUpdateSortOrder}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{bulkUpdateSortOrder()}{bulkUpdateSortOrder()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac237a4a1183deb433a51ed673a9ae7aa} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::bulk\+Update\+Sort\+Order (\begin{DoxyParamCaption}\item[{array}]{\$sort\+Orders}{}\end{DoxyParamCaption})}
+
+Bulk update sort order
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int,int$>$} & \$sort\+Orders Array of \mbox{[}category\+Id =\texorpdfstring{$>$}{>} sort\+Order\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a281521eb379fd0ffe1c176199a300eb9}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac237a4a1183deb433a51ed673a9ae7aa_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a1395ab032b8441e89027af98d8276af4}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!checkDeletionPreconditions@{checkDeletionPreconditions}}
+\index{checkDeletionPreconditions@{checkDeletionPreconditions}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{checkDeletionPreconditions()}{checkDeletionPreconditions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a1395ab032b8441e89027af98d8276af4} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::check\+Deletion\+Preconditions (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Check preconditions before deletion
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$string, mixed$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_adf2a8f8a34b8b47ccd1ca4793e36cbfe}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a1395ab032b8441e89027af98d8276af4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a017f9d3811e1fd40f0c707ddbae62f91}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!createSample@{createSample}}
+\index{createSample@{createSample}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{createSample()}{createSample()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a017f9d3811e1fd40f0c707ddbae62f91} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::create\+Sample (\begin{DoxyParamCaption}\item[{array}]{\$overrides}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Create sample category for testing
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$overrides \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{classApp_1_1Entities_1_1Category}{Category}
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_aa0529e25ec556381f7bb23c09b8b64b6}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a017f9d3811e1fd40f0c707ddbae62f91_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a2d3fe4ce5506a709ff1e0ee1ee832d7f}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!deactivate@{deactivate}}
+\index{deactivate@{deactivate}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{deactivate()}{deactivate()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a2d3fe4ce5506a709ff1e0ee1ee832d7f} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::deactivate (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Deactivate category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a2d5c7dec83c2ea3dea00d34ee9b316d8}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a2d3fe4ce5506a709ff1e0ee1ee832d7f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a100e44e2302fc964c6af740b596811e8}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!delete@{delete}}
+\index{delete@{delete}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a100e44e2302fc964c6af740b596811e8} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::delete (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Override delete to handle tree structure cache invalidation
+
+Soft delete entity (archive)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Not\+Found\+Exception 
+
+Reimplemented from \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a92a5142db585da1ff4ede0c9cc53f9f1}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a100e44e2302fc964c6af740b596811e8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad36709d598da338d060e088447d5f604}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findActiveCategories@{findActiveCategories}}
+\index{findActiveCategories@{findActiveCategories}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findActiveCategories()}{findActiveCategories()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad36709d598da338d060e088447d5f604} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+Active\+Categories (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find all active categories
+
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_abf53a8b76db8c3f6f0994ad79227a00e}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad36709d598da338d060e088447d5f604_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_af5c7c89f11a1e06ed8710c7edb5daeb4}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findBySlug@{findBySlug}}
+\index{findBySlug@{findBySlug}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findBySlug()}{findBySlug()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_af5c7c89f11a1e06ed8710c7edb5daeb4} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+By\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$slug}{}\end{DoxyParamCaption})}
+
+Find \doxylink{classApp_1_1Entities_1_1Category}{Category} by slug
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\texorpdfstring{$\vert$}{|}null
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a4616aa28f61b2e7ee479a0134f2d299b}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_af5c7c89f11a1e06ed8710c7edb5daeb4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_af0d703a6bd03281912c6dcfc6a90750e}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findCategoryPath@{findCategoryPath}}
+\index{findCategoryPath@{findCategoryPath}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findCategoryPath()}{findCategoryPath()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_af0d703a6bd03281912c6dcfc6a90750e} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+Category\+Path (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Find category path from root to category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_ad7a36c35ab85836cde5628a85fca8337}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_af0d703a6bd03281912c6dcfc6a90750e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aea375578e6d0c6afe8eb80f17917a707}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findCategoryTree@{findCategoryTree}}
+\index{findCategoryTree@{findCategoryTree}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findCategoryTree()}{findCategoryTree()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aea375578e6d0c6afe8eb80f17917a707} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+Category\+Tree (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find complete category tree with hierarchy
+
+\begin{DoxyReturn}{Returns}
+array$<$array$<$string, mixed$>$$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a354fc60ce8bb5cf4d71d61d2706738ef}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aea375578e6d0c6afe8eb80f17917a707_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a166a63cb24832b22d2dafe1542f1cfd6}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findDescendants@{findDescendants}}
+\index{findDescendants@{findDescendants}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findDescendants()}{findDescendants()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a166a63cb24832b22d2dafe1542f1cfd6} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+Descendants (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Find all descendants of a category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a8e59e8652ad195317165c9a2e1a86dfa}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a166a63cb24832b22d2dafe1542f1cfd6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_abfad21c1105e7deb910bbe4fc0f00ece}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findInactiveCategories@{findInactiveCategories}}
+\index{findInactiveCategories@{findInactiveCategories}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findInactiveCategories()}{findInactiveCategories()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_abfad21c1105e7deb910bbe4fc0f00ece} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+Inactive\+Categories (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find all inactive categories
+
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a402890a809ea021b3e96497e7be271a8}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_abfad21c1105e7deb910bbe4fc0f00ece_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b0f59c5dfa8db8c95d5e2081c73a1b}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findRootCategories@{findRootCategories}}
+\index{findRootCategories@{findRootCategories}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findRootCategories()}{findRootCategories()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b0f59c5dfa8db8c95d5e2081c73a1b} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+Root\+Categories (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find all root categories (parent\+\_\+id = null or 0)
+
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_ae818cf51d026136e31ca89885b714a5b}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b0f59c5dfa8db8c95d5e2081c73a1b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b0f59c5dfa8db8c95d5e2081c73a1b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a843ae9386fbad8b08e6ac710ab4053e5}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findSubCategories@{findSubCategories}}
+\index{findSubCategories@{findSubCategories}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findSubCategories()}{findSubCategories()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a843ae9386fbad8b08e6ac710ab4053e5} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+Sub\+Categories (\begin{DoxyParamCaption}\item[{int}]{\$parent\+Id}{}\end{DoxyParamCaption})}
+
+Find subcategories of a parent category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a3efc97a9ceef9e1aa6993d7aceae888d}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a843ae9386fbad8b08e6ac710ab4053e5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ace6b1772697197669d63fe6938240300}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findWithAllCounts@{findWithAllCounts}}
+\index{findWithAllCounts@{findWithAllCounts}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findWithAllCounts()}{findWithAllCounts()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ace6b1772697197669d63fe6938240300} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+With\+All\+Counts (\begin{DoxyParamCaption}\item[{int}]{\$id}{}\end{DoxyParamCaption})}
+
+Find category with all counts (products and children)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\texorpdfstring{$\vert$}{|}null
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a36a9de517605439429b9bf9cb6362941}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ace6b1772697197669d63fe6938240300_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad989102ff6369b26d36a16cd85c4e533}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findWithChildrenCounts@{findWithChildrenCounts}}
+\index{findWithChildrenCounts@{findWithChildrenCounts}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findWithChildrenCounts()}{findWithChildrenCounts()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad989102ff6369b26d36a16cd85c4e533} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+With\+Children\+Counts (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find categories with children counts
+
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a81d817bc00636260c6c33f7a8bca0562}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ad989102ff6369b26d36a16cd85c4e533_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a3f30d7a6dde0267ecdd1b70535beb2bd}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findWithParent@{findWithParent}}
+\index{findWithParent@{findWithParent}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findWithParent()}{findWithParent()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a3f30d7a6dde0267ecdd1b70535beb2bd} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+With\+Parent (\begin{DoxyParamCaption}\item[{int}]{\$id}{}\end{DoxyParamCaption})}
+
+Find \doxylink{classApp_1_1Entities_1_1Category}{Category} with parent information
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\texorpdfstring{$\vert$}{|}null
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a01b607fd310aa6adcca751d884e1d945}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a3f30d7a6dde0267ecdd1b70535beb2bd_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b84cffcef8bd5ecd85036e21f98d37}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!findWithProductCounts@{findWithProductCounts}}
+\index{findWithProductCounts@{findWithProductCounts}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{findWithProductCounts()}{findWithProductCounts()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b84cffcef8bd5ecd85036e21f98d37} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::find\+With\+Product\+Counts (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find categories with product counts
+
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a7bbea9d82e9df42785fb82fce58653ab}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_aa0b84cffcef8bd5ecd85036e21f98d37_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ae61ca349cde422e082822be2cd408862}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!generateSlug@{generateSlug}}
+\index{generateSlug@{generateSlug}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{generateSlug()}{generateSlug()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ae61ca349cde422e082822be2cd408862} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::generate\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$name}{, }\item[{?int}]{\$exclude\+Id}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Generate unique slug from name
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+int | null & {\em \$exclude\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a764fdcc56d3b56cd11f2a95c79cc19ec}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ae61ca349cde422e082822be2cd408862_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_adb4f9828314c0af87b628d0a60738d15}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!getMaxDepth@{getMaxDepth}}
+\index{getMaxDepth@{getMaxDepth}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{getMaxDepth()}{getMaxDepth()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_adb4f9828314c0af87b628d0a60738d15} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::get\+Max\+Depth (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get maximum depth of category tree
+
+\begin{DoxyReturn}{Returns}
+int
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_abc61014241967eb70fc96d54543c6dca}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_adb4f9828314c0af87b628d0a60738d15_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_adb4f9828314c0af87b628d0a60738d15_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ab166b0f4a34595ec82a0aad4a99d049e}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!getStatistics@{getStatistics}}
+\index{getStatistics@{getStatistics}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{getStatistics()}{getStatistics()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ab166b0f4a34595ec82a0aad4a99d049e} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::get\+Statistics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get category statistics
+
+\begin{DoxyReturn}{Returns}
+array$<$string, mixed$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a788df355485882cbdd5811d7ef0abf4c}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ab166b0f4a34595ec82a0aad4a99d049e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a42b461dbfade1b70e40b2c53280747c8}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!getSubtreeIds@{getSubtreeIds}}
+\index{getSubtreeIds@{getSubtreeIds}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{getSubtreeIds()}{getSubtreeIds()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a42b461dbfade1b70e40b2c53280747c8} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::get\+Subtree\+Ids (\begin{DoxyParamCaption}\item[{int}]{\$parent\+Id}{}\end{DoxyParamCaption})}
+
+Get all IDs in subtree (including the category itself and all descendants)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$int$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a505d5e253e97f750dc6b458bcb9ab8d0}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a42b461dbfade1b70e40b2c53280747c8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a01e43bc3db81774b068e2022dc1eb588}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!getTotalActiveCount@{getTotalActiveCount}}
+\index{getTotalActiveCount@{getTotalActiveCount}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{getTotalActiveCount()}{getTotalActiveCount()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a01e43bc3db81774b068e2022dc1eb588} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::get\+Total\+Active\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get total count of active categories
+
+\begin{DoxyReturn}{Returns}
+int
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a0b68844fe6f60006a8ba3396a4d43c07}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a01e43bc3db81774b068e2022dc1eb588_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a01e43bc3db81774b068e2022dc1eb588_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a87240550c563d3bd596048f9bf30e61b}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!isAncestorOf@{isAncestorOf}}
+\index{isAncestorOf@{isAncestorOf}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{isAncestorOf()}{isAncestorOf()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a87240550c563d3bd596048f9bf30e61b} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::is\+Ancestor\+Of (\begin{DoxyParamCaption}\item[{int}]{\$ancestor\+Id}{, }\item[{int}]{\$descendant\+Id}{}\end{DoxyParamCaption})}
+
+Check if category is ancestor of another category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$ancestor\+Id} & \\
+\hline
+int & {\em \$descendant\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a45b8a9da6dfaeb84dfc4b55ec4461016}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a87240550c563d3bd596048f9bf30e61b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a854d6dfb4dfeb75167ebb5294c1c0eb9}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!isInUse@{isInUse}}
+\index{isInUse@{isInUse}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{isInUse()}{isInUse()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a854d6dfb4dfeb75167ebb5294c1c0eb9} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::is\+In\+Use (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Check if category is in use (has products or children)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_aeafc559e31ab9181ecdd5ba63ac1b3bb}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a854d6dfb4dfeb75167ebb5294c1c0eb9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a854d6dfb4dfeb75167ebb5294c1c0eb9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ae4f08d1382cc5c382bcec413369cc9de}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!isValidParent@{isValidParent}}
+\index{isValidParent@{isValidParent}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{isValidParent()}{isValidParent()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ae4f08d1382cc5c382bcec413369cc9de} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::is\+Valid\+Parent (\begin{DoxyParamCaption}\item[{int}]{\$parent\+Id}{}\end{DoxyParamCaption})}
+
+Check if parent ID is valid (exists and not creating circular reference)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_abd7940b6d58feccf08879c7c17b896f4}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ae4f08d1382cc5c382bcec413369cc9de_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a467582973632fd5010f42bb126fee385}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!isValidSlugFormat@{isValidSlugFormat}}
+\index{isValidSlugFormat@{isValidSlugFormat}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{isValidSlugFormat()}{isValidSlugFormat()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a467582973632fd5010f42bb126fee385} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::is\+Valid\+Slug\+Format (\begin{DoxyParamCaption}\item[{string}]{\$slug}{}\end{DoxyParamCaption})}
+
+Validate slug format
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_ad1c6c16916da3fc48167bfc7240361fa}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a467582973632fd5010f42bb126fee385_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a7a3e0c7257b09bb4293afdb91386f78d}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!restore@{restore}}
+\index{restore@{restore}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{restore()}{restore()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a7a3e0c7257b09bb4293afdb91386f78d} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::restore (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Override restore to handle tree structure cache invalidation
+
+Restore soft-\/deleted entity
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Not\+Found\+Exception 
+
+Reimplemented from \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ab4a744793ffe64d7452e2bdd53e60906}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a7a3e0c7257b09bb4293afdb91386f78d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac82b48279586a64e7c5b5390b949fd60}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!save@{save}}
+\index{save@{save}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac82b48279586a64e7c5b5390b949fd60} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::save (\begin{DoxyParamCaption}\item[{\textbackslash{}\mbox{\hyperlink{classApp_1_1Entities_1_1BaseEntity}{App\textbackslash{}\+Entities\textbackslash{}\+Base\+Entity}}}]{\$entity}{}\end{DoxyParamCaption})}
+
+Override save to handle tree structure cache invalidationHere is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac82b48279586a64e7c5b5390b949fd60_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ac82b48279586a64e7c5b5390b949fd60_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ace25fab185d8de5104cbbe425af6d8c7}\index{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}!slugExists@{slugExists}}
+\index{slugExists@{slugExists}!App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository@{App\textbackslash{}Repositories\textbackslash{}Concrete\textbackslash{}CategoryRepository}}
+\doxysubsubsection{\texorpdfstring{slugExists()}{slugExists()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ace25fab185d8de5104cbbe425af6d8c7} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository\+::slug\+Exists (\begin{DoxyParamCaption}\item[{string}]{\$slug}{, }\item[{?int}]{\$exclude\+Id}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if slug exists
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+int | null & {\em \$exclude\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface_a99c60d2ed7960393e98724f3b947eaab}{App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Category\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_ace25fab185d8de5104cbbe425af6d8c7_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Repositories/\+Concrete/\mbox{\hyperlink{CategoryRepository_8php}{Category\+Repository.\+php}}\end{DoxyCompactItemize}

@@ -1,0 +1,11 @@
+<map id="App\Entities\Category\setActive" name="App\Entities\Category\setActive">
+<area shape="rect" id="Node000001" title=" " alt="" coords="426,40,588,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Category.html#aa2421712a103bb9eddde446956de3c67" title=" " alt="" coords="216,5,378,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="408,47,379,44,379,38,413,46"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1Category.html#ad3791f3bbcb6200c0478e45d6b9bbe5c" title=" " alt="" coords="216,75,378,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="413,78,379,86,378,81,408,79"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Category.html#a44e64075de069cfeaaee80df3dbbbe54" title=" " alt="" coords="5,5,168,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="198,28,169,30,168,25,203,27"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Entities_1_1Category.html#a6920993ed23fa469384b5131afd869b0" title=" " alt="" coords="5,75,168,119"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="198,97,168,100,168,94,203,97"/>
+</map>

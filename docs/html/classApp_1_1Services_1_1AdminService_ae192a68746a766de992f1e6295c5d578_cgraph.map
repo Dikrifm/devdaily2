@@ -1,0 +1,20 @@
+<map id="App\Services\AdminService\forcePasswordChange" name="App\Services\AdminService\forcePasswordChange">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,144,205,189"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a7ef2f481b5afcf427d56c8e68a66e3b9" title=" " alt="" coords="253,5,442,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,142,186,101,251,60,266,55,262,58,254,65,189,105,135,146"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#a0dd17606e7db80a4123316e04b9e251a" title=" " alt="" coords="253,75,442,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="184,141,254,122,250,126,187,146"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1BaseService.html#a0adb04e069280a92fc66e12b2e0bac2a" title=" " alt="" coords="253,144,442,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="204,164,240,165,235,167,206,169"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Services_1_1BaseService.html#adc9ce0842f818c3f976972557922d59c" title=" " alt="" coords="253,283,442,327"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="134,186,189,227,254,268,266,276,261,276,251,273,186,232,133,192"/>
+<area shape="rect" id="Node000009" href="$classApp_1_1Services_1_1BaseService.html#a0559a52c16f4d6099cafc0386c2c53e9" title=" " alt="" coords="253,213,442,258"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="185,187,255,208,250,210,186,192"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="514,92,703,137"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="417,48,527,86,522,87,417,53"/>
+<area shape="rect" id="Node000007" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#a38d9ab2d0824b99771271d060f0bff0b" title=" " alt="" coords="490,248,727,293"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="442,290,477,288,472,288,443,295"/>
+<area shape="rect" id="Node000008" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#aa726479e16efedb5edfd1892b3c7fe4c" title=" " alt="" coords="490,317,727,362"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="442,315,477,322,472,322,442,320"/>
+<area shape="poly" id="edge9_Node000009_Node000003" title=" " alt="" coords="412,210,441,199,552,145,557,143,443,203,414,215"/>
+</map>

@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['data_0',['Collect Var Data',['../classConfig_1_1Toolbar.html#autotoc_md177',1,'']]],
+  ['database_20group_1',['Session Database Group',['../classConfig_1_1Session.html#autotoc_md167',1,'']]],
+  ['date_20format_20for_20logs_2',['Date Format for Logs',['../classConfig_1_1Logger.html#autotoc_md103',1,'']]],
+  ['debug_20toolbar_3',['Debug Toolbar',['../classConfig_1_1Toolbar.html#autotoc_md173',1,'']]],
+  ['debug_20trace_4',['HIDE FROM DEBUG TRACE',['..//data/data/com.termux/files/home/devdaily2/app/Config/Exceptions.php#autotoc_md85',1,'']]],
+  ['default_20character_20set_5',['Default Character Set',['../classConfig_1_1App.html#autotoc_md15',1,'']]],
+  ['default_20locale_6',['Default Locale',['../classConfig_1_1App.html#autotoc_md7',1,'']]],
+  ['default_20ttl_7',['Default TTL',['../classConfig_1_1Cache.html#autotoc_md39',1,'']]],
+  ['deprecated_20errors_8',['WHETHER TO THROW AN EXCEPTION ON DEPRECATED ERRORS',['../classConfig_1_1Exceptions.html#autotoc_md87',1,'']]],
+  ['deprecations_9',['LOG LEVEL THRESHOLD FOR DEPRECATIONS',['../classConfig_1_1Exceptions.html#autotoc_md89',1,'']]],
+  ['destroy_10',['Session Regenerate Destroy',['../classConfig_1_1Session.html#autotoc_md165',1,'']]],
+  ['digest_11',['Encryption digest',['../classConfig_1_1Encryption.html#autotoc_md77',1,'']]],
+  ['directories_12',['Watched Directories',['..//data/data/com.termux/files/home/devdaily2/app/Config/Toolbar.php#autotoc_md185',1,'']]],
+  ['directory_20name_13',['DIRECTORY NAME',['../classConfig_1_1Paths.html#autotoc_md133',1,'TESTS DIRECTORY NAME'],['../classConfig_1_1Paths.html#autotoc_md135',1,'VIEW DIRECTORY NAME'],['../classConfig_1_1Paths.html#autotoc_md131',1,'WRITABLE DIRECTORY NAME']]],
+  ['disable_20migrations_14',['Enable/Disable Migrations',['../classConfig_1_1Migrations.html#autotoc_md107',1,'']]],
+  ['discovery_15',['Enable Auto-Discovery?',['..//data/data/com.termux/files/home/devdaily2/app/Config/Modules.php#autotoc_md113',1,'']]],
+  ['discovery_20rules_16',['Auto-Discovery Rules',['..//data/data/com.termux/files/home/devdaily2/app/Config/Modules.php#autotoc_md117',1,'']]],
+  ['discovery_20within_20composer_20packages_17',['Enable Auto-Discovery Within Composer Packages?',['..//data/data/com.termux/files/home/devdaily2/app/Config/Modules.php#autotoc_md115',1,'']]],
+  ['do_20not_20log_20status_20codes_18',['DO NOT LOG STATUS CODES',['..//data/data/com.termux/files/home/devdaily2/app/Config/Exceptions.php#autotoc_md81',1,'']]],
+  ['domain_19',['Cookie Domain',['../classConfig_1_1Cookie.html#autotoc_md59',1,'']]],
+  ['driver_20',['Session Driver',['..//data/data/com.termux/files/home/devdaily2/app/Config/Session.php#autotoc_md153',1,'']]],
+  ['driver_20to_20use_21',['Encryption Driver to Use',['../classConfig_1_1Encryption.html#autotoc_md73',1,'']]]
+];

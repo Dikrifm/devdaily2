@@ -1,0 +1,26 @@
+var interfaceApp_1_1Contracts_1_1CacheInterface =
+[
+    [ "cacheWithContext", "interfaceApp_1_1Contracts_1_1CacheInterface.html#ab822312bef70fabfeb8906ac2d0612f2", null ],
+    [ "clear", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a4e1b2598556ebbf46d9e819f1da71d6a", null ],
+    [ "decrement", "interfaceApp_1_1Contracts_1_1CacheInterface.html#ab5ac552a2f722581cb0d3d77ddd6b832", null ],
+    [ "delete", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a05921680a4529a8ffc6ce6b3580d7a30", null ],
+    [ "deleteMultiple", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a5d0e526cd31ca257d2713660b1a688a5", null ],
+    [ "flushTag", "interfaceApp_1_1Contracts_1_1CacheInterface.html#ae67f23666a29b3f4626dff8c074d9b69", null ],
+    [ "forever", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a48c182458440d353374de2f00bbd66c9", null ],
+    [ "get", "interfaceApp_1_1Contracts_1_1CacheInterface.html#ad6a2a5758b5be09dc86aa191ee90cc73", null ],
+    [ "getDefaultTtl", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a2457fcda7d34ce8ea71c62f1ae639334", null ],
+    [ "getHitStats", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a082e2dd6591243f2ee8a705196c2a09a", null ],
+    [ "getKey", "interfaceApp_1_1Contracts_1_1CacheInterface.html#aa48429858647745210f9cb17bb67783c", null ],
+    [ "getMultiple", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a9274c44d497e3a99676ac9de88bf1e73", null ],
+    [ "getStats", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a64ed4e14bbc19bf4bd451d228b768991", null ],
+    [ "getWithTtl", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a05c7441e98b1f75c258f5b6e40ccd35a", null ],
+    [ "has", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a9be772573868eaea62a62d145bfee634", null ],
+    [ "increment", "interfaceApp_1_1Contracts_1_1CacheInterface.html#af2b6b3a25da09f61732fd125a12b4ea6", null ],
+    [ "isAvailable", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a198831624260710632834cfed0cb3b16", null ],
+    [ "remember", "interfaceApp_1_1Contracts_1_1CacheInterface.html#ab5579fe5384f104ea8b031d87283efef", null ],
+    [ "resetStats", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a15c165ec5c0f9d2445bad30c98b9db97", null ],
+    [ "set", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a7741529e4986c90db084ba74f28d53fc", null ],
+    [ "setDefaultTtl", "interfaceApp_1_1Contracts_1_1CacheInterface.html#aa292d48040effc7bc2abaa2df330d100", null ],
+    [ "setMultiple", "interfaceApp_1_1Contracts_1_1CacheInterface.html#a5a249f8cbda47f3a5a46ab10c87e2dbf", null ],
+    [ "tag", "interfaceApp_1_1Contracts_1_1CacheInterface.html#affabd5ea7a0d9ec6b62e7aa3a78200bb", null ]
+];

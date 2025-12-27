@@ -1,0 +1,9 @@
+<map id="App\Entities\MarketplaceBadge\getDisplayHtml" name="App\Entities\MarketplaceBadge\getDisplayHtml">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,189,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#a63658fe5187d192238a28c53fdd0abe1" title=" " alt="" coords="237,5,420,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,46,224,43,218,44,189,51"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#ae4bdf3a2737b361296ebbb1c8404e70d" title=" " alt="" coords="237,75,420,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="189,73,224,81,218,81,189,79"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1MarketplaceBadge.html#a175f46ecb4bbfa6d39a545b53d17ca2d" title=" " alt="" coords="468,5,651,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="420,25,455,27,450,28,420,30"/>
+</map>

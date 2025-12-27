@@ -1,0 +1,108 @@
+\doxysection{App\textbackslash{}Libraries\textbackslash{}Image\+Processor Class Reference}
+\hypertarget{classApp_1_1Libraries_1_1ImageProcessor}{}\label{classApp_1_1Libraries_1_1ImageProcessor}\index{App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Libraries_1_1ImageProcessor_ae7a7bd1db986351573e04e57585a4bae}{process}} (Uploaded\+File \$file)
+\item 
+\mbox{\hyperlink{classApp_1_1Libraries_1_1ImageProcessor_adfafc55a4d8fc41e9dce3188956dec1d}{delete}} (?string \$base\+Path)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Libraries_1_1ImageProcessor_a4dee0f4e121d7623953b8f5c8605d134}{cleanup\+Failed\+Upload}} (string \$path, string \$filename)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{classApp_1_1Libraries_1_1ImageProcessor_a735d2b75a14ffbaaeb84ac2f165cf151}{\$upload\+Root}} = \textquotesingle{}uploads\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Image Processor Library
+\begin{DoxyItemize}
+\item Infrastructure Layer. Handles low-\/level image manipulation using GD/\+Imagick via CI4 Services. Implements "{}\+Enterprise Sultan Mode"{}\+:
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item Thumb (150px)
+\item Medium (800px)
+\item Large (1920px, 95\% Quality) All outputs are WebP. 
+\end{DoxyEnumerate}
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Libraries_1_1ImageProcessor_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Libraries_1_1ImageProcessor_a4dee0f4e121d7623953b8f5c8605d134}\index{App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}!cleanupFailedUpload@{cleanupFailedUpload}}
+\index{cleanupFailedUpload@{cleanupFailedUpload}!App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}}
+\doxysubsubsection{\texorpdfstring{cleanupFailedUpload()}{cleanupFailedUpload()}}
+{\footnotesize\ttfamily \label{classApp_1_1Libraries_1_1ImageProcessor_a4dee0f4e121d7623953b8f5c8605d134} 
+App\textbackslash{}\+Libraries\textbackslash{}\+Image\+Processor\+::cleanup\+Failed\+Upload (\begin{DoxyParamCaption}\item[{string}]{\$path}{, }\item[{string}]{\$filename}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Helper untuk membersihkan file parsial jika proses gagal di tengah jalan Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Libraries_1_1ImageProcessor_a4dee0f4e121d7623953b8f5c8605d134_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Libraries_1_1ImageProcessor_adfafc55a4d8fc41e9dce3188956dec1d}\index{App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}!delete@{delete}}
+\index{delete@{delete}!App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Libraries_1_1ImageProcessor_adfafc55a4d8fc41e9dce3188956dec1d} 
+App\textbackslash{}\+Libraries\textbackslash{}\+Image\+Processor\+::delete (\begin{DoxyParamCaption}\item[{?string}]{\$base\+Path}{}\end{DoxyParamCaption})}
+
+Menghapus semua varian gambar berdasarkan base path. Digunakan saat Delete Product atau Update Product (ganti gambar).
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+string | null & {\em \$base\+Path} & (ex\+: \textquotesingle{}2025/12/filename\+\_\+acak\textquotesingle{}) \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\Hypertarget{classApp_1_1Libraries_1_1ImageProcessor_ae7a7bd1db986351573e04e57585a4bae}\index{App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}!process@{process}}
+\index{process@{process}!App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily \label{classApp_1_1Libraries_1_1ImageProcessor_ae7a7bd1db986351573e04e57585a4bae} 
+App\textbackslash{}\+Libraries\textbackslash{}\+Image\+Processor\+::process (\begin{DoxyParamCaption}\item[{Uploaded\+File}]{\$file}{}\end{DoxyParamCaption})}
+
+Memproses gambar mentah menjadi 3 varian Enterprise (WebP).
+
+
+\begin{DoxyParams}[1]{Parameters}
+Uploaded\+File & {\em \$file} & File fisik dari request \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Base path relative (misal\+: \textquotesingle{}2025/12/173512\+\_\+ax99\textquotesingle{}) 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Runtime\+Exception\texorpdfstring{$\vert$}{|}\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Libraries_1_1ImageProcessor_ae7a7bd1db986351573e04e57585a4bae_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Libraries_1_1ImageProcessor_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Libraries_1_1ImageProcessor_a735d2b75a14ffbaaeb84ac2f165cf151}\index{App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}!\$uploadRoot@{\$uploadRoot}}
+\index{\$uploadRoot@{\$uploadRoot}!App\textbackslash{}Libraries\textbackslash{}ImageProcessor@{App\textbackslash{}Libraries\textbackslash{}ImageProcessor}}
+\doxysubsubsection{\texorpdfstring{\$uploadRoot}{\$uploadRoot}}
+{\footnotesize\ttfamily \label{classApp_1_1Libraries_1_1ImageProcessor_a735d2b75a14ffbaaeb84ac2f165cf151} 
+string App\textbackslash{}\+Libraries\textbackslash{}\+Image\+Processor\+::\$upload\+Root = \textquotesingle{}uploads\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Libraries/\mbox{\hyperlink{ImageProcessor_8php}{Image\+Processor.\+php}}\end{DoxyCompactItemize}

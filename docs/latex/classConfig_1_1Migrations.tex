@@ -1,0 +1,78 @@
+\doxysection{Config\textbackslash{}Migrations Class Reference}
+\hypertarget{classConfig_1_1Migrations}{}\label{classConfig_1_1Migrations}\index{Config\textbackslash{}Migrations@{Config\textbackslash{}Migrations}}
+
+
+Inheritance diagram for Config\textbackslash{}Migrations\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classConfig_1_1Migrations__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Config\textbackslash{}Migrations\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classConfig_1_1Migrations__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classConfig_1_1Migrations_a9db9f3f0d4c52d8c5b4dfe9fbf748ac9}{\$enabled}} = true
+\item 
+string \mbox{\hyperlink{classConfig_1_1Migrations_adef1451152442e4ceb7a240a73d1cc0f}{\$table}} = \textquotesingle{}migrations\textquotesingle{}
+\item 
+string \mbox{\hyperlink{classConfig_1_1Migrations_a3f4cd895dc3fbd172e5f083f4e2f48af}{\$timestamp\+Format}} = \textquotesingle{}Y-\/m-\/d-\/His\+\_\+\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{classConfig_1_1Migrations_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classConfig_1_1Migrations_a9db9f3f0d4c52d8c5b4dfe9fbf748ac9}\index{Config\textbackslash{}Migrations@{Config\textbackslash{}Migrations}!\$enabled@{\$enabled}}
+\index{\$enabled@{\$enabled}!Config\textbackslash{}Migrations@{Config\textbackslash{}Migrations}}
+\doxysubsubsection{\texorpdfstring{\$enabled}{\$enabled}}
+{\footnotesize\ttfamily \label{classConfig_1_1Migrations_a9db9f3f0d4c52d8c5b4dfe9fbf748ac9} 
+bool Config\textbackslash{}\+Migrations\+::\$enabled = true}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Migrations_autotoc_md107}{}\doxysubsubsection{\texorpdfstring{Enable/\+Disable Migrations}{Enable/\+Disable Migrations}}\label{classConfig_1_1Migrations_autotoc_md107}
+Migrations are enabled by default.
+
+You should enable migrations whenever you intend to do a schema migration and disable it back when you\textquotesingle{}re done. \Hypertarget{classConfig_1_1Migrations_adef1451152442e4ceb7a240a73d1cc0f}\index{Config\textbackslash{}Migrations@{Config\textbackslash{}Migrations}!\$table@{\$table}}
+\index{\$table@{\$table}!Config\textbackslash{}Migrations@{Config\textbackslash{}Migrations}}
+\doxysubsubsection{\texorpdfstring{\$table}{\$table}}
+{\footnotesize\ttfamily \label{classConfig_1_1Migrations_adef1451152442e4ceb7a240a73d1cc0f} 
+string Config\textbackslash{}\+Migrations\+::\$table = \textquotesingle{}migrations\textquotesingle{}}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Migrations_autotoc_md109}{}\doxysubsubsection{\texorpdfstring{Migrations Table}{Migrations Table}}\label{classConfig_1_1Migrations_autotoc_md109}
+This is the name of the table that will store the current migrations state. When migrations runs it will store in a database table which migration files have already been run. \Hypertarget{classConfig_1_1Migrations_a3f4cd895dc3fbd172e5f083f4e2f48af}\index{Config\textbackslash{}Migrations@{Config\textbackslash{}Migrations}!\$timestampFormat@{\$timestampFormat}}
+\index{\$timestampFormat@{\$timestampFormat}!Config\textbackslash{}Migrations@{Config\textbackslash{}Migrations}}
+\doxysubsubsection{\texorpdfstring{\$timestampFormat}{\$timestampFormat}}
+{\footnotesize\ttfamily \label{classConfig_1_1Migrations_a3f4cd895dc3fbd172e5f083f4e2f48af} 
+string Config\textbackslash{}\+Migrations\+::\$timestamp\+Format = \textquotesingle{}Y-\/m-\/d-\/His\+\_\+\textquotesingle{}}
+
+\DoxyHorRuler{0}
+ \hypertarget{classConfig_1_1Migrations_autotoc_md111}{}\doxysubsubsection{\texorpdfstring{Timestamp Format}{Timestamp Format}}\label{classConfig_1_1Migrations_autotoc_md111}
+This is the format that will be used when creating new migrations using the CLI command\+: \begin{quote}
+php spark make\+:migration \end{quote}
+
+
+NOTE\+: if you set an unsupported format, migration runner will not find your migration files.
+
+Supported formats\+:
+\begin{DoxyItemize}
+\item Ymd\+His\+\_\+
+\item Y-\/m-\/d-\/\+His\+\_\+
+\item Y\+\_\+m\+\_\+d\+\_\+\+His\+\_\+ 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Config/\mbox{\hyperlink{Migrations_8php}{Migrations.\+php}}\end{DoxyCompactItemize}

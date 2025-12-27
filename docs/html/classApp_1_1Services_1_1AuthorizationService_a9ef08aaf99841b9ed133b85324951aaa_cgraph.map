@@ -1,0 +1,17 @@
+<map id="App\Services\AuthorizationService\assignMultipleRolesToAdmin" name="App\Services\AuthorizationService\assignMultipleRolesToAdmin">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,88,266,133"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1AuthorizationService.html#a1d1f2c0c64cba28e2b232ebca3148dbd" title=" " alt="" coords="314,57,514,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,93,301,92,295,93,267,99"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a7ef2f481b5afcf427d56c8e68a66e3b9" title=" " alt="" coords="597,75,786,119"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="266,113,386,115,514,112,584,109,579,110,514,117,386,120,266,118"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1AuthorizationService.html#a11fc6cabc49146f329e09152fda4672c" title=" " alt="" coords="562,152,821,197"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="266,123,549,156,545,160,266,128"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Services_1_1BaseService.html#a0559a52c16f4d6099cafc0386c2c53e9" title=" " alt="" coords="597,5,786,50"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="185,85,246,61,313,42,382,31,452,25,584,23,579,25,452,30,383,37,314,48,247,66,187,90"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="514,83,584,90,579,90,515,89"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="479,100,563,129,609,147,603,146,561,134,479,105"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="514,58,585,48,580,49,515,63"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="869,40,1059,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="787,82,857,76,851,77,787,88"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="787,37,857,48,851,48,787,42"/>
+</map>

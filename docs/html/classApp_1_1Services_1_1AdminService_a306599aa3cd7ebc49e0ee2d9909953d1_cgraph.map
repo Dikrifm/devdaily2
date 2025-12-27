@@ -1,0 +1,11 @@
+<map id="App\Services\AdminService\validateCanDelete" name="App\Services\AdminService\validateCanDelete">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,205,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a0adb04e069280a92fc66e12b2e0bac2a" title=" " alt="" coords="253,5,442,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,45,240,42,235,44,206,51"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#adc9ce0842f818c3f976972557922d59c" title=" " alt="" coords="253,75,442,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="205,74,240,81,235,82,205,79"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#a38d9ab2d0824b99771271d060f0bff0b" title=" " alt="" coords="490,40,727,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="442,82,477,80,472,80,443,87"/>
+<area shape="rect" id="Node000005" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html#aa726479e16efedb5edfd1892b3c7fe4c" title=" " alt="" coords="490,109,727,154"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="442,107,477,114,472,114,442,112"/>
+</map>

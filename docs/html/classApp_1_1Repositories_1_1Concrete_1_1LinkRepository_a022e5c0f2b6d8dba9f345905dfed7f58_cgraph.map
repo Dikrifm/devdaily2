@@ -1,0 +1,7 @@
+<map id="App\Repositories\Concrete\LinkRepository\findByProduct" name="App\Repositories\Concrete\LinkRepository\findByProduct">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,222,50"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1Concrete_1_1LinkRepository.html#a9b6722d3d8e77c25956cfb4e1be5656b" title=" " alt="" coords="270,5,530,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,25,257,28,251,28,222,30"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="578,5,815,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="531,25,565,28,559,28,531,30"/>
+</map>

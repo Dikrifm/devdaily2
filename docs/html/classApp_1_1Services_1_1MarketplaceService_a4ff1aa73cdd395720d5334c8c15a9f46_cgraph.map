@@ -1,0 +1,9 @@
+<map id="App\Services\MarketplaceService\countLinksForMarketplace" name="App\Services\MarketplaceService\countLinksForMarketplace">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,249,50"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a162954e4ebaca73a0555a09b7c5b7793" title=" " alt="" coords="297,5,486,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,25,284,28,278,28,249,30"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a4cecbeaea9ede2f98fd82c89245b6b4d" title=" " alt="" coords="534,5,723,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="486,25,521,28,516,28,486,30"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="771,5,961,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="724,25,758,28,753,28,724,30"/>
+</map>

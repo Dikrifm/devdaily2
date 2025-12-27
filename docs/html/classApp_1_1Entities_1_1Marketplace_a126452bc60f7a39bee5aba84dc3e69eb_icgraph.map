@@ -1,0 +1,7 @@
+<map id="App\Entities\Marketplace\canBeArchived" name="App\Entities\Marketplace\canBeArchived">
+<area shape="rect" id="Node000001" title=" " alt="" coords="237,40,420,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Marketplace.html#a074fb80b1348e8db9e52e746b6121ebe" title=" " alt="" coords="5,5,189,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,47,189,44,189,39,224,46"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Marketplace.html#a17d491feea1d8a29fc4d3627629b8d1d" title=" " alt="" coords="5,75,189,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,79,190,86,189,81,224,78"/>
+</map>

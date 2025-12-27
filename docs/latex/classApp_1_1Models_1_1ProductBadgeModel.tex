@@ -1,0 +1,489 @@
+\doxysection{App\textbackslash{}Models\textbackslash{}Product\+Badge\+Model Class Reference}
+\hypertarget{classApp_1_1Models_1_1ProductBadgeModel}{}\label{classApp_1_1Models_1_1ProductBadgeModel}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+
+
+Inheritance diagram for App\textbackslash{}Models\textbackslash{}Product\+Badge\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{classApp_1_1Models_1_1ProductBadgeModel__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Models\textbackslash{}Product\+Badge\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{classApp_1_1Models_1_1ProductBadgeModel__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a4f83fc46aad2d8a567573865c59b94a7}{find\+By\+Composite\+Key}} (int \$product\+Id, int \$badge\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a7c0875295e87d2eb61972c5282ef0c9d}{find\+By\+Product\+Id}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a045553a39a3064caa296666c1cc64842}{find\+By\+Badge\+Id}} (int \$badge\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_ad6c3506a659ae1bdc1ed0db318a9ad9a}{delete\+Association}} (int \$product\+Id, int \$badge\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_ac322db510f89430912fa98d22530728d}{delete\+All\+For\+Product}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_ad7a65c6f88a07fa721b71aaa21ba6e38}{delete\+All\+For\+Badge}} (int \$badge\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a172cc2e99439e24ae9af618ca4f52410}{bulk\+Insert}} (array \$associations)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_aeec37f468252dfc2b5b981d00466c6c9}{association\+Exists}} (int \$product\+Id, int \$badge\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a78ba613755f49522799e6cd479a9267f}{count\+Badges\+For\+Product}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a491f1dc0937793f2a4548f68b1fd32fb}{count\+Products\+For\+Badge}} (int \$badge\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a5939a51875d8b29429a13f4a32909da2}{find\+For\+Multiple\+Products}} (array \$product\+Ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a1debd01e370887db8132ddb8d2375291}{find\+For\+Multiple\+Badges}} (array \$badge\+Ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a8877e591802c7cab214118841c30d28d}{insert}} (\$data=null, bool \$return\+ID=true)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a42b869085d8bcb2e9741f1541ad6779a}{update}} (\$id=null, \$data=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a6ef72a3c569d36ee8d737049056f62a7}{delete}} (\$id=null, bool \$purge=false)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel}{App\textbackslash{}\+Models\textbackslash{}\+Base\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a520a32fbcc043cef1d4546c95a39fdd6}{find\+Active\+By\+Id}} (int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_adf863f20d1743aae9bd51d6e38d82dbd}{archive}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ae337a05eb88d4d9916e0279a9d974651}{restore}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a4de323dc9982ad34f14b0858f3e4b9af}{update\+If\+Changed}} (int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null \$id=null, array \$data=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a3c72ad44ad5b528ce9efc1bb3ce7fa5c}{bulk\+Update}} (array \$ids, array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_af601ce718f1fdf9132383c1eeca757e3}{count\+Active}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a9557cfc80300e9f9d5022bad0d7ad854}{validate\+Data}} (array \$data)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a47cad78c9af8dd72e28fdb4851cd4a5c}{\$table}} = \textquotesingle{}product\+\_\+badges\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a1e389a810082a539455d2d1d8f3d67e6}{\$primary\+Key}} = false
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a91e2b6cfadf4ab4b271697d80c36cbb6}{\$return\+Type}} = Product\+Badge\+::class
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_ab2dc63e7b4c2413c800c153a16643638}{\$use\+Timestamps}} = false
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a0fb95e4478f604e885767144d5e28e16}{\$use\+Soft\+Deletes}} = false
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_ad681b423e96d79987531fe786f834590}{\$allowed\+Fields}}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_ab5ebf659b811c40675ea9e66ff5c0267}{\$validation\+Rules}}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_aa77b66a4a8d936a67e50f4170da03707}{\$validation\+Messages}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel}{App\textbackslash{}\+Models\textbackslash{}\+Base\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a65198a8d2123c142c654ef9f21f57090}{DEFAULT\+\_\+\+CACHE\+\_\+\+TTL}} = 3600
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a8bc39ec7a754e85b5cbe45cea47f9c5d}{\$use\+Soft\+Deletes}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a2b6a956723885b813bdb5c28fa4a91c8}{\$use\+Timestamps}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a76ed9b9cd6c48ea935c0593ba224df49}{\$created\+Field}} = \textquotesingle{}created\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a567094feb29383fe42a4178f3fceab5b}{\$updated\+Field}} = \textquotesingle{}updated\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ae49e9220f67b7fa0acfc28ad8e077bb9}{\$deleted\+Field}} = \textquotesingle{}deleted\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a213de2a8ea7fa54c300c2c1ec0a1f03c}{\$validation\+Rules}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a6a119a1ad59e2739d27843730b7990ee}{\$validation\+Messages}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ab3db9405c68a5a3d595e1a09a7fa9fc4}{\$skip\+Validation}} = false
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_aeec37f468252dfc2b5b981d00466c6c9}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!associationExists@{associationExists}}
+\index{associationExists@{associationExists}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{associationExists()}{associationExists()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_aeec37f468252dfc2b5b981d00466c6c9} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::association\+Exists (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Check if association exists
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1ProductBadgeModel_aeec37f468252dfc2b5b981d00466c6c9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a172cc2e99439e24ae9af618ca4f52410}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!bulkInsert@{bulkInsert}}
+\index{bulkInsert@{bulkInsert}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{bulkInsert()}{bulkInsert()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a172cc2e99439e24ae9af618ca4f52410} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::bulk\+Insert (\begin{DoxyParamCaption}\item[{array}]{\$associations}{}\end{DoxyParamCaption})}
+
+Insert multiple associations at once
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$array\{product\+\_\+id} & int, badge\+\_\+id\+: int, assigned\+\_\+by?\+: int\}\texorpdfstring{$>$}{>} \$associations \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of inserted rows 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Invalid\+Argument\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a78ba613755f49522799e6cd479a9267f}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!countBadgesForProduct@{countBadgesForProduct}}
+\index{countBadgesForProduct@{countBadgesForProduct}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{countBadgesForProduct()}{countBadgesForProduct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a78ba613755f49522799e6cd479a9267f} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::count\+Badges\+For\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Count badges for a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a491f1dc0937793f2a4548f68b1fd32fb}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!countProductsForBadge@{countProductsForBadge}}
+\index{countProductsForBadge@{countProductsForBadge}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{countProductsForBadge()}{countProductsForBadge()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a491f1dc0937793f2a4548f68b1fd32fb} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::count\+Products\+For\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Count products for a badge
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a6ef72a3c569d36ee8d737049056f62a7}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!delete@{delete}}
+\index{delete@{delete}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a6ef72a3c569d36ee8d737049056f62a7} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::delete (\begin{DoxyParamCaption}\item[{}]{\$id}{ = {\ttfamily null}, }\item[{bool}]{\$purge}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Override parent delete -\/ use delete\+Association instead
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string | array | null & {\em \$id} & \\
+\hline
+bool & {\em \$purge} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool\texorpdfstring{$\vert$}{|}\+Base\+Result 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a0a8bd9bb1bf591c97e19bd41a698641e}{App\textbackslash{}\+Models\textbackslash{}\+Base\+Model}}.
+
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_ad7a65c6f88a07fa721b71aaa21ba6e38}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!deleteAllForBadge@{deleteAllForBadge}}
+\index{deleteAllForBadge@{deleteAllForBadge}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{deleteAllForBadge()}{deleteAllForBadge()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_ad7a65c6f88a07fa721b71aaa21ba6e38} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::delete\+All\+For\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Delete all products for a badge
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_ac322db510f89430912fa98d22530728d}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!deleteAllForProduct@{deleteAllForProduct}}
+\index{deleteAllForProduct@{deleteAllForProduct}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{deleteAllForProduct()}{deleteAllForProduct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_ac322db510f89430912fa98d22530728d} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::delete\+All\+For\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Delete all badges for a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_ad6c3506a659ae1bdc1ed0db318a9ad9a}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!deleteAssociation@{deleteAssociation}}
+\index{deleteAssociation@{deleteAssociation}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{deleteAssociation()}{deleteAssociation()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_ad6c3506a659ae1bdc1ed0db318a9ad9a} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::delete\+Association (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Delete association by composite key
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a045553a39a3064caa296666c1cc64842}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!findByBadgeId@{findByBadgeId}}
+\index{findByBadgeId@{findByBadgeId}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{findByBadgeId()}{findByBadgeId()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a045553a39a3064caa296666c1cc64842} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::find\+By\+Badge\+Id (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Find all products for a badge
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Badge$>$ 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a4f83fc46aad2d8a567573865c59b94a7}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!findByCompositeKey@{findByCompositeKey}}
+\index{findByCompositeKey@{findByCompositeKey}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{findByCompositeKey()}{findByCompositeKey()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a4f83fc46aad2d8a567573865c59b94a7} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::find\+By\+Composite\+Key (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Find association by composite key
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Badge\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a7c0875295e87d2eb61972c5282ef0c9d}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!findByProductId@{findByProductId}}
+\index{findByProductId@{findByProductId}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{findByProductId()}{findByProductId()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a7c0875295e87d2eb61972c5282ef0c9d} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::find\+By\+Product\+Id (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Find all badges for a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Badge$>$ 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a1debd01e370887db8132ddb8d2375291}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!findForMultipleBadges@{findForMultipleBadges}}
+\index{findForMultipleBadges@{findForMultipleBadges}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{findForMultipleBadges()}{findForMultipleBadges()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a1debd01e370887db8132ddb8d2375291} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::find\+For\+Multiple\+Badges (\begin{DoxyParamCaption}\item[{array}]{\$badge\+Ids}{}\end{DoxyParamCaption})}
+
+Get products for multiple badges (batch operation)
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int$>$} & \$badge\+Ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$int, array$<$\+Product\+Badge$>$$>$ Badge ID =\texorpdfstring{$>$}{>} array of products 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a5939a51875d8b29429a13f4a32909da2}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!findForMultipleProducts@{findForMultipleProducts}}
+\index{findForMultipleProducts@{findForMultipleProducts}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{findForMultipleProducts()}{findForMultipleProducts()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a5939a51875d8b29429a13f4a32909da2} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::find\+For\+Multiple\+Products (\begin{DoxyParamCaption}\item[{array}]{\$product\+Ids}{}\end{DoxyParamCaption})}
+
+Get badges for multiple products (batch operation)
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int$>$} & \$product\+Ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$int, array$<$\+Product\+Badge$>$$>$ Product ID =\texorpdfstring{$>$}{>} array of badges 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a8877e591802c7cab214118841c30d28d}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!insert@{insert}}
+\index{insert@{insert}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a8877e591802c7cab214118841c30d28d} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::insert (\begin{DoxyParamCaption}\item[{}]{\$data}{ = {\ttfamily null}, }\item[{bool}]{\$return\+ID}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Override parent insert to handle composite key uniqueness
+
+
+\begin{DoxyParams}[1]{Parameters}
+array | null & {\em \$data} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool\texorpdfstring{$\vert$}{|}int\texorpdfstring{$\vert$}{|}string 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1ProductBadgeModel_a8877e591802c7cab214118841c30d28d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a42b869085d8bcb2e9741f1541ad6779a}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!update@{update}}
+\index{update@{update}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a42b869085d8bcb2e9741f1541ad6779a} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::update (\begin{DoxyParamCaption}\item[{}]{\$id}{ = {\ttfamily null}, }\item[{}]{\$data}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Override parent update -\/ not applicable for composite key without primary key Use delete\+Association + insert instead
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string | array | null & {\em \$id} & \\
+\hline
+array | null & {\em \$data} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_ad681b423e96d79987531fe786f834590}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!\$allowedFields@{\$allowedFields}}
+\index{\$allowedFields@{\$allowedFields}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{\$allowedFields}{\$allowedFields}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_ad681b423e96d79987531fe786f834590} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::\$allowed\+Fields\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'product\_id'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'badge\_id'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'assigned\_at'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'assigned\_by'},}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a1e389a810082a539455d2d1d8f3d67e6}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!\$primaryKey@{\$primaryKey}}
+\index{\$primaryKey@{\$primaryKey}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{\$primaryKey}{\$primaryKey}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a1e389a810082a539455d2d1d8f3d67e6} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::\$primary\+Key = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a91e2b6cfadf4ab4b271697d80c36cbb6}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!\$returnType@{\$returnType}}
+\index{\$returnType@{\$returnType}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{\$returnType}{\$returnType}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a91e2b6cfadf4ab4b271697d80c36cbb6} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::\$return\+Type = Product\+Badge\+::class\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a47cad78c9af8dd72e28fdb4851cd4a5c}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!\$table@{\$table}}
+\index{\$table@{\$table}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{\$table}{\$table}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a47cad78c9af8dd72e28fdb4851cd4a5c} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::\$table = \textquotesingle{}product\+\_\+badges\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_a0fb95e4478f604e885767144d5e28e16}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!\$useSoftDeletes@{\$useSoftDeletes}}
+\index{\$useSoftDeletes@{\$useSoftDeletes}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{\$useSoftDeletes}{\$useSoftDeletes}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_a0fb95e4478f604e885767144d5e28e16} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::\$use\+Soft\+Deletes = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_ab2dc63e7b4c2413c800c153a16643638}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!\$useTimestamps@{\$useTimestamps}}
+\index{\$useTimestamps@{\$useTimestamps}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{\$useTimestamps}{\$useTimestamps}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_ab2dc63e7b4c2413c800c153a16643638} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::\$use\+Timestamps = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_aa77b66a4a8d936a67e50f4170da03707}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!\$validationMessages@{\$validationMessages}}
+\index{\$validationMessages@{\$validationMessages}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{\$validationMessages}{\$validationMessages}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_aa77b66a4a8d936a67e50f4170da03707} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::\$validation\+Messages\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'product\_id'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{stringliteral}{'Product\ ID\ is\ required'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'integer'}\ =>\ \textcolor{stringliteral}{'Product\ ID\ must\ be\ an\ integer'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'is\_not\_unique'}\ =>\ \textcolor{stringliteral}{'Product\ does\ not\ exist'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'badge\_id'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{stringliteral}{'Badge\ ID\ is\ required'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'integer'}\ =>\ \textcolor{stringliteral}{'Badge\ ID\ must\ be\ an\ integer'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'is\_not\_unique'}\ =>\ \textcolor{stringliteral}{'Badge\ does\ not\ exist'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'assigned\_by'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'integer'}\ =>\ \textcolor{stringliteral}{'Assigned\ by\ must\ be\ an\ integer'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'is\_not\_unique'}\ =>\ \textcolor{stringliteral}{'Admin\ does\ not\ exist'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Models_1_1ProductBadgeModel_ab5ebf659b811c40675ea9e66ff5c0267}\index{App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}!\$validationRules@{\$validationRules}}
+\index{\$validationRules@{\$validationRules}!App\textbackslash{}Models\textbackslash{}ProductBadgeModel@{App\textbackslash{}Models\textbackslash{}ProductBadgeModel}}
+\doxysubsubsection{\texorpdfstring{\$validationRules}{\$validationRules}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1ProductBadgeModel_ab5ebf659b811c40675ea9e66ff5c0267} 
+App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model\+::\$validation\+Rules\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'product\_id'}\ =>\ \textcolor{stringliteral}{'required|integer|is\_not\_unique[products.id]'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'badge\_id'}\ =>\ \textcolor{stringliteral}{'required|integer|is\_not\_unique[badges.id]'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'assigned\_by'}\ =>\ \textcolor{stringliteral}{'permit\_empty|integer|is\_not\_unique[admins.id]'},}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Models/\mbox{\hyperlink{ProductBadgeModel_8php}{Product\+Badge\+Model.\+php}}\end{DoxyCompactItemize}

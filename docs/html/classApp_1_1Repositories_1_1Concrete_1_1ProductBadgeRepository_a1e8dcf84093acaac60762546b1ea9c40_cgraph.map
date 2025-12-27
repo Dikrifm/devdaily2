@@ -1,0 +1,17 @@
+<map id="App\Repositories\Concrete\ProductBadgeRepository\paginateProductIdsForBadge" name="App\Repositories\Concrete\ProductBadgeRepository\paginateProductIdsForBadge">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,69,217,131"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#a5e82383bd41cb1f0e06a2ff68d9a7550" title=" " alt="" coords="265,116,502,161"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,112,252,119,247,120,217,117"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="550,39,787,83"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="155,66,206,38,264,16,305,8,347,4,431,6,511,17,582,34,577,35,510,22,431,11,347,9,306,13,265,21,208,43,158,71"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="550,112,787,157"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="163,128,212,153,265,170,344,181,425,180,502,171,568,161,573,160,503,176,425,185,344,186,264,176,210,157,162,134"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository.html#a3dde1393c21ff4ed40eed046986ad82f" title=" " alt="" coords="287,30,480,92"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="216,82,274,76,269,78,218,87"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#acc7740dbfc3cae4f284a886d4a99c214" title=" " alt="" coords="550,181,787,226"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="484,159,556,177,550,177,484,164"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="468,113,566,89,571,87,469,118"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="502,134,537,136,532,137,503,139"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="480,58,537,61,532,62,481,64"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="481,83,567,107,562,108,480,89"/>
+</map>

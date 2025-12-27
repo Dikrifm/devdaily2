@@ -1,0 +1,186 @@
+\doxysection{Config\textbackslash{}Filters Class Reference}
+\hypertarget{classConfig_1_1Filters}{}\label{classConfig_1_1Filters}\index{Config\textbackslash{}Filters@{Config\textbackslash{}Filters}}
+
+
+Inheritance diagram for Config\textbackslash{}Filters\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classConfig_1_1Filters__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Config\textbackslash{}Filters\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classConfig_1_1Filters__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classConfig_1_1Filters_a33b2c237c3a7ac1e943b04b7ff9c3efa}{\+\_\+\+\_\+construct}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+array \mbox{\hyperlink{classConfig_1_1Filters_a508b1f5e33dce6e8db9e1c3aba441028}{\$aliases}}
+\item 
+array \mbox{\hyperlink{classConfig_1_1Filters_a83c364a28bd1f51c8a19f22e3b31931a}{\$globals}}
+\item 
+array \mbox{\hyperlink{classConfig_1_1Filters_ad4aaf6b53ae0d6f6ca0f2e6c97cb229c}{\$methods}}
+\item 
+array \mbox{\hyperlink{classConfig_1_1Filters_af426ccdd5fbaaa76c02047b3f53648c4}{\$filters}}
+\item 
+array \mbox{\hyperlink{classConfig_1_1Filters_a34387a0403715dc206bf8e9cbb8e37b8}{\$required}}
+\item 
+array \mbox{\hyperlink{classConfig_1_1Filters_a501cb1abf43af9faa38a0d2213a3dce5}{\$never}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classConfig_1_1Filters_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classConfig_1_1Filters_a33b2c237c3a7ac1e943b04b7ff9c3efa}\index{Config\textbackslash{}Filters@{Config\textbackslash{}Filters}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!Config\textbackslash{}Filters@{Config\textbackslash{}Filters}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classConfig_1_1Filters_a33b2c237c3a7ac1e943b04b7ff9c3efa} 
+Config\textbackslash{}\+Filters\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Konfigurasi tambahan untuk environment tertentu. 
+
+\label{doc-variable-members}
+\Hypertarget{classConfig_1_1Filters_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classConfig_1_1Filters_a508b1f5e33dce6e8db9e1c3aba441028}\index{Config\textbackslash{}Filters@{Config\textbackslash{}Filters}!\$aliases@{\$aliases}}
+\index{\$aliases@{\$aliases}!Config\textbackslash{}Filters@{Config\textbackslash{}Filters}}
+\doxysubsubsection{\texorpdfstring{\$aliases}{\$aliases}}
+{\footnotesize\ttfamily \label{classConfig_1_1Filters_a508b1f5e33dce6e8db9e1c3aba441028} 
+array Config\textbackslash{}\+Filters\+::\$aliases}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'csrf'}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =>\ \(\backslash\)CodeIgniter\(\backslash\)Filters\(\backslash\)CSRF::class,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'toolbar'}\ \ \ \ \ \ \ \ \ \ \ \ =>\ \(\backslash\)CodeIgniter\(\backslash\)Filters\(\backslash\)DebugToolbar::class,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'honeypot'}\ \ \ \ \ \ \ \ \ \ \ =>\ \(\backslash\)CodeIgniter\(\backslash\)Filters\(\backslash\)Honeypot::class,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'invalidchars'}\ \ \ \ \ \ \ =>\ \(\backslash\)CodeIgniter\(\backslash\)Filters\(\backslash\)InvalidChars::class,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'secureheaders'}\ \ \ \ \ \ =>\ \(\backslash\)CodeIgniter\(\backslash\)Filters\(\backslash\)SecureHeaders::class,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'forcehttps'}\ \ \ \ \ \ \ \ \ =>\ \(\backslash\)CodeIgniter\(\backslash\)Filters\(\backslash\)ForceHTTPS::class,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'pagecache'}\ \ \ \ \ \ \ \ \ \ =>\ \(\backslash\)CodeIgniter\(\backslash\)Filters\(\backslash\)PageCache::class,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'performance'}\ \ \ \ \ \ \ \ =>\ \(\backslash\)CodeIgniter\(\backslash\)Filters\(\backslash\)PerformanceMetrics::class,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'cors'}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =>\ \(\backslash\)App\(\backslash\)Filters\(\backslash\)CorsFilter::class,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'admin-\/auth'}\ \ \ \ \ \ \ \ \ =>\ \(\backslash\)App\(\backslash\)Filters\(\backslash\)AdminAuth::class,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'admin-\/session'}\ \ \ \ \ \ =>\ \(\backslash\)App\(\backslash\)Filters\(\backslash\)AdminSessionCheck::class,\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'admin-\/pipeline'}\ \ \ \ \ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'admin-\/auth'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'admin-\/session'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classConfig_1_1Filters_af426ccdd5fbaaa76c02047b3f53648c4}\index{Config\textbackslash{}Filters@{Config\textbackslash{}Filters}!\$filters@{\$filters}}
+\index{\$filters@{\$filters}!Config\textbackslash{}Filters@{Config\textbackslash{}Filters}}
+\doxysubsubsection{\texorpdfstring{\$filters}{\$filters}}
+{\footnotesize\ttfamily \label{classConfig_1_1Filters_af426ccdd5fbaaa76c02047b3f53648c4} 
+array Config\textbackslash{}\+Filters\+::\$filters}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'admin-\/pipeline'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'before'}\ =>\ [\textcolor{stringliteral}{'admin-\/auth'},\ \textcolor{stringliteral}{'admin-\/session'}],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'cache-\/public'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'before'}\ =>\ [\textcolor{stringliteral}{'pagecache'}\ =>\ [\textcolor{stringliteral}{'cache\_time'}\ =>\ 300]],\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classConfig_1_1Filters_a83c364a28bd1f51c8a19f22e3b31931a}\index{Config\textbackslash{}Filters@{Config\textbackslash{}Filters}!\$globals@{\$globals}}
+\index{\$globals@{\$globals}!Config\textbackslash{}Filters@{Config\textbackslash{}Filters}}
+\doxysubsubsection{\texorpdfstring{\$globals}{\$globals}}
+{\footnotesize\ttfamily \label{classConfig_1_1Filters_a83c364a28bd1f51c8a19f22e3b31931a} 
+array Config\textbackslash{}\+Filters\+::\$globals}
+
+\Hypertarget{classConfig_1_1Filters_ad4aaf6b53ae0d6f6ca0f2e6c97cb229c}\index{Config\textbackslash{}Filters@{Config\textbackslash{}Filters}!\$methods@{\$methods}}
+\index{\$methods@{\$methods}!Config\textbackslash{}Filters@{Config\textbackslash{}Filters}}
+\doxysubsubsection{\texorpdfstring{\$methods}{\$methods}}
+{\footnotesize\ttfamily \label{classConfig_1_1Filters_ad4aaf6b53ae0d6f6ca0f2e6c97cb229c} 
+array Config\textbackslash{}\+Filters\+::\$methods}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'post'}\ =>\ [\textcolor{stringliteral}{'csrf'}],\ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'put'}\ \ =>\ [\textcolor{stringliteral}{'csrf'}],\ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'patch'}\ =>\ [\textcolor{stringliteral}{'csrf'}],\ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'delete'}\ =>\ [\textcolor{stringliteral}{'csrf'}],\ }
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classConfig_1_1Filters_a501cb1abf43af9faa38a0d2213a3dce5}\index{Config\textbackslash{}Filters@{Config\textbackslash{}Filters}!\$never@{\$never}}
+\index{\$never@{\$never}!Config\textbackslash{}Filters@{Config\textbackslash{}Filters}}
+\doxysubsubsection{\texorpdfstring{\$never}{\$never}}
+{\footnotesize\ttfamily \label{classConfig_1_1Filters_a501cb1abf43af9faa38a0d2213a3dce5} 
+array Config\textbackslash{}\+Filters\+::\$never}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'toolbar'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'api/*'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'admin/api/*'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'csrf'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'api/*'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'admin/api/*'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classConfig_1_1Filters_a34387a0403715dc206bf8e9cbb8e37b8}\index{Config\textbackslash{}Filters@{Config\textbackslash{}Filters}!\$required@{\$required}}
+\index{\$required@{\$required}!Config\textbackslash{}Filters@{Config\textbackslash{}Filters}}
+\doxysubsubsection{\texorpdfstring{\$required}{\$required}}
+{\footnotesize\ttfamily \label{classConfig_1_1Filters_a34387a0403715dc206bf8e9cbb8e37b8} 
+array Config\textbackslash{}\+Filters\+::\$required}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Config/\mbox{\hyperlink{Filters_8php}{Filters.\+php}}\end{DoxyCompactItemize}

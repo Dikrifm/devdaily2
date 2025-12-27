@@ -1,0 +1,9 @@
+<map id="App\Repositories\Concrete\AdminRepository\findRegularAdmins" name="App\Repositories\Concrete\AdminRepository\findRegularAdmins">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,270,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#ae129f313c21dc4adf01ef9a847a941e0" title=" " alt="" coords="318,5,555,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,71,325,53,320,55,238,77"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="318,75,555,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="270,94,305,97,300,97,270,100"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="318,144,555,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="237,117,325,139,320,140,237,123"/>
+</map>

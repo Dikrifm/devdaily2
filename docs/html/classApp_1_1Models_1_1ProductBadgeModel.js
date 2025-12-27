@@ -1,0 +1,26 @@
+var classApp_1_1Models_1_1ProductBadgeModel =
+[
+    [ "associationExists", "classApp_1_1Models_1_1ProductBadgeModel.html#aeec37f468252dfc2b5b981d00466c6c9", null ],
+    [ "bulkInsert", "classApp_1_1Models_1_1ProductBadgeModel.html#a172cc2e99439e24ae9af618ca4f52410", null ],
+    [ "countBadgesForProduct", "classApp_1_1Models_1_1ProductBadgeModel.html#a78ba613755f49522799e6cd479a9267f", null ],
+    [ "countProductsForBadge", "classApp_1_1Models_1_1ProductBadgeModel.html#a491f1dc0937793f2a4548f68b1fd32fb", null ],
+    [ "delete", "classApp_1_1Models_1_1ProductBadgeModel.html#a6ef72a3c569d36ee8d737049056f62a7", null ],
+    [ "deleteAllForBadge", "classApp_1_1Models_1_1ProductBadgeModel.html#ad7a65c6f88a07fa721b71aaa21ba6e38", null ],
+    [ "deleteAllForProduct", "classApp_1_1Models_1_1ProductBadgeModel.html#ac322db510f89430912fa98d22530728d", null ],
+    [ "deleteAssociation", "classApp_1_1Models_1_1ProductBadgeModel.html#ad6c3506a659ae1bdc1ed0db318a9ad9a", null ],
+    [ "findByBadgeId", "classApp_1_1Models_1_1ProductBadgeModel.html#a045553a39a3064caa296666c1cc64842", null ],
+    [ "findByCompositeKey", "classApp_1_1Models_1_1ProductBadgeModel.html#a4f83fc46aad2d8a567573865c59b94a7", null ],
+    [ "findByProductId", "classApp_1_1Models_1_1ProductBadgeModel.html#a7c0875295e87d2eb61972c5282ef0c9d", null ],
+    [ "findForMultipleBadges", "classApp_1_1Models_1_1ProductBadgeModel.html#a1debd01e370887db8132ddb8d2375291", null ],
+    [ "findForMultipleProducts", "classApp_1_1Models_1_1ProductBadgeModel.html#a5939a51875d8b29429a13f4a32909da2", null ],
+    [ "insert", "classApp_1_1Models_1_1ProductBadgeModel.html#a8877e591802c7cab214118841c30d28d", null ],
+    [ "update", "classApp_1_1Models_1_1ProductBadgeModel.html#a42b869085d8bcb2e9741f1541ad6779a", null ],
+    [ "$allowedFields", "classApp_1_1Models_1_1ProductBadgeModel.html#ad681b423e96d79987531fe786f834590", null ],
+    [ "$primaryKey", "classApp_1_1Models_1_1ProductBadgeModel.html#a1e389a810082a539455d2d1d8f3d67e6", null ],
+    [ "$returnType", "classApp_1_1Models_1_1ProductBadgeModel.html#a91e2b6cfadf4ab4b271697d80c36cbb6", null ],
+    [ "$table", "classApp_1_1Models_1_1ProductBadgeModel.html#a47cad78c9af8dd72e28fdb4851cd4a5c", null ],
+    [ "$useSoftDeletes", "classApp_1_1Models_1_1ProductBadgeModel.html#a0fb95e4478f604e885767144d5e28e16", null ],
+    [ "$useTimestamps", "classApp_1_1Models_1_1ProductBadgeModel.html#ab2dc63e7b4c2413c800c153a16643638", null ],
+    [ "$validationMessages", "classApp_1_1Models_1_1ProductBadgeModel.html#aa77b66a4a8d936a67e50f4170da03707", null ],
+    [ "$validationRules", "classApp_1_1Models_1_1ProductBadgeModel.html#ab5ebf659b811c40675ea9e66ff5c0267", null ]
+];

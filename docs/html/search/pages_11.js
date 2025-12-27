@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['s_20padding_20length_20in_20bytes_0',['SodiumHandler&apos;s Padding Length in Bytes',['../classConfig_1_1Encryption.html#autotoc_md75',1,'']]],
+  ['samesite_1',['Cookie SameSite',['..//data/data/com.termux/files/home/devdaily2/app/Config/Cookie.php#autotoc_md65',1,'']]],
+  ['save_20path_2',['Session Save Path',['../classConfig_1_1Session.html#autotoc_md159',1,'']]],
+  ['secure_3',['Cookie Secure',['../classConfig_1_1Cookie.html#autotoc_md61',1,'']]],
+  ['secure_20requests_4',['Force Global Secure Requests',['../classConfig_1_1App.html#autotoc_md17',1,'']]],
+  ['security_20policy_5',['Content Security Policy',['../classConfig_1_1App.html#autotoc_md21',1,'']]],
+  ['session_20cookie_20name_6',['Session Cookie Name',['../classConfig_1_1Session.html#autotoc_md155',1,'']]],
+  ['session_20database_20group_7',['Session Database Group',['../classConfig_1_1Session.html#autotoc_md167',1,'']]],
+  ['session_20driver_8',['Session Driver',['..//data/data/com.termux/files/home/devdaily2/app/Config/Session.php#autotoc_md153',1,'']]],
+  ['session_20expiration_9',['Session Expiration',['../classConfig_1_1Session.html#autotoc_md157',1,'']]],
+  ['session_20match_20ip_10',['Session Match IP',['../classConfig_1_1Session.html#autotoc_md161',1,'']]],
+  ['session_20regenerate_20destroy_11',['Session Regenerate Destroy',['../classConfig_1_1Session.html#autotoc_md165',1,'']]],
+  ['session_20save_20path_12',['Session Save Path',['../classConfig_1_1Session.html#autotoc_md159',1,'']]],
+  ['session_20time_20to_20update_13',['Session Time to Update',['../classConfig_1_1Session.html#autotoc_md163',1,'']]],
+  ['set_14',['Default Character Set',['../classConfig_1_1App.html#autotoc_md15',1,'']]],
+  ['settings_15',['settings',['..//data/data/com.termux/files/home/devdaily2/app/Config/Cache.php#autotoc_md43',1,'File settings'],['..//data/data/com.termux/files/home/devdaily2/app/Config/Cache.php#autotoc_md45',1,'Memcached settings'],['..//data/data/com.termux/files/home/devdaily2/app/Config/Cache.php#autotoc_md47',1,'Redis settings']]],
+  ['share_20options_16',['CURLRequest Share Options',['../classConfig_1_1CURLRequest.html#autotoc_md69',1,'']]],
+  ['site_20url_17',['Base Site URL',['../classConfig_1_1App.html#autotoc_md1',1,'']]],
+  ['sodiumhandler_20s_20padding_20length_20in_20bytes_18',['SodiumHandler&apos;s Padding Length in Bytes',['../classConfig_1_1Encryption.html#autotoc_md75',1,'']]],
+  ['starter_19',['Encryption Key Starter',['../classConfig_1_1Encryption.html#autotoc_md71',1,'']]],
+  ['status_20codes_20',['DO NOT LOG STATUS CODES',['..//data/data/com.termux/files/home/devdaily2/app/Config/Exceptions.php#autotoc_md81',1,'']]],
+  ['string_21',['Web Page Caching: Cache Include Query String',['..//data/data/com.termux/files/home/devdaily2/app/Config/Cache.php#autotoc_md51',1,'']]],
+  ['supported_20locales_22',['Supported Locales',['..//data/data/com.termux/files/home/devdaily2/app/Config/App.php#autotoc_md11',1,'']]],
+  ['system_20folder_20name_23',['SYSTEM FOLDER NAME',['../classConfig_1_1Paths.html#autotoc_md127',1,'']]]
+];

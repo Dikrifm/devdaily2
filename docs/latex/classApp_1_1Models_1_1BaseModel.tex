@@ -1,0 +1,278 @@
+\doxysection{App\textbackslash{}Models\textbackslash{}Base\+Model Class Reference}
+\hypertarget{classApp_1_1Models_1_1BaseModel}{}\label{classApp_1_1Models_1_1BaseModel}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+
+
+Inheritance diagram for App\textbackslash{}Models\textbackslash{}Base\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1BaseModel__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Models\textbackslash{}Base\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{classApp_1_1Models_1_1BaseModel__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a520a32fbcc043cef1d4546c95a39fdd6}{find\+Active\+By\+Id}} (int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a0a8bd9bb1bf591c97e19bd41a698641e}{delete}} (\$id=null, bool \$purge=false)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_adf863f20d1743aae9bd51d6e38d82dbd}{archive}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ae337a05eb88d4d9916e0279a9d974651}{restore}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a4de323dc9982ad34f14b0858f3e4b9af}{update\+If\+Changed}} (int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null \$id=null, array \$data=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a3c72ad44ad5b528ce9efc1bb3ce7fa5c}{bulk\+Update}} (array \$ids, array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_af601ce718f1fdf9132383c1eeca757e3}{count\+Active}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a9557cfc80300e9f9d5022bad0d7ad854}{validate\+Data}} (array \$data)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a65198a8d2123c142c654ef9f21f57090}{DEFAULT\+\_\+\+CACHE\+\_\+\+TTL}} = 3600
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a8bc39ec7a754e85b5cbe45cea47f9c5d}{\$use\+Soft\+Deletes}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a2b6a956723885b813bdb5c28fa4a91c8}{\$use\+Timestamps}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a76ed9b9cd6c48ea935c0593ba224df49}{\$created\+Field}} = \textquotesingle{}created\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a567094feb29383fe42a4178f3fceab5b}{\$updated\+Field}} = \textquotesingle{}updated\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ae49e9220f67b7fa0acfc28ad8e077bb9}{\$deleted\+Field}} = \textquotesingle{}deleted\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a213de2a8ea7fa54c300c2c1ec0a1f03c}{\$validation\+Rules}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a6a119a1ad59e2739d27843730b7990ee}{\$validation\+Messages}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ab3db9405c68a5a3d595e1a09a7fa9fc4}{\$skip\+Validation}} = false
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_adf863f20d1743aae9bd51d6e38d82dbd}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!archive@{archive}}
+\index{archive@{archive}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{archive()}{archive()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_adf863f20d1743aae9bd51d6e38d82dbd} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::archive (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Archive record (alias for soft delete)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a3c72ad44ad5b528ce9efc1bb3ce7fa5c}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!bulkUpdate@{bulkUpdate}}
+\index{bulkUpdate@{bulkUpdate}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{bulkUpdate()}{bulkUpdate()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a3c72ad44ad5b528ce9efc1bb3ce7fa5c} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::bulk\+Update (\begin{DoxyParamCaption}\item[{array}]{\$ids}{, }\item[{array}]{\$data}{}\end{DoxyParamCaption})}
+
+Bulk update with manual timestamp injection. Note\+: This bypasses Model Events (Audit Logs won\textquotesingle{}t trigger automatically).
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$ids} & List of Primary Keys \\
+\hline
+array & {\em \$data} & Key-\/\+Value pair of data to update \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of affected rows (estimated) 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1BaseModel_a3c72ad44ad5b528ce9efc1bb3ce7fa5c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_af601ce718f1fdf9132383c1eeca757e3}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!countActive@{countActive}}
+\index{countActive@{countActive}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{countActive()}{countActive()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_af601ce718f1fdf9132383c1eeca757e3} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::count\+Active (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get count of active records \Hypertarget{classApp_1_1Models_1_1BaseModel_a0a8bd9bb1bf591c97e19bd41a698641e}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!delete@{delete}}
+\index{delete@{delete}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a0a8bd9bb1bf591c97e19bd41a698641e} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::delete (\begin{DoxyParamCaption}\item[{}]{\$id}{ = {\ttfamily null}, }\item[{bool}]{\$purge}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Soft delete with Safety Latch.
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+int | string | array | null & {\em \$id} & \\
+\hline
+bool & {\em \$purge} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+Runtime\+Exception If physical delete is attempted in MVP 
+\end{DoxyItemize}
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Models_1_1AdminModel_a016b16a834826558d032049337511d50}{App\textbackslash{}\+Models\textbackslash{}\+Admin\+Model}}, \mbox{\hyperlink{classApp_1_1Models_1_1AuditLogModel_a5a131826e94fe9efc545712b3764f0d7}{App\textbackslash{}\+Models\textbackslash{}\+Audit\+Log\+Model}}, and \mbox{\hyperlink{classApp_1_1Models_1_1ProductBadgeModel_a6ef72a3c569d36ee8d737049056f62a7}{App\textbackslash{}\+Models\textbackslash{}\+Product\+Badge\+Model}}.
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a520a32fbcc043cef1d4546c95a39fdd6}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!findActiveById@{findActiveById}}
+\index{findActiveById@{findActiveById}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{findActiveById()}{findActiveById()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a520a32fbcc043cef1d4546c95a39fdd6} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::find\+Active\+By\+Id (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null}]{\$id}{}\end{DoxyParamCaption})}
+
+Find single active record by ID
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string | null & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object\texorpdfstring{$\vert$}{|}\+Base\+Entity\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Models_1_1AdminModel_a7b7165cb7c45ff58a64b66309fbe135a}{App\textbackslash{}\+Models\textbackslash{}\+Admin\+Model}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1BaseModel_a520a32fbcc043cef1d4546c95a39fdd6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_ae337a05eb88d4d9916e0279a9d974651}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!restore@{restore}}
+\index{restore@{restore}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{restore()}{restore()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_ae337a05eb88d4d9916e0279a9d974651} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::restore (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Restore archived record
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a4de323dc9982ad34f14b0858f3e4b9af}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!updateIfChanged@{updateIfChanged}}
+\index{updateIfChanged@{updateIfChanged}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{updateIfChanged()}{updateIfChanged()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a4de323dc9982ad34f14b0858f3e4b9af} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::update\+If\+Changed (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null}]{\$id}{ = {\ttfamily null}, }\item[{array}]{\$data}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Update only if values are different Prevents unnecessary database writes and timestamp updates
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string | null & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1BaseModel_a4de323dc9982ad34f14b0858f3e4b9af_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a9557cfc80300e9f9d5022bad0d7ad854}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!validateData@{validateData}}
+\index{validateData@{validateData}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{validateData()}{validateData()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a9557cfc80300e9f9d5022bad0d7ad854} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::validate\+Data (\begin{DoxyParamCaption}\item[{array}]{\$data}{}\end{DoxyParamCaption})}
+
+Validate data against model rules Simple wrapper for CI4 validation
+
+\begin{DoxyReturn}{Returns}
+array \mbox{[}bool \$valid, array \$errors\mbox{]} 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a76ed9b9cd6c48ea935c0593ba224df49}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!\$createdField@{\$createdField}}
+\index{\$createdField@{\$createdField}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{\$createdField}{\$createdField}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a76ed9b9cd6c48ea935c0593ba224df49} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\$created\+Field = \textquotesingle{}created\+\_\+at\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_ae49e9220f67b7fa0acfc28ad8e077bb9}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!\$deletedField@{\$deletedField}}
+\index{\$deletedField@{\$deletedField}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{\$deletedField}{\$deletedField}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_ae49e9220f67b7fa0acfc28ad8e077bb9} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\$deleted\+Field = \textquotesingle{}deleted\+\_\+at\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_ab3db9405c68a5a3d595e1a09a7fa9fc4}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!\$skipValidation@{\$skipValidation}}
+\index{\$skipValidation@{\$skipValidation}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{\$skipValidation}{\$skipValidation}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_ab3db9405c68a5a3d595e1a09a7fa9fc4} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\$skip\+Validation = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a567094feb29383fe42a4178f3fceab5b}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!\$updatedField@{\$updatedField}}
+\index{\$updatedField@{\$updatedField}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{\$updatedField}{\$updatedField}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a567094feb29383fe42a4178f3fceab5b} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\$updated\+Field = \textquotesingle{}updated\+\_\+at\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a8bc39ec7a754e85b5cbe45cea47f9c5d}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!\$useSoftDeletes@{\$useSoftDeletes}}
+\index{\$useSoftDeletes@{\$useSoftDeletes}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{\$useSoftDeletes}{\$useSoftDeletes}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a8bc39ec7a754e85b5cbe45cea47f9c5d} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\$use\+Soft\+Deletes = true\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a2b6a956723885b813bdb5c28fa4a91c8}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!\$useTimestamps@{\$useTimestamps}}
+\index{\$useTimestamps@{\$useTimestamps}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{\$useTimestamps}{\$useTimestamps}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a2b6a956723885b813bdb5c28fa4a91c8} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\$use\+Timestamps = true\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a6a119a1ad59e2739d27843730b7990ee}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!\$validationMessages@{\$validationMessages}}
+\index{\$validationMessages@{\$validationMessages}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{\$validationMessages}{\$validationMessages}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a6a119a1ad59e2739d27843730b7990ee} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\$validation\+Messages = \mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a213de2a8ea7fa54c300c2c1ec0a1f03c}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!\$validationRules@{\$validationRules}}
+\index{\$validationRules@{\$validationRules}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{\$validationRules}{\$validationRules}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a213de2a8ea7fa54c300c2c1ec0a1f03c} 
+App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\$validation\+Rules = \mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1BaseModel_a65198a8d2123c142c654ef9f21f57090}\index{App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}!DEFAULT\_CACHE\_TTL@{DEFAULT\_CACHE\_TTL}}
+\index{DEFAULT\_CACHE\_TTL@{DEFAULT\_CACHE\_TTL}!App\textbackslash{}Models\textbackslash{}BaseModel@{App\textbackslash{}Models\textbackslash{}BaseModel}}
+\doxysubsubsection{\texorpdfstring{DEFAULT\_CACHE\_TTL}{DEFAULT\_CACHE\_TTL}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1BaseModel_a65198a8d2123c142c654ef9f21f57090} 
+const App\textbackslash{}\+Models\textbackslash{}\+Base\+Model\+::\+DEFAULT\+\_\+\+CACHE\+\_\+\+TTL = 3600\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Models/\mbox{\hyperlink{BaseModel_8php}{Base\+Model.\+php}}\end{DoxyCompactItemize}

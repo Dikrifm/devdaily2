@@ -1,0 +1,9 @@
+<map id="App\Entities\Marketplace\deactivate" name="App\Entities\Marketplace\deactivate">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,189,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Marketplace.html#a18358ee2883dd9ca9d9a8790a4afd57f" title=" " alt="" coords="237,40,420,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,60,224,62,218,63,189,65"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1BaseEntity.html#a3770c7f469a55d30192e7ae8f6723a6b" title=" " alt="" coords="468,5,641,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="420,46,455,43,450,44,421,51"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1BaseEntity.html#a17a98596fe86b95304fb1f9dbf28f56d" title=" " alt="" coords="468,75,641,119"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="421,74,455,81,450,81,421,79"/>
+</map>

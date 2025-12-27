@@ -1,0 +1,368 @@
+\doxysection{App\textbackslash{}Contracts\textbackslash{}Link\+Interface Interface Reference}
+\hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface}{}\label{interfaceApp_1_1Contracts_1_1LinkInterface}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Contracts\textbackslash{}Link\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{interfaceApp_1_1Contracts_1_1LinkInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Contracts\textbackslash{}Link\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{interfaceApp_1_1Contracts_1_1LinkInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_a9322bbd71a1b36802f5a9e2ea2135685}{create\+Link}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Link_1_1CreateLinkRequest}{Create\+Link\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_a4e34d3e644551f480bcfa3f03e92895a}{update\+Link}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Link_1_1UpdateLinkRequest}{Update\+Link\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_a37dd0e02a45735336600b15190c3cf83}{delete\+Link}} (int \$link\+Id, bool \$force=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_a47478ebb22a2d31a33bf26280ddd8c28}{archive\+Link}} (int \$link\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_aa3b204335f31b83cd7a531c0c039929e}{restore\+Link}} (int \$link\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_a6ec6de688b7cf06a9cc804317b4cff5b}{get\+Link}} (int \$link\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_a204ac1d7a9998f0a659738e3e6905eed}{get\+Product\+Links}} (int \$product\+Id, bool \$active\+Only=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_a473f32256311fccc5545d0fe96983d74}{get\+Marketplace\+Links}} (int \$marketplace\+Id, bool \$active\+Only=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_ae881f0d293b27a06fc4a747d905c02a0}{get\+Link\+By\+Product\+And\+Marketplace}} (int \$product\+Id, int \$marketplace\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1LinkInterface_acf2729a6564ef893a5f4a5a9a6b1f75f}{search\+Links}} (array \$filters=\mbox{[}$\,$\mbox{]}, int \$page=1, int \$per\+Page=25)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface}{App\textbackslash{}\+Contracts\textbackslash{}\+Base\+Interface}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a513eec59fe7e9c0e402e46a78f8297d0}{transaction}} (Closure \$operation, ?string \$transaction\+Name=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a0f185075b3351f187e5d3a8254542226}{transaction\+With\+Retry}} (Closure \$operation, int \$max\+Retries=3, int \$retry\+Delay\+Ms=100)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a82b6e384c3fe6c7bfc54ea447281646d}{authorize}} (string \$permission, \$resource=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a873fb3b4fa96531b0e5783f7a99ae5fa}{validate\+DTO}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a91d3c6630411461cb087d01f44a51d78}{validate\+DTOOr\+Fail}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4ab64479468cdd5d2d1ff20e57288eb9}{validate\+Business\+Rules}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a659738ef6a66310bf5d776f0c30d069d}{coordinate\+Repositories}} (array \$repositories, Closure \$operation)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a614962d78135eed382f83ce29869a98e}{get\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$id, bool \$throw\+If\+Not\+Found=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_aed17577b644e1cd393d27d7bb8df0079}{audit}} (string \$action\+Type, string \$entity\+Type, int \$entity\+Id, ?array \$old\+Values=null, ?array \$new\+Values=null, array \$additional\+Context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a2e883260221a98d0a1460e60e9f5471a}{clear\+Cache\+For\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$entity\+Id=null, ?string \$pattern=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a44f55353c98e0aaa8b34958b616edf26}{clear\+Service\+Cache}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4eb6b3a73481036645de2cd9c1b52d0b}{with\+Caching}} (string \$cache\+Key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adca74bf9f67291760288556be736d719}{batch\+Operation}} (array \$items, Closure \$item\+Operation, int \$batch\+Size=100, ?callable \$progress\+Callback=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ab545a2b47b89a7e3024a6f49ec8925d1}{set\+Admin\+Context}} (?int \$admin\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_add7778041b0a400e381071f3ff73c738}{get\+Current\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adf003d75eba7ca916b60f3060ab99f69}{get\+Service\+Name}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a8217d5efa6e88215cb262bf40f347e0c}{get\+Service\+Cache\+Key}} (string \$operation, array \$parameters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_af738fd9359e1bbbf4aa1f3e7dd3842db}{get\+Initialized\+At}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a86fa6c01142fed51838997cde357ebcc}{is\+Ready}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a3cf8cac523af3644379fa92fea310552}{get\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ac73ccbd402a29fa7d8b0afec6f47ff24}{get\+Performance\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a572bfd5dd56831a44813c2a5f0d0d4a9}{reset\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_abd29e7ea159bb15a299066801bded75e}{validate\+Configuration}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_a47478ebb22a2d31a33bf26280ddd8c28}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!archiveLink@{archiveLink}}
+\index{archiveLink@{archiveLink}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{archiveLink()}{archiveLink()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_a47478ebb22a2d31a33bf26280ddd8c28} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::archive\+Link (\begin{DoxyParamCaption}\item[{int}]{\$link\+Id}{}\end{DoxyParamCaption})}
+
+Archive a link (soft delete)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$link\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_aa3625b2e1b743f4ca345326f4aa404a5}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_a9322bbd71a1b36802f5a9e2ea2135685}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!createLink@{createLink}}
+\index{createLink@{createLink}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{createLink()}{createLink()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_a9322bbd71a1b36802f5a9e2ea2135685} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::create\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Link_1_1CreateLinkRequest}{Create\+Link\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Create a new affiliate link with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+Create\+Link\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Validation\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_abd9e4e743c209ba89d2ce76dc2f60a62}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_a37dd0e02a45735336600b15190c3cf83}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!deleteLink@{deleteLink}}
+\index{deleteLink@{deleteLink}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{deleteLink()}{deleteLink()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_a37dd0e02a45735336600b15190c3cf83} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::delete\+Link (\begin{DoxyParamCaption}\item[{int}]{\$link\+Id}{, }\item[{bool}]{\$force}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Delete a link
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$link\+Id} & \\
+\hline
+bool & {\em \$force} & Force delete ignoring preconditions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_a69cdfc81abaa36ae7981dab779a75552}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_a6ec6de688b7cf06a9cc804317b4cff5b}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!getLink@{getLink}}
+\index{getLink@{getLink}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{getLink()}{getLink()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_a6ec6de688b7cf06a9cc804317b4cff5b} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::get\+Link (\begin{DoxyParamCaption}\item[{int}]{\$link\+Id}{}\end{DoxyParamCaption})}
+
+Get link by ID with full hydration
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$link\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_ac8b60c982f50fae46e5e1308dd6924f6}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_ae881f0d293b27a06fc4a747d905c02a0}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!getLinkByProductAndMarketplace@{getLinkByProductAndMarketplace}}
+\index{getLinkByProductAndMarketplace@{getLinkByProductAndMarketplace}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{getLinkByProductAndMarketplace()}{getLinkByProductAndMarketplace()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_ae881f0d293b27a06fc4a747d905c02a0} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::get\+Link\+By\+Product\+And\+Marketplace (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$marketplace\+Id}{}\end{DoxyParamCaption})}
+
+Get link by product and marketplace combination
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$marketplace\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link\+Response\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_a8e73e6fff40bc2f2e856b58f5d9eaa5e}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_a473f32256311fccc5545d0fe96983d74}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!getMarketplaceLinks@{getMarketplaceLinks}}
+\index{getMarketplaceLinks@{getMarketplaceLinks}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{getMarketplaceLinks()}{getMarketplaceLinks()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_a473f32256311fccc5545d0fe96983d74} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::get\+Marketplace\+Links (\begin{DoxyParamCaption}\item[{int}]{\$marketplace\+Id}{, }\item[{bool}]{\$active\+Only}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Get all links for a specific marketplace
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$marketplace\+Id} & \\
+\hline
+bool & {\em \$active\+Only} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Link\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_ab25af44d617430215de2fd56e59a0a36}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_a204ac1d7a9998f0a659738e3e6905eed}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!getProductLinks@{getProductLinks}}
+\index{getProductLinks@{getProductLinks}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{getProductLinks()}{getProductLinks()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_a204ac1d7a9998f0a659738e3e6905eed} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::get\+Product\+Links (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{bool}]{\$active\+Only}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Get all links for a specific product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+bool & {\em \$active\+Only} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Link\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_a9904ca760391ace4380cac668f3db7fa}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_aa3b204335f31b83cd7a531c0c039929e}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!restoreLink@{restoreLink}}
+\index{restoreLink@{restoreLink}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{restoreLink()}{restoreLink()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_aa3b204335f31b83cd7a531c0c039929e} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::restore\+Link (\begin{DoxyParamCaption}\item[{int}]{\$link\+Id}{}\end{DoxyParamCaption})}
+
+Restore an archived link
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$link\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_ac4117a00550d2c92798c1502adb5c166}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_acf2729a6564ef893a5f4a5a9a6b1f75f}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!searchLinks@{searchLinks}}
+\index{searchLinks@{searchLinks}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{searchLinks()}{searchLinks()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_acf2729a6564ef893a5f4a5a9a6b1f75f} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::search\+Links (\begin{DoxyParamCaption}\item[{array}]{\$filters}{ = {\ttfamily \mbox{[}\mbox{]}}, }\item[{int}]{\$page}{ = {\ttfamily 1}, }\item[{int}]{\$per\+Page}{ = {\ttfamily 25}}\end{DoxyParamCaption})}
+
+Search links with advanced filters
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$filters} & \\
+\hline
+int & {\em \$page} & \\
+\hline
+int & {\em \$per\+Page} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{links\+: array$<$\+Link\+Response$>$, pagination\+: array\} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_a195ab6e23e145ccc7b0d8380b0432890}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1LinkInterface_a4e34d3e644551f480bcfa3f03e92895a}\index{App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}!updateLink@{updateLink}}
+\index{updateLink@{updateLink}!App\textbackslash{}Contracts\textbackslash{}LinkInterface@{App\textbackslash{}Contracts\textbackslash{}LinkInterface}}
+\doxysubsubsection{\texorpdfstring{updateLink()}{updateLink()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1LinkInterface_a4e34d3e644551f480bcfa3f03e92895a} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Link\+Interface\+::update\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Link_1_1UpdateLinkRequest}{Update\+Link\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Update an existing affiliate link with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+Update\+Link\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Validation\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1LinkService_ad7a36b9644d3de8c7e5c42e58b8bdd30}{App\textbackslash{}\+Services\textbackslash{}\+Link\+Service}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Contracts/\mbox{\hyperlink{LinkInterface_8php}{Link\+Interface.\+php}}\end{DoxyCompactItemize}

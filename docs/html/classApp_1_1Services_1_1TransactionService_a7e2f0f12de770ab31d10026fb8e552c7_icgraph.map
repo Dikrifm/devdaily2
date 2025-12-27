@@ -1,0 +1,9 @@
+<map id="App\Services\TransactionService\isActive" name="App\Services\TransactionService\isActive">
+<area shape="rect" id="Node000001" title=" " alt="" coords="240,75,423,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1TransactionService.html#a4ed79aeac8312bad202f3d42f8591a72" title=" " alt="" coords="7,5,190,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,71,176,53,176,48,242,69"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1TransactionService.html#a0dc0f68ae640b39f100171bf1e07836b" title=" " alt="" coords="7,75,190,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,98,191,100,190,94,226,96"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1TransactionService.html#a117d3db75e2b5b1b073826bd0bd2bc48" title=" " alt="" coords="5,144,192,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="242,124,177,146,175,141,237,125"/>
+</map>

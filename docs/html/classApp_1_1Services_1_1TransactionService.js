@@ -1,0 +1,27 @@
+var classApp_1_1Services_1_1TransactionService =
+[
+    [ "__construct", "classApp_1_1Services_1_1TransactionService.html#afa0a0bd52a9d3ca050874adc18f04a42", null ],
+    [ "__destruct", "classApp_1_1Services_1_1TransactionService.html#a4ed79aeac8312bad202f3d42f8591a72", null ],
+    [ "commit", "classApp_1_1Services_1_1TransactionService.html#a8977a4464f3494d3660a67c977db8c4a", null ],
+    [ "createSavepoint", "classApp_1_1Services_1_1TransactionService.html#a0dc0f68ae640b39f100171bf1e07836b", null ],
+    [ "execute", "classApp_1_1Services_1_1TransactionService.html#a14f01512a554139e289987fab3656473", null ],
+    [ "executeBatch", "classApp_1_1Services_1_1TransactionService.html#af90d96609a4b16c4105734963b38200b", null ],
+    [ "executeQuery", "classApp_1_1Services_1_1TransactionService.html#a20799db1d93573104c47948fe8f30079", null ],
+    [ "getConnectionInfo", "classApp_1_1Services_1_1TransactionService.html#a5aa034cbf076ae0bb8b5522da38e4db2", null ],
+    [ "getMetrics", "classApp_1_1Services_1_1TransactionService.html#a5fe923472b4015a179817dfa132b9f20", null ],
+    [ "getQueryLog", "classApp_1_1Services_1_1TransactionService.html#a8bad1ef7e0301d44fffdbe8082af7719", null ],
+    [ "getTransactionLevel", "classApp_1_1Services_1_1TransactionService.html#aa5ef908be64f331fe9415345518fba77", null ],
+    [ "isActive", "classApp_1_1Services_1_1TransactionService.html#a7e2f0f12de770ab31d10026fb8e552c7", null ],
+    [ "isRolledBack", "classApp_1_1Services_1_1TransactionService.html#ae7dc1297b88a1c3fde80656244bfd8e2", null ],
+    [ "releaseSavepoint", "classApp_1_1Services_1_1TransactionService.html#a117d3db75e2b5b1b073826bd0bd2bc48", null ],
+    [ "resetMetrics", "classApp_1_1Services_1_1TransactionService.html#a82eb6900dd2394dbb4568e6b18e76f96", null ],
+    [ "rollback", "classApp_1_1Services_1_1TransactionService.html#aef3feef14a223b21f36028da6357cb38", null ],
+    [ "start", "classApp_1_1Services_1_1TransactionService.html#a761aff2bf68beae9a8c53bafa3e978f5", null ],
+    [ "ERROR_DEADLOCK", "classApp_1_1Services_1_1TransactionService.html#af5f30497701de7e913977a8588017d9f", null ],
+    [ "ERROR_LOCK_ACQUIRE", "classApp_1_1Services_1_1TransactionService.html#a036d6300c8b460c072dae05cb2574ccb", null ],
+    [ "ERROR_LOCK_WAIT_TIMEOUT", "classApp_1_1Services_1_1TransactionService.html#ad1dac8f5befb4a49317eb8b2851cde8f", null ],
+    [ "ISOLATION_READ_COMMITTED", "classApp_1_1Services_1_1TransactionService.html#a515e4f744410ace06a04435b2c8405cd", null ],
+    [ "ISOLATION_READ_UNCOMMITTED", "classApp_1_1Services_1_1TransactionService.html#a5bbf9718bca872683807a4714ba982b3", null ],
+    [ "ISOLATION_REPEATABLE_READ", "classApp_1_1Services_1_1TransactionService.html#a853a3186d2839c39e6350c9e1204b55c", null ],
+    [ "ISOLATION_SERIALIZABLE", "classApp_1_1Services_1_1TransactionService.html#aca44560688e5e8274638b49d25400a82", null ]
+];

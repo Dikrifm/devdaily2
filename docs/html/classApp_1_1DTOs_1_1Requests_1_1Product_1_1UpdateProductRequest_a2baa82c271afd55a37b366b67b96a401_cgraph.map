@@ -1,0 +1,8 @@
+<map id="App\DTOs\Requests\Product\UpdateProductRequest\toArray" name="App\DTOs\Requests\Product\UpdateProductRequest\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,48,232,93"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1UpdateProductRequest.html#ae84b1355508bc8626d1e5de8c8dc6c9e" title=" " alt="" coords="280,5,528,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,54,267,53,261,54,232,60"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1UpdateProductRequest.html#ae6bce2e7778f67ee955fd816397f74ff" title=" " alt="" coords="576,48,833,93"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="232,74,280,76,404,78,528,76,558,78,563,78,528,81,404,83,280,81,232,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="529,48,563,54,558,54,529,53"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="App\Contracts\ProductWorkflowInterface" name="App\Contracts\ProductWorkflowInterface">
+<area shape="rect" id="Node000001" title=" " alt="" coords="260,28,485,72"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1ProductInterface.html" title=" " alt="" coords="544,5,767,33"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="500,33,546,31,540,32,501,39"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService.html" title=" " alt="" coords="533,57,777,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="501,60,535,66,530,66,500,66"/>
+<area shape="rect" id="Node000002" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="5,36,212,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,47,262,49,257,50,228,52"/>
+</map>

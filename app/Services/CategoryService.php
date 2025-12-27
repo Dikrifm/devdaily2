@@ -2,906 +2,1637 @@
 
 namespace App\Services;
 
+use App\Contracts\CategoryInterface;
 use App\DTOs\Requests\Category\CreateCategoryRequest;
 use App\DTOs\Requests\Category\UpdateCategoryRequest;
 use App\DTOs\Responses\CategoryResponse;
 use App\DTOs\Responses\CategoryTreeResponse;
-use App\DTOs\Responses\BulkActionResult;
-use App\DTOs\Queries\PaginationQuery;
 use App\Entities\Category;
+use App\Enums\ProductStatus;
+use App\Exceptions\AuthorizationException;
+use App\Exceptions\DomainException;
 use App\Exceptions\NotFoundException;
 use App\Exceptions\ValidationException;
-use App\Exceptions\DomainException;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Validators\SlugValidator;
 use App\Validators\CategoryValidator;
+use CodeIgniter\Database\ConnectionInterface;
+use CodeIgniter\I18n\Time;
+use Closure;
 use InvalidArgumentException;
+use RuntimeException;
 
 /**
- * CategoryService - Business orchestrator for category operations
+ * Category Service
  * 
- * Layer 5: Business Orchestrator
- * - Manages database transactions for category operations
- * - Coordinates business validation and rules
- * - Uses DTOs for input/output
+ * Business Orchestrator Layer (Layer 5): Concrete implementation for category business operations.
+ * Manages category lifecycle, hierarchy, and business rules with atomic transactions and caching.
+ *
+ * @package App\Services
  */
-class CategoryService
+class CategoryService extends BaseService implements CategoryInterface
 {
     /**
+     * Category repository for data persistence
+     *
      * @var CategoryRepositoryInterface
      */
     private CategoryRepositoryInterface $categoryRepository;
 
     /**
-     * @var ProductRepositoryInterface
-     */
-    private ProductRepositoryInterface $productRepository;
-
-    /**
-     * @var TransactionService
-     */
-    private TransactionService $transactionService;
-
-    /**
+     * Category validator for business rule validation
+     *
      * @var CategoryValidator
      */
     private CategoryValidator $categoryValidator;
 
     /**
-     * @var SlugValidator
-     */
-    private SlugValidator $slugValidator;
-
-    /**
-     * @var AuditService
-     */
-    private AuditService $auditService;
-
-    /**
-     * Constructor with Dependency Injection
-     * 
-     * @param CategoryRepositoryInterface $categoryRepository
-     * @param ProductRepositoryInterface $productRepository
-     * @param TransactionService $transactionService
-     * @param CategoryValidator $categoryValidator
-     * @param SlugValidator $slugValidator
+     * Constructor with dependency injection
+     *
+     * @param ConnectionInterface $db
+     * @param CacheInterface $cache
      * @param AuditService $auditService
+     * @param CategoryRepositoryInterface $categoryRepository
+     * @param CategoryValidator $categoryValidator
      */
     public function __construct(
+        ConnectionInterface $db,
+        CacheInterface $cache,
+        AuditService $auditService,
         CategoryRepositoryInterface $categoryRepository,
-        ProductRepositoryInterface $productRepository,
-        TransactionService $transactionService,
-        CategoryValidator $categoryValidator,
-        SlugValidator $slugValidator,
-        AuditService $auditService
+        CategoryValidator $categoryValidator
     ) {
+        parent::__construct($db, $cache, $auditService);
+        
         $this->categoryRepository = $categoryRepository;
-        $this->productRepository = $productRepository;
-        $this->transactionService = $transactionService;
         $this->categoryValidator = $categoryValidator;
-        $this->slugValidator = $slugValidator;
-        $this->auditService = $auditService;
+        
+        $this->validateCategoryDependencies();
     }
 
-    /**
-     * Create a new category
-     * 
-     * @param CreateCategoryRequest $request
-     * @param int $createdBy Admin ID who created the category
-     * @return CategoryResponse
-     * @throws ValidationException|DomainException
-     */
-    public function create(CreateCategoryRequest $request, int $createdBy): CategoryResponse
-    {
-        // Validate business rules
-        $this->categoryValidator->validateCreate($request, $createdBy);
-
-        // Check if maximum category limit reached
-        if ($this->categoryRepository->isMaxLimitReached()) {
-            throw new DomainException('Maximum category limit (15) reached. Cannot create new category.');
-        }
-
-        // Validate slug
-        if (!$this->slugValidator->isValid($request->slug)) {
-            throw new ValidationException('Invalid slug format. Slug can only contain lowercase letters, numbers, and hyphens.');
-        }
-
-        // Check if slug is already used
-        if ($this->categoryRepository->isSlugUsed($request->slug)) {
-            throw new ValidationException("Slug '{$request->slug}' is already in use.");
-        }
-
-        // Check if name is already used
-        if ($this->categoryRepository->isNameUsed($request->name)) {
-            throw new ValidationException("Category name '{$request->name}' is already in use.");
-        }
-
-        // Validate parent category if provided
-        if ($request->parent_id !== null && $request->parent_id > 0) {
-            $parentCategory = $this->categoryRepository->find($request->parent_id);
-            if ($parentCategory === null) {
-                throw new NotFoundException("Parent category with ID {$request->parent_id} not found.");
-            }
-            
-            if ($parentCategory->isDeleted()) {
-                throw new DomainException("Cannot create sub-category under archived parent category.");
-            }
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($request, $createdBy) {
-            // Create category entity
-            $category = new Category($request->name, $request->slug);
-            
-            // Set properties
-            $category->setIcon($request->icon ?? 'fas fa-folder')
-                    ->setSortOrder($request->sort_order ?? 0)
-                    ->setActive($request->active ?? true)
-                    ->setParentId($request->parent_id ?? 0);
-
-            // Validate entity
-            $validationResult = $category->validate();
-            if (!$validationResult['valid']) {
-                throw new ValidationException('Category validation failed', $validationResult['errors']);
-            }
-
-            // Save category
-            $saved = $this->categoryRepository->save($category);
-            if (!$saved) {
-                throw new DomainException('Failed to save category.');
-            }
-
-            // Audit log
-            $this->auditService->logCategoryCreated($category->getId(), $createdBy, [
-                'name' => $category->getName(),
-                'slug' => $category->getSlug(),
-                'parent_id' => $category->getParentId(),
-            ]);
-
-            // Return response DTO
-            return $this->createCategoryResponse($category);
-        });
-    }
+    // ==================== CRUD OPERATIONS ====================
 
     /**
-     * Update an existing category
-     * 
-     * @param int $categoryId
-     * @param UpdateCategoryRequest $request
-     * @param int $updatedBy Admin ID who updated the category
-     * @return CategoryResponse
-     * @throws NotFoundException|ValidationException|DomainException
+     * {@inheritDoc}
      */
-    public function update(int $categoryId, UpdateCategoryRequest $request, int $updatedBy): CategoryResponse
+    public function createCategory(CreateCategoryRequest $request): CategoryResponse
     {
-        // Get existing category
-        $category = $this->categoryRepository->findOrFail($categoryId);
-
-        // Validate business rules
-        $this->categoryValidator->validateUpdate($category, $request, $updatedBy);
-
-        // Prevent circular reference in parent hierarchy
-        if ($request->parent_id !== null && $request->parent_id > 0) {
-            if ($request->parent_id === $categoryId) {
-                throw new DomainException('Category cannot be its own parent.');
+        // Authorization check
+        $this->authorize('category.create');
+        
+        // Validate DTO
+        $this->validateDTOOrFail($request, ['context' => 'create']);
+        
+        return $this->transaction(function () use ($request) {
+            // Generate slug if not provided
+            $slug = $request->slug ?? $this->generateSlug($request->name);
+            
+            // Validate slug availability
+            if (!$this->isSlugAvailable($slug)) {
+                throw ValidationException::forBusinessRule(
+                    $this->getServiceName(),
+                    'Slug sudah digunakan oleh kategori lain',
+                    ['field' => 'slug', 'value' => $slug]
+                );
             }
             
-            // Check for circular reference in hierarchy
-            $this->validateNoCircularReference($categoryId, $request->parent_id);
-        }
-
-        // Validate slug if changed
-        if ($request->slug !== null && $request->slug !== $category->getSlug()) {
-            if (!$this->slugValidator->isValid($request->slug)) {
-                throw new ValidationException('Invalid slug format. Slug can only contain lowercase letters, numbers, and hyphens.');
-            }
+            // Create entity
+            $category = new Category($request->name, $slug);
             
-            if ($this->categoryRepository->isSlugUsed($request->slug, $categoryId)) {
-                throw new ValidationException("Slug '{$request->slug}' is already in use.");
-            }
-        }
-
-        // Validate name if changed
-        if ($request->name !== null && $request->name !== $category->getName()) {
-            if ($this->categoryRepository->isNameUsed($request->name, $categoryId)) {
-                throw new ValidationException("Category name '{$request->name}' is already in use.");
-            }
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($category, $request, $updatedBy) {
-            // Track changes for audit
-            $changes = $category->getChanges();
-
-            // Update category properties
-            if ($request->name !== null) {
-                $category->setName($request->name);
-            }
-            
-            if ($request->slug !== null) {
-                $category->setSlug($request->slug);
+            // Set optional properties
+            if ($request->parentId !== null) {
+                // Validate parent exists and is not circular
+                $this->validateHierarchy(0, $request->parentId);
+                $category->setParentId($request->parentId);
             }
             
             if ($request->icon !== null) {
                 $category->setIcon($request->icon);
             }
             
-            if ($request->sort_order !== null) {
-                $category->setSortOrder($request->sort_order);
+            if ($request->sortOrder !== null) {
+                $category->setSortOrder($request->sortOrder);
             }
             
             if ($request->active !== null) {
                 $category->setActive($request->active);
             }
             
-            if ($request->parent_id !== null) {
-                $category->setParentId($request->parent_id);
+            // Business rule validation
+            $businessErrors = $this->validateCategoryBusinessRules($category, 'create');
+            if (!empty($businessErrors)) {
+                throw ValidationException::forBusinessRule(
+                    $this->getServiceName(),
+                    'Validasi bisnis kategori gagal',
+                    ['errors' => $businessErrors]
+                );
             }
-
-            // Validate entity
-            $validationResult = $category->validate();
-            if (!$validationResult['valid']) {
-                throw new ValidationException('Category validation failed', $validationResult['errors']);
+            
+            // Save to repository
+            $savedCategory = $this->categoryRepository->save($category);
+            
+            // Queue cache invalidation
+            $this->queueCacheOperation('category:*');
+            $this->queueCacheOperation('category_tree:*');
+            if ($request->parentId) {
+                $this->queueCacheOperation($this->getCategoryCacheKey($request->parentId));
             }
-
-            // Save category
-            $saved = $this->categoryRepository->save($category);
-            if (!$saved) {
-                throw new DomainException('Failed to update category.');
-            }
-
+            
             // Audit log
-            $changes = array_merge($changes, $category->getChanges());
-            if (!empty($changes)) {
-                $this->auditService->logCategoryUpdated($category->getId(), $updatedBy, $changes);
-            }
-
-            // Return response DTO
-            return $this->createCategoryResponse($category);
-        });
-    }
-
-    /**
-     * Delete a category
-     * 
-     * @param int $categoryId
-     * @param int $deletedBy Admin ID who deleted the category
-     * @param bool $force Hard delete (bypass soft delete)
-     * @return bool
-     * @throws NotFoundException|DomainException
-     */
-    public function delete(int $categoryId, int $deletedBy, bool $force = false): bool
-    {
-        $category = $this->categoryRepository->findOrFail($categoryId);
-
-        // Check if category can be deleted
-        $canDeleteResult = $this->categoryRepository->canDelete($categoryId);
-        if (!$canDeleteResult['can_delete']) {
-            throw new DomainException($canDeleteResult['reason'] ?? 'Category cannot be deleted.');
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($category, $categoryId, $deletedBy, $force) {
-            if ($force) {
-                // Hard delete
-                $success = $this->categoryRepository->delete($categoryId, false);
-            } else {
-                // Soft delete (archive)
-                $success = $this->categoryRepository->archive($categoryId, $deletedBy);
-            }
-
-            if (!$success) {
-                throw new DomainException('Failed to delete category.');
-            }
-
-            // Audit log
-            $this->auditService->logCategoryDeleted($categoryId, $deletedBy, [
-                'name' => $category->getName(),
-                'force' => $force,
-            ]);
-
-            return true;
-        });
-    }
-
-    /**
-     * Find category by ID
-     * 
-     * @param int $categoryId
-     * @param bool $withCounts Include product and children counts
-     * @return CategoryResponse
-     * @throws NotFoundException
-     */
-    public function find(int $categoryId, bool $withCounts = false): CategoryResponse
-    {
-        if ($withCounts) {
-            // We need to get category with counts
-            // Since repository doesn't have findWithCounts for ID, we'll get basic then add counts
-            $category = $this->categoryRepository->findOrFail($categoryId);
+            $this->audit(
+                'category.create',
+                'category',
+                $savedCategory->getId(),
+                null,
+                $savedCategory->toArray(),
+                [
+                    'admin_id' => $this->getCurrentAdminId(),
+                    'parent_id' => $request->parentId,
+                    'slug' => $slug
+                ]
+            );
             
-            // Get additional counts
-            $productCount = $this->productRepository->countByCategory($categoryId, true);
-            $childrenCount = $this->categoryRepository->countChildren($categoryId, true);
+            return CategoryResponse::fromEntity($savedCategory);
+        }, 'create_category');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateCategory(UpdateCategoryRequest $request): CategoryResponse
+    {
+        // Authorization check
+        $this->authorize('category.update');
+        
+        // Validate DTO
+        $this->validateDTOOrFail($request, ['context' => 'update']);
+        
+        return $this->transaction(function () use ($request) {
+            // Get existing category
+            $existingCategory = $this->getEntity(
+                $this->categoryRepository,
+                $request->categoryId
+            );
             
-            // Set counts on entity (temporary for response)
-            $category->setProductCount($productCount);
-            $category->setChildrenCount($childrenCount);
+            // Store old values for audit
+            $oldValues = $existingCategory->toArray();
             
-            return $this->createCategoryResponse($category);
-        }
-        
-        $category = $this->categoryRepository->findOrFail($categoryId);
-        return $this->createCategoryResponse($category);
-    }
-
-    /**
-     * Find category by slug
-     * 
-     * @param string $slug
-     * @param bool $activeOnly
-     * @param bool $withCounts
-     * @return CategoryResponse
-     * @throws NotFoundException
-     */
-    public function findBySlug(string $slug, bool $activeOnly = true, bool $withCounts = false): CategoryResponse
-    {
-        if ($withCounts) {
-            $category = $this->categoryRepository->findWithCounts($slug, $activeOnly);
-        } else {
-            $category = $this->categoryRepository->findBySlug($slug, $activeOnly);
-        }
-        
-        if ($category === null) {
-            throw new NotFoundException("Category with slug '{$slug}' not found.");
-        }
-        
-        return $this->createCategoryResponse($category);
-    }
-
-    /**
-     * Find all active categories
-     * 
-     * @param int $limit
-     * @param bool $withCounts
-     * @return array<CategoryResponse>
-     */
-    public function findAllActive(int $limit = 15, bool $withCounts = false): array
-    {
-        if ($withCounts) {
-            $categories = $this->categoryRepository->withProductCount($limit, true);
-        } else {
-            $categories = $this->categoryRepository->findActive($limit);
-        }
-        
-        return array_map(
-            fn($category) => $this->createCategoryResponse($category),
-            $categories
-        );
-    }
-
-    /**
-     * Get category tree (hierarchical structure)
-     * 
-     * @param bool $activeOnly
-     * @return CategoryTreeResponse
-     */
-    public function getTree(bool $activeOnly = true): CategoryTreeResponse
-    {
-        $treeData = $this->categoryRepository->getTree($activeOnly);
-        
-        // Convert to response DTO
-        return CategoryTreeResponse::fromTreeData($treeData);
-    }
-
-    /**
-     * Activate a category
-     * 
-     * @param int $categoryId
-     * @param int $activatedBy Admin ID who activated the category
-     * @return CategoryResponse
-     * @throws NotFoundException|DomainException
-     */
-    public function activate(int $categoryId, int $activatedBy): CategoryResponse
-    {
-        $category = $this->categoryRepository->findOrFail($categoryId);
-
-        if ($category->isActive()) {
-            throw new DomainException('Category is already active.');
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($categoryId, $activatedBy) {
-            $success = $this->categoryRepository->activate($categoryId);
+            // Update properties
+            $category = clone $existingCategory;
             
-            if (!$success) {
-                throw new DomainException('Failed to activate category.');
+            if ($request->name !== null) {
+                $category->setName($request->name);
             }
-
-            // Get updated category
-            $category = $this->categoryRepository->findOrFail($categoryId);
-
-            // Audit log
-            $this->auditService->logCategoryActivated($categoryId, $activatedBy);
-
-            return $this->createCategoryResponse($category);
-        });
-    }
-
-    /**
-     * Deactivate a category
-     * 
-     * @param int $categoryId
-     * @param int $deactivatedBy Admin ID who deactivated the category
-     * @return CategoryResponse
-     * @throws NotFoundException|DomainException
-     */
-    public function deactivate(int $categoryId, int $deactivatedBy): CategoryResponse
-    {
-        $category = $this->categoryRepository->findOrFail($categoryId);
-
-        if (!$category->isActive()) {
-            throw new DomainException('Category is already inactive.');
-        }
-
-        // Check if category has active products
-        $productCount = $this->productRepository->countByCategory($categoryId, true);
-        if ($productCount > 0) {
-            throw new DomainException("Cannot deactivate category with {$productCount} published product(s).");
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($categoryId, $deactivatedBy) {
-            $success = $this->categoryRepository->deactivate($categoryId);
             
-            if (!$success) {
-                throw new DomainException('Failed to deactivate category.');
+            if ($request->slug !== null) {
+                // Validate slug availability
+                if (!$this->isSlugAvailable($request->slug, $request->categoryId)) {
+                    throw ValidationException::forBusinessRule(
+                        $this->getServiceName(),
+                        'Slug sudah digunakan oleh kategori lain',
+                        ['field' => 'slug', 'value' => $request->slug]
+                    );
+                }
+                $category->setSlug($request->slug);
             }
-
-            // Get updated category
-            $category = $this->categoryRepository->findOrFail($categoryId);
-
-            // Audit log
-            $this->auditService->logCategoryDeactivated($categoryId, $deactivatedBy);
-
-            return $this->createCategoryResponse($category);
-        });
-    }
-
-    /**
-     * Archive a category (soft delete)
-     * 
-     * @param int $categoryId
-     * @param int $archivedBy Admin ID who archived the category
-     * @return CategoryResponse
-     * @throws NotFoundException|DomainException
-     */
-    public function archive(int $categoryId, int $archivedBy): CategoryResponse
-    {
-        $category = $this->categoryRepository->findOrFail($categoryId);
-
-        if ($category->isDeleted()) {
-            throw new DomainException('Category is already archived.');
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($categoryId, $archivedBy) {
-            $success = $this->categoryRepository->archive($categoryId, $archivedBy);
             
-            if (!$success) {
-                throw new DomainException('Failed to archive category.');
+            if ($request->parentId !== null) {
+                // Validate hierarchy (no circular reference)
+                $this->validateHierarchy($request->categoryId, $request->parentId);
+                $category->setParentId($request->parentId);
             }
-
-            // Get updated category
-            $category = $this->categoryRepository->find($categoryId, false);
-
-            // Audit log
-            $this->auditService->logCategoryArchived($categoryId, $archivedBy);
-
-            return $this->createCategoryResponse($category);
-        });
-    }
-
-    /**
-     * Restore an archived category
-     * 
-     * @param int $categoryId
-     * @param int $restoredBy Admin ID who restored the category
-     * @return CategoryResponse
-     * @throws NotFoundException|DomainException
-     */
-    public function restore(int $categoryId, int $restoredBy): CategoryResponse
-    {
-        $category = $this->categoryRepository->find($categoryId, false);
-        
-        if ($category === null) {
-            throw new NotFoundException("Category with ID {$categoryId} not found.");
-        }
-        
-        if (!$category->isDeleted()) {
-            throw new DomainException('Category is not archived.');
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($categoryId, $restoredBy) {
-            $success = $this->categoryRepository->restore($categoryId, $restoredBy);
             
-            if (!$success) {
-                throw new DomainException('Failed to restore category.');
+            if ($request->icon !== null) {
+                $category->setIcon($request->icon);
             }
-
-            // Get updated category
-            $category = $this->categoryRepository->findOrFail($categoryId);
-
-            // Audit log
-            $this->auditService->logCategoryRestored($categoryId, $restoredBy);
-
-            return $this->createCategoryResponse($category);
-        });
-    }
-
-    /**
-     * Update category sort order
-     * 
-     * @param array $orderData [category_id => new_sort_order]
-     * @param int $updatedBy Admin ID who updated the order
-     * @return bool
-     * @throws DomainException
-     */
-    public function updateSortOrder(array $orderData, int $updatedBy): bool
-    {
-        if (empty($orderData)) {
-            throw new DomainException('No order data provided.');
-        }
-
-        // Validate all category IDs exist
-        $categoryIds = array_keys($orderData);
-        $categories = $this->categoryRepository->findByIds($categoryIds, false);
-        
-        if (count($categories) !== count($categoryIds)) {
-            $foundIds = array_map(fn($c) => $c->getId(), $categories);
-            $missingIds = array_diff($categoryIds, $foundIds);
-            throw new NotFoundException('Categories not found: ' . implode(', ', $missingIds));
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($orderData, $updatedBy) {
-            $success = $this->categoryRepository->updateSortOrder($orderData);
             
-            if (!$success) {
-                throw new DomainException('Failed to update sort order.');
+            if ($request->sortOrder !== null) {
+                $category->setSortOrder($request->sortOrder);
             }
-
-            // Audit log
-            $this->auditService->logCategoryOrderUpdated($updatedBy, [
-                'order_data' => $orderData,
-                'affected_categories' => count($orderData),
-            ]);
-
-            return true;
-        });
-    }
-
-    /**
-     * Move category to new parent
-     * 
-     * @param int $categoryId
-     * @param int $newParentId 0 for root, >0 for parent category
-     * @param int $movedBy Admin ID who moved the category
-     * @return CategoryResponse
-     * @throws NotFoundException|DomainException
-     */
-    public function moveCategory(int $categoryId, int $newParentId, int $movedBy): CategoryResponse
-    {
-        $category = $this->categoryRepository->findOrFail($categoryId);
-
-        // Check if moving to same parent
-        if ($category->getParentId() === $newParentId) {
-            throw new DomainException('Category is already under this parent.');
-        }
-
-        // Prevent moving to self
-        if ($newParentId === $categoryId) {
-            throw new DomainException('Category cannot be its own parent.');
-        }
-
-        // Check for circular reference
-        if ($newParentId > 0) {
-            $this->validateNoCircularReference($categoryId, $newParentId);
-        }
-
-        // Start transaction
-        return $this->transactionService->execute(function () use ($category, $newParentId, $movedBy) {
-            $category->setParentId($newParentId);
             
-            $success = $this->categoryRepository->save($category);
-            if (!$success) {
-                throw new DomainException('Failed to move category.');
+            if ($request->active !== null) {
+                $category->setActive($request->active);
             }
-
-            // Audit log
-            $this->auditService->logCategoryMoved($category->getId(), $movedBy, [
-                'old_parent_id' => $category->getParentId(),
-                'new_parent_id' => $newParentId,
-            ]);
-
-            return $this->createCategoryResponse($category);
-        });
-    }
-
-    /**
-     * Get category statistics
-     * 
-     * @return array
-     */
-    public function getStatistics(): array
-    {
-        return $this->categoryRepository->getStats();
-    }
-
-    /**
-     * Get category usage (products per category)
-     * 
-     * @param bool $activeOnly
-     * @return array
-     */
-    public function getCategoryUsage(bool $activeOnly = true): array
-    {
-        return $this->categoryRepository->getCategoryUsage($activeOnly);
-    }
-
-    /**
-     * Get navigation categories (for menus)
-     * 
-     * @param int $limit
-     * @return array<CategoryResponse>
-     */
-    public function getNavigation(int $limit = 10): array
-    {
-        $categories = $this->categoryRepository->getNavigation($limit, true);
-        
-        return array_map(
-            fn($category) => $this->createCategoryResponse($category),
-            $categories
-        );
-    }
-
-    /**
-     * Get category options for dropdown/select
-     * 
-     * @param bool $activeOnly
-     * @param bool $includeRoot
-     * @param int|null $excludeCategoryId
-     * @return array
-     */
-    public function getOptions(
-        bool $activeOnly = true,
-        bool $includeRoot = true,
-        ?int $excludeCategoryId = null
-    ): array {
-        return $this->categoryRepository->getOptions($activeOnly, $includeRoot, $excludeCategoryId);
-    }
-
-    /**
-     * Validate if category can be deleted
-     * 
-     * @param int $categoryId
-     * @return array
-     */
-    public function validateCanDelete(int $categoryId): array
-    {
-        return $this->categoryRepository->canDelete($categoryId);
-    }
-
-    /**
-     * Validate if category can be archived
-     * 
-     * @param int $categoryId
-     * @return array
-     */
-    public function validateCanArchive(int $categoryId): array
-    {
-        return $this->categoryRepository->canArchive($categoryId);
-    }
-
-    /**
-     * Search categories
-     * 
-     * @param string $keyword
-     * @param array $filters
-     * @param PaginationQuery $pagination
-     * @return array
-     */
-    public function search(string $keyword, array $filters = [], PaginationQuery $pagination): array
-    {
-        $categories = $this->categoryRepository->search(
-            $keyword,
-            $filters,
-            $pagination->per_page,
-            $pagination->getOffset()
-        );
-
-        $total = $this->categoryRepository->countTotal();
-
-        $categoryResponses = array_map(
-            fn($category) => $this->createCategoryResponse($category),
-            $categories
-        );
-
-        return [
-            'categories' => $categoryResponses,
-            'total' => $total,
-            'page' => $pagination->page,
-            'per_page' => $pagination->per_page,
-            'total_pages' => ceil($total / $pagination->per_page),
-        ];
-    }
-
-    /**
-     * Bulk update category status
-     * 
-     * @param array $categoryIds
-     * @param string $action 'activate' or 'deactivate'
-     * @param int $changedBy
-     * @return BulkActionResult
-     */
-    public function bulkUpdateStatus(array $categoryIds, string $action, int $changedBy): BulkActionResult
-    {
-        if (empty($categoryIds)) {
-            throw new ValidationException('No category IDs provided.');
-        }
-
-        if (!in_array($action, ['activate', 'deactivate'])) {
-            throw new DomainException('Invalid action. Must be "activate" or "deactivate".');
-        }
-
-        $result = new BulkActionResult();
-
-        // Start transaction
-        $this->transactionService->begin();
-
-        try {
-            foreach ($categoryIds as $categoryId) {
-                try {
-                    $category = $this->categoryRepository->find($categoryId, false);
-                    
-                    if ($category === null) {
-                        $result->addFailed($categoryId, 'Category not found');
-                        continue;
-                    }
-
-                    if ($action === 'activate') {
-                        if ($category->isActive()) {
-                            $result->addSkipped($categoryId, 'Already active');
-                            continue;
-                        }
-                        $success = $this->categoryRepository->activate($categoryId);
-                    } else {
-                        if (!$category->isActive()) {
-                            $result->addSkipped($categoryId, 'Already inactive');
-                            continue;
-                        }
-                        $success = $this->categoryRepository->deactivate($categoryId);
-                    }
-
-                    if ($success) {
-                        $result->addSuccess($categoryId);
-                        
-                        // Audit log per category
-                        $auditAction = $action === 'activate' ? 'activated' : 'deactivated';
-                        $this->auditService->logCategoryStatusChanged($categoryId, $changedBy, $auditAction);
-                    } else {
-                        $result->addFailed($categoryId, "Failed to {$action}");
-                    }
-                } catch (\Exception $e) {
-                    $result->addFailed($categoryId, $e->getMessage());
+            
+            // Business rule validation
+            $businessErrors = $this->validateCategoryBusinessRules($category, 'update');
+            if (!empty($businessErrors)) {
+                throw ValidationException::forBusinessRule(
+                    $this->getServiceName(),
+                    'Validasi bisnis kategori gagal',
+                    ['errors' => $businessErrors]
+                );
+            }
+            
+            // Save updates
+            $updatedCategory = $this->categoryRepository->save($category);
+            
+            // Queue cache invalidation
+            $this->queueCacheOperation('category:*');
+            $this->queueCacheOperation('category_tree:*');
+            $this->queueCacheOperation($this->getCategoryCacheKey($request->categoryId));
+            if ($existingCategory->getParentId() !== $request->parentId) {
+                $this->queueCacheOperation($this->getCategoryCacheKey($existingCategory->getParentId()));
+                if ($request->parentId) {
+                    $this->queueCacheOperation($this->getCategoryCacheKey($request->parentId));
                 }
             }
-
-            $this->transactionService->commit();
             
-        } catch (\Exception $e) {
-            $this->transactionService->rollback();
-            throw new DomainException('Bulk operation failed: ' . $e->getMessage());
-        }
-
-        return $result;
+            // Audit log
+            $this->audit(
+                'category.update',
+                'category',
+                $request->categoryId,
+                $oldValues,
+                $updatedCategory->toArray(),
+                [
+                    'admin_id' => $this->getCurrentAdminId(),
+                    'changed_fields' => array_keys(array_diff_assoc($updatedCategory->toArray(), $oldValues))
+                ]
+            );
+            
+            return CategoryResponse::fromEntity($updatedCategory);
+        }, 'update_category');
     }
 
     /**
-     * Create CategoryResponse from Category entity
-     * 
-     * @param Category $category
-     * @return CategoryResponse
-     * @private
+     * {@inheritDoc}
      */
-    private function createCategoryResponse(Category $category): CategoryResponse
+    public function deleteCategory(int $categoryId, bool $force = false): bool
     {
+        // Authorization check
+        $this->authorize('category.delete');
+        
+        return $this->transaction(function () use ($categoryId, $force) {
+            // Get category
+            $category = $this->getEntity(
+                $this->categoryRepository,
+                $categoryId
+            );
+            
+            // Check preconditions
+            if (!$force) {
+                $preconditions = $this->validateDeletion($categoryId);
+                if (!$preconditions['can_delete']) {
+                    throw new DomainException(
+                        'Kategori tidak dapat dihapus karena masih memiliki produk atau subkategori',
+                        'CATEGORY_DELETION_PRECONDITION_FAILED',
+                        $preconditions
+                    );
+                }
+            }
+            
+            // Store for audit
+            $oldValues = $category->toArray();
+            
+            // Perform deletion
+            $result = $this->categoryRepository->delete($categoryId);
+            
+            if ($result) {
+                // Queue cache invalidation
+                $this->queueCacheOperation('category:*');
+                $this->queueCacheOperation('category_tree:*');
+                $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+                if ($category->getParentId()) {
+                    $this->queueCacheOperation($this->getCategoryCacheKey($category->getParentId()));
+                }
+                
+                // Audit log
+                $this->audit(
+                    'category.delete',
+                    'category',
+                    $categoryId,
+                    $oldValues,
+                    null,
+                    [
+                        'admin_id' => $this->getCurrentAdminId(),
+                        'force' => $force,
+                        'parent_id' => $category->getParentId()
+                    ]
+                );
+            }
+            
+            return $result;
+        }, 'delete_category');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function archiveCategory(int $categoryId): bool
+    {
+        // Authorization check
+        $this->authorize('category.archive');
+        
+        return $this->transaction(function () use ($categoryId) {
+            // Get category
+            $category = $this->getEntity(
+                $this->categoryRepository,
+                $categoryId
+            );
+            
+            // Check if can be archived
+            if (!$this->canArchive($categoryId)) {
+                throw new DomainException(
+                    'Kategori tidak dapat diarsipkan karena masih memiliki produk aktif',
+                    'CATEGORY_ARCHIVE_PRECONDITION_FAILED'
+                );
+            }
+            
+            // Store for audit
+            $oldValues = $category->toArray();
+            
+            // Archive category
+            $category->archive();
+            $result = $this->categoryRepository->save($category) !== null;
+            
+            if ($result) {
+                // Queue cache invalidation
+                $this->queueCacheOperation('category:*');
+                $this->queueCacheOperation('category_tree:*');
+                $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+                if ($category->getParentId()) {
+                    $this->queueCacheOperation($this->getCategoryCacheKey($category->getParentId()));
+                }
+                
+                // Audit log
+                $this->audit(
+                    'category.archive',
+                    'category',
+                    $categoryId,
+                    $oldValues,
+                    $category->toArray(),
+                    [
+                        'admin_id' => $this->getCurrentAdminId(),
+                        'parent_id' => $category->getParentId()
+                    ]
+                );
+            }
+            
+            return $result;
+        }, 'archive_category');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function restoreCategory(int $categoryId): CategoryResponse
+    {
+        // Authorization check
+        $this->authorize('category.restore');
+        
+        return $this->transaction(function () use ($categoryId) {
+            // Get category (including archived)
+            $category = $this->categoryRepository->findById($categoryId);
+            if ($category === null) {
+                throw NotFoundException::forEntity('Category', $categoryId);
+            }
+            
+            // Store for audit
+            $oldValues = $category->toArray();
+            
+            // Restore category
+            $category->restore();
+            $restoredCategory = $this->categoryRepository->save($category);
+            
+            if ($restoredCategory === null) {
+                throw new DomainException(
+                    'Gagal mengembalikan kategori',
+                    'CATEGORY_RESTORE_FAILED'
+                );
+            }
+            
+            // Queue cache invalidation
+            $this->queueCacheOperation('category:*');
+            $this->queueCacheOperation('category_tree:*');
+            $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+            if ($restoredCategory->getParentId()) {
+                $this->queueCacheOperation($this->getCategoryCacheKey($restoredCategory->getParentId()));
+            }
+            
+            // Audit log
+            $this->audit(
+                'category.restore',
+                'category',
+                $categoryId,
+                $oldValues,
+                $restoredCategory->toArray(),
+                [
+                    'admin_id' => $this->getCurrentAdminId(),
+                    'parent_id' => $restoredCategory->getParentId()
+                ]
+            );
+            
+            return CategoryResponse::fromEntity($restoredCategory);
+        }, 'restore_category');
+    }
+
+    // ==================== QUERY OPERATIONS ====================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCategory(int $categoryId): CategoryResponse
+    {
+        $category = $this->getEntity(
+            $this->categoryRepository,
+            $categoryId
+        );
+        
         return CategoryResponse::fromEntity($category);
     }
 
     /**
-     * Validate no circular reference in category hierarchy
-     * 
-     * @param int $categoryId
-     * @param int $newParentId
+     * {@inheritDoc}
+     */
+    public function getCategoryBySlug(string $slug): CategoryResponse
+    {
+        $category = $this->categoryRepository->findBySlug($slug);
+        if ($category === null) {
+            throw NotFoundException::forEntity('Category', $slug);
+        }
+        
+        return CategoryResponse::fromEntity($category);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCategories(array $filters = [], int $page = 1, int $perPage = 25): array
+    {
+        return $this->withCaching(
+            $this->getServiceCacheKey('list', ['filters' => $filters, 'page' => $page, 'perPage' => $perPage]),
+            function () use ($filters, $page, $perPage) {
+                $result = $this->categoryRepository->paginateWithFilters($filters, $perPage, $page);
+                
+                $categories = array_map(
+                    fn($category) => CategoryResponse::fromEntity($category),
+                    $result['data'] ?? []
+                );
+                
+                return [
+                    'categories' => $categories,
+                    'pagination' => [
+                        'total' => $result['total'] ?? 0,
+                        'per_page' => $perPage,
+                        'current_page' => $page,
+                        'last_page' => $result['last_page'] ?? 1,
+                        'from' => $result['from'] ?? 0,
+                        'to' => $result['to'] ?? 0
+                    ]
+                ];
+            },
+            300 // Cache for 5 minutes
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCategoryTree(bool $activeOnly = true): array
+    {
+        return $this->withCaching(
+            $this->getServiceCacheKey('tree', ['active_only' => $activeOnly]),
+            function () use ($activeOnly) {
+                $categories = $this->categoryRepository->findCategoryTree();
+                
+                // Filter if active only
+                if ($activeOnly) {
+                    $categories = array_filter($categories, fn($cat) => $cat->isActive());
+                }
+                
+                // Build tree structure
+                $tree = [];
+                $indexed = [];
+                
+                // Index all categories by ID
+                foreach ($categories as $category) {
+                    $indexed[$category->getId()] = [
+                        'category' => CategoryTreeResponse::fromEntity($category),
+                        'children' => []
+                    ];
+                }
+                
+                // Build hierarchy
+                foreach ($indexed as $id => $node) {
+                    $parentId = $categories[$id - 1]->getParentId();
+                    
+                    if ($parentId && isset($indexed[$parentId])) {
+                        $indexed[$parentId]['children'][] = $node;
+                    } else {
+                        $tree[] = $node;
+                    }
+                }
+                
+                return $tree;
+            },
+            600 // Cache for 10 minutes
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRootCategories(bool $activeOnly = true): array
+    {
+        $categories = $this->categoryRepository->findRootCategories();
+        
+        if ($activeOnly) {
+            $categories = array_filter($categories, fn($cat) => $cat->isActive());
+        }
+        
+        return array_map(
+            fn($category) => CategoryResponse::fromEntity($category),
+            $categories
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSubcategories(int $parentId, bool $activeOnly = true): array
+    {
+        // Validate parent exists
+        $parent = $this->getEntity($this->categoryRepository, $parentId);
+        
+        $subcategories = $this->categoryRepository->findSubCategories($parentId);
+        
+        if ($activeOnly) {
+            $subcategories = array_filter($subcategories, fn($cat) => $cat->isActive());
+        }
+        
+        return array_map(
+            fn($category) => CategoryResponse::fromEntity($category),
+            $subcategories
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function searchCategories(string $searchTerm, int $limit = 20): array
+    {
+        if (strlen(trim($searchTerm)) < 2) {
+            return [];
+        }
+        
+        $categories = $this->categoryRepository->searchByTerm($searchTerm, $limit);
+        
+        return array_map(
+            fn($category) => CategoryResponse::fromEntity($category),
+            $categories
+        );
+    }
+
+    // ==================== BATCH OPERATIONS ====================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkUpdateStatus(array $categoryIds, bool $active): int
+    {
+        // Authorization check
+        $this->authorize('category.bulk_update');
+        
+        return $this->transaction(function () use ($categoryIds, $active) {
+            $count = $this->categoryRepository->bulkSetActive($categoryIds, $active);
+            
+            if ($count > 0) {
+                // Queue cache invalidation
+                $this->queueCacheOperation('category:*');
+                $this->queueCacheOperation('category_tree:*');
+                
+                // Audit log
+                $this->audit(
+                    'category.bulk_update_status',
+                    'category',
+                    0,
+                    null,
+                    ['category_ids' => $categoryIds, 'active' => $active],
+                    [
+                        'admin_id' => $this->getCurrentAdminId(),
+                        'count' => $count,
+                        'action' => $active ? 'activate' : 'deactivate'
+                    ]
+                );
+            }
+            
+            return $count;
+        }, 'bulk_update_category_status');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkReparent(array $categoryIds, int $newParentId): int
+    {
+        // Authorization check
+        $this->authorize('category.bulk_update');
+        
+        return $this->transaction(function () use ($categoryIds, $newParentId) {
+            // Validate new parent exists (if not null/0)
+            if ($newParentId > 0) {
+                $parent = $this->getEntity($this->categoryRepository, $newParentId);
+                
+                // Check for circular references
+                foreach ($categoryIds as $categoryId) {
+                    if ($categoryId == $newParentId) {
+                        throw new DomainException(
+                            'Kategori tidak dapat menjadi induk dari dirinya sendiri',
+                            'CIRCULAR_REFERENCE'
+                        );
+                    }
+                    
+                    $descendants = $this->categoryRepository->findDescendants($categoryId);
+                    foreach ($descendants as $descendant) {
+                        if ($descendant->getId() == $newParentId) {
+                            throw new DomainException(
+                                'Kategori tidak dapat menjadi induk dari kategori turunannya',
+                                'CIRCULAR_REFERENCE'
+                            );
+                        }
+                    }
+                }
+            }
+            
+            $count = $this->categoryRepository->bulkReparent($categoryIds, $newParentId);
+            
+            if ($count > 0) {
+                // Queue cache invalidation
+                $this->queueCacheOperation('category:*');
+                $this->queueCacheOperation('category_tree:*');
+                foreach ($categoryIds as $categoryId) {
+                    $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+                }
+                if ($newParentId > 0) {
+                    $this->queueCacheOperation($this->getCategoryCacheKey($newParentId));
+                }
+                
+                // Audit log
+                $this->audit(
+                    'category.bulk_reparent',
+                    'category',
+                    0,
+                    null,
+                    ['category_ids' => $categoryIds, 'new_parent_id' => $newParentId],
+                    [
+                        'admin_id' => $this->getCurrentAdminId(),
+                        'count' => $count
+                    ]
+                );
+            }
+            
+            return $count;
+        }, 'bulk_reparent_categories');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkUpdateSortOrder(array $sortOrders): int
+    {
+        // Authorization check
+        $this->authorize('category.bulk_update');
+        
+        return $this->transaction(function () use ($sortOrders) {
+            $count = $this->categoryRepository->bulkUpdateSortOrder($sortOrders);
+            
+            if ($count > 0) {
+                // Queue cache invalidation for all affected categories
+                $this->queueCacheOperation('category:*');
+                $this->queueCacheOperation('category_tree:*');
+                foreach (array_keys($sortOrders) as $categoryId) {
+                    $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+                }
+                
+                // Audit log
+                $this->audit(
+                    'category.bulk_update_sort_order',
+                    'category',
+                    0,
+                    null,
+                    ['sort_orders' => $sortOrders],
+                    [
+                        'admin_id' => $this->getCurrentAdminId(),
+                        'count' => $count
+                    ]
+                );
+            }
+            
+            return $count;
+        }, 'bulk_update_sort_order');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkArchive(array $categoryIds): int
+    {
+        // Authorization check
+        $this->authorize('category.bulk_archive');
+        
+        return $this->batchOperation(
+            $categoryIds,
+            function ($categoryId) {
+                return $this->archiveCategory($categoryId);
+            },
+            50,
+            null
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bulkRestore(array $categoryIds): int
+    {
+        // Authorization check
+        $this->authorize('category.bulk_restore');
+        
+        $restoredCount = 0;
+        
+        foreach ($categoryIds as $categoryId) {
+            try {
+                $this->restoreCategory($categoryId);
+                $restoredCount++;
+            } catch (\Exception $e) {
+                log_message('error', sprintf(
+                    'Failed to restore category %d: %s',
+                    $categoryId,
+                    $e->getMessage()
+                ));
+            }
+        }
+        
+        return $restoredCount;
+    }
+
+    // ==================== BUSINESS LOGIC OPERATIONS ====================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function validateDeletion(int $categoryId): array
+    {
+        $category = $this->getEntity($this->categoryRepository, $categoryId);
+        
+        // Get product count (active products only)
+        $productCount = $this->categoryRepository->countProducts($categoryId, true);
+        
+        // Get subcategory count (active only)
+        $subcategories = $this->categoryRepository->findSubCategories($categoryId);
+        $activeSubcategories = array_filter($subcategories, fn($cat) => $cat->isActive());
+        $subcategoryCount = count($activeSubcategories);
+        
+        $canDelete = ($productCount === 0 && $subcategoryCount === 0);
+        
+        return [
+            'can_delete' => $canDelete,
+            'has_products' => $productCount > 0,
+            'has_subcategories' => $subcategoryCount > 0,
+            'product_count' => $productCount,
+            'subcategory_count' => $subcategoryCount,
+            'category_name' => $category->getName(),
+            'category_slug' => $category->getSlug()
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function canArchive(int $categoryId): bool
+    {
+        $category = $this->getEntity($this->categoryRepository, $categoryId);
+        
+        // Cannot archive if category has active products
+        $productCount = $this->categoryRepository->countProducts($categoryId, true);
+        
+        return $productCount === 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isSlugAvailable(string $slug, ?int $excludeCategoryId = null): bool
+    {
+        return !$this->categoryRepository->slugExists($slug, $excludeCategoryId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generateSlug(string $name, ?int $excludeCategoryId = null): string
+    {
+        return $this->categoryRepository->generateSlug($name, $excludeCategoryId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function moveCategory(int $categoryId, ?int $newParentId, int $newSortOrder): CategoryResponse
+    {
+        // Authorization check
+        $this->authorize('category.update');
+        
+        return $this->transaction(function () use ($categoryId, $newParentId, $newSortOrder) {
+            // Get category
+            $category = $this->getEntity($this->categoryRepository, $categoryId);
+            $oldValues = $category->toArray();
+            
+            // Validate hierarchy if parent is changing
+            if ($category->getParentId() !== $newParentId) {
+                $this->validateHierarchy($categoryId, $newParentId);
+                $category->setParentId($newParentId);
+            }
+            
+            // Update sort order
+            $category->setSortOrder($newSortOrder);
+            
+            // Save changes
+            $updatedCategory = $this->categoryRepository->save($category);
+            
+            // Queue cache invalidation
+            $this->queueCacheOperation('category:*');
+            $this->queueCacheOperation('category_tree:*');
+            $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+            if ($oldValues['parent_id'] !== $newParentId) {
+                $this->queueCacheOperation($this->getCategoryCacheKey($oldValues['parent_id']));
+                if ($newParentId) {
+                    $this->queueCacheOperation($this->getCategoryCacheKey($newParentId));
+                }
+            }
+            
+            // Audit log
+            $this->audit(
+                'category.move',
+                'category',
+                $categoryId,
+                $oldValues,
+                $updatedCategory->toArray(),
+                [
+                    'admin_id' => $this->getCurrentAdminId(),
+                    'old_parent_id' => $oldValues['parent_id'],
+                    'new_parent_id' => $newParentId,
+                    'new_sort_order' => $newSortOrder
+                ]
+            );
+            
+            return CategoryResponse::fromEntity($updatedCategory);
+        }, 'move_category');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function rebuildCategoryTree(): array
+    {
+        // Authorization check - only super admin
+        $this->authorize('system.maintenance');
+        
+        return $this->transaction(function () {
+            $repaired = 0;
+            $errors = [];
+            
+            // Get all categories
+            $categories = $this->categoryRepository->findAll();
+            
+            // Check for circular references
+            foreach ($categories as $category) {
+                try {
+                    $this->validateHierarchy($category->getId(), $category->getParentId());
+                } catch (DomainException $e) {
+                    $errors[] = [
+                        'category_id' => $category->getId(),
+                        'category_name' => $category->getName(),
+                        'error' => $e->getMessage(),
+                        'code' => $e->getCode()
+                    ];
+                }
+            }
+            
+            // Fix orphaned categories (parent doesn't exist)
+            foreach ($categories as $category) {
+                $parentId = $category->getParentId();
+                if ($parentId && !$this->categoryRepository->exists($parentId)) {
+                    // Reset to root
+                    $category->setParentId(null);
+                    $this->categoryRepository->save($category);
+                    $repaired++;
+                    
+                    $errors[] = [
+                        'category_id' => $category->getId(),
+                        'category_name' => $category->getName(),
+                        'action' => 'reset_parent_to_root',
+                        'invalid_parent_id' => $parentId
+                    ];
+                }
+            }
+            
+            // Clear cache
+            $this->queueCacheOperation('category:*');
+            $this->queueCacheOperation('category_tree:*');
+            
+            // Audit log
+            $this->audit(
+                'system.rebuild_category_tree',
+                'system',
+                0,
+                null,
+                ['repaired' => $repaired, 'errors_count' => count($errors)],
+                [
+                    'admin_id' => $this->getCurrentAdminId(),
+                    'action' => 'rebuild_category_tree'
+                ]
+            );
+            
+            return [
+                'repaired' => $repaired,
+                'errors' => $errors,
+                'total_categories' => count($categories)
+            ];
+        }, 'rebuild_category_tree');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function validateHierarchy(int $categoryId, ?int $parentId): bool
+    {
+        // Null parent is always valid (root category)
+        if ($parentId === null || $parentId === 0) {
+            return true;
+        }
+        
+        // Category cannot be its own parent
+        if ($categoryId === $parentId) {
+            throw new DomainException(
+                'Kategori tidak dapat menjadi induk dari dirinya sendiri',
+                'CIRCULAR_REFERENCE'
+            );
+        }
+        
+        // Check if parent exists
+        $parent = $this->categoryRepository->findById($parentId);
+        if ($parent === null) {
+            throw new DomainException(
+                'Kategori induk tidak ditemukan',
+                'PARENT_NOT_FOUND'
+            );
+        }
+        
+        // Check for circular reference (category cannot be ancestor of its parent)
+        $descendants = $this->categoryRepository->findDescendants($categoryId);
+        foreach ($descendants as $descendant) {
+            if ($descendant->getId() === $parentId) {
+                throw new DomainException(
+                    'Kategori tidak dapat menjadi induk dari kategori turunannya',
+                    'CIRCULAR_REFERENCE'
+                );
+            }
+        }
+        
+        return true;
+    }
+
+    // ==================== STATISTICS & ANALYTICS ====================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStatistics(): array
+    {
+        return $this->withCaching(
+            $this->getServiceCacheKey('statistics'),
+            function () {
+                $total = $this->categoryRepository->count();
+                $active = $this->categoryRepository->count(['active' => true]);
+                $archived = $this->categoryRepository->count(['deleted_at IS NOT NULL' => null]);
+                
+                $rootCategories = $this->categoryRepository->findRootCategories();
+                $rootCount = count(array_filter($rootCategories, fn($cat) => $cat->isActive()));
+                
+                $maxDepth = $this->categoryRepository->getMaxDepth();
+                
+                // Calculate average products per category
+                $categoriesWithCounts = $this->categoryRepository->findWithProductCounts();
+                $totalProducts = 0;
+                $categoriesWithProducts = 0;
+                
+                foreach ($categoriesWithCounts as $category) {
+                    $productCount = $category->getProductCount() ?? 0;
+                    if ($productCount > 0) {
+                        $totalProducts += $productCount;
+                        $categoriesWithProducts++;
+                    }
+                }
+                
+                $averageProducts = $categoriesWithProducts > 0 
+                    ? round($totalProducts / $categoriesWithProducts, 2) 
+                    : 0;
+                
+                // Count categories without products
+                $withoutProducts = 0;
+                foreach ($categoriesWithCounts as $category) {
+                    if (($category->getProductCount() ?? 0) === 0) {
+                        $withoutProducts++;
+                    }
+                }
+                
+                return [
+                    'total_categories' => $total,
+                    'active_categories' => $active,
+                    'archived_categories' => $archived,
+                    'root_categories' => $rootCount,
+                    'max_depth' => $maxDepth,
+                    'average_products_per_category' => $averageProducts,
+                    'categories_without_products' => $withoutProducts,
+                    'categories_with_products' => $categoriesWithProducts,
+                    'total_products_in_categories' => $totalProducts
+                ];
+            },
+            1800 // Cache for 30 minutes
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUsageStatistics(bool $includeArchived = false): array
+    {
+        $categories = $this->categoryRepository->findWithProductCounts();
+        
+        $stats = [];
+        foreach ($categories as $category) {
+            if (!$includeArchived && !$category->isActive()) {
+                continue;
+            }
+            
+            $subcategories = $this->categoryRepository->findSubCategories($category->getId());
+            $activeSubcategories = array_filter($subcategories, fn($cat) => $cat->isActive());
+            
+            $stats[] = [
+                'category_id' => $category->getId(),
+                'category_name' => $category->getName(),
+                'category_slug' => $category->getSlug(),
+                'product_count' => $category->getProductCount() ?? 0,
+                'subcategory_count' => count($activeSubcategories),
+                'is_active' => $category->isActive(),
+                'is_archived' => $category->isDeleted()
+            ];
+        }
+        
+        return $stats;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getGrowthStatistics(string $period = 'month', int $limit = 12): array
+    {
+        // This would typically query created_at timestamps
+        // For MVP, we'll return mock data
+        $growth = [];
+        $now = Time::now();
+        
+        for ($i = $limit - 1; $i >= 0; $i--) {
+            $date = clone $now;
+            
+            switch ($period) {
+                case 'day':
+                    $date->subDays($i);
+                    $periodLabel = $date->format('Y-m-d');
+                    break;
+                case 'week':
+                    $date->subWeeks($i);
+                    $periodLabel = 'Week ' . $date->format('W, Y');
+                    break;
+                case 'month':
+                    $date->subMonths($i);
+                    $periodLabel = $date->format('Y-m');
+                    break;
+                case 'year':
+                    $date->subYears($i);
+                    $periodLabel = $date->format('Y');
+                    break;
+                default:
+                    $periodLabel = 'Period ' . ($i + 1);
+            }
+            
+            // Mock data - in production, this would query the database
+            $growth[] = [
+                'period' => $periodLabel,
+                'count' => rand(0, 10), // Random for demonstration
+                'cumulative' => ($i === $limit - 1) ? rand(50, 100) : ($growth[count($growth) - 2]['cumulative'] + rand(0, 10))
+            ];
+        }
+        
+        return $growth;
+    }
+
+    // ==================== ADMIN OPERATIONS ====================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function activateCategory(int $categoryId): CategoryResponse
+    {
+        // Authorization check
+        $this->authorize('category.activate');
+        
+        return $this->transaction(function () use ($categoryId) {
+            $category = $this->getEntity($this->categoryRepository, $categoryId);
+            $oldValues = $category->toArray();
+            
+            $category->activate();
+            $activatedCategory = $this->categoryRepository->save($category);
+            
+            // Queue cache invalidation
+            $this->queueCacheOperation('category:*');
+            $this->queueCacheOperation('category_tree:*');
+            $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+            if ($category->getParentId()) {
+                $this->queueCacheOperation($this->getCategoryCacheKey($category->getParentId()));
+            }
+            
+            // Audit log
+            $this->audit(
+                'category.activate',
+                'category',
+                $categoryId,
+                $oldValues,
+                $activatedCategory->toArray(),
+                ['admin_id' => $this->getCurrentAdminId()]
+            );
+            
+            return CategoryResponse::fromEntity($activatedCategory);
+        }, 'activate_category');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deactivateCategory(int $categoryId): CategoryResponse
+    {
+        // Authorization check
+        $this->authorize('category.deactivate');
+        
+        return $this->transaction(function () use ($categoryId) {
+            $category = $this->getEntity($this->categoryRepository, $categoryId);
+            
+            // Check if category has active products
+            $productCount = $this->categoryRepository->countProducts($categoryId, true);
+            if ($productCount > 0) {
+                throw new DomainException(
+                    'Kategori tidak dapat dinonaktifkan karena masih memiliki produk aktif',
+                    'CATEGORY_DEACTIVATE_PRECONDITION_FAILED',
+                    ['product_count' => $productCount]
+                );
+            }
+            
+            $oldValues = $category->toArray();
+            $category->deactivate();
+            $deactivatedCategory = $this->categoryRepository->save($category);
+            
+            // Queue cache invalidation
+            $this->queueCacheOperation('category:*');
+            $this->queueCacheOperation('category_tree:*');
+            $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+            if ($category->getParentId()) {
+                $this->queueCacheOperation($this->getCategoryCacheKey($category->getParentId()));
+            }
+            
+            // Audit log
+            $this->audit(
+                'category.deactivate',
+                'category',
+                $categoryId,
+                $oldValues,
+                $deactivatedCategory->toArray(),
+                ['admin_id' => $this->getCurrentAdminId()]
+            );
+            
+            return CategoryResponse::fromEntity($deactivatedCategory);
+        }, 'deactivate_category');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateCategoryIcon(int $categoryId, string $icon): CategoryResponse
+    {
+        // Authorization check
+        $this->authorize('category.update');
+        
+        return $this->transaction(function () use ($categoryId, $icon) {
+            $category = $this->getEntity($this->categoryRepository, $categoryId);
+            $oldValues = $category->toArray();
+            
+            $category->setIcon($icon);
+            $updatedCategory = $this->categoryRepository->save($category);
+            
+            // Queue cache invalidation
+            $this->queueCacheOperation($this->getCategoryCacheKey($categoryId));
+            
+            // Audit log
+            $this->audit(
+                'category.update_icon',
+                'category',
+                $categoryId,
+                $oldValues,
+                $updatedCategory->toArray(),
+                [
+                    'admin_id' => $this->getCurrentAdminId(),
+                    'new_icon' => $icon
+                ]
+            );
+            
+            return CategoryResponse::fromEntity($updatedCategory);
+        }, 'update_category_icon');
+    }
+
+    // ==================== IMPORT/EXPORT OPERATIONS ====================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function importCategories(array $categories, bool $skipDuplicates = true): array
+    {
+        // Authorization check
+        $this->authorize('category.import');
+        
+        $result = [
+            'imported' => 0,
+            'skipped' => 0,
+            'errors' => [],
+            'details' => []
+        ];
+        
+        return $this->batchOperation(
+            $categories,
+            function ($categoryData, $index) use ($skipDuplicates, &$result) {
+                try {
+                    $name = $categoryData['name'] ?? '';
+                    $slug = $categoryData['slug'] ?? $this->generateSlug($name);
+                    $parentSlug = $categoryData['parent_slug'] ?? null;
+                    $icon = $categoryData['icon'] ?? 'fas fa-folder';
+                    $sortOrder = $categoryData['sort_order'] ?? 0;
+                    
+                    // Check if category already exists
+                    $existing = $this->categoryRepository->findBySlug($slug);
+                    if ($existing && $skipDuplicates) {
+                        $result['skipped']++;
+                        $result['details'][] = [
+                            'index' => $index,
+                            'slug' => $slug,
+                            'status' => 'skipped',
+                            'reason' => 'already_exists'
+                        ];
+                        return null;
+                    }
+                    
+                    // Find parent by slug
+                    $parentId = null;
+                    if ($parentSlug) {
+                        $parent = $this->categoryRepository->findBySlug($parentSlug);
+                        if ($parent) {
+                            $parentId = $parent->getId();
+                        } else {
+                            throw new DomainException(
+                                "Parent category with slug '{$parentSlug}' not found",
+                                'PARENT_NOT_FOUND'
+                            );
+                        }
+                    }
+                    
+                    // Create category
+                    $category = new Category($name, $slug);
+                    $category->setIcon($icon);
+                    $category->setSortOrder($sortOrder);
+                    $category->setActive(true);
+                    
+                    if ($parentId) {
+                        $category->setParentId($parentId);
+                    }
+                    
+                    // Save category
+                    $savedCategory = $this->categoryRepository->save($category);
+                    
+                    $result['imported']++;
+                    $result['details'][] = [
+                        'index' => $index,
+                        'slug' => $slug,
+                        'status' => 'imported',
+                        'category_id' => $savedCategory->getId()
+                    ];
+                    
+                    return $savedCategory;
+                    
+                } catch (\Exception $e) {
+                    $result['errors'][] = [
+                        'index' => $index,
+                        'error' => $e->getMessage(),
+                        'code' => $e->getCode(),
+                        'data' => $categoryData
+                    ];
+                    
+                    if (!$skipDuplicates) {
+                        throw $e;
+                    }
+                    
+                    return null;
+                }
+            },
+            50,
+            null
+        );
+        
+        // Clear cache after import
+        $this->queueCacheOperation('category:*');
+        $this->queueCacheOperation('category_tree:*');
+        
+        // Audit log
+        $this->audit(
+            'category.import',
+            'category',
+            0,
+            null,
+            ['import_summary' => $result],
+            [
+                'admin_id' => $this->getCurrentAdminId(),
+                'total_attempted' => count($categories)
+            ]
+        );
+        
+        return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function exportCategories(?array $categoryIds = null, bool $includeHierarchy = true): array
+    {
+        // Authorization check
+        $this->authorize('category.export');
+        
+        $categories = $categoryIds 
+            ? $this->categoryRepository->findByIds($categoryIds)
+            : $this->categoryRepository->findAll();
+        
+        $exportData = [];
+        
+        foreach ($categories as $category) {
+            $item = [
+                'id' => $category->getId(),
+                'name' => $category->getName(),
+                'slug' => $category->getSlug(),
+                'icon' => $category->getIcon(),
+                'sort_order' => $category->getSortOrder(),
+                'active' => $category->isActive(),
+                'created_at' => $category->getCreatedAt()?->format('Y-m-d H:i:s'),
+                'updated_at' => $category->getUpdatedAt()?->format('Y-m-d H:i:s')
+            ];
+            
+            if ($includeHierarchy) {
+                $item['parent_id'] = $category->getParentId();
+                
+                // Add parent slug if available
+                if ($category->getParentId()) {
+                    $parent = $this->categoryRepository->findById($category->getParentId());
+                    if ($parent) {
+                        $item['parent_slug'] = $parent->getSlug();
+                    }
+                }
+            }
+            
+            $exportData[] = $item;
+        }
+        
+        // Audit log
+        $this->audit(
+            'category.export',
+            'category',
+            0,
+            null,
+            ['export_count' => count($exportData), 'include_hierarchy' => $includeHierarchy],
+            [
+                'admin_id' => $this->getCurrentAdminId(),
+                'category_ids_count' => $categoryIds ? count($categoryIds) : 'all'
+            ]
+        );
+        
+        return $exportData;
+    }
+
+    // ==================== VALIDATION OPERATIONS ====================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isNameUnique(string $name, ?int $excludeCategoryId = null): bool
+    {
+        // Implementation would check database for name uniqueness
+        // For now, return true as placeholder
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function validateCategoryBusinessRules(Category $category, string $context): array
+    {
+        $errors = [];
+        
+        // Context-specific validations
+        switch ($context) {
+            case 'create':
+                // Check daily limit for category creation
+                if (!$this->checkDailyCategoryLimit($this->getCurrentAdminId())) {
+                    $errors['limit'] = ['Daily category creation limit reached'];
+                }
+                break;
+                
+            case 'update':
+                // Cannot change parent to descendant
+                if ($category->getParentId()) {
+                    try {
+                        $this->validateHierarchy($category->getId(), $category->getParentId());
+                    } catch (DomainException $e) {
+                        $errors['parent_id'] = [$e->getMessage()];
+                    }
+                }
+                break;
+                
+            case 'delete':
+                // Check if category can be deleted
+                $preconditions = $this->validateDeletion($category->getId());
+                if (!$preconditions['can_delete']) {
+                    $errors['deletion'] = ['Category cannot be deleted'];
+                }
+                break;
+                
+            case 'archive':
+                // Check if category can be archived
+                if (!$this->canArchive($category->getId())) {
+                    $errors['archive'] = ['Category cannot be archived'];
+                }
+                break;
+        }
+        
+        // General business rules
+        if (strlen($category->getName()) < 2) {
+            $errors['name'] = ['Category name must be at least 2 characters'];
+        }
+        
+        if (strlen($category->getName()) > 100) {
+            $errors['name'] = ['Category name must not exceed 100 characters'];
+        }
+        
+        if ($category->getSortOrder() < 0) {
+            $errors['sort_order'] = ['Sort order must be positive'];
+        }
+        
+        if ($category->getSortOrder() > 1000) {
+            $errors['sort_order'] = ['Sort order must not exceed 1000'];
+        }
+        
+        return $errors;
+    }
+
+    // ==================== BASE SERVICE ABSTRACT METHOD IMPLEMENTATIONS ====================
+
+    /**
+     * {@inheritDoc}
+     */
+    public function validateBusinessRules(BaseDTO $dto, array $context = []): array
+    {
+        if ($dto instanceof CreateCategoryRequest) {
+            // Create-specific validation
+            $category = new Category($dto->name, $dto->slug ?? $this->generateSlug($dto->name));
+            
+            if ($dto->parentId !== null) {
+                $category->setParentId($dto->parentId);
+            }
+            
+            if ($dto->icon !== null) {
+                $category->setIcon($dto->icon);
+            }
+            
+            if ($dto->sortOrder !== null) {
+                $category->setSortOrder($dto->sortOrder);
+            }
+            
+            if ($dto->active !== null) {
+                $category->setActive($dto->active);
+            }
+            
+            return $this->validateCategoryBusinessRules($category, 'create');
+            
+        } elseif ($dto instanceof UpdateCategoryRequest) {
+            // Update-specific validation
+            $existingCategory = $this->getEntity($this->categoryRepository, $dto->categoryId, false);
+            
+            if ($existingCategory === null) {
+                return ['category_id' => ['Category not found']];
+            }
+            
+            $category = clone $existingCategory;
+            
+            if ($dto->name !== null) {
+                $category->setName($dto->name);
+            }
+            
+            if ($dto->slug !== null) {
+                $category->setSlug($dto->slug);
+            }
+            
+            if ($dto->parentId !== null) {
+                $category->setParentId($dto->parentId);
+            }
+            
+            if ($dto->icon !== null) {
+                $category->setIcon($dto->icon);
+            }
+            
+            if ($dto->sortOrder !== null) {
+                $category->setSortOrder($dto->sortOrder);
+            }
+            
+            if ($dto->active !== null) {
+                $category->setActive($dto->active);
+            }
+            
+            return $this->validateCategoryBusinessRules($category, 'update');
+        }
+        
+        return [];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getServiceName(): string
+    {
+        return 'CategoryService';
+    }
+
+    // ==================== PRIVATE HELPER METHODS ====================
+
+    /**
+     * Validate category service dependencies
+     *
      * @return void
-     * @throws DomainException
-     * @private
+     * @throws RuntimeException
      */
-    private function validateNoCircularReference(int $categoryId, int $newParentId): void
+    private function validateCategoryDependencies(): void
     {
-        // Get all children of the category
-        $children = $this->getAllChildren($categoryId);
-        
-        // Check if new parent is among the children
-        if (in_array($newParentId, $children)) {
-            throw new DomainException('Circular reference detected: Cannot move category under its own child.');
-        }
-    }
-
-    /**
-     * Get all children IDs of a category (recursive)
-     * 
-     * @param int $categoryId
-     * @return array<int>
-     * @private
-     */
-    private function getAllChildren(int $categoryId): array
-    {
-        $children = [];
-        $directChildren = $this->categoryRepository->findByParent($categoryId, false, 0, false);
-        
-        foreach ($directChildren as $child) {
-            $children[] = $child->getId();
-            $children = array_merge($children, $this->getAllChildren($child->getId()));
+        if (!$this->categoryRepository instanceof CategoryRepositoryInterface) {
+            throw new RuntimeException('Invalid category repository dependency');
         }
         
-        return $children;
-    }
-
-    /**
-     * Get root categories
-     * 
-     * @param bool $activeOnly
-     * @param int $limit
-     * @return array<CategoryResponse>
-     */
-    public function getRoots(bool $activeOnly = true, int $limit = 10): array
-    {
-        $categories = $this->categoryRepository->findRoots($activeOnly, $limit);
+        if (!$this->categoryValidator instanceof CategoryValidator) {
+            throw new RuntimeException('Invalid category validator dependency');
+        }
         
-        return array_map(
-            fn($category) => $this->createCategoryResponse($category),
-            $categories
-        );
+        log_message('debug', sprintf(
+            '[%s] Category service dependencies validated successfully',
+            $this->getServiceName()
+        ));
     }
 
     /**
-     * Get sub-categories of a parent
-     * 
-     * @param int $parentId
-     * @param bool $activeOnly
-     * @param int $limit
-     * @return array<CategoryResponse>
-     */
-    public function getSubCategories(int $parentId, bool $activeOnly = true, int $limit = 20): array
-    {
-        $categories = $this->categoryRepository->findByParent($parentId, $activeOnly, $limit);
-        
-        return array_map(
-            fn($category) => $this->createCategoryResponse($category),
-            $categories
-        );
-    }
-
-    /**
-     * Check if maximum category limit is reached
-     * 
+     * Check daily category creation limit for admin
+     *
+     * @param int|null $adminId
      * @return bool
      */
-    public function isMaxLimitReached(): bool
+    private function checkDailyCategoryLimit(?int $adminId): bool
     {
-        return $this->categoryRepository->isMaxLimitReached();
+        if ($adminId === null) {
+            return true; // System operations have no limit
+        }
+        
+        // Get today's category creation count for this admin
+        // This would query the audit log in production
+        $today = Time::now()->format('Y-m-d');
+        $cacheKey = $this->getServiceCacheKey('daily_limit', ['admin_id' => $adminId, 'date' => $today]);
+        
+        $count = $this->withCaching($cacheKey, function () use ($adminId, $today) {
+            // Query audit log for category.create actions today
+            // Placeholder - returns random number for demonstration
+            return rand(0, 5);
+        }, 300); // Cache for 5 minutes
+        
+        // Limit: 10 categories per day per admin
+        return $count < 10;
+    }
+
+    /**
+     * Generate cache key for category
+     *
+     * @param int $categoryId
+     * @return string
+     */
+    private function getCategoryCacheKey(int $categoryId): string
+    {
+        return sprintf('category:%d:v3', $categoryId);
     }
 }

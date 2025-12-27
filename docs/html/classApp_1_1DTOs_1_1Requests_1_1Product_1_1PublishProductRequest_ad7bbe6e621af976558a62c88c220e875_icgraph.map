@@ -1,0 +1,10 @@
+<map id="App\DTOs\Requests\Product\PublishProductRequest\isScheduled" name="App\DTOs\Requests\Product\PublishProductRequest\isScheduled">
+<area shape="rect" id="Node000001" title=" " alt="" coords="548,73,750,135"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1PublishProductRequest.html#aa07e114448fbe558892785653ec32ef6" title=" " alt="" coords="277,5,479,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="530,75,479,64,480,59,535,75"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1PublishProductRequest.html#ad72cf86842984c7f5d57d2288b153b0c" title=" " alt="" coords="5,40,208,102"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="531,99,208,80,208,74,534,95"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductWorkflowService.html#a95341abb39ce626d17abddb571d69f27" title=" " alt="" coords="256,141,500,203"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="535,133,501,144,500,139,530,134"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="259,52,209,60,207,55,264,50"/>
+</map>

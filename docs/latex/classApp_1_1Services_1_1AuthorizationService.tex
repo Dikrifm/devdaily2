@@ -1,0 +1,1289 @@
+\doxysection{App\textbackslash{}Services\textbackslash{}Authorization\+Service Class Reference}
+\hypertarget{classApp_1_1Services_1_1AuthorizationService}{}\label{classApp_1_1Services_1_1AuthorizationService}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+
+
+Inheritance diagram for App\textbackslash{}Services\textbackslash{}Authorization\+Service\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Services\textbackslash{}Authorization\+Service\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ab771e7604c1d9873dd69fd60ed9ffe1c}{\+\_\+\+\_\+construct}} (Connection\+Interface \$db, \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \$cache, Audit\+Service \$audit\+Service, Role\+Repository\+Interface \$role\+Repository, Permission\+Repository\+Interface \$permission\+Repository, \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1AdminRepositoryInterface}{Admin\+Repository\+Interface}} \$admin\+Repository, \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1AuditLogRepositoryInterface}{Audit\+Log\+Repository\+Interface}} \$audit\+Log\+Repository, Authorization\+Validator \$authorization\+Validator)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a9d1dc72b375f4f30e3ca333fd63dcba0}{create\+Role}} (Create\+Role\+Request \$request)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ad93c73359294e39fe3ca840ddb556c3a}{get\+Role}} (int \$role\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a8f1c20a66113e91730a35bf87c786452}{get\+Role\+By\+Name}} (string \$role\+Name)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aa1bd24b65559aaf5f118c53af54b5326}{update\+Role}} (Update\+Role\+Request \$request)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_af9d92f519d7726e93c5a01e7eb7797d5}{delete\+Role}} (int \$role\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_af3b025f504bdb4acff72a05643c6f9e6}{list\+Roles}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$pagination, array \$filters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_af15f705e1a8c7dc2c6dee661ae072029}{search\+Roles}} (string \$search\+Term, \mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$pagination)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_acb5dd0f8f67d56b79da3727fe23f7b52}{get\+Active\+Roles}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aaeaac1bb583c9ceb0a142348acf3c85c}{activate\+Role}} (int \$role\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a828bb0ff44bf0adf4534939021a7b4c5}{deactivate\+Role}} (int \$role\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a522d5b02af8310fafc1fd384bbfea4e4}{get\+All\+Permissions}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a0dd122ac054fcca860aa76b06c4b7f66}{get\+Permission}} (int \$permission\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a2ac4c33aff679383e94d572a674912d0}{get\+Permission\+By\+Code}} (string \$permission\+Code)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a0cd1a7874324c8269efd32883ae4b8fb}{create\+Permission}} (string \$name, string \$code, ?string \$description=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a1c3638aeaa016e27547f72a6a39307c8}{update\+Permission}} (int \$permission\+Id, array \$updates)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aa4bf24a473489a6e7540ecff98f29463}{delete\+Permission}} (int \$permission\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ac49d9588ecea94be5f4bef9dc24ad034}{assign\+Permission\+To\+Role}} (Assign\+Permission\+Request \$request)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a1032d983afa0fa5f0c45b8b44a0ff230}{revoke\+Permission\+From\+Role}} (int \$role\+Id, int \$permission\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a34fc4c5be4609c342be50ac0c69fe7f6}{assign\+Multiple\+Permissions\+To\+Role}} (int \$role\+Id, array \$permission\+Ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a2f31fa63e5a9edf918f740d538122d60}{revoke\+Multiple\+Permissions\+From\+Role}} (int \$role\+Id, array \$permission\+Ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aad89be0c2bfeaf5a009acc4979072eec}{get\+Role\+Permissions}} (int \$role\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a384e6461a910752bbceec72266e72887}{get\+Permission\+Roles}} (int \$permission\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a1d1f2c0c64cba28e2b232ebca3148dbd}{assign\+Role\+To\+Admin}} (int \$admin\+Id, int \$role\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aeab6feedbc087be2743870dd1d1b6ce1}{revoke\+Role\+From\+Admin}} (int \$admin\+Id, int \$role\+Id, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a9ef08aaf99841b9ed133b85324951aaa}{assign\+Multiple\+Roles\+To\+Admin}} (int \$admin\+Id, array \$role\+Ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ae99e2993b7862da610211416d3952e11}{revoke\+Multiple\+Roles\+From\+Admin}} (int \$admin\+Id, array \$role\+Ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ab88166316eee43b223831991e2084b00}{get\+Admin\+Roles}} (int \$admin\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a1d784042a8e517dc31900c89785dead1}{get\+Role\+Admins}} (int \$role\+Id, \mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$pagination)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ae90e9ee69001a5c51b4ab0783ff0cef4}{has\+Permission}} (Check\+Permission\+Request \$request)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a3a1aacf47b08e6fae13c327eb5944ad2}{authorize\+Permission}} (Check\+Permission\+Request \$request)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aeb28641a59890b39534c04d2d4346f61}{has\+Any\+Permission}} (int \$admin\+Id, array \$permission\+Codes)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ac2b359ea4ca57f8f9be788b69fe11db9}{has\+All\+Permissions}} (int \$admin\+Id, array \$permission\+Codes)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a57ea6d3e2caf25ae5f85c9fe22c3f795}{has\+Role}} (int \$admin\+Id, string \$role\+Name)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ac9891f31e8bb09073c577c95e76b5a57}{has\+Any\+Role}} (int \$admin\+Id, array \$role\+Names)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a9b877ee82bf0a258a7042047120933db}{has\+All\+Roles}} (int \$admin\+Id, array \$role\+Names)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ab7261784c711fa983cc59b6cf60ba869}{get\+Admin\+Permissions}} (int \$admin\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a2a7b6887ddefa706807cb7025dc2c2ee}{bulk\+Assign\+Roles}} (array \$admin\+Ids, array \$role\+Ids, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_afbbcd931f42c316d196b07a85cb380a6}{bulk\+Revoke\+Roles}} (array \$admin\+Ids, array \$role\+Ids, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a3533520d288aa355447dc8f1190429ae}{bulk\+Activate\+Roles}} (array \$role\+Ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aa828ad9cb03a397bb75be1487bd52ba5}{bulk\+Deactivate\+Roles}} (array \$role\+Ids, ?string \$reason=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a11fc6cabc49146f329e09152fda4672c}{clear\+Admin\+Permission\+Cache}} (int \$admin\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a8a6ad74fb3378d40479fc5de7ed35107}{clear\+Role\+Permission\+Cache}} (int \$role\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a218f4ea8e3664856a7d2e576a3cfc27d}{clear\+All\+Permission\+Cache}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a9b5108a48985b04ec37d3320a61ba216}{validate\+Permission\+Hierarchy}} (int \$permission\+Id, int \$parent\+Permission\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a3ab185eaf57e3efcb65be5c930fe5474}{get\+Permission\+Tree}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a259444f877393118304c2ca83fcde899}{get\+Role\+Hierarchy}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aad78cb2114ef7116908121bfe20fd2ce}{check\+Permission\+Inheritance}} (int \$role\+Id, string \$permission\+Code)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ab96c347a123d7cb694893a7611cbfa05}{get\+Effective\+Permissions}} (int \$admin\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a9e04aa7c04d18b16d58817b753e024a6}{get\+Authorization\+Statistics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a582cd30ac743df96fccac04c4b095d5a}{get\+Authorization\+Activity\+Timeline}} (int \$days=30)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a8644c47c9bc264009192027d66ce25dd}{get\+Permission\+Usage\+Statistics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a02fa386e22da58d7707906d752086e8d}{get\+Role\+Usage\+Statistics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a0e7e2a0504b99377ec36e61e038dd076}{get\+Unused\+Permissions}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$pagination)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aa800578b19a9bf74a5fb518c33dc0fe4}{get\+Unused\+Roles}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$pagination)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aa36d6b4f1adfb6072cfaa29b48c3a34d}{get\+Authorization\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_ae1d6cb795516d1b1b0be6c0796b769ab}{get\+Authorization\+Configuration}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a73c698ad54fc64b22e9b388dc2bbdf9e}{update\+Authorization\+Configuration}} (array \$config)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aca39992b98988d41ee4a3039afcec04f}{initialize\+Default\+Authorization}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a5d490a3edb32d3b8f3d1b54050c48340}{validate\+Business\+Rules}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_a11cc4f04cd003c84c38d7a9cf41dfabb}{get\+Service\+Name}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1AuthorizationService_aa36d6b4f1adfb6072cfaa29b48c3a34d}{get\+Authorization\+Health\+Status}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ac1c2996f005d7350b8bcd56626d996b2}{\+\_\+\+\_\+construct}} (Connection\+Interface \$db, \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \$cache, Audit\+Service \$audit\+Service)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0559a52c16f4d6099cafc0386c2c53e9}{transaction}} (Closure \$operation, ?string \$transaction\+Name=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a50aa80d639cf3939556802da72c0cc43}{transaction\+With\+Retry}} (Closure \$operation, int \$max\+Retries=3, int \$retry\+Delay\+Ms=100)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0dd17606e7db80a4123316e04b9e251a}{authorize}} (string \$permission, \$resource=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a326c5e784061453d9807ceba0d360fc4}{validate\+DTO}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aa354e0c9f696897086612a8ad54cd405}{validate\+DTOOr\+Fail}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a5cab69aa8de35af4e774bfbeb844223b}{coordinate\+Repositories}} (array \$repositories, Closure \$operation)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_adc9ce0842f818c3f976972557922d59c}{get\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$id, bool \$throw\+If\+Not\+Found=true)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a7ef2f481b5afcf427d56c8e68a66e3b9}{audit}} (string \$action\+Type, string \$entity\+Type, int \$entity\+Id, ?array \$old\+Values=null, ?array \$new\+Values=null, array \$additional\+Context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a7356b713dd3dd6bfdabdf65ec38a6198}{clear\+Cache\+For\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$entity\+Id=null, ?string \$pattern=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0ffea7ef1f6ff6445d6766415877d481}{clear\+Service\+Cache}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a162954e4ebaca73a0555a09b7c5b7793}{with\+Caching}} (string \$cache\+Key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a71c46cd3d0e617ebf3ede585c3cce503}{batch\+Operation}} (array \$items, Closure \$item\+Operation, int \$batch\+Size=100, ?callable \$progress\+Callback=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aad49acc732ebc886340eb7c0617e0e83}{set\+Admin\+Context}} (?int \$admin\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0adb04e069280a92fc66e12b2e0bac2a}{get\+Current\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a4cecbeaea9ede2f98fd82c89245b6b4d}{get\+Service\+Cache\+Key}} (string \$operation, array \$parameters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a0caa15c8f578f64ad2511c2fd53fb94a}{get\+Initialized\+At}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ad0304b958be1914e86428214b8f9cd9c}{is\+Ready}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a9e9c6c224257643835271823837deb2b}{get\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a5743370c5832cc85bd4a731d5190f007}{get\+Performance\+Metrics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ab9d754d9c3405024c7dc66a25acbc13c}{reset\+Metrics}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_abeab1d89965da6d66fa99e9014476d02}{validate\+Configuration}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a3b7149e93e74a0d14f7617552980564d}{queue\+Cache\+Operation}} (\$operation)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}}
+\begin{DoxyCompactItemize}
+\item 
+Connection\+Interface \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aeab4375cec38530d5a979bb5a7b69ee7}{\$db}}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a4e70c9c80c8b0787eb8d378b5f5a5b3b}{\$cache}}
+\item 
+Audit\+Service \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_aa8c5356538f0bcac49efc678bf82fb98}{\$audit\+Service}}
+\item 
+int \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_a406970729a52dacf1a802a90b5dfe2fd}{\$current\+Admin\+Id}} = null
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Authorization Service
+
+Layanan manajemen otorisasi berbasis Role-\/\+Based Access Control (RBAC) dengan granular permissions dan inheritance support. 
+
+\label{doc-constructors}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ab771e7604c1d9873dd69fd60ed9ffe1c}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ab771e7604c1d9873dd69fd60ed9ffe1c} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Connection\+Interface}]{\$db}{, }\item[{\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}}}]{\$cache}{, }\item[{Audit\+Service}]{\$audit\+Service}{, }\item[{Role\+Repository\+Interface}]{\$role\+Repository}{, }\item[{Permission\+Repository\+Interface}]{\$permission\+Repository}{, }\item[{\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1AdminRepositoryInterface}{Admin\+Repository\+Interface}}}]{\$admin\+Repository}{, }\item[{\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1AuditLogRepositoryInterface}{Audit\+Log\+Repository\+Interface}}}]{\$audit\+Log\+Repository}{, }\item[{Authorization\+Validator}]{\$authorization\+Validator}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aaeaac1bb583c9ceb0a142348acf3c85c}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!activateRole@{activateRole}}
+\index{activateRole@{activateRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{activateRole()}{activateRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aaeaac1bb583c9ceb0a142348acf3c85c} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::activate\+Role (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{}\end{DoxyParamCaption})}
+
+Mengaktifkan role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a9883591378f92522c9c82384339fa297}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aaeaac1bb583c9ceb0a142348acf3c85c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aaeaac1bb583c9ceb0a142348acf3c85c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a34fc4c5be4609c342be50ac0c69fe7f6}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!assignMultiplePermissionsToRole@{assignMultiplePermissionsToRole}}
+\index{assignMultiplePermissionsToRole@{assignMultiplePermissionsToRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{assignMultiplePermissionsToRole()}{assignMultiplePermissionsToRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a34fc4c5be4609c342be50ac0c69fe7f6} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::assign\+Multiple\+Permissions\+To\+Role (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{, }\item[{array}]{\$permission\+Ids}{}\end{DoxyParamCaption})}
+
+Menetapkan multiple permissions ke role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ae587f0c5982c7909dbba60fff5babfc5}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a34fc4c5be4609c342be50ac0c69fe7f6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a9ef08aaf99841b9ed133b85324951aaa}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!assignMultipleRolesToAdmin@{assignMultipleRolesToAdmin}}
+\index{assignMultipleRolesToAdmin@{assignMultipleRolesToAdmin}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{assignMultipleRolesToAdmin()}{assignMultipleRolesToAdmin()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a9ef08aaf99841b9ed133b85324951aaa} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::assign\+Multiple\+Roles\+To\+Admin (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{array}]{\$role\+Ids}{}\end{DoxyParamCaption})}
+
+Menetapkan multiple roles ke admin 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a1d3b73456bef8e26b20e8ad0fd9ba8bd}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a9ef08aaf99841b9ed133b85324951aaa_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ac49d9588ecea94be5f4bef9dc24ad034}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!assignPermissionToRole@{assignPermissionToRole}}
+\index{assignPermissionToRole@{assignPermissionToRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{assignPermissionToRole()}{assignPermissionToRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ac49d9588ecea94be5f4bef9dc24ad034} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::assign\+Permission\+To\+Role (\begin{DoxyParamCaption}\item[{Assign\+Permission\+Request}]{\$request}{}\end{DoxyParamCaption})}
+
+Menetapkan permission ke role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_aa19f89ac62f9d73aab818118c69450e7}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ac49d9588ecea94be5f4bef9dc24ad034_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a1d1f2c0c64cba28e2b232ebca3148dbd}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!assignRoleToAdmin@{assignRoleToAdmin}}
+\index{assignRoleToAdmin@{assignRoleToAdmin}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{assignRoleToAdmin()}{assignRoleToAdmin()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a1d1f2c0c64cba28e2b232ebca3148dbd} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::assign\+Role\+To\+Admin (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{int}]{\$role\+Id}{}\end{DoxyParamCaption})}
+
+Menetapkan role ke admin 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_aef78e45221d1f5ef1cda8540b460131a}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a1d1f2c0c64cba28e2b232ebca3148dbd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a1d1f2c0c64cba28e2b232ebca3148dbd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a3a1aacf47b08e6fae13c327eb5944ad2}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!authorizePermission@{authorizePermission}}
+\index{authorizePermission@{authorizePermission}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{authorizePermission()}{authorizePermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a3a1aacf47b08e6fae13c327eb5944ad2} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::authorize\+Permission (\begin{DoxyParamCaption}\item[{Check\+Permission\+Request}]{\$request}{}\end{DoxyParamCaption})}
+
+Memeriksa dan throw exception jika tidak memiliki permission 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a387ab95e61206cff962e000b09e63fe3}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a3a1aacf47b08e6fae13c327eb5944ad2_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a3533520d288aa355447dc8f1190429ae}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!bulkActivateRoles@{bulkActivateRoles}}
+\index{bulkActivateRoles@{bulkActivateRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{bulkActivateRoles()}{bulkActivateRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a3533520d288aa355447dc8f1190429ae} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::bulk\+Activate\+Roles (\begin{DoxyParamCaption}\item[{array}]{\$role\+Ids}{}\end{DoxyParamCaption})}
+
+Bulk activate roles 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a3d93bf706532d2dc2092e31178e200cd}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a3533520d288aa355447dc8f1190429ae_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a2a7b6887ddefa706807cb7025dc2c2ee}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!bulkAssignRoles@{bulkAssignRoles}}
+\index{bulkAssignRoles@{bulkAssignRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{bulkAssignRoles()}{bulkAssignRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a2a7b6887ddefa706807cb7025dc2c2ee} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::bulk\+Assign\+Roles (\begin{DoxyParamCaption}\item[{array}]{\$admin\+Ids}{, }\item[{array}]{\$role\+Ids}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Bulk assign roles ke multiple admins 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a7d40d2b82ec4f55ecee4719bd0e8f4f5}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a2a7b6887ddefa706807cb7025dc2c2ee_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aa828ad9cb03a397bb75be1487bd52ba5}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!bulkDeactivateRoles@{bulkDeactivateRoles}}
+\index{bulkDeactivateRoles@{bulkDeactivateRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{bulkDeactivateRoles()}{bulkDeactivateRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aa828ad9cb03a397bb75be1487bd52ba5} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::bulk\+Deactivate\+Roles (\begin{DoxyParamCaption}\item[{array}]{\$role\+Ids}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Bulk deactivate roles 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_afe2e094eef0f18c2d4629410927d5406}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aa828ad9cb03a397bb75be1487bd52ba5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_afbbcd931f42c316d196b07a85cb380a6}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!bulkRevokeRoles@{bulkRevokeRoles}}
+\index{bulkRevokeRoles@{bulkRevokeRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{bulkRevokeRoles()}{bulkRevokeRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_afbbcd931f42c316d196b07a85cb380a6} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::bulk\+Revoke\+Roles (\begin{DoxyParamCaption}\item[{array}]{\$admin\+Ids}{, }\item[{array}]{\$role\+Ids}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Bulk revoke roles dari multiple admins 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a6b9ae9acf4b006edc889b0180601b5e8}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_afbbcd931f42c316d196b07a85cb380a6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aad78cb2114ef7116908121bfe20fd2ce}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!checkPermissionInheritance@{checkPermissionInheritance}}
+\index{checkPermissionInheritance@{checkPermissionInheritance}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{checkPermissionInheritance()}{checkPermissionInheritance()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aad78cb2114ef7116908121bfe20fd2ce} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::check\+Permission\+Inheritance (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{, }\item[{string}]{\$permission\+Code}{}\end{DoxyParamCaption})}
+
+Memeriksa permission inheritance 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a00cd01e86d108ff3dacab62c07f00ed0}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a11fc6cabc49146f329e09152fda4672c}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!clearAdminPermissionCache@{clearAdminPermissionCache}}
+\index{clearAdminPermissionCache@{clearAdminPermissionCache}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{clearAdminPermissionCache()}{clearAdminPermissionCache()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a11fc6cabc49146f329e09152fda4672c} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::clear\+Admin\+Permission\+Cache (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{}\end{DoxyParamCaption})}
+
+Clear permission cache untuk admin tertentu 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a2136d7f48cad1b94fac34ff03096fa12}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a11fc6cabc49146f329e09152fda4672c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a218f4ea8e3664856a7d2e576a3cfc27d}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!clearAllPermissionCache@{clearAllPermissionCache}}
+\index{clearAllPermissionCache@{clearAllPermissionCache}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{clearAllPermissionCache()}{clearAllPermissionCache()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a218f4ea8e3664856a7d2e576a3cfc27d} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::clear\+All\+Permission\+Cache (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Clear semua permission cache 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a6794dd2dc82e2646dbc105bee1890f67}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a218f4ea8e3664856a7d2e576a3cfc27d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a8a6ad74fb3378d40479fc5de7ed35107}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!clearRolePermissionCache@{clearRolePermissionCache}}
+\index{clearRolePermissionCache@{clearRolePermissionCache}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{clearRolePermissionCache()}{clearRolePermissionCache()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a8a6ad74fb3378d40479fc5de7ed35107} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::clear\+Role\+Permission\+Cache (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{}\end{DoxyParamCaption})}
+
+Clear permission cache untuk role tertentu 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a989f7049af8890744f356b5f88ccf939}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a8a6ad74fb3378d40479fc5de7ed35107_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a0cd1a7874324c8269efd32883ae4b8fb}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!createPermission@{createPermission}}
+\index{createPermission@{createPermission}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{createPermission()}{createPermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a0cd1a7874324c8269efd32883ae4b8fb} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::create\+Permission (\begin{DoxyParamCaption}\item[{string}]{\$name}{, }\item[{string}]{\$code}{, }\item[{?string}]{\$description}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Membuat permission baru 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a9dce317f6ce4cb3ec1859e2d9dc1312d}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a0cd1a7874324c8269efd32883ae4b8fb_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a9d1dc72b375f4f30e3ca333fd63dcba0}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!createRole@{createRole}}
+\index{createRole@{createRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{createRole()}{createRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a9d1dc72b375f4f30e3ca333fd63dcba0} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::create\+Role (\begin{DoxyParamCaption}\item[{Create\+Role\+Request}]{\$request}{}\end{DoxyParamCaption})}
+
+Membuat role baru 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a200e6f0ef3a13b79b94c84f873c51fff}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a9d1dc72b375f4f30e3ca333fd63dcba0_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a828bb0ff44bf0adf4534939021a7b4c5}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!deactivateRole@{deactivateRole}}
+\index{deactivateRole@{deactivateRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{deactivateRole()}{deactivateRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a828bb0ff44bf0adf4534939021a7b4c5} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::deactivate\+Role (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Menonaktifkan role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a2436843dae29b9414f34d8bae07e3b4a}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a828bb0ff44bf0adf4534939021a7b4c5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a828bb0ff44bf0adf4534939021a7b4c5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aa4bf24a473489a6e7540ecff98f29463}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!deletePermission@{deletePermission}}
+\index{deletePermission@{deletePermission}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{deletePermission()}{deletePermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aa4bf24a473489a6e7540ecff98f29463} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::delete\+Permission (\begin{DoxyParamCaption}\item[{int}]{\$permission\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Menghapus permission 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a92742d5ef0e5979b4684721c3c97e776}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aa4bf24a473489a6e7540ecff98f29463_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_af9d92f519d7726e93c5a01e7eb7797d5}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!deleteRole@{deleteRole}}
+\index{deleteRole@{deleteRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{deleteRole()}{deleteRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_af9d92f519d7726e93c5a01e7eb7797d5} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::delete\+Role (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Menghapus role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ac4014f8cef89c715978595613a2cea26}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_af9d92f519d7726e93c5a01e7eb7797d5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_acb5dd0f8f67d56b79da3727fe23f7b52}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getActiveRoles@{getActiveRoles}}
+\index{getActiveRoles@{getActiveRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getActiveRoles()}{getActiveRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_acb5dd0f8f67d56b79da3727fe23f7b52} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Active\+Roles (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan semua role aktif 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a4597ae389babc421beab6a72b81a71cc}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_acb5dd0f8f67d56b79da3727fe23f7b52_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ab7261784c711fa983cc59b6cf60ba869}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getAdminPermissions@{getAdminPermissions}}
+\index{getAdminPermissions@{getAdminPermissions}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getAdminPermissions()}{getAdminPermissions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ab7261784c711fa983cc59b6cf60ba869} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Admin\+Permissions (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{}\end{DoxyParamCaption})}
+
+Mendapatkan semua permissions untuk admin (dari semua roles) 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a8aded7e29996937e51433f5e3bd5d9bd}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ab7261784c711fa983cc59b6cf60ba869_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ab7261784c711fa983cc59b6cf60ba869_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ab88166316eee43b223831991e2084b00}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getAdminRoles@{getAdminRoles}}
+\index{getAdminRoles@{getAdminRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getAdminRoles()}{getAdminRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ab88166316eee43b223831991e2084b00} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Admin\+Roles (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{}\end{DoxyParamCaption})}
+
+Mendapatkan roles untuk admin tertentu 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a5baf8f50781d89f75293e23ac23d140f}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ab88166316eee43b223831991e2084b00_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ab88166316eee43b223831991e2084b00_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a522d5b02af8310fafc1fd384bbfea4e4}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getAllPermissions@{getAllPermissions}}
+\index{getAllPermissions@{getAllPermissions}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getAllPermissions()}{getAllPermissions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a522d5b02af8310fafc1fd384bbfea4e4} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+All\+Permissions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan semua permission yang tersedia 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a86b518995279b558583bd8c246110ef3}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a522d5b02af8310fafc1fd384bbfea4e4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a522d5b02af8310fafc1fd384bbfea4e4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a582cd30ac743df96fccac04c4b095d5a}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getAuthorizationActivityTimeline@{getAuthorizationActivityTimeline}}
+\index{getAuthorizationActivityTimeline@{getAuthorizationActivityTimeline}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getAuthorizationActivityTimeline()}{getAuthorizationActivityTimeline()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a582cd30ac743df96fccac04c4b095d5a} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Authorization\+Activity\+Timeline (\begin{DoxyParamCaption}\item[{int}]{\$days}{ = {\ttfamily 30}}\end{DoxyParamCaption})}
+
+Mendapatkan activity timeline otorisasi 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a999920ce9003c232e35f349b50dca171}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ae1d6cb795516d1b1b0be6c0796b769ab}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getAuthorizationConfiguration@{getAuthorizationConfiguration}}
+\index{getAuthorizationConfiguration@{getAuthorizationConfiguration}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getAuthorizationConfiguration()}{getAuthorizationConfiguration()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ae1d6cb795516d1b1b0be6c0796b769ab} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Authorization\+Configuration (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan configuration otorisasi 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a9ddf5a124b1025ac82a0cc418292bab1}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aa36d6b4f1adfb6072cfaa29b48c3a34d}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getAuthorizationHealthStatus@{getAuthorizationHealthStatus}}
+\index{getAuthorizationHealthStatus@{getAuthorizationHealthStatus}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getAuthorizationHealthStatus()}{getAuthorizationHealthStatus()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aa36d6b4f1adfb6072cfaa29b48c3a34d} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Authorization\+Health\+Status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan authorization health status 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ab266c9c60420443df4aa4abab3b5849c}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aa36d6b4f1adfb6072cfaa29b48c3a34d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aa36d6b4f1adfb6072cfaa29b48c3a34d}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getAuthorizationHealthStatus@{getAuthorizationHealthStatus}}
+\index{getAuthorizationHealthStatus@{getAuthorizationHealthStatus}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getAuthorizationHealthStatus()}{getAuthorizationHealthStatus()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aa36d6b4f1adfb6072cfaa29b48c3a34d} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Authorization\+Health\+Status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan authorization health status 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ab266c9c60420443df4aa4abab3b5849c}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aa36d6b4f1adfb6072cfaa29b48c3a34d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a9e04aa7c04d18b16d58817b753e024a6}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getAuthorizationStatistics@{getAuthorizationStatistics}}
+\index{getAuthorizationStatistics@{getAuthorizationStatistics}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getAuthorizationStatistics()}{getAuthorizationStatistics()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a9e04aa7c04d18b16d58817b753e024a6} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Authorization\+Statistics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan statistics otorisasi 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_aeb925367f01b7f1f0de7f3c032b43742}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a9e04aa7c04d18b16d58817b753e024a6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a9e04aa7c04d18b16d58817b753e024a6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ab96c347a123d7cb694893a7611cbfa05}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getEffectivePermissions@{getEffectivePermissions}}
+\index{getEffectivePermissions@{getEffectivePermissions}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getEffectivePermissions()}{getEffectivePermissions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ab96c347a123d7cb694893a7611cbfa05} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Effective\+Permissions (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{}\end{DoxyParamCaption})}
+
+Mendapatkan effective permissions (termasuk inherited) 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_adc01e842a93113942ee03975b48859a8}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ab96c347a123d7cb694893a7611cbfa05_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a0dd122ac054fcca860aa76b06c4b7f66}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getPermission@{getPermission}}
+\index{getPermission@{getPermission}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getPermission()}{getPermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a0dd122ac054fcca860aa76b06c4b7f66} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Permission (\begin{DoxyParamCaption}\item[{int}]{\$permission\+Id}{}\end{DoxyParamCaption})}
+
+Mendapatkan permission berdasarkan ID 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a160882986eb0be3fda030059209965ec}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a2ac4c33aff679383e94d572a674912d0}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getPermissionByCode@{getPermissionByCode}}
+\index{getPermissionByCode@{getPermissionByCode}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getPermissionByCode()}{getPermissionByCode()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a2ac4c33aff679383e94d572a674912d0} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Permission\+By\+Code (\begin{DoxyParamCaption}\item[{string}]{\$permission\+Code}{}\end{DoxyParamCaption})}
+
+Mendapatkan permission berdasarkan kode 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ad4e220230c58c4afba4337624f2ec22f}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a384e6461a910752bbceec72266e72887}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getPermissionRoles@{getPermissionRoles}}
+\index{getPermissionRoles@{getPermissionRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getPermissionRoles()}{getPermissionRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a384e6461a910752bbceec72266e72887} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Permission\+Roles (\begin{DoxyParamCaption}\item[{int}]{\$permission\+Id}{}\end{DoxyParamCaption})}
+
+Mendapatkan roles yang memiliki permission tertentu 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ab77069689285b3c300c44c408be98d13}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a384e6461a910752bbceec72266e72887_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a3ab185eaf57e3efcb65be5c930fe5474}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getPermissionTree@{getPermissionTree}}
+\index{getPermissionTree@{getPermissionTree}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getPermissionTree()}{getPermissionTree()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a3ab185eaf57e3efcb65be5c930fe5474} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Permission\+Tree (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan permission tree (hierarchical) 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_aed89cc41745536e10313a313d6014ccc}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a8644c47c9bc264009192027d66ce25dd}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getPermissionUsageStatistics@{getPermissionUsageStatistics}}
+\index{getPermissionUsageStatistics@{getPermissionUsageStatistics}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getPermissionUsageStatistics()}{getPermissionUsageStatistics()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a8644c47c9bc264009192027d66ce25dd} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Permission\+Usage\+Statistics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan permission usage statistics 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ae431ede4fd6befd368526efb27323f71}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ad93c73359294e39fe3ca840ddb556c3a}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getRole@{getRole}}
+\index{getRole@{getRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getRole()}{getRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ad93c73359294e39fe3ca840ddb556c3a} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Role (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{}\end{DoxyParamCaption})}
+
+Mendapatkan detail role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a889ed46b297ea1850fdd30cf90dd6d95}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ad93c73359294e39fe3ca840ddb556c3a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ad93c73359294e39fe3ca840ddb556c3a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a1d784042a8e517dc31900c89785dead1}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getRoleAdmins@{getRoleAdmins}}
+\index{getRoleAdmins@{getRoleAdmins}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getRoleAdmins()}{getRoleAdmins()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a1d784042a8e517dc31900c89785dead1} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Role\+Admins (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{, }\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}}}]{\$pagination}{}\end{DoxyParamCaption})}
+
+Mendapatkan admins yang memiliki role tertentu 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a249642d5898b55d982e236ead79ffffe}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a8f1c20a66113e91730a35bf87c786452}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getRoleByName@{getRoleByName}}
+\index{getRoleByName@{getRoleByName}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getRoleByName()}{getRoleByName()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a8f1c20a66113e91730a35bf87c786452} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Role\+By\+Name (\begin{DoxyParamCaption}\item[{string}]{\$role\+Name}{}\end{DoxyParamCaption})}
+
+Mendapatkan role berdasarkan nama 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a43ebd2f36d25039639733b604de88f76}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a259444f877393118304c2ca83fcde899}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getRoleHierarchy@{getRoleHierarchy}}
+\index{getRoleHierarchy@{getRoleHierarchy}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getRoleHierarchy()}{getRoleHierarchy()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a259444f877393118304c2ca83fcde899} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Role\+Hierarchy (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan role hierarchy 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a127f4ff5fd34bc42d9a57c7252126bbd}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aad89be0c2bfeaf5a009acc4979072eec}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getRolePermissions@{getRolePermissions}}
+\index{getRolePermissions@{getRolePermissions}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getRolePermissions()}{getRolePermissions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aad89be0c2bfeaf5a009acc4979072eec} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Role\+Permissions (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{}\end{DoxyParamCaption})}
+
+Mendapatkan permissions untuk role tertentu 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ae212a578bd01e005938f04d9a87a0ddc}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aad89be0c2bfeaf5a009acc4979072eec_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a02fa386e22da58d7707906d752086e8d}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getRoleUsageStatistics@{getRoleUsageStatistics}}
+\index{getRoleUsageStatistics@{getRoleUsageStatistics}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getRoleUsageStatistics()}{getRoleUsageStatistics()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a02fa386e22da58d7707906d752086e8d} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Role\+Usage\+Statistics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Mendapatkan role usage statistics 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ad38a13f3b7dfb9f812d58e6880d1963f}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a11cc4f04cd003c84c38d7a9cf41dfabb}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getServiceName@{getServiceName}}
+\index{getServiceName@{getServiceName}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getServiceName()}{getServiceName()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a11cc4f04cd003c84c38d7a9cf41dfabb} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Service\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Abstract method -\/ must be implemented by concrete services 
+
+Reimplemented from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ae5683c63e89a0d7127abc66d78228cf4}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a0e7e2a0504b99377ec36e61e038dd076}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getUnusedPermissions@{getUnusedPermissions}}
+\index{getUnusedPermissions@{getUnusedPermissions}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getUnusedPermissions()}{getUnusedPermissions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a0e7e2a0504b99377ec36e61e038dd076} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Unused\+Permissions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}}}]{\$pagination}{}\end{DoxyParamCaption})}
+
+Mendapatkan unused permissions 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_aeae403fb1c7a53d7ffe3a7f50f289d28}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aa800578b19a9bf74a5fb518c33dc0fe4}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!getUnusedRoles@{getUnusedRoles}}
+\index{getUnusedRoles@{getUnusedRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{getUnusedRoles()}{getUnusedRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aa800578b19a9bf74a5fb518c33dc0fe4} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::get\+Unused\+Roles (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}}}]{\$pagination}{}\end{DoxyParamCaption})}
+
+Mendapatkan unused roles 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ae3590aab6b5eb03accd788de7fedaa92}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ac2b359ea4ca57f8f9be788b69fe11db9}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!hasAllPermissions@{hasAllPermissions}}
+\index{hasAllPermissions@{hasAllPermissions}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{hasAllPermissions()}{hasAllPermissions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ac2b359ea4ca57f8f9be788b69fe11db9} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::has\+All\+Permissions (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{array}]{\$permission\+Codes}{}\end{DoxyParamCaption})}
+
+Memeriksa apakah admin memiliki semua permissions 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a17d4ef9c489a2d0f59f2d13ee74b45ea}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ac2b359ea4ca57f8f9be788b69fe11db9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a9b877ee82bf0a258a7042047120933db}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!hasAllRoles@{hasAllRoles}}
+\index{hasAllRoles@{hasAllRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{hasAllRoles()}{hasAllRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a9b877ee82bf0a258a7042047120933db} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::has\+All\+Roles (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{array}]{\$role\+Names}{}\end{DoxyParamCaption})}
+
+Memeriksa apakah admin memiliki semua roles 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a519410e8a10a95ee12214e5a61b63fb0}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a9b877ee82bf0a258a7042047120933db_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aeb28641a59890b39534c04d2d4346f61}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!hasAnyPermission@{hasAnyPermission}}
+\index{hasAnyPermission@{hasAnyPermission}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{hasAnyPermission()}{hasAnyPermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aeb28641a59890b39534c04d2d4346f61} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::has\+Any\+Permission (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{array}]{\$permission\+Codes}{}\end{DoxyParamCaption})}
+
+Memeriksa apakah admin memiliki salah satu dari permissions 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a43a273b6092ab0cf807029aa681f11c7}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aeb28641a59890b39534c04d2d4346f61_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ac9891f31e8bb09073c577c95e76b5a57}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!hasAnyRole@{hasAnyRole}}
+\index{hasAnyRole@{hasAnyRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{hasAnyRole()}{hasAnyRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ac9891f31e8bb09073c577c95e76b5a57} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::has\+Any\+Role (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{array}]{\$role\+Names}{}\end{DoxyParamCaption})}
+
+Memeriksa apakah admin memiliki salah satu dari roles 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ad82f9b9488982583386ad742ff1d7724}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ac9891f31e8bb09073c577c95e76b5a57_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ae90e9ee69001a5c51b4ab0783ff0cef4}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!hasPermission@{hasPermission}}
+\index{hasPermission@{hasPermission}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{hasPermission()}{hasPermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ae90e9ee69001a5c51b4ab0783ff0cef4} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::has\+Permission (\begin{DoxyParamCaption}\item[{Check\+Permission\+Request}]{\$request}{}\end{DoxyParamCaption})}
+
+Memeriksa apakah admin memiliki permission tertentu 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ac4626c68b8678b231ce9fdada31b16a5}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ae90e9ee69001a5c51b4ab0783ff0cef4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ae90e9ee69001a5c51b4ab0783ff0cef4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a57ea6d3e2caf25ae5f85c9fe22c3f795}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!hasRole@{hasRole}}
+\index{hasRole@{hasRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{hasRole()}{hasRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a57ea6d3e2caf25ae5f85c9fe22c3f795} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::has\+Role (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{string}]{\$role\+Name}{}\end{DoxyParamCaption})}
+
+Memeriksa apakah admin memiliki role tertentu 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a235bbfd4e95cdacadab71f9434f29648}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a57ea6d3e2caf25ae5f85c9fe22c3f795_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aca39992b98988d41ee4a3039afcec04f}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!initializeDefaultAuthorization@{initializeDefaultAuthorization}}
+\index{initializeDefaultAuthorization@{initializeDefaultAuthorization}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{initializeDefaultAuthorization()}{initializeDefaultAuthorization()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aca39992b98988d41ee4a3039afcec04f} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::initialize\+Default\+Authorization (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initialize default roles and permissions 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a70ecef2576405720937a3616edadc28f}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aca39992b98988d41ee4a3039afcec04f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_af3b025f504bdb4acff72a05643c6f9e6}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!listRoles@{listRoles}}
+\index{listRoles@{listRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{listRoles()}{listRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_af3b025f504bdb4acff72a05643c6f9e6} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::list\+Roles (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}}}]{\$pagination}{, }\item[{array}]{\$filters}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Mendapatkan daftar role dengan pagination 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ae15fbf8da1be0dffb93b81c40dd009fc}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_af3b025f504bdb4acff72a05643c6f9e6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a2f31fa63e5a9edf918f740d538122d60}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!revokeMultiplePermissionsFromRole@{revokeMultiplePermissionsFromRole}}
+\index{revokeMultiplePermissionsFromRole@{revokeMultiplePermissionsFromRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{revokeMultiplePermissionsFromRole()}{revokeMultiplePermissionsFromRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a2f31fa63e5a9edf918f740d538122d60} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::revoke\+Multiple\+Permissions\+From\+Role (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{, }\item[{array}]{\$permission\+Ids}{}\end{DoxyParamCaption})}
+
+Mencabut multiple permissions dari role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ac53e887e2e8ea967582f19378aa7ac64}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a2f31fa63e5a9edf918f740d538122d60_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_ae99e2993b7862da610211416d3952e11}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!revokeMultipleRolesFromAdmin@{revokeMultipleRolesFromAdmin}}
+\index{revokeMultipleRolesFromAdmin@{revokeMultipleRolesFromAdmin}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{revokeMultipleRolesFromAdmin()}{revokeMultipleRolesFromAdmin()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_ae99e2993b7862da610211416d3952e11} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::revoke\+Multiple\+Roles\+From\+Admin (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{array}]{\$role\+Ids}{}\end{DoxyParamCaption})}
+
+Mencabut multiple roles dari admin 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_af05d7eb65d6a4e650773ff915eb43c22}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_ae99e2993b7862da610211416d3952e11_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a1032d983afa0fa5f0c45b8b44a0ff230}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!revokePermissionFromRole@{revokePermissionFromRole}}
+\index{revokePermissionFromRole@{revokePermissionFromRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{revokePermissionFromRole()}{revokePermissionFromRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a1032d983afa0fa5f0c45b8b44a0ff230} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::revoke\+Permission\+From\+Role (\begin{DoxyParamCaption}\item[{int}]{\$role\+Id}{, }\item[{int}]{\$permission\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Mencabut permission dari role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a01df05c16071f560fbaafb36cc4baeca}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a1032d983afa0fa5f0c45b8b44a0ff230_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aeab6feedbc087be2743870dd1d1b6ce1}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!revokeRoleFromAdmin@{revokeRoleFromAdmin}}
+\index{revokeRoleFromAdmin@{revokeRoleFromAdmin}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{revokeRoleFromAdmin()}{revokeRoleFromAdmin()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aeab6feedbc087be2743870dd1d1b6ce1} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::revoke\+Role\+From\+Admin (\begin{DoxyParamCaption}\item[{int}]{\$admin\+Id}{, }\item[{int}]{\$role\+Id}{, }\item[{?string}]{\$reason}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Mencabut role dari admin 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ad58af424e16c6355f50c924df4a0e4e1}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aeab6feedbc087be2743870dd1d1b6ce1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aeab6feedbc087be2743870dd1d1b6ce1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_af15f705e1a8c7dc2c6dee661ae072029}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!searchRoles@{searchRoles}}
+\index{searchRoles@{searchRoles}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{searchRoles()}{searchRoles()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_af15f705e1a8c7dc2c6dee661ae072029} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::search\+Roles (\begin{DoxyParamCaption}\item[{string}]{\$search\+Term}{, }\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}}}]{\$pagination}{}\end{DoxyParamCaption})}
+
+Mencari role berdasarkan kriteria 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_ac68173ac61bfa65339a79bf6649903c3}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a73c698ad54fc64b22e9b388dc2bbdf9e}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!updateAuthorizationConfiguration@{updateAuthorizationConfiguration}}
+\index{updateAuthorizationConfiguration@{updateAuthorizationConfiguration}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{updateAuthorizationConfiguration()}{updateAuthorizationConfiguration()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a73c698ad54fc64b22e9b388dc2bbdf9e} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::update\+Authorization\+Configuration (\begin{DoxyParamCaption}\item[{array}]{\$config}{}\end{DoxyParamCaption})}
+
+Update authorization configuration 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_addda1dc772e81a7bd080ca90eb02db19}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a73c698ad54fc64b22e9b388dc2bbdf9e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a1c3638aeaa016e27547f72a6a39307c8}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!updatePermission@{updatePermission}}
+\index{updatePermission@{updatePermission}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{updatePermission()}{updatePermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a1c3638aeaa016e27547f72a6a39307c8} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::update\+Permission (\begin{DoxyParamCaption}\item[{int}]{\$permission\+Id}{, }\item[{array}]{\$updates}{}\end{DoxyParamCaption})}
+
+Memperbarui permission 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a6deeffdd12ccbc394079307680d71cc1}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a1c3638aeaa016e27547f72a6a39307c8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_aa1bd24b65559aaf5f118c53af54b5326}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!updateRole@{updateRole}}
+\index{updateRole@{updateRole}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{updateRole()}{updateRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_aa1bd24b65559aaf5f118c53af54b5326} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::update\+Role (\begin{DoxyParamCaption}\item[{Update\+Role\+Request}]{\$request}{}\end{DoxyParamCaption})}
+
+Memperbarui role 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a0006a137a94358c5301efbf53ff5cb7d}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_aa1bd24b65559aaf5f118c53af54b5326_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a5d490a3edb32d3b8f3d1b54050c48340}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!validateBusinessRules@{validateBusinessRules}}
+\index{validateBusinessRules@{validateBusinessRules}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{validateBusinessRules()}{validateBusinessRules()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a5d490a3edb32d3b8f3d1b54050c48340} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::validate\+Business\+Rules (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}}}]{\$dto}{, }\item[{array}]{\$context}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Abstract method -\/ must be implemented by concrete services 
+
+Reimplemented from \mbox{\hyperlink{classApp_1_1Services_1_1BaseService_ade35f7376c38932ef43bd3fa9fcffd48}{App\textbackslash{}\+Services\textbackslash{}\+Base\+Service}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1AuthorizationService_a5d490a3edb32d3b8f3d1b54050c48340_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1AuthorizationService_a9b5108a48985b04ec37d3320a61ba216}\index{App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}!validatePermissionHierarchy@{validatePermissionHierarchy}}
+\index{validatePermissionHierarchy@{validatePermissionHierarchy}!App\textbackslash{}Services\textbackslash{}AuthorizationService@{App\textbackslash{}Services\textbackslash{}AuthorizationService}}
+\doxysubsubsection{\texorpdfstring{validatePermissionHierarchy()}{validatePermissionHierarchy()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1AuthorizationService_a9b5108a48985b04ec37d3320a61ba216} 
+App\textbackslash{}\+Services\textbackslash{}\+Authorization\+Service\+::validate\+Permission\+Hierarchy (\begin{DoxyParamCaption}\item[{int}]{\$permission\+Id}{, }\item[{int}]{\$parent\+Permission\+Id}{}\end{DoxyParamCaption})}
+
+Validasi permission hierarchy 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1AuthorizationInterface_a462dfcd70f559c320fa25b3ef468e80d}{App\textbackslash{}\+Contracts\textbackslash{}\+Authorization\+Interface}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Services/\mbox{\hyperlink{AuthorizationService_8php}{Authorization\+Service.\+php}}\end{DoxyCompactItemize}

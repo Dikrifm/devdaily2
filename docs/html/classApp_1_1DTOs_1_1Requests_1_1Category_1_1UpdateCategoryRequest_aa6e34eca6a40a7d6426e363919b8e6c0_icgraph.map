@@ -1,0 +1,11 @@
+<map id="App\DTOs\Requests\Category\UpdateCategoryRequest\hasChanges" name="App\DTOs\Requests\Category\UpdateCategoryRequest\hasChanges">
+<area shape="rect" id="Node000001" title=" " alt="" coords="624,52,891,97"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Category_1_1UpdateCategoryRequest.html#a7f3ecfa9a99825743eebcc60f2d85bf1" title=" " alt="" coords="318,5,576,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="606,56,576,55,576,50,611,56"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Requests_1_1Category_1_1UpdateCategoryRequest.html#a93a1f28bec2d6f82ac23cbc1272e894d" title=" " alt="" coords="329,91,565,136"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="611,93,566,101,565,96,606,94"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Category_1_1UpdateCategoryRequest.html#ad79936071022846fad5e418af138662d" title=" " alt="" coords="5,14,270,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,37,270,39,270,34,305,36"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1CategoryService.html#aead23562f56e9f5cadf7149a8d0cebcd" title=" " alt="" coords="29,91,246,136"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="311,114,246,116,246,111,316,113"/>
+</map>

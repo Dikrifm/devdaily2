@@ -1,0 +1,798 @@
+\doxysection{App\textbackslash{}Contracts\textbackslash{}Category\+Interface Interface Reference}
+\hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface}{}\label{interfaceApp_1_1Contracts_1_1CategoryInterface}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Contracts\textbackslash{}Category\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{interfaceApp_1_1Contracts_1_1CategoryInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Contracts\textbackslash{}Category\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{interfaceApp_1_1Contracts_1_1CategoryInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a4763b6929e880ac4fa6d1d70d63fd301}{create\+Category}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Category_1_1CreateCategoryRequest}{Create\+Category\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a62db856fa1199ec1aac2931154747466}{update\+Category}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Category_1_1UpdateCategoryRequest}{Update\+Category\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a196c6f52217597404ee7335187d013f2}{delete\+Category}} (int \$category\+Id, bool \$force=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a516fc55095ee8b7b073e59338370ed7d}{archive\+Category}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a8923eb8e396a8737c405bf51b83cd8e2}{restore\+Category}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a79ab5567291a06701bd6807e839f72d1}{get\+Category}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_aea821eb0bb542eb51a65add7846eb0f3}{get\+Category\+By\+Slug}} (string \$slug)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a50a719640ca1ff6e1e6103d80834fbdb}{get\+Categories}} (array \$filters=\mbox{[}$\,$\mbox{]}, int \$page=1, int \$per\+Page=25)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_aacbe1344e86e5344a54d5e8545867dc4}{get\+Category\+Tree}} (bool \$active\+Only=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a8a2f4a391ec5a7a0362651bed6ed5f46}{get\+Root\+Categories}} (bool \$active\+Only=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_ab45f9b7ba0ed54b1c715e5b1b815ce23}{get\+Subcategories}} (int \$parent\+Id, bool \$active\+Only=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a4d3efc0824c5cd50a5cc768b9d5547ef}{search\+Categories}} (string \$search\+Term, int \$limit=20)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a0f6bd0b427cff980729a66193a62a278}{bulk\+Update\+Status}} (array \$category\+Ids, bool \$active)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a0d7be39cccc813617772f63a1c3ca6df}{bulk\+Reparent}} (array \$category\+Ids, int \$new\+Parent\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a54922266514c317e3edfcf98851397f8}{bulk\+Update\+Sort\+Order}} (array \$sort\+Orders)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_ad82f6b1e6d5893f6f212e928e8e60aba}{bulk\+Archive}} (array \$category\+Ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a04602818187583ea576a456a28dad684}{bulk\+Restore}} (array \$category\+Ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a2c008e53bd81b9f81d94bcefc7b98f8d}{validate\+Deletion}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a191dc94588f695d8140442d8b7b08708}{can\+Archive}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a0c33925ef7443d6f4cb5dc8c7b5ab06d}{is\+Slug\+Available}} (string \$slug, ?int \$exclude\+Category\+Id=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a5bde5b920ffc3158014b7b084f6043ee}{generate\+Slug}} (string \$name, ?int \$exclude\+Category\+Id=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_ab123e8be509f0e6935efb9bfb7cd9e90}{move\+Category}} (int \$category\+Id, ?int \$new\+Parent\+Id, int \$new\+Sort\+Order)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a2f5664baca6d6e8e23807af5b3aefda9}{rebuild\+Category\+Tree}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a362b0221888e75f382669ca19dc9faa9}{validate\+Hierarchy}} (int \$category\+Id, ?int \$parent\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_a441ec6c4ae1d52f584145d9ed64304f9}{get\+Statistics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CategoryInterface_ad949dfdd58d02a5f459c0de75de94fad}{get\+Usage\+Statistics}} (bool \$include\+Archived=false)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface}{App\textbackslash{}\+Contracts\textbackslash{}\+Base\+Interface}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a513eec59fe7e9c0e402e46a78f8297d0}{transaction}} (Closure \$operation, ?string \$transaction\+Name=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a0f185075b3351f187e5d3a8254542226}{transaction\+With\+Retry}} (Closure \$operation, int \$max\+Retries=3, int \$retry\+Delay\+Ms=100)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a82b6e384c3fe6c7bfc54ea447281646d}{authorize}} (string \$permission, \$resource=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a873fb3b4fa96531b0e5783f7a99ae5fa}{validate\+DTO}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a91d3c6630411461cb087d01f44a51d78}{validate\+DTOOr\+Fail}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4ab64479468cdd5d2d1ff20e57288eb9}{validate\+Business\+Rules}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a659738ef6a66310bf5d776f0c30d069d}{coordinate\+Repositories}} (array \$repositories, Closure \$operation)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a614962d78135eed382f83ce29869a98e}{get\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$id, bool \$throw\+If\+Not\+Found=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_aed17577b644e1cd393d27d7bb8df0079}{audit}} (string \$action\+Type, string \$entity\+Type, int \$entity\+Id, ?array \$old\+Values=null, ?array \$new\+Values=null, array \$additional\+Context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a2e883260221a98d0a1460e60e9f5471a}{clear\+Cache\+For\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$entity\+Id=null, ?string \$pattern=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a44f55353c98e0aaa8b34958b616edf26}{clear\+Service\+Cache}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4eb6b3a73481036645de2cd9c1b52d0b}{with\+Caching}} (string \$cache\+Key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adca74bf9f67291760288556be736d719}{batch\+Operation}} (array \$items, Closure \$item\+Operation, int \$batch\+Size=100, ?callable \$progress\+Callback=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ab545a2b47b89a7e3024a6f49ec8925d1}{set\+Admin\+Context}} (?int \$admin\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_add7778041b0a400e381071f3ff73c738}{get\+Current\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adf003d75eba7ca916b60f3060ab99f69}{get\+Service\+Name}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a8217d5efa6e88215cb262bf40f347e0c}{get\+Service\+Cache\+Key}} (string \$operation, array \$parameters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_af738fd9359e1bbbf4aa1f3e7dd3842db}{get\+Initialized\+At}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a86fa6c01142fed51838997cde357ebcc}{is\+Ready}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a3cf8cac523af3644379fa92fea310552}{get\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ac73ccbd402a29fa7d8b0afec6f47ff24}{get\+Performance\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a572bfd5dd56831a44813c2a5f0d0d4a9}{reset\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_abd29e7ea159bb15a299066801bded75e}{validate\+Configuration}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a516fc55095ee8b7b073e59338370ed7d}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!archiveCategory@{archiveCategory}}
+\index{archiveCategory@{archiveCategory}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{archiveCategory()}{archiveCategory()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a516fc55095ee8b7b073e59338370ed7d} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::archive\+Category (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Archive a category (soft delete)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a15a3d3fe1dc72840ed8783ba5c4f6fc1}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_ad82f6b1e6d5893f6f212e928e8e60aba}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!bulkArchive@{bulkArchive}}
+\index{bulkArchive@{bulkArchive}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{bulkArchive()}{bulkArchive()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_ad82f6b1e6d5893f6f212e928e8e60aba} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::bulk\+Archive (\begin{DoxyParamCaption}\item[{array}]{\$category\+Ids}{}\end{DoxyParamCaption})}
+
+Bulk archive categories
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int$>$} & \$category\+Ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of archived categories 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a49dfeb75b3b9fb82714594af19dfcbe6}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a0d7be39cccc813617772f63a1c3ca6df}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!bulkReparent@{bulkReparent}}
+\index{bulkReparent@{bulkReparent}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{bulkReparent()}{bulkReparent()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a0d7be39cccc813617772f63a1c3ca6df} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::bulk\+Reparent (\begin{DoxyParamCaption}\item[{array}]{\$category\+Ids}{, }\item[{int}]{\$new\+Parent\+Id}{}\end{DoxyParamCaption})}
+
+Bulk reparent categories
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int$>$} & \$category\+Ids \\
+\hline
+int & {\em \$new\+Parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of reparented categories 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a25b08c84cbf66ae6cba7240cfd097803}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a04602818187583ea576a456a28dad684}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!bulkRestore@{bulkRestore}}
+\index{bulkRestore@{bulkRestore}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{bulkRestore()}{bulkRestore()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a04602818187583ea576a456a28dad684} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::bulk\+Restore (\begin{DoxyParamCaption}\item[{array}]{\$category\+Ids}{}\end{DoxyParamCaption})}
+
+Bulk restore categories
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int$>$} & \$category\+Ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of restored categories 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a7aa006b1b8d0576bed5c6c5fef8c0706}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a54922266514c317e3edfcf98851397f8}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!bulkUpdateSortOrder@{bulkUpdateSortOrder}}
+\index{bulkUpdateSortOrder@{bulkUpdateSortOrder}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{bulkUpdateSortOrder()}{bulkUpdateSortOrder()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a54922266514c317e3edfcf98851397f8} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::bulk\+Update\+Sort\+Order (\begin{DoxyParamCaption}\item[{array}]{\$sort\+Orders}{}\end{DoxyParamCaption})}
+
+Bulk update sort order
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int,int$>$} & \$sort\+Orders Mapping of category ID to sort order \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of updated categories 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a4c00b3701574e564a412ee9236e93429}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a0f6bd0b427cff980729a66193a62a278}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!bulkUpdateStatus@{bulkUpdateStatus}}
+\index{bulkUpdateStatus@{bulkUpdateStatus}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{bulkUpdateStatus()}{bulkUpdateStatus()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a0f6bd0b427cff980729a66193a62a278} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::bulk\+Update\+Status (\begin{DoxyParamCaption}\item[{array}]{\$category\+Ids}{, }\item[{bool}]{\$active}{}\end{DoxyParamCaption})}
+
+Bulk update category status (active/inactive)
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int$>$} & \$category\+Ids \\
+\hline
+bool & {\em \$active} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of updated categories 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a6aa896a315096d0283feba654ca6bda3}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a191dc94588f695d8140442d8b7b08708}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!canArchive@{canArchive}}
+\index{canArchive@{canArchive}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{canArchive()}{canArchive()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a191dc94588f695d8140442d8b7b08708} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::can\+Archive (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Validate if category can be archived
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_aad6cebfa184e54372cac80801240dea2}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a4763b6929e880ac4fa6d1d70d63fd301}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!createCategory@{createCategory}}
+\index{createCategory@{createCategory}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{createCategory()}{createCategory()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a4763b6929e880ac4fa6d1d70d63fd301} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::create\+Category (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Category_1_1CreateCategoryRequest}{Create\+Category\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Create a new category with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+Create\+Category\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Validation\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a80ed6774fd918eb1bf902fa6bd1d7eb3}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a196c6f52217597404ee7335187d013f2}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!deleteCategory@{deleteCategory}}
+\index{deleteCategory@{deleteCategory}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{deleteCategory()}{deleteCategory()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a196c6f52217597404ee7335187d013f2} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::delete\+Category (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{, }\item[{bool}]{\$force}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Delete a category with preconditions check
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+bool & {\em \$force} & Force delete ignoring preconditions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a6abceebf470a51bd836b36cff88517b3}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a5bde5b920ffc3158014b7b084f6043ee}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!generateSlug@{generateSlug}}
+\index{generateSlug@{generateSlug}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{generateSlug()}{generateSlug()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a5bde5b920ffc3158014b7b084f6043ee} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::generate\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$name}{, }\item[{?int}]{\$exclude\+Category\+Id}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Generate a unique slug from category name
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+int | null & {\em \$exclude\+Category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a0ea86d70e4bdbea00336553179cfd192}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a50a719640ca1ff6e1e6103d80834fbdb}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!getCategories@{getCategories}}
+\index{getCategories@{getCategories}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{getCategories()}{getCategories()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a50a719640ca1ff6e1e6103d80834fbdb} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::get\+Categories (\begin{DoxyParamCaption}\item[{array}]{\$filters}{ = {\ttfamily \mbox{[}\mbox{]}}, }\item[{int}]{\$page}{ = {\ttfamily 1}, }\item[{int}]{\$per\+Page}{ = {\ttfamily 25}}\end{DoxyParamCaption})}
+
+Get paginated list of categories with filters
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$filters} & \\
+\hline
+int & {\em \$page} & \\
+\hline
+int & {\em \$per\+Page} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{categories\+: array$<$\+Category\+Response$>$, pagination\+: array\} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a8d5e16682961e671418d1be01b15bd4f}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a79ab5567291a06701bd6807e839f72d1}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!getCategory@{getCategory}}
+\index{getCategory@{getCategory}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{getCategory()}{getCategory()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a79ab5567291a06701bd6807e839f72d1} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::get\+Category (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Get category by ID with full hydration
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a490fb7e87557610a3c7d72c195583393}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_aea821eb0bb542eb51a65add7846eb0f3}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!getCategoryBySlug@{getCategoryBySlug}}
+\index{getCategoryBySlug@{getCategoryBySlug}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{getCategoryBySlug()}{getCategoryBySlug()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_aea821eb0bb542eb51a65add7846eb0f3} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::get\+Category\+By\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$slug}{}\end{DoxyParamCaption})}
+
+Get category by slug with full hydration
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_ae5df91f72ccc921483d441b6f0f01698}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_aacbe1344e86e5344a54d5e8545867dc4}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!getCategoryTree@{getCategoryTree}}
+\index{getCategoryTree@{getCategoryTree}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{getCategoryTree()}{getCategoryTree()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_aacbe1344e86e5344a54d5e8545867dc4} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::get\+Category\+Tree (\begin{DoxyParamCaption}\item[{bool}]{\$active\+Only}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Get category tree (hierarchy) for navigation
+
+
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$active\+Only} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category\+Tree\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a305c10acd3c1ac1c689ff3cec423e49e}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a8a2f4a391ec5a7a0362651bed6ed5f46}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!getRootCategories@{getRootCategories}}
+\index{getRootCategories@{getRootCategories}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{getRootCategories()}{getRootCategories()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a8a2f4a391ec5a7a0362651bed6ed5f46} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::get\+Root\+Categories (\begin{DoxyParamCaption}\item[{bool}]{\$active\+Only}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Get root categories (categories without parent)
+
+
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$active\+Only} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_abf7d77db0e4aafe7409e8fc1657bf512}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a441ec6c4ae1d52f584145d9ed64304f9}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!getStatistics@{getStatistics}}
+\index{getStatistics@{getStatistics}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{getStatistics()}{getStatistics()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a441ec6c4ae1d52f584145d9ed64304f9} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::get\+Statistics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get category statistics
+
+\begin{DoxyReturn}{Returns}
+array\{ total\+\_\+categories\+: int, active\+\_\+categories\+: int, archived\+\_\+categories\+: int, root\+\_\+categories\+: int, max\+\_\+depth\+: int, average\+\_\+products\+\_\+per\+\_\+category\+: float, categories\+\_\+without\+\_\+products\+: int \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_ae889a74650fc5d2537c12a6b13120e1c}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_ab45f9b7ba0ed54b1c715e5b1b815ce23}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!getSubcategories@{getSubcategories}}
+\index{getSubcategories@{getSubcategories}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{getSubcategories()}{getSubcategories()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_ab45f9b7ba0ed54b1c715e5b1b815ce23} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::get\+Subcategories (\begin{DoxyParamCaption}\item[{int}]{\$parent\+Id}{, }\item[{bool}]{\$active\+Only}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Get subcategories for a parent category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$parent\+Id} & \\
+\hline
+bool & {\em \$active\+Only} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category\+Response$>$ 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a1358b083452e443bd4cb93bf93d2a6d6}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_ad949dfdd58d02a5f459c0de75de94fad}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!getUsageStatistics@{getUsageStatistics}}
+\index{getUsageStatistics@{getUsageStatistics}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{getUsageStatistics()}{getUsageStatistics()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_ad949dfdd58d02a5f459c0de75de94fad} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::get\+Usage\+Statistics (\begin{DoxyParamCaption}\item[{bool}]{\$include\+Archived}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Get category usage statistics (products count per category)
+
+
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$include\+Archived} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}int, array\{category\+\_\+id\+: int, category\+\_\+name\+: string, product\+\_\+count\+: int, subcategory\+\_\+count\+: int\}\texorpdfstring{$>$}{>} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_aed22671356b362bc69a269b8f753e163}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a0c33925ef7443d6f4cb5dc8c7b5ab06d}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!isSlugAvailable@{isSlugAvailable}}
+\index{isSlugAvailable@{isSlugAvailable}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{isSlugAvailable()}{isSlugAvailable()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a0c33925ef7443d6f4cb5dc8c7b5ab06d} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::is\+Slug\+Available (\begin{DoxyParamCaption}\item[{string}]{\$slug}{, }\item[{?int}]{\$exclude\+Category\+Id}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if slug is available for use
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+int | null & {\em \$exclude\+Category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a7aa887ff344373ae337f2fb0727e2590}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_ab123e8be509f0e6935efb9bfb7cd9e90}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!moveCategory@{moveCategory}}
+\index{moveCategory@{moveCategory}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{moveCategory()}{moveCategory()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_ab123e8be509f0e6935efb9bfb7cd9e90} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::move\+Category (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{, }\item[{?int}]{\$new\+Parent\+Id}{, }\item[{int}]{\$new\+Sort\+Order}{}\end{DoxyParamCaption})}
+
+Move category to new position in hierarchy
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+int | null & {\em \$new\+Parent\+Id} & \\
+\hline
+int & {\em \$new\+Sort\+Order} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a5db8f282ef45f1f1f9c358afd87a29e8}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a2f5664baca6d6e8e23807af5b3aefda9}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!rebuildCategoryTree@{rebuildCategoryTree}}
+\index{rebuildCategoryTree@{rebuildCategoryTree}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{rebuildCategoryTree()}{rebuildCategoryTree()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a2f5664baca6d6e8e23807af5b3aefda9} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::rebuild\+Category\+Tree (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Rebuild category tree (fix hierarchy inconsistencies)
+
+\begin{DoxyReturn}{Returns}
+array\{repaired\+: int, errors\+: array\} 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a913c2cbe8a1ce76743e118bd29522d32}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a8923eb8e396a8737c405bf51b83cd8e2}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!restoreCategory@{restoreCategory}}
+\index{restoreCategory@{restoreCategory}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{restoreCategory()}{restoreCategory()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a8923eb8e396a8737c405bf51b83cd8e2} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::restore\+Category (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Restore an archived category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a037c09cd1fa63b66f44c153fa451818c}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a4d3efc0824c5cd50a5cc768b9d5547ef}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!searchCategories@{searchCategories}}
+\index{searchCategories@{searchCategories}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{searchCategories()}{searchCategories()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a4d3efc0824c5cd50a5cc768b9d5547ef} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::search\+Categories (\begin{DoxyParamCaption}\item[{string}]{\$search\+Term}{, }\item[{int}]{\$limit}{ = {\ttfamily 20}}\end{DoxyParamCaption})}
+
+Search categories by name or slug
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$search\+Term} & \\
+\hline
+int & {\em \$limit} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a6f9773b122b5b7479559fafdab60fb28}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a62db856fa1199ec1aac2931154747466}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!updateCategory@{updateCategory}}
+\index{updateCategory@{updateCategory}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{updateCategory()}{updateCategory()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a62db856fa1199ec1aac2931154747466} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::update\+Category (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Category_1_1UpdateCategoryRequest}{Update\+Category\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Update an existing category with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+Update\+Category\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Validation\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Not\+Found\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_aead23562f56e9f5cadf7149a8d0cebcd}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a2c008e53bd81b9f81d94bcefc7b98f8d}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!validateDeletion@{validateDeletion}}
+\index{validateDeletion@{validateDeletion}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{validateDeletion()}{validateDeletion()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a2c008e53bd81b9f81d94bcefc7b98f8d} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::validate\+Deletion (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Validate if category can be deleted (check preconditions)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ can\+\_\+delete\+: bool, has\+\_\+products\+: bool, has\+\_\+subcategories\+: bool, product\+\_\+count\+: int, subcategory\+\_\+count\+: int \} 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a4c391e18083e29660d92cb81e0a86258}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CategoryInterface_a362b0221888e75f382669ca19dc9faa9}\index{App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}!validateHierarchy@{validateHierarchy}}
+\index{validateHierarchy@{validateHierarchy}!App\textbackslash{}Contracts\textbackslash{}CategoryInterface@{App\textbackslash{}Contracts\textbackslash{}CategoryInterface}}
+\doxysubsubsection{\texorpdfstring{validateHierarchy()}{validateHierarchy()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CategoryInterface_a362b0221888e75f382669ca19dc9faa9} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Category\+Interface\+::validate\+Hierarchy (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{, }\item[{?int}]{\$parent\+Id}{}\end{DoxyParamCaption})}
+
+Validate category hierarchy (no circular references)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+int | null & {\em \$parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CategoryService_a7aa938a1cb3738bab3dec62ff5238113}{App\textbackslash{}\+Services\textbackslash{}\+Category\+Service}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Contracts/\mbox{\hyperlink{CategoryInterface_8php}{Category\+Interface.\+php}}\end{DoxyCompactItemize}

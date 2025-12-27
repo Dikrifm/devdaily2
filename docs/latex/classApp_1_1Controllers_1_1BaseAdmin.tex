@@ -1,0 +1,446 @@
+\doxysection{App\textbackslash{}Controllers\textbackslash{}Base\+Admin Class Reference}
+\hypertarget{classApp_1_1Controllers_1_1BaseAdmin}{}\label{classApp_1_1Controllers_1_1BaseAdmin}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+
+
+Inheritance diagram for App\textbackslash{}Controllers\textbackslash{}Base\+Admin\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classApp_1_1Controllers_1_1BaseAdmin__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Controllers\textbackslash{}Base\+Admin\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classApp_1_1Controllers_1_1BaseAdmin__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a592ebe4c23694ef11b1034f34cc344c6}{init\+Controller}} (Request\+Interface \$request, Response\+Interface \$response, Logger\+Interface \$logger)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController}{App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a6a764a98dede6c0dbd742aa6d37f6926}{\+\_\+\+\_\+construct}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a059c1bbe7f935a4a1069385bcb026d4d}{get\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_abe8f10c9bd98aa046f39b6d9a19e3f80}{get\+Admin\+Data}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a160a11c19dc1f8d9b987d89bb7cf564a}{get\+Admin\+Role}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a324d9c4c6d11446d672981d21a1ee612}{is\+Admin\+Super\+Admin}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_aeed4c0f3d3631c2cd90b18c1f23194e3}{get\+Admin\+Permissions}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_ac26bd232806b86cdae2edd60025e48f6}{has\+Permission}} (string \$permission)
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a7ed5d4d49d6d4cb33b9404f0a59d8a2d}{require\+Permission}} (string \$permission)
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a8a7104e6179f68667df97b6faeb0f369}{render\+Admin\+View}} (string \$view, array \$data=\mbox{[}$\,$\mbox{]}, int \$status\+Code=200)
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a5f1bfa9797f11eacfeda986c63c873ea}{set\+Page\+Title}} (string \$title, bool \$append\+App\+Name=true)
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a9f9614e65b46b22619ee18712a8e31c9}{add\+Breadcrumb}} (string \$label, ?string \$url=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a2d7d95562bd4bb568f1c9a86a9d4b6e1}{set\+Breadcrumbs}} (array \$breadcrumbs)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController}{App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a741fbffae3541c814f2d3bcca8e89cab}{extract\+Input}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a8638d6ce9b2b842fa2ebef40fd653deb}{create\+Request\+Dto}} (string \$dto\+Class, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a903cbe0bb25e83e97b11a88e36dba08f}{create\+Query\+Dto}} (string \$query\+Dto\+Class, array \$defaults=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a5c95e009486868b0d0252d5552e4d6d6}{is\+Json\+Request}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a93142432965e9d5b6a3baab23c0d85f4}{get\+Authenticated\+User}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_abcc6bd9510cdcc1448ed5b8539cb2151}{get\+Current\+User\+Id}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a8eaeb170ecb962c369e2ae7b0c1accc7}{get\+Current\+User\+Role}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a7d8b27610835e40db65c1f283302a110}{require\+Authentication}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a656d8230a429788e0317ac1de7c72d1e}{require\+Role}} (\$roles)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+array \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a55d8201c216edc5011c53fc33061a43f}{\$admin\+Data}} = null
+\item 
+int \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a60e1785db8e2d712245134c928ceb144}{\$admin\+Id}} = null
+\item 
+string \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a61cc6439a465320567f106a3dca05c9b}{\$admin\+Role}} = null
+\item 
+bool \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_ab77f43a41e6e8a2e09b520f6c74afc7d}{\$is\+Super\+Admin}} = false
+\item 
+array \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_ad4ae99638f409cf2bab1eb28f30d9199}{\$admin\+Permissions}} = \mbox{[}$\,$\mbox{]}
+\item 
+array \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_ac10449ae6d1e105715a7180227bfad54}{\$sidebar\+Menu}} = \mbox{[}$\,$\mbox{]}
+\item 
+string \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a6e2e27a00a5629c5ca1ad8aafe1669d7}{\$page\+Title}} = null
+\item 
+array \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a5a908268d9373a6a0e7310ff76231dec}{\$breadcrumbs}} = \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController}{App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a9dd913a7056bdd324a7c9f0ce57619ad}{\$request}}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a73422004f844d9e422cc97f92c21cf75}{\$response}}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a637c1c4133d1d6196955f2c954f2ddf1}{\$logger}}
+\item 
+string \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a87ffea6bab7d85d531e466199238baef}{\$request\+Id}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a9f9614e65b46b22619ee18712a8e31c9}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!addBreadcrumb@{addBreadcrumb}}
+\index{addBreadcrumb@{addBreadcrumb}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{addBreadcrumb()}{addBreadcrumb()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a9f9614e65b46b22619ee18712a8e31c9} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::add\+Breadcrumb (\begin{DoxyParamCaption}\item[{string}]{\$label}{, }\item[{?string}]{\$url}{ = {\ttfamily null}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Add breadcrumb item.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Breadcrumb label \\
+\hline
+string | null & {\em \$url} & Breadcrumb URL (null untuk current/active item) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_abe8f10c9bd98aa046f39b6d9a19e3f80}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!getAdminData@{getAdminData}}
+\index{getAdminData@{getAdminData}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{getAdminData()}{getAdminData()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_abe8f10c9bd98aa046f39b6d9a19e3f80} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::get\+Admin\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get current admin data.
+
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a059c1bbe7f935a4a1069385bcb026d4d}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!getAdminId@{getAdminId}}
+\index{getAdminId@{getAdminId}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{getAdminId()}{getAdminId()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a059c1bbe7f935a4a1069385bcb026d4d} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::get\+Admin\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get current admin ID.
+
+\begin{DoxyReturn}{Returns}
+int\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_aeed4c0f3d3631c2cd90b18c1f23194e3}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!getAdminPermissions@{getAdminPermissions}}
+\index{getAdminPermissions@{getAdminPermissions}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{getAdminPermissions()}{getAdminPermissions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_aeed4c0f3d3631c2cd90b18c1f23194e3} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::get\+Admin\+Permissions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get admin permissions.
+
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a160a11c19dc1f8d9b987d89bb7cf564a}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!getAdminRole@{getAdminRole}}
+\index{getAdminRole@{getAdminRole}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{getAdminRole()}{getAdminRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a160a11c19dc1f8d9b987d89bb7cf564a} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::get\+Admin\+Role (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get current admin role.
+
+\begin{DoxyReturn}{Returns}
+string\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_ac26bd232806b86cdae2edd60025e48f6}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!hasPermission@{hasPermission}}
+\index{hasPermission@{hasPermission}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{hasPermission()}{hasPermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_ac26bd232806b86cdae2edd60025e48f6} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::has\+Permission (\begin{DoxyParamCaption}\item[{string}]{\$permission}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Check jika admin memiliki permission tertentu.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$permission} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseAdmin_ac26bd232806b86cdae2edd60025e48f6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a592ebe4c23694ef11b1034f34cc344c6}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!initController@{initController}}
+\index{initController@{initController}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{initController()}{initController()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a592ebe4c23694ef11b1034f34cc344c6} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::init\+Controller (\begin{DoxyParamCaption}\item[{Request\+Interface}]{\$request}{, }\item[{Response\+Interface}]{\$response}{, }\item[{Logger\+Interface}]{\$logger}{}\end{DoxyParamCaption})}
+
+Constructor. 
+
+Reimplemented from \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_ac61356917268915c1f13cbb9f563b71c}{App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller}}.
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a324d9c4c6d11446d672981d21a1ee612}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!isAdminSuperAdmin@{isAdminSuperAdmin}}
+\index{isAdminSuperAdmin@{isAdminSuperAdmin}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{isAdminSuperAdmin()}{isAdminSuperAdmin()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a324d9c4c6d11446d672981d21a1ee612} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::is\+Admin\+Super\+Admin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Check jika current admin adalah super admin.
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a8a7104e6179f68667df97b6faeb0f369}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!renderAdminView@{renderAdminView}}
+\index{renderAdminView@{renderAdminView}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{renderAdminView()}{renderAdminView()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a8a7104e6179f68667df97b6faeb0f369} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::render\+Admin\+View (\begin{DoxyParamCaption}\item[{string}]{\$view}{, }\item[{array}]{\$data}{ = {\ttfamily \mbox{[}\mbox{]}}, }\item[{int}]{\$status\+Code}{ = {\ttfamily 200}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Render admin view dengan admin layout.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$view} & View name (tanpa extension, relative ke admin folder) \\
+\hline
+array & {\em \$data} & Data untuk view \\
+\hline
+int & {\em \$status\+Code} & HTTP status code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response\+Interface 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a7ed5d4d49d6d4cb33b9404f0a59d8a2d}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!requirePermission@{requirePermission}}
+\index{requirePermission@{requirePermission}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{requirePermission()}{requirePermission()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a7ed5d4d49d6d4cb33b9404f0a59d8a2d} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::require\+Permission (\begin{DoxyParamCaption}\item[{string}]{\$permission}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Require specific permission (throw exception jika tidak ada).
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$permission} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Authorization\+Exception Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseAdmin_a7ed5d4d49d6d4cb33b9404f0a59d8a2d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a2d7d95562bd4bb568f1c9a86a9d4b6e1}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!setBreadcrumbs@{setBreadcrumbs}}
+\index{setBreadcrumbs@{setBreadcrumbs}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{setBreadcrumbs()}{setBreadcrumbs()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a2d7d95562bd4bb568f1c9a86a9d4b6e1} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::set\+Breadcrumbs (\begin{DoxyParamCaption}\item[{array}]{\$breadcrumbs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Set breadcrumbs array.
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$breadcrumbs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+Load sidebar menu dari config atau service.
+
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+Filter menu items berdasarkan admin permissions.
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$menu\+Items} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array
+\end{DoxyReturn}
+Handle admin GET request dengan standard template.
+
+
+\begin{DoxyParams}[1]{Parameters}
+callable & {\em \$service\+Call} & Function yang memanggil service \\
+\hline
+array & {\em \$view\+Config} & Konfigurasi view \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response\+Interface
+\end{DoxyReturn}
+Handle admin POST/\+PUT/\+PATCH request dengan standard template.
+
+
+\begin{DoxyParams}[1]{Parameters}
+callable & {\em \$service\+Call} & Function yang memanggil service \\
+\hline
+string & {\em \$success\+Message} & Pesan sukses \\
+\hline
+string & {\em \$redirect\+Route} & Route untuk redirect setelah sukses \\
+\hline
+array & {\em \$redirect\+Params} & Parameter untuk redirect URL \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response\+Interface
+\end{DoxyReturn}
+Handle admin DELETE request.
+
+
+\begin{DoxyParams}[1]{Parameters}
+callable & {\em \$service\+Call} & \\
+\hline
+string & {\em \$success\+Message} & \\
+\hline
+string & {\em \$redirect\+Route} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response\+Interface
+\end{DoxyReturn}
+Handle admin bulk action request.
+
+
+\begin{DoxyParams}[1]{Parameters}
+callable & {\em \$service\+Call} & \\
+\hline
+string & {\em \$success\+Message} & \\
+\hline
+string & {\em \$redirect\+Route} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response\+Interface
+\end{DoxyReturn}
+Get request data untuk admin forms.
+
+\begin{DoxyReturn}{Returns}
+array
+\end{DoxyReturn}
+Create DTO dari admin request data.
+
+@template T 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em class-\/string$<$\+T$>$} & \$dto\+Class \\
+\hline
+array & {\em \$additional\+Data} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a5f1bfa9797f11eacfeda986c63c873ea}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!setPageTitle@{setPageTitle}}
+\index{setPageTitle@{setPageTitle}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{setPageTitle()}{setPageTitle()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a5f1bfa9797f11eacfeda986c63c873ea} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::set\+Page\+Title (\begin{DoxyParamCaption}\item[{string}]{\$title}{, }\item[{bool}]{\$append\+App\+Name}{ = {\ttfamily true}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Set page title untuk admin panel.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$title} & \\
+\hline
+bool & {\em \$append\+App\+Name} & Jika true, append "{} \texorpdfstring{$\vert$}{|} Admin Panel"{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a55d8201c216edc5011c53fc33061a43f}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!\$adminData@{\$adminData}}
+\index{\$adminData@{\$adminData}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{\$adminData}{\$adminData}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a55d8201c216edc5011c53fc33061a43f} 
+array App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::\$admin\+Data = null\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a60e1785db8e2d712245134c928ceb144}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!\$adminId@{\$adminId}}
+\index{\$adminId@{\$adminId}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{\$adminId}{\$adminId}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a60e1785db8e2d712245134c928ceb144} 
+int App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::\$admin\+Id = null\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_ad4ae99638f409cf2bab1eb28f30d9199}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!\$adminPermissions@{\$adminPermissions}}
+\index{\$adminPermissions@{\$adminPermissions}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{\$adminPermissions}{\$adminPermissions}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_ad4ae99638f409cf2bab1eb28f30d9199} 
+array App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::\$admin\+Permissions = \mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a61cc6439a465320567f106a3dca05c9b}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!\$adminRole@{\$adminRole}}
+\index{\$adminRole@{\$adminRole}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{\$adminRole}{\$adminRole}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a61cc6439a465320567f106a3dca05c9b} 
+string App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::\$admin\+Role = null\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a5a908268d9373a6a0e7310ff76231dec}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!\$breadcrumbs@{\$breadcrumbs}}
+\index{\$breadcrumbs@{\$breadcrumbs}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{\$breadcrumbs}{\$breadcrumbs}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a5a908268d9373a6a0e7310ff76231dec} 
+array App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::\$breadcrumbs = \mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_ab77f43a41e6e8a2e09b520f6c74afc7d}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!\$isSuperAdmin@{\$isSuperAdmin}}
+\index{\$isSuperAdmin@{\$isSuperAdmin}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{\$isSuperAdmin}{\$isSuperAdmin}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_ab77f43a41e6e8a2e09b520f6c74afc7d} 
+bool App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::\$is\+Super\+Admin = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_a6e2e27a00a5629c5ca1ad8aafe1669d7}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!\$pageTitle@{\$pageTitle}}
+\index{\$pageTitle@{\$pageTitle}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{\$pageTitle}{\$pageTitle}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_a6e2e27a00a5629c5ca1ad8aafe1669d7} 
+string App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::\$page\+Title = null\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseAdmin_ac10449ae6d1e105715a7180227bfad54}\index{App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}!\$sidebarMenu@{\$sidebarMenu}}
+\index{\$sidebarMenu@{\$sidebarMenu}!App\textbackslash{}Controllers\textbackslash{}BaseAdmin@{App\textbackslash{}Controllers\textbackslash{}BaseAdmin}}
+\doxysubsubsection{\texorpdfstring{\$sidebarMenu}{\$sidebarMenu}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseAdmin_ac10449ae6d1e105715a7180227bfad54} 
+array App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin\+::\$sidebar\+Menu = \mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Controllers/\mbox{\hyperlink{BaseAdmin_8php}{Base\+Admin.\+php}}\end{DoxyCompactItemize}

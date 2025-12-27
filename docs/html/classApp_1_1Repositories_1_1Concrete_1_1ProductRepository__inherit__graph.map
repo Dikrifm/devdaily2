@@ -1,0 +1,14 @@
+<map id="App\Repositories\Concrete\ProductRepository" name="App\Repositories\Concrete\ProductRepository">
+<area shape="rect" id="Node000001" title=" " alt="" coords="576,36,769,81"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html" title=" " alt="" coords="291,14,528,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="484,42,578,56,573,56,483,47"/>
+<area shape="poly" id="edge6_Node000001_Node000002" title=" " alt="" coords="544,32,578,38,573,38,544,37"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html" title=" " alt="" coords="5,5,243,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="258,25,293,27,288,28,259,30"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductRepositoryInterface.html" title=" " alt="" coords="308,65,510,110"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="248,51,311,66,305,67,248,56"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="526,81,573,78,578,78,526,86"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="526,63,573,61,578,60,526,68"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="101,74,147,102"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="162,85,310,86,306,89,162,90"/>
+</map>

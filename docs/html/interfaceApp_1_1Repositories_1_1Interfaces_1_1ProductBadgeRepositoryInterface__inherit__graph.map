@@ -1,0 +1,9 @@
+<map id="App\Repositories\Interfaces\ProductBadgeRepositoryInterface" name="App\Repositories\Interfaces\ProductBadgeRepositoryInterface">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,98,249,143"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository.html" title=" " alt="" coords="30,191,224,235"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="129,156,129,192,125,189,125,160"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="21,14,68,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="67,50,110,97,105,98,66,56"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html" title=" " alt="" coords="91,5,328,50"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,60,148,100,145,96,178,63"/>
+</map>

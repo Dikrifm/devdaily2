@@ -1,0 +1,11 @@
+<map id="App\DTOs\Requests\System\SystemHealthRequest\checkComponent" name="App\DTOs\Requests\System\SystemHealthRequest\checkComponent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="328,109,615,154"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#ab0a8c976e763cc107c1e88363dc069c4" title=" " alt="" coords="16,5,269,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="395,104,279,65,239,53,238,48,280,60,400,103"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#aa820ca654590b0810cbf78f48398e154" title=" " alt="" coords="5,75,280,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="310,115,280,114,280,109,315,114"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#ad3b16ec8a9e0a7efd2acfe1c559a707d" title=" " alt="" coords="18,144,267,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="310,149,268,156,267,151,315,148"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1DTOs_1_1Requests_1_1System_1_1SystemHealthRequest.html#a4644cdc8b7e012a051fcd4d486720290" title=" " alt="" coords="11,213,274,258"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="400,159,280,204,239,215,238,210,279,198,395,161"/>
+</map>

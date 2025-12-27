@@ -1,0 +1,418 @@
+\doxysection{App\textbackslash{}Contracts\textbackslash{}Marketplace\+Badge\+Interface Interface Reference}
+\hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface}{}\label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Contracts\textbackslash{}Marketplace\+Badge\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Contracts\textbackslash{}Marketplace\+Badge\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a3e21e8c4e6e7e989de73e3d550480314}{create\+Marketplace\+Badge}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$request\+DTO)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a06ebf5864d5f89800114482fc78493d5}{update\+Marketplace\+Badge}} (int \$badge\+Id, \mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$request\+DTO)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a2b17a0d0455c544a8067a396fe87a0a4}{get\+Marketplace\+Badge}} (int \$badge\+Id, bool \$with\+Archived=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_abaf9c658d1e0039434eead1fd951f213}{get\+Marketplace\+Badge\+By\+Label}} (string \$label, bool \$with\+Archived=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_aed3f94a142b77d7b6301c77fec348216}{get\+Marketplace\+Badges\+By\+Icon}} (string \$icon)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_ad97a99439ae9b5570e290b65d5a416ed}{delete\+Marketplace\+Badge}} (int \$badge\+Id, bool \$force=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_ad921868e4635ebaf865dd06657fb7220}{archive\+Marketplace\+Badge}} (int \$badge\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a7433bfe5f868782860c314a66a47412d}{restore\+Marketplace\+Badge}} (int \$badge\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a25c63cce8d6861602ff0456d62dd2b5f}{bulk\+Archive\+Marketplace\+Badges}} (array \$badge\+Ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_aec2b4e200f3f119c7290122a7bfeaeb5}{bulk\+Restore\+Marketplace\+Badges}} (array \$badge\+Ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a431405b53e3a0982cd8f81f16f522d4a}{bulk\+Update\+Status}} (array \$badge\+Ids, string \$status, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a899d1da3b3696d9c93fa52aae8a5152f}{get\+All\+Marketplace\+Badges}} (array \$filters=\mbox{[}$\,$\mbox{]}, int \$per\+Page=25, int \$page=1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface}{App\textbackslash{}\+Contracts\textbackslash{}\+Base\+Interface}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a513eec59fe7e9c0e402e46a78f8297d0}{transaction}} (Closure \$operation, ?string \$transaction\+Name=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a0f185075b3351f187e5d3a8254542226}{transaction\+With\+Retry}} (Closure \$operation, int \$max\+Retries=3, int \$retry\+Delay\+Ms=100)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a82b6e384c3fe6c7bfc54ea447281646d}{authorize}} (string \$permission, \$resource=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a873fb3b4fa96531b0e5783f7a99ae5fa}{validate\+DTO}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a91d3c6630411461cb087d01f44a51d78}{validate\+DTOOr\+Fail}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4ab64479468cdd5d2d1ff20e57288eb9}{validate\+Business\+Rules}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a659738ef6a66310bf5d776f0c30d069d}{coordinate\+Repositories}} (array \$repositories, Closure \$operation)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a614962d78135eed382f83ce29869a98e}{get\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$id, bool \$throw\+If\+Not\+Found=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_aed17577b644e1cd393d27d7bb8df0079}{audit}} (string \$action\+Type, string \$entity\+Type, int \$entity\+Id, ?array \$old\+Values=null, ?array \$new\+Values=null, array \$additional\+Context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a2e883260221a98d0a1460e60e9f5471a}{clear\+Cache\+For\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$entity\+Id=null, ?string \$pattern=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a44f55353c98e0aaa8b34958b616edf26}{clear\+Service\+Cache}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4eb6b3a73481036645de2cd9c1b52d0b}{with\+Caching}} (string \$cache\+Key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adca74bf9f67291760288556be736d719}{batch\+Operation}} (array \$items, Closure \$item\+Operation, int \$batch\+Size=100, ?callable \$progress\+Callback=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ab545a2b47b89a7e3024a6f49ec8925d1}{set\+Admin\+Context}} (?int \$admin\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_add7778041b0a400e381071f3ff73c738}{get\+Current\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adf003d75eba7ca916b60f3060ab99f69}{get\+Service\+Name}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a8217d5efa6e88215cb262bf40f347e0c}{get\+Service\+Cache\+Key}} (string \$operation, array \$parameters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_af738fd9359e1bbbf4aa1f3e7dd3842db}{get\+Initialized\+At}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a86fa6c01142fed51838997cde357ebcc}{is\+Ready}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a3cf8cac523af3644379fa92fea310552}{get\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ac73ccbd402a29fa7d8b0afec6f47ff24}{get\+Performance\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a572bfd5dd56831a44813c2a5f0d0d4a9}{reset\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_abd29e7ea159bb15a299066801bded75e}{validate\+Configuration}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_ad921868e4635ebaf865dd06657fb7220}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!archiveMarketplaceBadge@{archiveMarketplaceBadge}}
+\index{archiveMarketplaceBadge@{archiveMarketplaceBadge}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{archiveMarketplaceBadge()}{archiveMarketplaceBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_ad921868e4635ebaf865dd06657fb7220} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::archive\+Marketplace\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Archive marketplace badge (soft delete with business rules)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & Badge ID to archive \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if successful 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & If badge not found \\
+\hline
+{\em Domain\+Exception} & If badge cannot be archived \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_a9f2770f741ff1e6a6dc29d1c2a21e14c}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a25c63cce8d6861602ff0456d62dd2b5f}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!bulkArchiveMarketplaceBadges@{bulkArchiveMarketplaceBadges}}
+\index{bulkArchiveMarketplaceBadges@{bulkArchiveMarketplaceBadges}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{bulkArchiveMarketplaceBadges()}{bulkArchiveMarketplaceBadges()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a25c63cce8d6861602ff0456d62dd2b5f} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::bulk\+Archive\+Marketplace\+Badges (\begin{DoxyParamCaption}\item[{array}]{\$badge\+Ids}{}\end{DoxyParamCaption})}
+
+Bulk archive marketplace badges with validation
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int$>$} & \$badge\+Ids Array of badge IDs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of successfully archived badges 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Domain\+Exception} & If any badge cannot be archived \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_a68d9f7abbdadf04b5ef6aed9297db1b2}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_aec2b4e200f3f119c7290122a7bfeaeb5}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!bulkRestoreMarketplaceBadges@{bulkRestoreMarketplaceBadges}}
+\index{bulkRestoreMarketplaceBadges@{bulkRestoreMarketplaceBadges}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{bulkRestoreMarketplaceBadges()}{bulkRestoreMarketplaceBadges()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_aec2b4e200f3f119c7290122a7bfeaeb5} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::bulk\+Restore\+Marketplace\+Badges (\begin{DoxyParamCaption}\item[{array}]{\$badge\+Ids}{}\end{DoxyParamCaption})}
+
+Bulk restore marketplace badges
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int$>$} & \$badge\+Ids Array of badge IDs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of successfully restored badges 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_af002d3095c403a224cb72d428d328c15}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a431405b53e3a0982cd8f81f16f522d4a}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!bulkUpdateStatus@{bulkUpdateStatus}}
+\index{bulkUpdateStatus@{bulkUpdateStatus}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{bulkUpdateStatus()}{bulkUpdateStatus()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a431405b53e3a0982cd8f81f16f522d4a} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::bulk\+Update\+Status (\begin{DoxyParamCaption}\item[{array}]{\$badge\+Ids}{, }\item[{string}]{\$status}{, }\item[{array}]{\$context}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Bulk update marketplace badge status
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int$>$} & \$badge\+Ids Array of badge IDs \\
+\hline
+string & {\em \$status} & New status \\
+\hline
+array & {\em \$context} & Additional context \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of successfully updated badges 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Domain\+Exception} & If status transition is invalid \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_afdf5947e8c570c9763d716b495d7646f}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a3e21e8c4e6e7e989de73e3d550480314}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!createMarketplaceBadge@{createMarketplaceBadge}}
+\index{createMarketplaceBadge@{createMarketplaceBadge}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{createMarketplaceBadge()}{createMarketplaceBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a3e21e8c4e6e7e989de73e3d550480314} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::create\+Marketplace\+Badge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}}}]{\$request\+DTO}{}\end{DoxyParamCaption})}
+
+Create a new marketplace badge with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+DTO & {\em \$request\+DTO} & Create badge request data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\+Badge Created badge entity 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Validation\+Exception} & If validation fails \\
+\hline
+{\em Domain\+Exception} & If business rules are violated \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_a4cfc355a630c9faa7067bdd98470f846}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_ad97a99439ae9b5570e290b65d5a416ed}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!deleteMarketplaceBadge@{deleteMarketplaceBadge}}
+\index{deleteMarketplaceBadge@{deleteMarketplaceBadge}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{deleteMarketplaceBadge()}{deleteMarketplaceBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_ad97a99439ae9b5570e290b65d5a416ed} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::delete\+Marketplace\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{, }\item[{bool}]{\$force}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Delete marketplace badge with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & Badge ID to delete \\
+\hline
+bool & {\em \$force} & Force delete (bypass soft delete) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if successful 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & If badge not found \\
+\hline
+{\em Domain\+Exception} & If badge cannot be deleted (e.\+g., in use) \\
+\hline
+{\em Authorization\+Exception} & If not authorized \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_a4a26dc3b95f01e3dab5de851d75bb816}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a899d1da3b3696d9c93fa52aae8a5152f}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!getAllMarketplaceBadges@{getAllMarketplaceBadges}}
+\index{getAllMarketplaceBadges@{getAllMarketplaceBadges}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{getAllMarketplaceBadges()}{getAllMarketplaceBadges()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a899d1da3b3696d9c93fa52aae8a5152f} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::get\+All\+Marketplace\+Badges (\begin{DoxyParamCaption}\item[{array}]{\$filters}{ = {\ttfamily \mbox{[}\mbox{]}}, }\item[{int}]{\$per\+Page}{ = {\ttfamily 25}, }\item[{int}]{\$page}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+Get all marketplace badges with filtering and pagination
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$filters} & Query filters \\
+\hline
+int & {\em \$per\+Page} & Items per page \\
+\hline
+int & {\em \$page} & Current page \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{data\+: array$<$\+Marketplace\+Badge$>$, pagination\+: array\} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_a3e4bfd1ff4cea26047134dc4618683b9}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a2b17a0d0455c544a8067a396fe87a0a4}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!getMarketplaceBadge@{getMarketplaceBadge}}
+\index{getMarketplaceBadge@{getMarketplaceBadge}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{getMarketplaceBadge()}{getMarketplaceBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a2b17a0d0455c544a8067a396fe87a0a4} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::get\+Marketplace\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{, }\item[{bool}]{\$with\+Archived}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Get marketplace badge by ID with proper authorization
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & Badge ID \\
+\hline
+bool & {\em \$with\+Archived} & Include archived badges \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\+Badge Badge entity 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & If badge not found \\
+\hline
+{\em Authorization\+Exception} & If not authorized \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_afbfaae5f1dfd97614383d442110440cf}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_abaf9c658d1e0039434eead1fd951f213}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!getMarketplaceBadgeByLabel@{getMarketplaceBadgeByLabel}}
+\index{getMarketplaceBadgeByLabel@{getMarketplaceBadgeByLabel}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{getMarketplaceBadgeByLabel()}{getMarketplaceBadgeByLabel()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_abaf9c658d1e0039434eead1fd951f213} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::get\+Marketplace\+Badge\+By\+Label (\begin{DoxyParamCaption}\item[{string}]{\$label}{, }\item[{bool}]{\$with\+Archived}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Get marketplace badge by label (case-\/insensitive)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Badge label \\
+\hline
+bool & {\em \$with\+Archived} & Include archived badges \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\+Badge\texorpdfstring{$\vert$}{|}null Badge entity or null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_a00165a703299fe9f65d788a15e3a115b}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_aed3f94a142b77d7b6301c77fec348216}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!getMarketplaceBadgesByIcon@{getMarketplaceBadgesByIcon}}
+\index{getMarketplaceBadgesByIcon@{getMarketplaceBadgesByIcon}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{getMarketplaceBadgesByIcon()}{getMarketplaceBadgesByIcon()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_aed3f94a142b77d7b6301c77fec348216} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::get\+Marketplace\+Badges\+By\+Icon (\begin{DoxyParamCaption}\item[{string}]{\$icon}{}\end{DoxyParamCaption})}
+
+Get marketplace badge by icon
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$icon} & Icon name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Marketplace\+Badge$>$ Array of badges with specified icon 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_a137405425f321d06012082d1fbcdd85a}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a7433bfe5f868782860c314a66a47412d}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!restoreMarketplaceBadge@{restoreMarketplaceBadge}}
+\index{restoreMarketplaceBadge@{restoreMarketplaceBadge}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{restoreMarketplaceBadge()}{restoreMarketplaceBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a7433bfe5f868782860c314a66a47412d} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::restore\+Marketplace\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Restore archived marketplace badge
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & Badge ID to restore \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if successful 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & If badge not found \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_af7f581e2c4269823281d199ece33f9f3}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a06ebf5864d5f89800114482fc78493d5}\index{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}!updateMarketplaceBadge@{updateMarketplaceBadge}}
+\index{updateMarketplaceBadge@{updateMarketplaceBadge}!App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface@{App\textbackslash{}Contracts\textbackslash{}MarketplaceBadgeInterface}}
+\doxysubsubsection{\texorpdfstring{updateMarketplaceBadge()}{updateMarketplaceBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1MarketplaceBadgeInterface_a06ebf5864d5f89800114482fc78493d5} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Marketplace\+Badge\+Interface\+::update\+Marketplace\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{, }\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}}}]{\$request\+DTO}{}\end{DoxyParamCaption})}
+
+Update an existing marketplace badge with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & Badge ID to update \\
+\hline
+Base\+DTO & {\em \$request\+DTO} & Update badge request data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\+Badge Updated badge entity 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Not\+Found\+Exception} & If badge not found \\
+\hline
+{\em Validation\+Exception} & If validation fails \\
+\hline
+{\em Domain\+Exception} & If business rules are violated \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1MarketplaceBadgeService_afc367ffb2c364be9501891d2e6966a21}{App\textbackslash{}\+Services\textbackslash{}\+Marketplace\+Badge\+Service}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Contracts/\mbox{\hyperlink{MarketplaceBadgeInterface_8php}{Marketplace\+Badge\+Interface.\+php}}\end{DoxyCompactItemize}

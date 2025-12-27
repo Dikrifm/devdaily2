@@ -1,0 +1,7 @@
+<map id="App\Entities\Badge\archive" name="App\Entities\Badge\archive">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,150,50"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Badge.html#aba56dfa7be72fa69e792df2c96f1315f" title=" " alt="" coords="198,5,342,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,25,185,27,180,28,150,30"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Badge.html#aca5f193083246bb9878fa92e43a1cc5f" title=" " alt="" coords="390,5,534,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="342,25,377,28,372,28,342,30"/>
+</map>

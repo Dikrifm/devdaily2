@@ -1,0 +1,12 @@
+<map id="App\Services\AuditLogService" name="App\Services\AuditLogService">
+<area shape="rect" id="Node000001" title=" " alt="" coords="155,183,370,211"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html" title=" " alt="" coords="261,106,450,134"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="330,143,280,185,277,180,325,144"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="18,5,224,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="167,37,327,104,322,107,166,42"/>
+<area shape="rect" id="Node000005" href="$interfaceApp_1_1Contracts_1_1AuditLogInterface.html" title=" " alt="" coords="5,106,237,134"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="122,46,124,106,118,105,120,51"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Contracts_1_1CacheInterface.html" title=" " alt="" coords="248,5,463,33"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="357,47,358,107,353,104,354,51"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="160,139,240,182,235,183,158,144"/>
+</map>

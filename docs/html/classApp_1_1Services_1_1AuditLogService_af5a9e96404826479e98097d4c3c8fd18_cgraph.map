@@ -1,0 +1,7 @@
+<map id="App\Services\AuditLogService\logSystemAction" name="App\Services\AuditLogService\logSystemAction">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,220,50"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1AuditLogService.html#a5e28ed3745d2c85763602e0a3dbc55b7" title=" " alt="" coords="268,14,506,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,25,255,28,249,28,220,30"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a3b7149e93e74a0d14f7617552980564d" title=" " alt="" coords="554,5,743,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="506,25,541,28,535,28,506,30"/>
+</map>

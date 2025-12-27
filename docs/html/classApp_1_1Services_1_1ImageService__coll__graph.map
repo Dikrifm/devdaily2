@@ -1,0 +1,14 @@
+<map id="App\Services\ImageService" name="App\Services\ImageService">
+<area shape="rect" id="Node000001" title=" " alt="" coords="663,74,861,102"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html" title=" " alt="" coords="334,74,524,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="539,85,665,87,660,88,539,90"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="9,27,216,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="226,55,336,73,331,75,226,60"/>
+<area shape="rect" id="Node000005" href="$interfaceApp_1_1Contracts_1_1ImageServiceInterface.html" title=" " alt="" coords="326,5,532,50"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="231,33,328,31,323,33,232,39"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Contracts_1_1CacheInterface.html" title=" " alt="" coords="5,92,220,120"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="235,105,297,102,336,101,331,102,298,107,235,110"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="547,46,684,73,679,73,547,52"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Libraries_1_1ImageProcessor.html" title=" " alt="" coords="322,126,536,154"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="551,127,639,115,707,102,712,102,639,121,551,133"/>
+</map>

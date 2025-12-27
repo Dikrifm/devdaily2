@@ -1,0 +1,9 @@
+<map id="App\DTOs\Queries\PaginationQuery\toArray" name="App\DTOs\Queries\PaginationQuery\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,217,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Queries_1_1PaginationQuery.html#a34a90026cfac204a210908176fc6db13" title=" " alt="" coords="265,5,476,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,72,272,53,267,56,198,77"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Queries_1_1PaginationQuery.html#a560cd8e945c4625f7d2a7cd463f29b9f" title=" " alt="" coords="265,75,476,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,94,252,96,247,98,218,100"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Queries_1_1PaginationQuery.html#aac96a7bd422b1edbd6e72a7934a59d6e" title=" " alt="" coords="265,144,476,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="198,117,272,139,267,140,197,123"/>
+</map>

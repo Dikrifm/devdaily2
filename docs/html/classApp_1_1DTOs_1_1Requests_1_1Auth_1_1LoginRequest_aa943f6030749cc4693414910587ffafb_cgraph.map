@@ -1,0 +1,7 @@
+<map id="App\DTOs\Requests\Auth\LoginRequest\toArray" name="App\DTOs\Requests\Auth\LoginRequest\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,189,50"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest.html#a82c4d2439f71c969837b4cf8a63d05b0" title=" " alt="" coords="237,5,463,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,25,224,27,218,28,189,30"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Auth_1_1LoginRequest.html#aa9031b7fb3b559eea9c5e0f84b02aae5" title=" " alt="" coords="511,5,734,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="463,25,498,28,493,28,463,30"/>
+</map>

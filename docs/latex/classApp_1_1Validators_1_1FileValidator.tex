@@ -1,0 +1,371 @@
+\doxysection{App\textbackslash{}Validators\textbackslash{}File\+Validator Class Reference}
+\hypertarget{classApp_1_1Validators_1_1FileValidator}{}\label{classApp_1_1Validators_1_1FileValidator}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+
+
+Inheritance diagram for App\textbackslash{}Validators\textbackslash{}File\+Validator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{classApp_1_1Validators_1_1FileValidator__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_a41909547e02443d4b1c09ee726bb844d}{uploaded\+\_\+file}} (\$value, ?string \$param, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_a4aea23c8686a22956be41de8fccd932f}{file\+\_\+extension}} (\$value, string \$allowed\+Extensions, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_a59f1f8a733d2428184dbf0f33d198506}{file\+\_\+mime}} (\$value, string \$allowed\+Mimes, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_afe9c821a7474b826217308cd10e67c77}{file\+\_\+size}} (\$value, string \$max\+Size, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_a68030d784cdc63ed2e1e8dfcf5cbd79e}{file\+\_\+dimensions}} (\$value, string \$dimensions, array \$data, ?string \&\$error=null)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_a8917d924b3c7b155c6806911cb641c86}{get\+File\+Extension}} (\$file)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_ac364ad41a4d49b7f74115da9561a620c}{get\+File\+Mime\+Type}} (\$file)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_a79ec93bf1bc276f0aa77b43ca5a6cfa5}{get\+File\+Size}} (\$file)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_aea3da22926d2e0069a245240aaa0f245}{get\+Temp\+Path}} (\$file)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_aa97ba688e0996979a1e08106b80ae084}{parse\+Size}} (string \$size)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1FileValidator_adf11072cafc476eabe028f7d0119032c}{get\+Upload\+Error\+Message}} (int \$error\+Code)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Validator untuk validasi file upload 
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_a68030d784cdc63ed2e1e8dfcf5cbd79e}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!file\_dimensions@{file\_dimensions}}
+\index{file\_dimensions@{file\_dimensions}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{file\_dimensions()}{file\_dimensions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_a68030d784cdc63ed2e1e8dfcf5cbd79e} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::file\+\_\+dimensions (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$dimensions}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Validate file dimensions (for images)
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$dimensions} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_a68030d784cdc63ed2e1e8dfcf5cbd79e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_a68030d784cdc63ed2e1e8dfcf5cbd79e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_a4aea23c8686a22956be41de8fccd932f}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!file\_extension@{file\_extension}}
+\index{file\_extension@{file\_extension}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{file\_extension()}{file\_extension()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_a4aea23c8686a22956be41de8fccd932f} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::file\+\_\+extension (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$allowed\+Extensions}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Validate file extension
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$allowed\+Extensions} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_a4aea23c8686a22956be41de8fccd932f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_a59f1f8a733d2428184dbf0f33d198506}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!file\_mime@{file\_mime}}
+\index{file\_mime@{file\_mime}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{file\_mime()}{file\_mime()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_a59f1f8a733d2428184dbf0f33d198506} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::file\+\_\+mime (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$allowed\+Mimes}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Validate file mime type
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$allowed\+Mimes} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_a59f1f8a733d2428184dbf0f33d198506_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_afe9c821a7474b826217308cd10e67c77}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!file\_size@{file\_size}}
+\index{file\_size@{file\_size}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{file\_size()}{file\_size()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_afe9c821a7474b826217308cd10e67c77} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::file\+\_\+size (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$max\+Size}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Validate file size
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$max\+Size} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_afe9c821a7474b826217308cd10e67c77_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_afe9c821a7474b826217308cd10e67c77_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_a8917d924b3c7b155c6806911cb641c86}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!getFileExtension@{getFileExtension}}
+\index{getFileExtension@{getFileExtension}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{getFileExtension()}{getFileExtension()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_a8917d924b3c7b155c6806911cb641c86} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::get\+File\+Extension (\begin{DoxyParamCaption}\item[{}]{\$file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get file extension
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$file} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_a8917d924b3c7b155c6806911cb641c86_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_ac364ad41a4d49b7f74115da9561a620c}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!getFileMimeType@{getFileMimeType}}
+\index{getFileMimeType@{getFileMimeType}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{getFileMimeType()}{getFileMimeType()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_ac364ad41a4d49b7f74115da9561a620c} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::get\+File\+Mime\+Type (\begin{DoxyParamCaption}\item[{}]{\$file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get file mime type
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$file} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_ac364ad41a4d49b7f74115da9561a620c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_a79ec93bf1bc276f0aa77b43ca5a6cfa5}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!getFileSize@{getFileSize}}
+\index{getFileSize@{getFileSize}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{getFileSize()}{getFileSize()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_a79ec93bf1bc276f0aa77b43ca5a6cfa5} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::get\+File\+Size (\begin{DoxyParamCaption}\item[{}]{\$file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get file size
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$file} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_a79ec93bf1bc276f0aa77b43ca5a6cfa5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_aea3da22926d2e0069a245240aaa0f245}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!getTempPath@{getTempPath}}
+\index{getTempPath@{getTempPath}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{getTempPath()}{getTempPath()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_aea3da22926d2e0069a245240aaa0f245} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::get\+Temp\+Path (\begin{DoxyParamCaption}\item[{}]{\$file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get temporary file path
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$file} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_aea3da22926d2e0069a245240aaa0f245_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_adf11072cafc476eabe028f7d0119032c}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!getUploadErrorMessage@{getUploadErrorMessage}}
+\index{getUploadErrorMessage@{getUploadErrorMessage}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{getUploadErrorMessage()}{getUploadErrorMessage()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_adf11072cafc476eabe028f7d0119032c} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::get\+Upload\+Error\+Message (\begin{DoxyParamCaption}\item[{int}]{\$error\+Code}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get upload error message
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$error\+Code} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_adf11072cafc476eabe028f7d0119032c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_aa97ba688e0996979a1e08106b80ae084}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!parseSize@{parseSize}}
+\index{parseSize@{parseSize}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{parseSize()}{parseSize()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_aa97ba688e0996979a1e08106b80ae084} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::parse\+Size (\begin{DoxyParamCaption}\item[{string}]{\$size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Parse size string to bytes
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$size} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_aa97ba688e0996979a1e08106b80ae084_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Validators_1_1FileValidator_a41909547e02443d4b1c09ee726bb844d}\index{App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}!uploaded\_file@{uploaded\_file}}
+\index{uploaded\_file@{uploaded\_file}!App\textbackslash{}Validators\textbackslash{}FileValidator@{App\textbackslash{}Validators\textbackslash{}FileValidator}}
+\doxysubsubsection{\texorpdfstring{uploaded\_file()}{uploaded\_file()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1FileValidator_a41909547e02443d4b1c09ee726bb844d} 
+App\textbackslash{}\+Validators\textbackslash{}\+File\+Validator\+::uploaded\+\_\+file (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{?string}]{\$param}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Validate uploaded file
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string | null & {\em \$param} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_a41909547e02443d4b1c09ee726bb844d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Validators_1_1FileValidator_a41909547e02443d4b1c09ee726bb844d_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Validators/\mbox{\hyperlink{FileValidator_8php}{File\+Validator.\+php}}\end{DoxyCompactItemize}

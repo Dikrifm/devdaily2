@@ -1,0 +1,11 @@
+<map id="App\Services\PaginationService\getSummary" name="App\Services\PaginationService\getSummary">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,109,231,154"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1PaginationService.html#aeda05cb446a43fccc718ac2f3bc5d167" title=" " alt="" coords="279,5,504,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,106,278,60,300,54,296,57,280,65,170,111"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Queries_1_1PaginationQuery.html#aac96a7bd422b1edbd6e72a7934a59d6e" title=" " alt="" coords="286,75,497,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="230,115,272,111,268,113,232,120"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Queries_1_1PaginationQuery.html#a1c0022d2e888f7c440d44650d94b9aa6" title=" " alt="" coords="286,144,497,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="231,143,273,150,267,152,231,149"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1DTOs_1_1Queries_1_1PaginationQuery.html#aadc53e18b005343bdd93e6117f767456" title=" " alt="" coords="286,213,497,258"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="169,152,280,199,301,208,295,208,278,203,168,157"/>
+</map>

@@ -1,0 +1,18 @@
+<map id="App\Repositories\Concrete\BadgeRepository" name="App\Repositories\Concrete\BadgeRepository">
+<area shape="rect" id="Node000001" title=" " alt="" coords="837,67,1030,111"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html" title=" " alt="" coords="455,75,693,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="708,86,839,89,834,89,708,92"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html" title=" " alt="" coords="116,9,353,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="368,52,490,74,485,75,368,57"/>
+<area shape="rect" id="Node000005" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1BadgeRepositoryInterface.html" title=" " alt="" coords="474,5,674,50"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="369,27,476,28,471,29,369,33"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Contracts_1_1CacheInterface.html" title=" " alt="" coords="128,87,342,115"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="357,99,431,97,457,98,452,98,431,102,358,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="690,45,839,72,834,73,690,50"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Models_1_1BadgeModel.html" title=" " alt="" coords="483,130,665,158"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="680,134,812,117,846,112,851,112,813,122,681,139"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Models_1_1BaseModel.html" title=" " alt="" coords="148,139,321,167"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="337,148,485,146,480,146,337,153"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="5,139,67,167"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="82,150,150,152,145,154,82,156"/>
+</map>

@@ -1,0 +1,547 @@
+\doxysection{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}Product\+Badge\+Repository\+Interface Interface Reference}
+\hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface}{}\label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}Product\+Badge\+Repository\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}Product\+Badge\+Repository\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a31606ab85af78fce2bd4aa1169bf8593}{find\+By\+Composite\+Key}} (int \$product\+Id, int \$badge\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_adc3c4f09bb9a9dfda7fb9a036852e782}{find\+By\+Product\+Id}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8dd8f12a3160940a12432794d7a738c8}{find\+By\+Badge\+Id}} (int \$badge\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a34edbbb891db6310cefbbcd11251d5e1}{associate}} (int \$product\+Id, int \$badge\+Id, ?int \$assigned\+By=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ab1ce11613d7c4b583d74168a17b1ab6c}{dissociate}} (int \$product\+Id, int \$badge\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a2ca7f4acc02de9dd9808d3445ed0accf}{sync\+For\+Product}} (int \$product\+Id, array \$badge\+Ids, ?int \$assigned\+By=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8a45e0d371a4b5dbf7fb173ab62015dc}{sync\+For\+Badge}} (int \$badge\+Id, array \$product\+Ids, ?int \$assigned\+By=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a9eb284aebf5ef3f77bdb6050f65b00d3}{remove\+All\+For\+Product}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ac0678ec031ccc9b419a55f7d3672efd3}{remove\+All\+For\+Badge}} (int \$badge\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a30cf246a89889bb4e6447a83dab6d504}{association\+Exists}} (int \$product\+Id, int \$badge\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a47793255f4dfd6467f2b86d795cca085}{count\+Badges\+For\+Product}} (int \$product\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ad61885af893973a42bf353978fd73ec0}{count\+Products\+For\+Badge}} (int \$badge\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a9f9fe01802ecdb9eca17ca764811f69d}{find\+For\+Multiple\+Products}} (array \$product\+Ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a19d8d5cafe3c4b63b195eee500be52d0}{find\+For\+Multiple\+Badges}} (array \$badge\+Ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_aea128a2d47409d12b717f9bebd7c26f7}{paginate\+Product\+Ids\+For\+Badge}} (int \$badge\+Id, \mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$query)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a40ebf509c401f88030a1e7fc9d1ddd5d}{paginate\+Badge\+Ids\+For\+Product}} (int \$product\+Id, \mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$query)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8a1f3aaea0795831386d9efa82bb4c92}{get\+Statistics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ab18f85a4ca4250b5633e973ec1846458}{bulk\+Create}} (array \$associations)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a1a17e52c13dd4baf0dc8a6eb0b537dcf}{bulk\+Delete\+Associations}} (array \$associations)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a38d9ab2d0824b99771271d060f0bff0b}{find\+By\+Id}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_af421dab751c5a68df30252bf679f3516}{find\+By\+Id\+Or\+Fail}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a6392c164846bcfdea7535ef25088ca96}{find\+All}} (array \$criteria=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a4f9af979be97d1dfb78c4c83b80f8c81}{paginate}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$query, array \$filters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a152b116281fc8882b2c91b50e9b7eac3}{save}} (\mbox{\hyperlink{classApp_1_1Entities_1_1BaseEntity}{Base\+Entity}} \$entity)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab9f96497c1ecd9e6351fbd52f0637fe8}{create}} (array \$data)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ac0a633fc9b98c13121ffc7edd1975fa8}{update}} (int\texorpdfstring{$\vert$}{|}string \$id, array \$data)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a05320f8692cc50b008b8146c9edd4c60}{delete}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a9bfa179b899a47d84c188c0d363008dd}{force\+Delete}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7a6cbbd15b89500916f79062221ae386}{restore}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7cb532e33ee430f5f0864582a76aeedd}{bulk\+Update}} (array \$ids, array \$data)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a4026168c05a5e716a3ac25f78fc884ab}{bulk\+Delete}} (array \$ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7658f60502df43b11ba4be34d997a724}{bulk\+Restore}} (array \$ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a54325f34c023ba2cb28aa72eb8540756}{exists}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aa2597946937eebdc003b41f2549f83b8}{count}} (array \$criteria=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aaf24315a2c425d6781c08faf999ed45a}{transaction}} (Closure \$callback)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a19387f2d7aba4eaead3867555684c8c2}{clear\+Cache}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a5cd13789842c0c0011116b18af6cd383}{clear\+Entity\+Cache}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7a3f947f6faaee3c421d278b49a15d30}{clear\+Cache\+Matching}} (string \$pattern)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a18c5cbb87c4cbc2dabbf8ec672d82090}{get\+Entity\+Cache\+Key}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab0dfe2f4a1d69eb42cbd2f1b8dceacd3}{get\+Query\+Cache\+Key}} (array \$parameters)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_adc378c28ca82fc47923e01fc48cbd1bc}{remember}} (string \$key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a60db7afe3e63af917731148a4affd68d}{remember\+Forever}} (string \$key, Closure \$callback)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a2c8eda08ecaa6bb327748944a56867be}{find\+By\+Ids}} (array \$ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a8a255d7d65553e63fb8a2922541a17d0}{find\+By}} (array \$criteria, array \$order\+By=\mbox{[}$\,$\mbox{]}, ?int \$limit=null, ?int \$offset=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab7547537c32cca6f45eb68bcc00747a8}{find\+One\+By}} (array \$criteria)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aa726479e16efedb5edfd1892b3c7fe4c}{get\+Entity\+Class}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ad0686bb2a5ff0fbe978cc0c588b85fa1}{get\+Table\+Name}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a3cc8e61331ae9b764856a151c42fdfcf}{get\+Cache\+Stats}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a1d4ac1952a949defc539ccfbf9ed72f9}{preload\+Cache}} (array \$ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_afccd3eac08cda043ea662bd8956749ad}{atomic\+Cache\+Operation}} (string \$cache\+Key, Closure \$data\+Callback, ?Closure \$cache\+Callback=null, ?int \$ttl=null)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Product\+Badge Repository Interface
+
+Data Orchestrator Layer (Layer 3)\+: Interface for Product\+Badge persistence operations. Handles many-\/to-\/many relationship between Product and Badge entities.
+
+\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface$<$\+Product\+Badge$>$ 
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a34edbbb891db6310cefbbcd11251d5e1}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!associate@{associate}}
+\index{associate@{associate}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{associate()}{associate()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a34edbbb891db6310cefbbcd11251d5e1} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::associate (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$badge\+Id}{, }\item[{?int}]{\$assigned\+By}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Associate a badge with a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$badge\+Id} & \\
+\hline
+int | null & {\em \$assigned\+By} & Admin ID who assigned the badge \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Badge 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Runtime\+Exception} & If association already exists \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_aaddd7a9edb9cc716a611d06d2702af3a}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a30cf246a89889bb4e6447a83dab6d504}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!associationExists@{associationExists}}
+\index{associationExists@{associationExists}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{associationExists()}{associationExists()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a30cf246a89889bb4e6447a83dab6d504} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::association\+Exists (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Check if association exists
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_ac3f6156dc8dc6c97900f6fa258213167}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ab18f85a4ca4250b5633e973ec1846458}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!bulkCreate@{bulkCreate}}
+\index{bulkCreate@{bulkCreate}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{bulkCreate()}{bulkCreate()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ab18f85a4ca4250b5633e973ec1846458} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::bulk\+Create (\begin{DoxyParamCaption}\item[{array}]{\$associations}{}\end{DoxyParamCaption})}
+
+Bulk create associations
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$array\{product\+\_\+id} & int, badge\+\_\+id\+: int, assigned\+\_\+by?\+: int\texorpdfstring{$\vert$}{|}null\}\texorpdfstring{$>$}{>} \$associations \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of associations created 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_af9dc1f0b9e9d3466c528df5a40795e5e}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a1a17e52c13dd4baf0dc8a6eb0b537dcf}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!bulkDeleteAssociations@{bulkDeleteAssociations}}
+\index{bulkDeleteAssociations@{bulkDeleteAssociations}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{bulkDeleteAssociations()}{bulkDeleteAssociations()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a1a17e52c13dd4baf0dc8a6eb0b537dcf} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::bulk\+Delete\+Associations (\begin{DoxyParamCaption}\item[{array}]{\$associations}{}\end{DoxyParamCaption})}
+
+Bulk delete associations
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$array\{product\+\_\+id} & int, badge\+\_\+id\+: int\}\texorpdfstring{$>$}{>} \$associations \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of associations deleted 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a0aa1d4bb1cab3d6d588fa28fd15f0568}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a47793255f4dfd6467f2b86d795cca085}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!countBadgesForProduct@{countBadgesForProduct}}
+\index{countBadgesForProduct@{countBadgesForProduct}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{countBadgesForProduct()}{countBadgesForProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a47793255f4dfd6467f2b86d795cca085} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::count\+Badges\+For\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Count badges for a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a3bff41cd8fa44f306ab521e7e71fb740}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ad61885af893973a42bf353978fd73ec0}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!countProductsForBadge@{countProductsForBadge}}
+\index{countProductsForBadge@{countProductsForBadge}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{countProductsForBadge()}{countProductsForBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ad61885af893973a42bf353978fd73ec0} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::count\+Products\+For\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Count products for a badge
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a83b35ce60e726313ab1284c90a2f66b3}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ab1ce11613d7c4b583d74168a17b1ab6c}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!dissociate@{dissociate}}
+\index{dissociate@{dissociate}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{dissociate()}{dissociate()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ab1ce11613d7c4b583d74168a17b1ab6c} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::dissociate (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Dissociate a badge from a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if disassociation was successful 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a3cd5686e57020c81de359a44a954a207}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8dd8f12a3160940a12432794d7a738c8}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!findByBadgeId@{findByBadgeId}}
+\index{findByBadgeId@{findByBadgeId}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findByBadgeId()}{findByBadgeId()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8dd8f12a3160940a12432794d7a738c8} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::find\+By\+Badge\+Id (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Find all products associated with a badge
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Badge$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a3dde1393c21ff4ed40eed046986ad82f}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a31606ab85af78fce2bd4aa1169bf8593}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!findByCompositeKey@{findByCompositeKey}}
+\index{findByCompositeKey@{findByCompositeKey}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findByCompositeKey()}{findByCompositeKey()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a31606ab85af78fce2bd4aa1169bf8593} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::find\+By\+Composite\+Key (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Find Product\+Badge association by composite key
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Badge\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a9a33ae814da27e8695268f0171e71215}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_adc3c4f09bb9a9dfda7fb9a036852e782}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!findByProductId@{findByProductId}}
+\index{findByProductId@{findByProductId}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findByProductId()}{findByProductId()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_adc3c4f09bb9a9dfda7fb9a036852e782} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::find\+By\+Product\+Id (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Find all badges associated with a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Badge$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a3afc0d1709524d1fb08e4ed269239d7b}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a19d8d5cafe3c4b63b195eee500be52d0}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!findForMultipleBadges@{findForMultipleBadges}}
+\index{findForMultipleBadges@{findForMultipleBadges}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findForMultipleBadges()}{findForMultipleBadges()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a19d8d5cafe3c4b63b195eee500be52d0} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::find\+For\+Multiple\+Badges (\begin{DoxyParamCaption}\item[{array}]{\$badge\+Ids}{}\end{DoxyParamCaption})}
+
+Find associations for multiple badges
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int$>$} & \$badge\+Ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Badge$>$ Indexed by product\+Id\+\_\+badge\+Id 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a54534b87031227cf3e17684cddece38b}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a9f9fe01802ecdb9eca17ca764811f69d}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!findForMultipleProducts@{findForMultipleProducts}}
+\index{findForMultipleProducts@{findForMultipleProducts}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findForMultipleProducts()}{findForMultipleProducts()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a9f9fe01802ecdb9eca17ca764811f69d} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::find\+For\+Multiple\+Products (\begin{DoxyParamCaption}\item[{array}]{\$product\+Ids}{}\end{DoxyParamCaption})}
+
+Find associations for multiple products
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int$>$} & \$product\+Ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Badge$>$ Indexed by product\+Id\+\_\+badge\+Id 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_adb8911e02a78f2ee56143646b4df2cee}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8a1f3aaea0795831386d9efa82bb4c92}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!getStatistics@{getStatistics}}
+\index{getStatistics@{getStatistics}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{getStatistics()}{getStatistics()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8a1f3aaea0795831386d9efa82bb4c92} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::get\+Statistics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get product-\/badge association statistics
+
+\begin{DoxyReturn}{Returns}
+array\{ total\+\_\+associations\+: int, average\+\_\+badges\+\_\+per\+\_\+product\+: float, average\+\_\+products\+\_\+per\+\_\+badge\+: float, most\+\_\+used\+\_\+badges\+: array\texorpdfstring{$<$}{<}array\{id\+: int, count\+: int\}\texorpdfstring{$>$}{>}, products\+\_\+with\+\_\+most\+\_\+badges\+: array\texorpdfstring{$<$}{<}array\{id\+: int, count\+: int\}\texorpdfstring{$>$}{>} \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a3c4efd2346f253b5e10a634c325a8ec9}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a40ebf509c401f88030a1e7fc9d1ddd5d}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!paginateBadgeIdsForProduct@{paginateBadgeIdsForProduct}}
+\index{paginateBadgeIdsForProduct@{paginateBadgeIdsForProduct}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{paginateBadgeIdsForProduct()}{paginateBadgeIdsForProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a40ebf509c401f88030a1e7fc9d1ddd5d} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::paginate\+Badge\+Ids\+For\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}}}]{\$query}{}\end{DoxyParamCaption})}
+
+Get badge IDs for a product with pagination
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+Pagination\+Query & {\em \$query} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ data\+: array$<$int$>$, pagination\+: array\{ total\+: int, per\+\_\+page\+: int, current\+\_\+page\+: int, last\+\_\+page\+: int, from\+: int, to\+: int \} \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a0dadf72883c3b84b701ebe2e2e128926}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_aea128a2d47409d12b717f9bebd7c26f7}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!paginateProductIdsForBadge@{paginateProductIdsForBadge}}
+\index{paginateProductIdsForBadge@{paginateProductIdsForBadge}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{paginateProductIdsForBadge()}{paginateProductIdsForBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_aea128a2d47409d12b717f9bebd7c26f7} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::paginate\+Product\+Ids\+For\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{, }\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}}}]{\$query}{}\end{DoxyParamCaption})}
+
+Get product IDs for a badge with pagination
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & \\
+\hline
+Pagination\+Query & {\em \$query} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ data\+: array$<$int$>$, pagination\+: array\{ total\+: int, per\+\_\+page\+: int, current\+\_\+page\+: int, last\+\_\+page\+: int, from\+: int, to\+: int \} \} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a1e8dcf84093acaac60762546b1ea9c40}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ac0678ec031ccc9b419a55f7d3672efd3}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!removeAllForBadge@{removeAllForBadge}}
+\index{removeAllForBadge@{removeAllForBadge}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{removeAllForBadge()}{removeAllForBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_ac0678ec031ccc9b419a55f7d3672efd3} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::remove\+All\+For\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{}\end{DoxyParamCaption})}
+
+Remove all products from a badge
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of associations removed 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_aa2e688eb27f627b50c7a098087a4d611}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a9eb284aebf5ef3f77bdb6050f65b00d3}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!removeAllForProduct@{removeAllForProduct}}
+\index{removeAllForProduct@{removeAllForProduct}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{removeAllForProduct()}{removeAllForProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a9eb284aebf5ef3f77bdb6050f65b00d3} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::remove\+All\+For\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{}\end{DoxyParamCaption})}
+
+Remove all badges from a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of associations removed 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a3ef3785de8d37b7b9ff9603647d52c15}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8a45e0d371a4b5dbf7fb173ab62015dc}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!syncForBadge@{syncForBadge}}
+\index{syncForBadge@{syncForBadge}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{syncForBadge()}{syncForBadge()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a8a45e0d371a4b5dbf7fb173ab62015dc} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::sync\+For\+Badge (\begin{DoxyParamCaption}\item[{int}]{\$badge\+Id}{, }\item[{array}]{\$product\+Ids}{, }\item[{?int}]{\$assigned\+By}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Sync products for a badge (replace all existing products)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$badge\+Id} & \\
+\hline
+ & {\em array$<$int$>$} & \$product\+Ids Array of product IDs to associate \\
+\hline
+int | null & {\em \$assigned\+By} & Admin ID who performed the sync \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Badge$>$ New associations created 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a2913e7b1878d09d43853c71152597755}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a2ca7f4acc02de9dd9808d3445ed0accf}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}!syncForProduct@{syncForProduct}}
+\index{syncForProduct@{syncForProduct}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}ProductBadgeRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{syncForProduct()}{syncForProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface_a2ca7f4acc02de9dd9808d3445ed0accf} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Product\+Badge\+Repository\+Interface\+::sync\+For\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{array}]{\$badge\+Ids}{, }\item[{?int}]{\$assigned\+By}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Sync badges for a product (replace all existing badges)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+ & {\em array$<$int$>$} & \$badge\+Ids Array of badge IDs to associate \\
+\hline
+int | null & {\em \$assigned\+By} & Admin ID who performed the sync \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Badge$>$ New associations created 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a64422f66657774317ee020f83718621a}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Repositories/\+Interfaces/\mbox{\hyperlink{ProductBadgeRepositoryInterface_8php}{Product\+Badge\+Repository\+Interface.\+php}}\end{DoxyCompactItemize}

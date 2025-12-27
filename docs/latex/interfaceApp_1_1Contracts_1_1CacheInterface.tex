@@ -1,0 +1,519 @@
+\doxysection{App\textbackslash{}Contracts\textbackslash{}Cache\+Interface Interface Reference}
+\hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface}{}\label{interfaceApp_1_1Contracts_1_1CacheInterface}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Contracts\textbackslash{}Cache\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{interfaceApp_1_1Contracts_1_1CacheInterface__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_ad6a2a5758b5be09dc86aa191ee90cc73}{get}} (string \$key)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a7741529e4986c90db084ba74f28d53fc}{set}} (string \$key, \$value, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a05921680a4529a8ffc6ce6b3580d7a30}{delete}} (string \$key)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a4e1b2598556ebbf46d9e819f1da71d6a}{clear}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a9be772573868eaea62a62d145bfee634}{has}} (string \$key)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_ab5579fe5384f104ea8b031d87283efef}{remember}} (string \$key, callable \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_af2b6b3a25da09f61732fd125a12b4ea6}{increment}} (string \$key, int \$value=1)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_ab5ac552a2f722581cb0d3d77ddd6b832}{decrement}} (string \$key, int \$value=1)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a9274c44d497e3a99676ac9de88bf1e73}{get\+Multiple}} (array \$keys)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a5a249f8cbda47f3a5a46ab10c87e2dbf}{set\+Multiple}} (array \$items, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a5d0e526cd31ca257d2713660b1a688a5}{delete\+Multiple}} (array \$keys)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a64ed4e14bbc19bf4bd451d228b768991}{get\+Stats}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_aa48429858647745210f9cb17bb67783c}{get\+Key}} (string \$key)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_aa292d48040effc7bc2abaa2df330d100}{set\+Default\+Ttl}} (int \$ttl)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a2457fcda7d34ce8ea71c62f1ae639334}{get\+Default\+Ttl}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a198831624260710632834cfed0cb3b16}{is\+Available}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a48c182458440d353374de2f00bbd66c9}{forever}} (string \$key, \$value)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a05c7441e98b1f75c258f5b6e40ccd35a}{get\+With\+Ttl}} (string \$key)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_affabd5ea7a0d9ec6b62e7aa3a78200bb}{tag}} (string \$tag)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_ae67f23666a29b3f4626dff8c074d9b69}{flush\+Tag}} (\$tags)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_ab822312bef70fabfeb8906ac2d0612f2}{cache\+With\+Context}} (string \$prefix, array \$context, callable \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a082e2dd6591243f2ee8a705196c2a09a}{get\+Hit\+Stats}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface_a15c165ec5c0f9d2445bad30c98b9db97}{reset\+Stats}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_ab822312bef70fabfeb8906ac2d0612f2}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!cacheWithContext@{cacheWithContext}}
+\index{cacheWithContext@{cacheWithContext}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{cacheWithContext()}{cacheWithContext()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_ab822312bef70fabfeb8906ac2d0612f2} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::cache\+With\+Context (\begin{DoxyParamCaption}\item[{string}]{\$prefix}{, }\item[{array}]{\$context}{, }\item[{callable}]{\$callback}{, }\item[{?int}]{\$ttl}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Cache a value with automatic key generation
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$prefix} & Key prefix \\
+\hline
+array & {\em \$context} & Context for key generation \\
+\hline
+callable & {\em \$callback} & Function that returns value \\
+\hline
+int | null & {\em \$ttl} & Time to live in seconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_abb73e33117dfdf3a8a461215a0f88725}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a4e1b2598556ebbf46d9e819f1da71d6a}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!clear@{clear}}
+\index{clear@{clear}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a4e1b2598556ebbf46d9e819f1da71d6a} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Clear the entire cache
+
+\begin{DoxyReturn}{Returns}
+bool Success status 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a82b8e5bb7b7ed136b3615a1a2c424d1a}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_ab5ac552a2f722581cb0d3d77ddd6b832}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!decrement@{decrement}}
+\index{decrement@{decrement}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{decrement()}{decrement()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_ab5ac552a2f722581cb0d3d77ddd6b832} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::decrement (\begin{DoxyParamCaption}\item[{string}]{\$key}{, }\item[{int}]{\$value}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+Decrement the value of an item in the cache
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+int & {\em \$value} & Decrement amount \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int\texorpdfstring{$\vert$}{|}bool New value or false on failure 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a0744bd80c26a54dc41bb4df08821991a}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a05921680a4529a8ffc6ce6b3580d7a30}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!delete@{delete}}
+\index{delete@{delete}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a05921680a4529a8ffc6ce6b3580d7a30} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::delete (\begin{DoxyParamCaption}\item[{string}]{\$key}{}\end{DoxyParamCaption})}
+
+Delete an item from the cache
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Success status 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_ace5d72796ed2339befd099293654ccd9}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a5d0e526cd31ca257d2713660b1a688a5}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!deleteMultiple@{deleteMultiple}}
+\index{deleteMultiple@{deleteMultiple}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{deleteMultiple()}{deleteMultiple()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a5d0e526cd31ca257d2713660b1a688a5} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::delete\+Multiple (\begin{DoxyParamCaption}\item[{array}]{\$keys}{}\end{DoxyParamCaption})}
+
+Delete multiple items from cache
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$keys} & Array of cache keys \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Success status 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a0e6e906183a5f3d1550512b44f7f3f20}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_ae67f23666a29b3f4626dff8c074d9b69}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!flushTag@{flushTag}}
+\index{flushTag@{flushTag}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{flushTag()}{flushTag()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_ae67f23666a29b3f4626dff8c074d9b69} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::flush\+Tag (\begin{DoxyParamCaption}\item[{}]{\$tags}{}\end{DoxyParamCaption})}
+
+Flush all cache tagged with given tags
+
+
+\begin{DoxyParams}[1]{Parameters}
+array | string & {\em \$tags} & Tag(s) to flush \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Success status 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_aa4fa36b11a22768e885ff72b823c4620}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a48c182458440d353374de2f00bbd66c9}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!forever@{forever}}
+\index{forever@{forever}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{forever()}{forever()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a48c182458440d353374de2f00bbd66c9} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::forever (\begin{DoxyParamCaption}\item[{string}]{\$key}{, }\item[{}]{\$value}{}\end{DoxyParamCaption})}
+
+Store an item in cache forever (or until manually deleted)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+mixed & {\em \$value} & Value to store \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Success status 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a275ebb9cc57d7a66edc655f30206803d}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_ad6a2a5758b5be09dc86aa191ee90cc73}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!get@{get}}
+\index{get@{get}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_ad6a2a5758b5be09dc86aa191ee90cc73} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::get (\begin{DoxyParamCaption}\item[{string}]{\$key}{}\end{DoxyParamCaption})}
+
+Retrieve an item from the cache by key
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed Cached value or null if not found 
+\end{DoxyReturn}
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a2457fcda7d34ce8ea71c62f1ae639334}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!getDefaultTtl@{getDefaultTtl}}
+\index{getDefaultTtl@{getDefaultTtl}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{getDefaultTtl()}{getDefaultTtl()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a2457fcda7d34ce8ea71c62f1ae639334} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::get\+Default\+Ttl (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get default cache TTL
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a65a192ba9fa24611bfca6fe69505ee2b}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a082e2dd6591243f2ee8a705196c2a09a}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!getHitStats@{getHitStats}}
+\index{getHitStats@{getHitStats}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{getHitStats()}{getHitStats()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a082e2dd6591243f2ee8a705196c2a09a} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::get\+Hit\+Stats (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get cache hit/miss statistics
+
+\begin{DoxyReturn}{Returns}
+array \mbox{[}hits, misses, hit\+\_\+rate\mbox{]} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_ab1dcc0df8ad92da813edad05b3df542d}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_aa48429858647745210f9cb17bb67783c}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!getKey@{getKey}}
+\index{getKey@{getKey}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{getKey()}{getKey()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_aa48429858647745210f9cb17bb67783c} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::get\+Key (\begin{DoxyParamCaption}\item[{string}]{\$key}{}\end{DoxyParamCaption})}
+
+Get cache key with namespace/prefix
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Original key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Full cache key 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a39d54d238d54ab2dc27f0fcbc0e07547}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a9274c44d497e3a99676ac9de88bf1e73}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!getMultiple@{getMultiple}}
+\index{getMultiple@{getMultiple}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{getMultiple()}{getMultiple()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a9274c44d497e3a99676ac9de88bf1e73} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::get\+Multiple (\begin{DoxyParamCaption}\item[{array}]{\$keys}{}\end{DoxyParamCaption})}
+
+Get multiple items from cache
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$keys} & Array of cache keys \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Associative array of \mbox{[}key =\texorpdfstring{$>$}{>} value\mbox{]} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a33a3ecb7f4b871a1b0f148cff97ba4c3}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a64ed4e14bbc19bf4bd451d228b768991}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!getStats@{getStats}}
+\index{getStats@{getStats}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{getStats()}{getStats()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a64ed4e14bbc19bf4bd451d228b768991} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::get\+Stats (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get cache statistics
+
+\begin{DoxyReturn}{Returns}
+array Cache statistics 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a835a43589b24353558ff0f3684eab29c}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a05c7441e98b1f75c258f5b6e40ccd35a}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!getWithTtl@{getWithTtl}}
+\index{getWithTtl@{getWithTtl}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{getWithTtl()}{getWithTtl()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a05c7441e98b1f75c258f5b6e40ccd35a} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::get\+With\+Ttl (\begin{DoxyParamCaption}\item[{string}]{\$key}{}\end{DoxyParamCaption})}
+
+Get item with its TTL (remaining time)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$\vert$}{|}null \mbox{[}value, ttl\mbox{]} or null if not found 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a7ed87babfdc62627f9d0665e0d460462}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a9be772573868eaea62a62d145bfee634}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!has@{has}}
+\index{has@{has}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{has()}{has()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a9be772573868eaea62a62d145bfee634} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::has (\begin{DoxyParamCaption}\item[{string}]{\$key}{}\end{DoxyParamCaption})}
+
+Check if an item exists in the cache
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_ae125937e19f9c37b24021e9c30c1264e}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_af2b6b3a25da09f61732fd125a12b4ea6}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!increment@{increment}}
+\index{increment@{increment}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{increment()}{increment()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_af2b6b3a25da09f61732fd125a12b4ea6} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::increment (\begin{DoxyParamCaption}\item[{string}]{\$key}{, }\item[{int}]{\$value}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+Increment the value of an item in the cache
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+int & {\em \$value} & Increment amount \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int\texorpdfstring{$\vert$}{|}bool New value or false on failure 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a4b73d5d354a630c24f6de42fe7bcd547}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a198831624260710632834cfed0cb3b16}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!isAvailable@{isAvailable}}
+\index{isAvailable@{isAvailable}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{isAvailable()}{isAvailable()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a198831624260710632834cfed0cb3b16} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::is\+Available (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Check if cache is available/healthy
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a5c9e37ad4aa5386459369c9ce08519af}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_ab5579fe5384f104ea8b031d87283efef}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!remember@{remember}}
+\index{remember@{remember}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{remember()}{remember()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_ab5579fe5384f104ea8b031d87283efef} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::remember (\begin{DoxyParamCaption}\item[{string}]{\$key}{, }\item[{callable}]{\$callback}{, }\item[{?int}]{\$ttl}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Retrieve an item from cache or store it if not found
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+callable & {\em \$callback} & Function that returns value if not cached \\
+\hline
+int | null & {\em \$ttl} & Time to live in seconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_ae2d75690f1cfb49907717e66f67135a2}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a15c165ec5c0f9d2445bad30c98b9db97}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!resetStats@{resetStats}}
+\index{resetStats@{resetStats}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{resetStats()}{resetStats()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a15c165ec5c0f9d2445bad30c98b9db97} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::reset\+Stats (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Reset cache statistics
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a4ed40af93eb5c77eadd5abfd93251823}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a7741529e4986c90db084ba74f28d53fc}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!set@{set}}
+\index{set@{set}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a7741529e4986c90db084ba74f28d53fc} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::set (\begin{DoxyParamCaption}\item[{string}]{\$key}{, }\item[{}]{\$value}{, }\item[{?int}]{\$ttl}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Store an item in the cache
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Cache key \\
+\hline
+mixed & {\em \$value} & Value to store \\
+\hline
+int | null & {\em \$ttl} & Time to live in seconds (null = forever) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Success status 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a6d78523cbe4f0b75dc8225caab2a1071}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_aa292d48040effc7bc2abaa2df330d100}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!setDefaultTtl@{setDefaultTtl}}
+\index{setDefaultTtl@{setDefaultTtl}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{setDefaultTtl()}{setDefaultTtl()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_aa292d48040effc7bc2abaa2df330d100} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::set\+Default\+Ttl (\begin{DoxyParamCaption}\item[{int}]{\$ttl}{}\end{DoxyParamCaption})}
+
+Set default cache TTL
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$ttl} & Time to live in seconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_abfcc0ab80a97eac302e53712b2e00949}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_a5a249f8cbda47f3a5a46ab10c87e2dbf}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!setMultiple@{setMultiple}}
+\index{setMultiple@{setMultiple}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{setMultiple()}{setMultiple()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_a5a249f8cbda47f3a5a46ab10c87e2dbf} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::set\+Multiple (\begin{DoxyParamCaption}\item[{array}]{\$items}{, }\item[{?int}]{\$ttl}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Store multiple items in cache
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$items} & Associative array of \mbox{[}key =\texorpdfstring{$>$}{>} value\mbox{]} \\
+\hline
+int | null & {\em \$ttl} & Time to live in seconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Success status 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_a2dc7ed23a02232d3c1efcac1a4628210}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1CacheInterface_affabd5ea7a0d9ec6b62e7aa3a78200bb}\index{App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}!tag@{tag}}
+\index{tag@{tag}!App\textbackslash{}Contracts\textbackslash{}CacheInterface@{App\textbackslash{}Contracts\textbackslash{}CacheInterface}}
+\doxysubsubsection{\texorpdfstring{tag()}{tag()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1CacheInterface_affabd5ea7a0d9ec6b62e7aa3a78200bb} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Cache\+Interface\+::tag (\begin{DoxyParamCaption}\item[{string}]{\$tag}{}\end{DoxyParamCaption})}
+
+Create a tag for cache operations
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$tag} & Tag name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1CacheService_aa3b90571bc1f18e2a0c5afb4870a079c}{App\textbackslash{}\+Services\textbackslash{}\+Cache\+Service}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Contracts/\mbox{\hyperlink{CacheInterface_8php}{Cache\+Interface.\+php}}\end{DoxyCompactItemize}

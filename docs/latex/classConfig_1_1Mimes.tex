@@ -1,0 +1,69 @@
+\doxysection{Config\textbackslash{}Mimes Class Reference}
+\hypertarget{classConfig_1_1Mimes}{}\label{classConfig_1_1Mimes}\index{Config\textbackslash{}Mimes@{Config\textbackslash{}Mimes}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classConfig_1_1Mimes_a657dbe34924ba6d5ece950060a208c3c}{guess\+Type\+From\+Extension}} (string \$extension)
+\item 
+static \mbox{\hyperlink{classConfig_1_1Mimes_a0ea4415d6bbb589352d7c4ba81dc2497}{guess\+Extension\+From\+Type}} (string \$type, ?string \$proposed\+Extension=null)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static array \mbox{\hyperlink{classConfig_1_1Mimes_ade95c2cb786d445b6f180bf2668a113c}{\$mimes}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains an array of mime types. It is used by the Upload class to help identify allowed file types.
+
+When more than one variation for an extension exist (like jpg, jpeg, etc) the most common one should be first in the array to aid the guess\texorpdfstring{$\ast$}{*} methods. The same applies when more than one mime-\/type exists for a single extension.
+
+When working with mime types, please make sure you have the ´fileinfo´ extension enabled to reliably detect the media types. 
+
+\label{doc-func-members}
+\Hypertarget{classConfig_1_1Mimes_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classConfig_1_1Mimes_a0ea4415d6bbb589352d7c4ba81dc2497}\index{Config\textbackslash{}Mimes@{Config\textbackslash{}Mimes}!guessExtensionFromType@{guessExtensionFromType}}
+\index{guessExtensionFromType@{guessExtensionFromType}!Config\textbackslash{}Mimes@{Config\textbackslash{}Mimes}}
+\doxysubsubsection{\texorpdfstring{guessExtensionFromType()}{guessExtensionFromType()}}
+{\footnotesize\ttfamily \label{classConfig_1_1Mimes_a0ea4415d6bbb589352d7c4ba81dc2497} 
+Config\textbackslash{}\+Mimes\+::guess\+Extension\+From\+Type (\begin{DoxyParamCaption}\item[{string}]{\$type}{, }\item[{?string}]{\$proposed\+Extension}{ = {\ttfamily null}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Attempts to determine the best file extension for a given mime type.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string | null & {\em \$proposed\+Extension} & -\/ default extension (in case there is more than one with the same mime type)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string\texorpdfstring{$\vert$}{|}null The extension determined, or null if unable to match. 
+\end{DoxyReturn}
+\Hypertarget{classConfig_1_1Mimes_a657dbe34924ba6d5ece950060a208c3c}\index{Config\textbackslash{}Mimes@{Config\textbackslash{}Mimes}!guessTypeFromExtension@{guessTypeFromExtension}}
+\index{guessTypeFromExtension@{guessTypeFromExtension}!Config\textbackslash{}Mimes@{Config\textbackslash{}Mimes}}
+\doxysubsubsection{\texorpdfstring{guessTypeFromExtension()}{guessTypeFromExtension()}}
+{\footnotesize\ttfamily \label{classConfig_1_1Mimes_a657dbe34924ba6d5ece950060a208c3c} 
+Config\textbackslash{}\+Mimes\+::guess\+Type\+From\+Extension (\begin{DoxyParamCaption}\item[{string}]{\$extension}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Attempts to determine the best mime type for the given file extension.
+
+\begin{DoxyReturn}{Returns}
+string\texorpdfstring{$\vert$}{|}null The mime type found, or none if unable to determine. 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classConfig_1_1Mimes_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classConfig_1_1Mimes_ade95c2cb786d445b6f180bf2668a113c}\index{Config\textbackslash{}Mimes@{Config\textbackslash{}Mimes}!\$mimes@{\$mimes}}
+\index{\$mimes@{\$mimes}!Config\textbackslash{}Mimes@{Config\textbackslash{}Mimes}}
+\doxysubsubsection{\texorpdfstring{\$mimes}{\$mimes}}
+{\footnotesize\ttfamily \label{classConfig_1_1Mimes_ade95c2cb786d445b6f180bf2668a113c} 
+array Config\textbackslash{}\+Mimes\+::\$mimes\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Config/\mbox{\hyperlink{Mimes_8php}{Mimes.\+php}}\end{DoxyCompactItemize}

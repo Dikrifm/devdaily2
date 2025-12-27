@@ -1,0 +1,552 @@
+\doxysection{App Namespace Reference}
+\hypertarget{namespaceApp}{}\label{namespaceApp}\index{App@{App}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Commands}{Commands}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Contracts}{Contracts}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Controllers}{Controllers}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1DTOs}{DTOs}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Entities}{Entities}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Enums}{Enums}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Exceptions}{Exceptions}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Filters}{Filters}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Libraries}{Libraries}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Models}{Models}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Repositories}{Repositories}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Services}{Services}}
+\item 
+namespace \mbox{\hyperlink{namespaceApp_1_1Validators}{Validators}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Admin Service Interface
+
+Business Orchestrator Layer (Layer 5)\+: Contract for admin management operations. Defines protocol for admin CRUD, authentication, and administrative functions.
+
+\textbackslash{}\+Contracts
+
+Audit Log Service Interface
+
+Business Orchestrator Layer (Layer 5)\+: Contract for audit logging and activity tracking. Defines protocol for recording, retrieving, and analyzing audit trails.
+
+\textbackslash{}\+Contracts
+
+Authentication Service Interface
+
+Business Orchestrator Layer (Layer 5)\+: Contract for authentication, session management, and security operations. Defines protocol for login, logout, session validation, and security-\/related functions.
+
+\textbackslash{}\+Contracts
+
+Badge Interface
+
+Business Orchestrator Layer (Layer 5)\+: Contract for badge business operations. Defines the protocol for all badge-\/related business logic with strict type safety.
+
+\textbackslash{}\+Contracts
+
+Base Interface
+
+Business Orchestrator Layer (Layer 5)\+: Root contract for all service interfaces. Defines the common protocol for all business logic operations with strict type safety.
+
+\textbackslash{}\+Contracts
+
+Cache Interface
+
+Abstraction layer for caching operations. Provides consistent caching API regardless of underlying implementation.
+
+\textbackslash{}\+Contracts
+
+Category Service Interface
+
+Business Orchestrator Layer (Layer 5)\+: Contract for category business operations. Defines the protocol for all category-\/related business logic with strict type safety.
+
+\textbackslash{}\+Contracts
+
+Image Service Interface
+\begin{DoxyItemize}
+\item Business Orchestrator Layer (Layer 5) Defines the contract for handling image uploads, processing, and cleanup within the Enterprise/\+Sultan specification.
+\end{DoxyItemize}
+
+\textbackslash{}\+Contracts
+
+Link Service Interface
+
+Business Orchestrator Layer (Layer 5)\+: Contract for link business operations. Defines the protocol for all link-\/related business logic including affiliate tracking, price monitoring, and marketplace integration.
+
+\textbackslash{}\+Contracts
+
+Marketplace Badge Interface
+
+Business Orchestrator Layer (Layer 5)\+: Contract for marketplace badge business operations. Defines the protocol for all marketplace badge-\/related business logic with strict type safety.
+
+\textbackslash{}\+Contracts
+
+Marketplace Interface
+
+Business Orchestrator Layer (Layer 5)\+: Contract for marketplace business operations. Defines the protocol for all marketplace-\/related business logic with strict type safety.
+
+\textbackslash{}\+Contracts
+
+Product\+Bulk\+Interface -\/ Contract for Bulk Product Operations
+
+Handles operations on multiple products simultaneously with\+:
+\begin{DoxyItemize}
+\item Transaction safety
+\item Progress tracking
+\item Batch processing optimization
+\item Error recovery \& rollback handling
+\end{DoxyItemize}
+
+\textbackslash{}\+Contracts
+
+Product\+CRUDInterface -\/ Contract for basic CRUD operations on Product
+
+\textbackslash{}\+Contracts
+
+Product\+Service\+Interface -\/ Master Interface for Product Domain
+
+Combines all product-\/related operations into a single contract. Acts as the primary interface for controllers and external consumers.
+
+\textbackslash{}\+Contracts
+
+Product\+Maintenance\+Interface -\/ Contract for Product Maintenance, Cache, Statistics \& Utility Operations
+
+Handles system maintenance, cache management, statistics calculation, import/export, and utility operations for the Product domain.
+
+\textbackslash{}\+Contracts
+
+Product\+Query\+Interface -\/ Contract for Product Search, Filtering \& Listing Operations
+
+Handles all read-\/only operations\+: search, filtering, pagination, and data retrieval. Optimized for performance with caching strategies (L2/\+L3 Cache).
+
+\textbackslash{}\+Contracts
+
+Product\+Workflow\+Interface -\/ Contract for Product Status \& Workflow Operations
+
+Handles product lifecycle\+: draft → pending\+\_\+verification → verified → published → archived Enforces state machine transitions and business rules for status changes.
+
+\textbackslash{}\+Contracts
+
+Base\+Api Controller -\/ Layer 4 (Presentation Layer)
+
+Parent untuk SEMUA API controllers dalam sistem \doxylink{namespaceDevDaily}{Dev\+Daily}. Mengikuti prinsip "{}\+Thin \& Dumb"{} untuk API context.
+
+\textbackslash{}\+Controllers\textbackslash{}\+Api
+
+Base\+Admin Controller -\/ Layer 4 (Presentation Layer)
+
+Parent untuk SEMUA admin panel controllers dalam sistem \doxylink{namespaceDevDaily}{Dev\+Daily}. Mengasumsikan authentication/authorization sudah ditangani oleh Filter pipeline.
+
+\textbackslash{}\+Controllers
+
+BASE CONTROLLER -\/ PURE THIN CONTROLLER
+
+PRINSIP\+: "{}\+Controller adalah 1\+:1 adapter antara HTTP dan Application Layer"{}
+\begin{DoxyItemize}
+\item HANYA menerima request
+\item HANYA memanggil Service
+\item HANYA mengembalikan response
+\item TIDAK ADA business logic
+\item TIDAK ADA validation logic
+\item TIDAK ADA data transformation
+\end{DoxyItemize}
+
+PROTOTYPE\+: Request → \mbox{[}Controller\mbox{]} → Service → Response
+
+\textbackslash{}\+Controllers
+
+Base Data Transfer Object (DTO)
+
+Data Transfer Protocol Layer (Layer 6)\+: Base class for all \doxylink{namespaceApp_1_1DTOs}{DTOs}. Provides strict type safety, validation, and immutable data transfer between layers.
+
+\textbackslash{}\+DTOs
+
+Pagination Query DTO
+
+Immutable DTO for pagination parameters with comprehensive validation. Supports page-\/based pagination with offset calculation and cache integration.
+
+\textbackslash{}\+DTOs\textbackslash{}\+Queries
+
+Product Query DTO
+
+Immutable DTO for product listing and filtering parameters. Enterprise-\/grade with comprehensive validation and sanitization.
+
+\textbackslash{}\+DTOs\textbackslash{}\+Queries
+
+DTO for creating a new category
+
+\textbackslash{}\+DTOs\textbackslash{}\+Requests\textbackslash{}\+Category
+
+Link Response DTO
+
+Response format for Link data with reverse commission calculation. Includes display-\/only fields like commission\+\_\+rate\+\_\+display derived from stored revenue.
+
+\textbackslash{}\+DTOs\textbackslash{}\+Responses
+
+Product Response DTO
+
+Immutable DTO for product listing responses. Supports public and admin modes with appropriate field visibility. Includes comprehensive formatting and URL generation.
+
+\textbackslash{}\+DTOs\textbackslash{}\+Responses
+
+Admin Entity
+
+Represents an administrator in the system with authentication capabilities. Core entity for admin management, authentication, and role-\/based access control.
+
+\textbackslash{}\+Entities
+
+Audit Log Entity
+
+Represents an immutable audit log entry for tracking all administrative actions. This entity does NOT extend Base\+Entity because audit logs have a different structure and are immutable (cannot be updated or deleted).
+
+\textbackslash{}\+Entities
+
+Badge Entity
+
+Represents a product badge/tag for visual categorization and highlighting. Examples\+: "{}\+Best Seller"{}, "{}\+New Arrival"{}, "{}\+Limited Edition"{}, etc.
+
+\textbackslash{}\+Entities
+
+Link Entity with Smart Commission Logic
+
+Implements "{}\+Transient Input, Persistent Revenue"{} strategy Commission rate (percentage) is transient, only revenue (Rupiah) is persisted
+
+\textbackslash{}\+Entities
+
+Product Entity
+
+Represents the core product in the system. Limited to 300 premium products. Each product undergoes manual curation with strict quality control.
+
+\textbackslash{}\+Entities
+
+Product\+Badge Entity
+
+Represents a many-\/to-\/many relationship between Products and Badges. This is a junction table entity without timestamps or soft delete.
+
+\textbackslash{}\+Entities
+
+Trait Has\+Image\+Trait
+\begin{DoxyItemize}
+\item Digunakan oleh Entity yang memiliki fitur gambar Enterprise (Sultan Mode). Menyediakan method helper untuk mendapatkan URL lengkap dari varian gambar.
+\end{DoxyItemize}
+
+\textbackslash{}\+Entities\textbackslash{}\+Traits
+
+Soft\+Deletable Trait
+
+Provides soft delete functionality for entities. Instead of physical deletion, sets a deletion timestamp.
+
+\textbackslash{}\+Entities\textbackslash{}\+Traits
+
+Timestampable Trait
+
+Provides created\+\_\+at and updated\+\_\+at timestamps for entities. Using Date\+Time\+Immutable for immutable date objects.
+
+\textbackslash{}\+Entities\textbackslash{}\+Traits
+
+Image Source Type Enumeration
+
+Defines how product images are sourced in the system. Business Rule\+: Manual curation allows both uploaded screenshots and external URLs.
+
+\textbackslash{}\+Enums
+
+Product Status Enumeration
+
+Defines all possible states in the product workflow lifecycle. Business Rule\+: Two-\/level verification process (input → verify → publish)
+
+\textbackslash{}\+Enums
+
+Domain Exception Base Class
+
+Foundation for all domain/business exceptions in the system. Provides structured error information for API responses and logging.
+
+\textbackslash{}\+Exceptions
+
+Product Not Found Exception
+
+Thrown when a product entity cannot be found by ID or slug. This is a domain exception that represents a business rule violation.
+
+\textbackslash{}\+Exceptions
+
+Validation Exception
+
+Thrown when input validation or business rule validation fails. This is a domain exception that represents validation failures.
+
+\textbackslash{}\+Exceptions
+
+Admin Model
+
+Layer 2\+: SQL Encapsulator for Admin entities. 0\% Business Logic -\/ Pure data access layer for administrator accounts.
+
+\textbackslash{}\+Models
+
+Audit Log Model -\/ Immutable SQL Encapsulator Layer for Audit Trail Data
+
+Responsibilities\+:
+\begin{DoxyEnumerate}
+\item Handle INSERT operations for audit logs (immutable -\/ no updates/deletes)
+\item Provide optimized query methods for audit trail retrieval
+\item Return fully hydrated Audit\+Log \doxylink{namespaceApp_1_1Entities}{Entities}
+\item Handle time-\/series and entity-\/based queries efficiently
+\end{DoxyEnumerate}
+
+Special Characteristics\+:
+\begin{DoxyItemize}
+\item IMMUTABLE\+: Audit logs cannot be updated or deleted
+\item HIGH-\/\+VOLUME\+: Optimized for large datasets with proper indexing
+\item TIME-\/\+SERIES\+: Natural time-\/series data structure
+\end{DoxyItemize}
+
+\textbackslash{}\+Models
+
+Badge Model
+
+Layer 2\+: SQL Encapsulator for Badge entities. 0\% Business Logic -\/ Pure data access layer.
+
+\textbackslash{}\+Models
+
+Base Model Abstract Class
+
+Foundation for all models in the system with MVP approach. Provides common configuration and simple caching mechanism.
+
+\textbackslash{}\+Models
+
+Category Model -\/ SQL Encapsulator for Category Entity
+
+Layer 2\+: Pure Data Gateway (0\% Business Logic) Implements hierarchical category structure with parent-\/child relationships
+
+\textbackslash{}\+Models
+
+Link Model -\/ SQL Encapsulator for Link Entity
+
+Layer 2\+: Pure Data Gateway (0\% Business Logic) Implements "{}\+Transient Input, Persistent Revenue"{} database operations
+
+\textbackslash{}\+Models
+
+Marketplace\+Badge Model
+
+Layer 2\+: SQL Encapsulator for Marketplace\+Badge entities. 0\% Business Logic -\/ Pure data access layer for marketplace badges.
+
+\textbackslash{}\+Models
+
+Marketplace Model
+
+Layer 2\+: SQL Encapsulator for Marketplace entities. 0\% Business Logic -\/ Pure data access layer for e-\/commerce marketplaces.
+
+\textbackslash{}\+Models
+
+Product\+Badge Model
+
+Data Gateway for product\+\_\+badges junction table. Manages many-\/to-\/many relationship between Products and Badges.
+
+Layer\+: 2 -\/ SQL Encapsulator (0\% Business Logic) Responsibility\+: Query translation, no business rules.
+
+\textbackslash{}\+Models
+
+Product Model -\/ SQL Encapsulator for Product Entity
+
+Layer 2\+: Pure Data Gateway (0\% Business Logic) Implements premium product curation with 300 product limit Supports state machine transitions and manual curation workflow
+
+\textbackslash{}\+Models
+
+Base Repository Abstract Class
+
+Data Orchestrator Layer (Layer 3)\+: Persistence Abstraction \& Cache Manager. Provides complete implementation with caching, transactions, and type safety.
+
+@template TEntity of Base\+Entity $<$\+TEntity$>$ \textbackslash{}\+Repositories
+
+Base Repository Interface
+
+Generic contract for all repository implementations. Enforces type safety and cache management across all data operations.
+
+@template TEntity of Base\+Entity \textbackslash{}\+Repositories
+
+Audit\+Log Repository
+
+Layer 3\+: Data Orchestrator for Audit\+Log Specialized implementation for audit trail and system logging Note\+: Audit logs typically don\textquotesingle{}t use soft deletes and have different caching requirements
+
+\textbackslash{}\+Repositories\textbackslash{}\+Concrete
+
+Badge Repository Concrete Implementation
+
+Data Orchestrator for Badge entities with full cache management and business logic enforcement.
+
+$<$\+Badge$>$
+
+\textbackslash{}\+Repositories\textbackslash{}\+Concrete
+
+Link Repository -\/ Concrete Implementation
+
+Data Orchestrator Layer with caching strategy for Link entities. Implements "{}\+Transient Input, Persistent Revenue"{} commission logic.
+
+\textbackslash{}\+Repositories\textbackslash{}\+Concrete
+
+Marketplace\+Badge Repository
+
+Layer 3\+: Data Orchestrator for Marketplace\+Badge Implements Persistence Abstraction \& Cache Management
+
+\textbackslash{}\+Repositories\textbackslash{}\+Concrete
+
+Product\+Badge Repository
+
+Data Orchestrator Layer (Layer 3)\+: Concrete implementation for Product\+Badge persistence operations. Handles many-\/to-\/many relationship between Product and Badge entities with composite key support.
+
+\textbackslash{}\+Repositories\textbackslash{}\+Concrete
+
+Badge Repository Interface
+
+Contract for Badge data operations with type safety and cache management. Extends base repository interface with Badge-\/specific methods.
+
+\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface \textbackslash{}\+Repositories
+
+Admin Service
+
+Business Orchestrator Layer (Layer 5)\+: Concrete implementation of Admin\+Interface. Manages admin CRUD, authentication, roles, and administrative functions.
+
+\textbackslash{}\+Services
+
+Audit Log Service
+
+Business Orchestrator Layer (Layer 5)\+: Concrete implementation of Audit\+Log\+Interface. Manages audit logging, retrieval, analytics, and maintenance with compliance features.
+
+\textbackslash{}\+Services
+
+Authentication Service
+
+Business Orchestrator Layer (Layer 5)\+: Concrete implementation of Auth\+Interface. Manages authentication, session management, security, and access control.
+
+\textbackslash{}\+Services
+
+Badge Service
+
+Business Orchestrator Layer (Layer 5)\+: Concrete implementation for badge business operations. Manages badge lifecycle with transaction boundaries, caching, and business validation.
+
+\textbackslash{}\+Services
+
+Base Service Abstract Class
+
+Business Orchestrator Layer (Layer 5)\+: Abstract implementation of Base\+Interface. Provides concrete implementation for common business operations with atomic cache management.
+
+\textbackslash{}\+Services
+
+Implementasi Layanan Cache
+\begin{DoxyItemize}
+\item Implementasi konkret dari Cache\+Interface menggunakan Cache Code\+Igniter 4. Menyediakan fitur tambahan seperti tagging, statistik, dan caching berbasis konteks.
+\item \textbackslash{}\+Services
+\end{DoxyItemize}
+
+Category Service
+
+Business Orchestrator Layer (Layer 5)\+: Concrete implementation for category business operations. Manages category lifecycle, hierarchy, and business rules with atomic transactions and caching.
+
+\textbackslash{}\+Services
+
+Image Service
+\begin{DoxyItemize}
+\item Application Service Layer (Layer 4). Orchestrates image processing logic by delegating raw manipulation to the Image\+Processor library.
+\item \textbackslash{}\+Services
+\end{DoxyItemize}
+
+Link Service
+
+Business Orchestrator Layer (Layer 5)\+: Concrete implementation for link business operations. Manages affiliate links, price monitoring, click tracking, and marketplace integration.
+
+\textbackslash{}\+Services
+
+Marketplace Badge Service
+
+Business Orchestrator Layer (Layer 5)\+: Concrete implementation for marketplace badge business operations. Manages marketplace badge lifecycle with transaction boundaries, caching, and business validation.
+
+\textbackslash{}\+Services
+
+Marketplace Service
+
+Business Orchestrator Layer (Layer 5)\+: Concrete implementation for marketplace business operations. Manages marketplace lifecycle with transaction boundaries, caching, and business validation.
+
+\textbackslash{}\+Services
+
+Product\+Cache\+Invalidator -\/ Atomic Cache Invalidation for Product Domain
+
+Layer\+: Service Cache Component (L1/\+L2/\+L3 Management) Responsibility\+: Atomic, pattern-\/based cache invalidation with transaction safety
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Cache
+
+Product\+Cache\+Key\+Generator -\/ Standardized Cache Key Generation for Product Domain
+
+Layer 5\+: Cache Strategy Component Generates consistent cache keys for L1 (Entity), L2 (Query), L3 (Compute) caching
+
+Pattern\+: \{entity\}\+:\{tenant\}\+:\{id\}\+:\{version\}\+:\{suffix\}
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Cache
+
+Product\+Cache\+Manager -\/ Unified Cache Management for Product Domain
+
+Layer\+: Service Cache Component (L1/\+L2/\+L3 Strategy Management) Responsibility\+: Implements 3-\/level cache strategy with intelligent coordination
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Cache
+
+Product\+Bulk\+Service -\/ Business Orchestrator for Bulk Product Operations
+
+Layer 5\+: Specialized Bulk Operations Service Implements Product\+Bulk\+Interface with focus on batch processing optimization
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete
+
+Product\+CRUDService -\/ Concrete Implementation for Product CRUD Operations Layer 5\+: Business Orchestrator (CRUD-\/specific) Implements ONLY 10 methods from Product\+CRUDInterface
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete
+
+Product\+Maintenance\+Service -\/ Implementation of Product\+Maintenance\+Interface
+
+Handles system maintenance, cache management, statistics calculation, import/export, and utility operations for the Product domain (Layer 5 -\/ Business Orchestrator).
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete
+
+Product\+Query\+Service -\/ Concrete Implementation for Product Search, Filtering \& Listing Operations Layer 5\+: Business Orchestrator (Query-\/specific) Implements ONLY methods from Product\+Query\+Interface Optimized for read-\/only operations with L2/\+L3 Caching
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete
+
+Product\+Workflow\+Service -\/ Concrete Implementation for Product Status \& Workflow Operations Layer 5\+: Business Orchestrator (Workflow-\/specific) Implements ONLY methods from Product\+Workflow\+Interface
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete
+
+Product\+Response\+Factory -\/ DTO Transformation Factory for Product Domain
+
+Layer\+: Service Factory Component (DTO Transformation) Responsibility\+: Transforms entities to presentation-\/ready \doxylink{namespaceApp_1_1DTOs}{DTOs} with proper formatting
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Factories
+
+Product\+Orchestrator -\/ Main Facade/\+Coordinator for Product Domain
+
+Layer 5.\+5\+: Service Coordinator
+\begin{DoxyItemize}
+\item Delegates to specialized services based on operation type
+\item Provides single entry point for controllers
+\item Manages cross-\/service coordination
+\item Implements facade pattern for simplified consumption
+\end{DoxyItemize}
+
+\textbackslash{}\+Services\textbackslash{}\+Product
+
+Product\+Business\+Validator -\/ Complex Business Rule Validation for Product Domain
+
+Layer\+: Service Validator Component (Business Rules Validation) Responsibility\+: Validates complex business rules, state transitions, and cross-\/entity constraints Called by\+: Service Layer (not Controller)
+
+\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Validators
+
+Repository Service Factory
+\begin{DoxyItemize}
+\item Centralized factory for creating and managing repository instances. Implements lazy loading and singleton pattern for performance.
+\item \textbackslash{}\+Services 
+\end{DoxyItemize}

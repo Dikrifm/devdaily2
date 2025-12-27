@@ -1,0 +1,15 @@
+<map id="App\Services\AuthorizationService\getAllPermissions" name="App\Services\AuthorizationService\getAllPermissions">
+<area shape="rect" id="Node000001" title=" " alt="" coords="801,109,998,154"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1AuthorizationService.html#ab7261784c711fa983cc59b6cf60ba869" title=" " alt="" coords="538,109,753,154"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="783,132,754,134,754,129,788,131"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1AuthorizationService.html#ab96c347a123d7cb694893a7611cbfa05" title=" " alt="" coords="260,5,490,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="581,102,489,65,456,53,456,48,491,60,586,102"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1AuthorizationService.html#ac2b359ea4ca57f8f9be788b69fe11db9" title=" " alt="" coords="277,75,473,119"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="520,116,474,112,473,107,525,116"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1AuthorizationService.html#aeb28641a59890b39534c04d2d4346f61" title=" " alt="" coords="277,144,473,189"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="520,148,474,156,473,151,525,147"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Services_1_1AuthorizationService.html#ae90e9ee69001a5c51b4ab0783ff0cef4" title=" " alt="" coords="277,213,473,258"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="586,160,491,203,457,215,456,210,489,199,581,162"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Services_1_1AuthorizationService.html#a3a1aacf47b08e6fae13c327eb5944ad2" title=" " alt="" coords="5,213,212,258"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="258,236,212,238,212,233,263,235"/>
+</map>

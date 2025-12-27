@@ -1,0 +1,15 @@
+<map id="App\Entities\BaseEntity\exists" name="App\Entities\BaseEntity\exists">
+<area shape="rect" id="Node000001" title=" " alt="" coords="611,109,784,154"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#a18c67664fc7542832e8570a164c4f792" title=" " alt="" coords="291,83,563,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="593,119,540,114,540,109,598,118"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository.html#ac82b48279586a64e7c5b5390b949fd60" title=" " alt="" coords="330,144,524,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="593,145,524,157,523,151,598,144"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#a2d6281f5ce5922fac742177fdaafba9a" title=" " alt="" coords="5,5,243,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="346,80,225,53,224,48,351,78"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#a6c850af08441fc8937e01b3155de6899" title=" " alt="" coords="5,75,243,119"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="273,98,244,100,243,94,278,96"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository.html#a51265d2c32616ca84e2816609929b60f" title=" " alt="" coords="18,144,230,189"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="312,167,230,169,230,164,317,166"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository.html#a2d3fe4ce5506a709ff1e0ee1ee832d7f" title=" " alt="" coords="10,213,238,258"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="318,191,225,215,224,210,312,192"/>
+</map>

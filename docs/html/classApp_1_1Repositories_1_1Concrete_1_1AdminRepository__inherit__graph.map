@@ -1,0 +1,13 @@
+<map id="App\Repositories\Concrete\AdminRepository" name="App\Repositories\Concrete\AdminRepository">
+<area shape="rect" id="Node000001" title=" " alt="" coords="576,26,769,71"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="101,5,147,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,13,322,4,425,4,528,11,594,25,589,26,528,16,424,9,322,9,163,18"/>
+<area shape="rect" id="Node000005" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1AdminRepositoryInterface.html" title=" " alt="" coords="309,26,510,71"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="162,20,311,37,307,40,163,26"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html" title=" " alt="" coords="291,95,528,122"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="493,88,527,81,575,72,580,71,529,86,494,93"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html" title=" " alt="" coords="5,57,243,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="258,90,293,96,288,96,258,96"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="258,62,311,59,306,60,258,67"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="525,46,578,48,573,49,525,51"/>
+</map>

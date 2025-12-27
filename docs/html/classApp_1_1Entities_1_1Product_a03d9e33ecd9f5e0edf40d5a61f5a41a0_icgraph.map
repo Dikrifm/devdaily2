@@ -1,0 +1,13 @@
+<map id="App\Entities\Product\getViewCount" name="App\Entities\Product\getViewCount">
+<area shape="rect" id="Node000001" title=" " alt="" coords="811,52,964,97"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1ProductResponse.html#ac1c7fb8115ff8b9e3109e0bb97281ba7" title=" " alt="" coords="532,5,763,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="793,60,764,58,764,52,799,60"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Product.html#ac2f582919cc3dbc210ebd306d788048a" title=" " alt="" coords="572,91,724,136"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="799,89,725,104,724,99,794,90"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1Product_1_1Cache_1_1ProductCacheManager.html#a7dbed989b6362ef790fede79ec22c676" title=" " alt="" coords="269,83,484,144"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="554,114,485,116,484,111,559,113"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1Product_1_1Cache_1_1ProductCacheManager.html#ac3becade13816b1a10800d59968699e6" title=" " alt="" coords="5,40,221,102"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="250,94,221,91,221,86,256,93"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Services_1_1Product_1_1Cache_1_1ProductCacheManager.html#adf608bcd6ca01488d46aa686c32744bb" title=" " alt="" coords="5,125,221,187"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="250,134,221,141,220,136,256,133"/>
+</map>

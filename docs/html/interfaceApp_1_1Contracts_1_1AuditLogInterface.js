@@ -1,0 +1,28 @@
+var interfaceApp_1_1Contracts_1_1AuditLogInterface =
+[
+    [ "cleanupOldLogs", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#aca16d0fc4c572e80ef31eaea984df503", null ],
+    [ "getActionTypeDistribution", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a8b02acac22e3dcf34a3dcbab552858d5", null ],
+    [ "getAdminActivityTimeline", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a8a755e8eff8e9da917b24770d4208e0a", null ],
+    [ "getAdminLogs", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#afc1520f7f401d0654f47b15982323697", null ],
+    [ "getDailyActivity", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a51db48aecd7de33f02b312f4f2834f6d", null ],
+    [ "getDatabaseSize", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a448312173f04df31ddce2d14a4506bf8", null ],
+    [ "getEntityAuditTrail", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a4b557a43f8c85b1a6ce0dbc80ed97f0b", null ],
+    [ "getEntityChangeHistory", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a8460cca28917d36745ec52b4d9442d71", null ],
+    [ "getEntityLogs", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#aa8751470f6f4e48d423ba8c50d7376f6", null ],
+    [ "getEntityTypeDistribution", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#ab889f71bf46d425001ad786bcad6f2af", null ],
+    [ "getLastAdminActivity", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#abbf3481ca9243cc8c1379ced674a0a56", null ],
+    [ "getLog", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a34d6919d2e60430114a5ed42a67d5f70", null ],
+    [ "getLogs", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#aa531b5408e05ffa0faadf2c365140f05", null ],
+    [ "getLogsByActionType", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a919e3943b8833c60ac6e92f7dbb5a166", null ],
+    [ "getMostActiveAdmins", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a4f5f3023148c47d187ec5801eca3ca31", null ],
+    [ "getRecentLogs", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a2453ee67d0bb080954eb211f9aa1a23c", null ],
+    [ "getStatistics", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#aa830544e7c580e9c8e00fd77c1c9b1d0", null ],
+    [ "getSystemLogs", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a19cad89dc97d476cd4cec7480974c6f6", null ],
+    [ "hasEntityHistory", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a4290d7e46f25db1f7f36886671044866", null ],
+    [ "log", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#abc1977052f01688362e5c746440ce1dd", null ],
+    [ "logBulk", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a668694d17e8812643f39f95b2f7c39ac", null ],
+    [ "logSystemAction", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a7b31e6306a8e4061e012da987cfd2a47", null ],
+    [ "searchLogs", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a90b574e144b65ec50867c9f00b463f64", null ],
+    [ "searchLogsByDateRange", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a2e089001cbd1db04d6e5022031c68b22", null ],
+    [ "searchLogsByIp", "interfaceApp_1_1Contracts_1_1AuditLogInterface.html#a0c6276766b2b5030ddd06c39286b710b", null ]
+];

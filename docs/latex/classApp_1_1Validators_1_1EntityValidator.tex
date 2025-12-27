@@ -1,0 +1,191 @@
+\doxysection{App\textbackslash{}Validators\textbackslash{}Entity\+Validator Class Reference}
+\hypertarget{classApp_1_1Validators_1_1EntityValidator}{}\label{classApp_1_1Validators_1_1EntityValidator}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EntityValidator_a3fd8be8789e01bf17e19c5ddd73cda56}{\+\_\+\+\_\+construct}} (?Base\+Connection \$db=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EntityValidator_a1d276494ac9342106459abfc7d029ff7}{exists}} (\$value, string \$table\+Field, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EntityValidator_ac1381020e07dfbd62f6c53a22bcc8548}{not\+\_\+exists}} (\$value, string \$table\+Field, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EntityValidator_a10ab84c9c1ad75f8131aceefc4f4822c}{exists\+\_\+and\+\_\+active}} (\$value, string \$table\+Field, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EntityValidator_add27e2441363df57ac759ea24b3a6bac}{belongs\+\_\+to}} (\$value, string \$params, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EntityValidator_a34d50cd6f68773b953f96c13d0e77ba9}{no\+\_\+dependencies}} (\$value, string \$params, array \$data, ?string \&\$error=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EntityValidator_a2c7d176aa30ce04c9e098e60a6e685dd}{unique\+\_\+in\+\_\+scope}} (\$value, string \$params, array \$data, ?string \&\$error=null)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Validators_1_1EntityValidator_aff9149825e9613095c5c1c9fa98812aa}{\$db}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Validator untuk validasi keberadaan entity di database 
+
+\label{doc-constructors}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_a3fd8be8789e01bf17e19c5ddd73cda56}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EntityValidator_a3fd8be8789e01bf17e19c5ddd73cda56} 
+App\textbackslash{}\+Validators\textbackslash{}\+Entity\+Validator\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{?Base\+Connection}]{\$db}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_add27e2441363df57ac759ea24b3a6bac}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}!belongs\_to@{belongs\_to}}
+\index{belongs\_to@{belongs\_to}!App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection{\texorpdfstring{belongs\_to()}{belongs\_to()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EntityValidator_add27e2441363df57ac759ea24b3a6bac} 
+App\textbackslash{}\+Validators\textbackslash{}\+Entity\+Validator\+::belongs\+\_\+to (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$params}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if entity belongs to another entity
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$params} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_a1d276494ac9342106459abfc7d029ff7}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}!exists@{exists}}
+\index{exists@{exists}!App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection{\texorpdfstring{exists()}{exists()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EntityValidator_a1d276494ac9342106459abfc7d029ff7} 
+App\textbackslash{}\+Validators\textbackslash{}\+Entity\+Validator\+::exists (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$table\+Field}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if entity exists in database
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$table\+Field} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_a10ab84c9c1ad75f8131aceefc4f4822c}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}!exists\_and\_active@{exists\_and\_active}}
+\index{exists\_and\_active@{exists\_and\_active}!App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection{\texorpdfstring{exists\_and\_active()}{exists\_and\_active()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EntityValidator_a10ab84c9c1ad75f8131aceefc4f4822c} 
+App\textbackslash{}\+Validators\textbackslash{}\+Entity\+Validator\+::exists\+\_\+and\+\_\+active (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$table\+Field}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if entity exists and is active
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$table\+Field} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_a34d50cd6f68773b953f96c13d0e77ba9}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}!no\_dependencies@{no\_dependencies}}
+\index{no\_dependencies@{no\_dependencies}!App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection{\texorpdfstring{no\_dependencies()}{no\_dependencies()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EntityValidator_a34d50cd6f68773b953f96c13d0e77ba9} 
+App\textbackslash{}\+Validators\textbackslash{}\+Entity\+Validator\+::no\+\_\+dependencies (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$params}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if entity has no dependent records
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$params} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_ac1381020e07dfbd62f6c53a22bcc8548}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}!not\_exists@{not\_exists}}
+\index{not\_exists@{not\_exists}!App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection{\texorpdfstring{not\_exists()}{not\_exists()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EntityValidator_ac1381020e07dfbd62f6c53a22bcc8548} 
+App\textbackslash{}\+Validators\textbackslash{}\+Entity\+Validator\+::not\+\_\+exists (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$table\+Field}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if entity does NOT exist in database
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$table\+Field} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_a2c7d176aa30ce04c9e098e60a6e685dd}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}!unique\_in\_scope@{unique\_in\_scope}}
+\index{unique\_in\_scope@{unique\_in\_scope}!App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection{\texorpdfstring{unique\_in\_scope()}{unique\_in\_scope()}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EntityValidator_a2c7d176aa30ce04c9e098e60a6e685dd} 
+App\textbackslash{}\+Validators\textbackslash{}\+Entity\+Validator\+::unique\+\_\+in\+\_\+scope (\begin{DoxyParamCaption}\item[{}]{\$value}{, }\item[{string}]{\$params}{, }\item[{array}]{\$data}{, }\item[{?string \&}]{\$error}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if entity is unique within scope
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & \\
+\hline
+string & {\em \$params} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+string | null & {\em \$error} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Validators_1_1EntityValidator_aff9149825e9613095c5c1c9fa98812aa}\index{App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}!\$db@{\$db}}
+\index{\$db@{\$db}!App\textbackslash{}Validators\textbackslash{}EntityValidator@{App\textbackslash{}Validators\textbackslash{}EntityValidator}}
+\doxysubsubsection{\texorpdfstring{\$db}{\$db}}
+{\footnotesize\ttfamily \label{classApp_1_1Validators_1_1EntityValidator_aff9149825e9613095c5c1c9fa98812aa} 
+App\textbackslash{}\+Validators\textbackslash{}\+Entity\+Validator\+::\$db\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Validators/\mbox{\hyperlink{EntityValidator_8php}{Entity\+Validator.\+php}}\end{DoxyCompactItemize}

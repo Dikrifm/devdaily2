@@ -1,0 +1,52 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="101,129,147,157"/>
+<area shape="rect" id="Node000001" href="$classApp_1_1Repositories_1_1Concrete_1_1AdminRepository.html" title=" " alt="" coords="624,86,818,131"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="149,117,210,68,248,45,290,27,366,8,427,3,489,10,566,27,600,38,632,52,689,85,684,86,630,57,598,43,564,33,488,16,427,8,366,13,292,33,251,50,213,72,153,120"/>
+<area shape="rect" id="Node000009" href="$classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository.html" title=" " alt="" coords="624,206,818,251"/>
+<area shape="poly" id="edge2_Node000000_Node000009" title=" " alt="" coords="159,122,236,87,286,69,340,55,397,45,455,43,512,51,566,72,585,87,594,104,602,122,615,142,651,175,689,206,684,206,648,180,611,145,597,125,589,106,581,90,564,76,511,57,455,49,398,51,341,60,288,74,238,92,162,126"/>
+<area shape="rect" id="Node000002" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1AdminRepositoryInterface.html" title=" " alt="" coords="328,86,528,131"/>
+<area shape="poly" id="edge3_Node000000_Node000002" title=" " alt="" coords="161,137,329,118,325,122,163,141"/>
+<area shape="rect" id="Node000006" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1AuditLogRepositoryInterface.html" title=" " alt="" coords="323,156,533,200"/>
+<area shape="poly" id="edge5_Node000000_Node000006" title=" " alt="" coords="161,145,324,164,320,168,163,150"/>
+<area shape="rect" id="Node000016" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductBadgeRepositoryInterface.html" title=" " alt="" coords="306,225,550,270"/>
+<area shape="poly" id="edge7_Node000000_Node000016" title=" " alt="" coords="160,158,222,184,292,210,332,223,327,225,290,215,220,189,162,163"/>
+<area shape="rect" id="Node000018" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1ProductRepositoryInterface.html" title=" " alt="" coords="327,294,529,339"/>
+<area shape="poly" id="edge9_Node000000_Node000018" title=" " alt="" coords="148,166,211,224,250,254,292,280,329,296,324,297,289,284,247,258,207,228,148,171"/>
+<area shape="poly" id="edge4_Node000002_Node000001" title=" " alt="" coords="543,106,626,108,622,110,544,111"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Repositories_1_1Concrete_1_1AuditLogRepository.html" title=" " alt="" coords="624,276,818,320"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="548,201,566,210,582,223,591,236,600,249,614,261,638,275,633,275,612,266,596,252,587,239,578,227,564,215,548,207"/>
+<area shape="rect" id="Node000015" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository.html" title=" " alt="" coords="624,345,818,390"/>
+<area shape="poly" id="edge8_Node000016_Node000015" title=" " alt="" coords="555,274,566,280,582,292,591,305,600,318,614,330,638,344,633,345,612,335,596,322,587,309,578,296,564,284,555,279"/>
+<area shape="rect" id="Node000017" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductRepository.html" title=" " alt="" coords="624,414,818,459"/>
+<area shape="poly" id="edge10_Node000018_Node000017" title=" " alt="" coords="543,338,566,349,582,362,591,375,600,388,614,400,638,414,633,414,612,404,596,391,587,378,578,365,564,354,543,343"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Repositories_1_1BaseRepositoryInterface.html" title=" " alt="" coords="5,364,243,408"/>
+<area shape="poly" id="edge20_Node000003_Node000002" title=" " alt="" coords="138,348,161,301,194,245,237,189,262,163,289,141,329,123,325,127,292,146,265,167,241,192,198,248,165,303,143,350"/>
+<area shape="poly" id="edge21_Node000003_Node000006" title=" " alt="" coords="147,350,206,278,245,242,289,210,324,196,320,200,292,215,249,246,210,282,151,353"/>
+<area shape="poly" id="edge30_Node000003_Node000016" title=" " alt="" coords="166,352,223,314,290,280,325,269,321,272,292,284,226,319,169,356"/>
+<area shape="poly" id="edge31_Node000003_Node000018" title=" " alt="" coords="239,357,329,338,325,341,241,362"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html" title=" " alt="" coords="309,432,546,460"/>
+<area shape="poly" id="edge11_Node000003_Node000004" title=" " alt="" coords="247,409,291,418,350,431,345,432,290,423,248,415"/>
+<area shape="rect" id="Node000008" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1BadgeRepositoryInterface.html" title=" " alt="" coords="328,484,528,528"/>
+<area shape="poly" id="edge22_Node000003_Node000008" title=" " alt="" coords="176,414,232,442,292,469,330,483,324,484,290,474,230,447,177,419"/>
+<area shape="rect" id="Node000010" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1CategoryRepositoryInterface.html" title=" " alt="" coords="322,364,534,408"/>
+<area shape="poly" id="edge24_Node000003_Node000010" title=" " alt="" coords="257,383,323,385,319,387,259,389"/>
+<area shape="rect" id="Node000012" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface.html" title=" " alt="" coords="328,553,528,598"/>
+<area shape="poly" id="edge26_Node000003_Node000012" title=" " alt="" coords="153,418,214,480,251,512,292,538,330,556,324,556,289,543,248,516,210,484,152,423"/>
+<area shape="rect" id="Node000014" href="$interfaceApp_1_1Repositories_1_1Interfaces_1_1MarketplaceBadgeRepositoryInterface.html" title=" " alt="" coords="291,622,565,667"/>
+<area shape="poly" id="edge28_Node000003_Node000014" title=" " alt="" coords="143,420,168,465,201,515,243,566,292,608,315,622,309,621,289,612,239,569,197,519,164,467,142,425"/>
+<area shape="poly" id="edge12_Node000004_Node000001" title=" " alt="" coords="558,424,563,419,584,393,593,367,596,340,594,313,590,256,596,225,611,193,642,157,681,130,677,133,645,161,615,195,601,227,596,256,599,313,601,340,599,368,588,395,567,422,561,428"/>
+<area shape="poly" id="edge15_Node000004_Node000009" title=" " alt="" coords="558,423,563,419,578,401,586,382,588,343,589,303,596,282,611,261,625,253,630,250,615,265,601,284,594,304,593,343,591,383,583,403,567,423,561,427"/>
+<area shape="poly" id="edge13_Node000004_Node000005" title=" " alt="" coords="558,422,563,419,581,399,587,377,594,354,611,331,628,322,633,319,615,335,598,356,592,378,585,401,567,423,561,427"/>
+<area shape="poly" id="edge18_Node000004_Node000015" title=" " alt="" coords="534,426,564,418,612,399,650,389,645,391,614,404,566,423,536,431"/>
+<area shape="poly" id="edge19_Node000004_Node000017" title=" " alt="" coords="562,439,627,439,622,440,563,444"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Repositories_1_1Concrete_1_1BadgeRepository.html" title=" " alt="" coords="624,484,818,528"/>
+<area shape="poly" id="edge14_Node000004_Node000007" title=" " alt="" coords="524,461,566,469,627,484,621,484,564,474,524,466"/>
+<area shape="rect" id="Node000011" href="$classApp_1_1Repositories_1_1Concrete_1_1LinkRepository.html" title=" " alt="" coords="624,553,818,598"/>
+<area shape="poly" id="edge16_Node000004_Node000011" title=" " alt="" coords="558,464,567,469,584,486,592,504,599,522,615,539,635,553,630,552,611,543,595,525,587,506,579,489,563,473,557,469"/>
+<area shape="rect" id="Node000013" href="$classApp_1_1Repositories_1_1Concrete_1_1MarketplaceBadgeRepository.html" title=" " alt="" coords="613,622,829,667"/>
+<area shape="poly" id="edge17_Node000004_Node000013" title=" " alt="" coords="560,465,567,469,582,486,589,504,593,539,595,574,602,591,615,608,631,623,626,621,611,612,597,594,590,576,587,540,584,505,577,489,563,473,559,470"/>
+<area shape="poly" id="edge23_Node000008_Node000007" title=" " alt="" coords="543,503,627,506,621,506,544,509"/>
+<area shape="poly" id="edge25_Node000010_Node000009" title=" " alt="" coords="547,360,563,349,580,329,587,307,594,284,611,261,628,253,633,250,615,265,598,286,592,309,585,331,567,353,549,365"/>
+<area shape="poly" id="edge27_Node000012_Node000011" title=" " alt="" coords="543,573,627,575,621,576,544,578"/>
+<area shape="poly" id="edge29_Node000014_Node000013" title=" " alt="" coords="581,642,615,645,610,645,581,647"/>
+</map>

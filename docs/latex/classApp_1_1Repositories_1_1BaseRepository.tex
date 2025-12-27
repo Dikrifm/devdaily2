@@ -1,0 +1,1201 @@
+\doxysection{App\textbackslash{}Repositories\textbackslash{}Base\+Repository Class Reference}
+\hypertarget{classApp_1_1Repositories_1_1BaseRepository}{}\label{classApp_1_1Repositories_1_1BaseRepository}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+
+
+Inheritance diagram for App\textbackslash{}Repositories\textbackslash{}Base\+Repository\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Repositories\textbackslash{}Base\+Repository\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_aa6ab7ede77bbd1bafd72db60482d4d24}{\+\_\+\+\_\+construct}} (Model \$model, \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \$cache, Connection\+Interface \$db, string \$entity\+Class, string \$table\+Name)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ab55087a1e7d22511fb017fa36848f61e}{find\+By\+Id}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a67d486276e5c8d49ed7aadfafd4d3323}{find\+By\+Id\+Or\+Fail}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_abe63001afccdd5ca53ca4f10ff9caf33}{find\+All}} (array \$criteria=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a655d213b803de6c4aac3084579d05335}{paginate}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$query, array \$filters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a18c67664fc7542832e8570a164c4f792}{save}} (\mbox{\hyperlink{classApp_1_1Entities_1_1BaseEntity}{Base\+Entity}} \$entity)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a2d6281f5ce5922fac742177fdaafba9a}{create}} (array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a6c850af08441fc8937e01b3155de6899}{update}} (int\texorpdfstring{$\vert$}{|}string \$id, array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a92a5142db585da1ff4ede0c9cc53f9f1}{delete}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_aca8a55f8e2c946de1f2ecdd8bc708a21}{force\+Delete}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ab4a744793ffe64d7452e2bdd53e60906}{restore}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a2915cd9fdd236113a899140e3369613e}{bulk\+Update}} (array \$ids, array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a1417b561af414080cfe14f964894b0e6}{bulk\+Delete}} (array \$ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a0b0bf62e4f5326598775014e13edc90a}{bulk\+Restore}} (array \$ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a887505b5d0bbde996c951acf1f67a3df}{exists}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a5e82383bd41cb1f0e06a2ff68d9a7550}{count}} (array \$criteria=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_afa26ca0c396bfeeefa58f8189538b518}{transaction}} (Closure \$callback)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a12c55797cebc32ae3fa5f664c50c4ff4}{clear\+Cache}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a60922f1f20d5af3706767cd70eed96df}{clear\+Entity\+Cache}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ac312d9bbb1216ede8e2e38a26cf50c35}{clear\+Cache\+Matching}} (string \$pattern)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ac514ac26f5336490bf9400066e82fccc}{get\+Entity\+Cache\+Key}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_af6ab15e18af27531d79a69affb141e8b}{get\+Query\+Cache\+Key}} (array \$parameters)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ab01953a3e928a498cbd0c1d414f8b4cd}{remember}} (string \$key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_acda177dc48d79f45d2b4f5d049c9661f}{remember\+Forever}} (string \$key, Closure \$callback)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_adf79faad8ca4d8e82c2b0f670fa689b4}{find\+By\+Ids}} (array \$ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a2e490227cda650732ae97ea35d3fb4de}{find\+By}} (array \$criteria, array \$order\+By=\mbox{[}$\,$\mbox{]}, ?int \$limit=null, ?int \$offset=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_aab37d501c2d40f7ba1188674be9bcad3}{find\+One\+By}} (array \$criteria)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a37292db90a7b257a805ec46620a4a301}{get\+Entity\+Class}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a98605b58fd8c05506089d0e7bd27100e}{get\+Table\+Name}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a8b047515a48a8c2c16fd94a54e911e4d}{get\+Cache\+Stats}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a604cce1f4e1efbe8a35293e0ca8b90cf}{preload\+Cache}} (array \$ids)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a38712eec93ab96ae01bc92aa33832808}{atomic\+Cache\+Operation}} (string \$cache\+Key, Closure \$data\+Callback, ?Closure \$cache\+Callback=null, ?int \$ttl=null)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_acc7740dbfc3cae4f284a886d4a99c214}{apply\+Criteria}} (\textbackslash{}Code\+Igniter\textbackslash{}\+Database\textbackslash{}\+Base\+Builder \$builder, array \$criteria)
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ae129f313c21dc4adf01ef9a847a941e0}{get\+Model}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a2f8d098cc461d93a398bb5baea714a5b}{get\+Cache}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Model \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a8acc2aca3e481f86ac82a3724b568983}{\$model}}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_af99764099972b1f09b799f587f55486e}{\$cache}}
+\item 
+Connection\+Interface \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a198d50a2ca05949556f84657f75456aa}{\$db}}
+\item 
+string \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a96f26d39004a09f6dc931652f2a093cf}{\$entity\+Class}}
+\item 
+string \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_ac863b5cd1d3949b8f1abbeae0f9d9793}{\$table\+Name}}
+\item 
+string \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a0698ac1577a95ab204deab72f2169334}{\$cache\+Prefix}}
+\item 
+int \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a99ce23fbdc3748948762398d9d48219c}{\$default\+Cache\+Ttl}} = 3600
+\item 
+bool \mbox{\hyperlink{classApp_1_1Repositories_1_1BaseRepository_a5afe77f8560e7a49cb194ee1badc1b3a}{\$use\+Atomic\+Cache}} = true
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_aa6ab7ede77bbd1bafd72db60482d4d24}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_aa6ab7ede77bbd1bafd72db60482d4d24} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{Model}]{\$model}{, }\item[{\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}}}]{\$cache}{, }\item[{Connection\+Interface}]{\$db}{, }\item[{string}]{\$entity\+Class}{, }\item[{string}]{\$table\+Name}{}\end{DoxyParamCaption})}
+
+Constructor with dependency injection
+
+
+\begin{DoxyParams}[1]{Parameters}
+Model & {\em \$model} & \\
+\hline
+Cache\+Interface & {\em \$cache} & \\
+\hline
+Connection\+Interface & {\em \$db} & \\
+\hline
+ & {\em class-\/string$<$\+TEntity$>$} & \$entity\+Class \\
+\hline
+string & {\em \$table\+Name} & \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_acc7740dbfc3cae4f284a886d4a99c214}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!applyCriteria@{applyCriteria}}
+\index{applyCriteria@{applyCriteria}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{applyCriteria()}{applyCriteria()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_acc7740dbfc3cae4f284a886d4a99c214} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::apply\+Criteria (\begin{DoxyParamCaption}\item[{\textbackslash{}Code\+Igniter\textbackslash{}\+Database\textbackslash{}\+Base\+Builder}]{\$builder}{, }\item[{array}]{\$criteria}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Apply criteria to query builder Protected method for child classes to extend
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Code\+Igniter\textbackslash{}\+Database\textbackslash{}\+Base\+Builder & {\em \$builder} & \\
+\hline
+ & {\em array$<$string,mixed$>$} & \$criteria \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_acc7740dbfc3cae4f284a886d4a99c214_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a38712eec93ab96ae01bc92aa33832808}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!atomicCacheOperation@{atomicCacheOperation}}
+\index{atomicCacheOperation@{atomicCacheOperation}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{atomicCacheOperation()}{atomicCacheOperation()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a38712eec93ab96ae01bc92aa33832808} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::atomic\+Cache\+Operation (\begin{DoxyParamCaption}\item[{string}]{\$cache\+Key}{, }\item[{Closure}]{\$data\+Callback}{, }\item[{?Closure}]{\$cache\+Callback}{ = {\ttfamily null}, }\item[{?int}]{\$ttl}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Perform atomic cache operation with transaction safety Ensures cache is only updated after successful database transaction
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$cache\+Key} & \\
+\hline
+Closure & {\em \$data\+Callback} & \\
+\hline
+Closure | null & {\em \$cache\+Callback} & \\
+\hline
+int | null & {\em \$ttl} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_afccd3eac08cda043ea662bd8956749ad}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a1417b561af414080cfe14f964894b0e6}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!bulkDelete@{bulkDelete}}
+\index{bulkDelete@{bulkDelete}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{bulkDelete()}{bulkDelete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a1417b561af414080cfe14f964894b0e6} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::bulk\+Delete (\begin{DoxyParamCaption}\item[{array}]{\$ids}{}\end{DoxyParamCaption})}
+
+Bulk delete entities
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of affected entities
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a4026168c05a5e716a3ac25f78fc884ab}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1AuditLogRepository_abf30d3dca681d60c8d72404d9794b650}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Audit\+Log\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a1417b561af414080cfe14f964894b0e6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a0b0bf62e4f5326598775014e13edc90a}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!bulkRestore@{bulkRestore}}
+\index{bulkRestore@{bulkRestore}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{bulkRestore()}{bulkRestore()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a0b0bf62e4f5326598775014e13edc90a} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::bulk\+Restore (\begin{DoxyParamCaption}\item[{array}]{\$ids}{}\end{DoxyParamCaption})}
+
+Bulk restore entities
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of affected entities
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7658f60502df43b11ba4be34d997a724}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1AdminRepository_a77a8de8d667345103a173980929bb8de}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Admin\+Repository}}, and \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1AuditLogRepository_a5411a470140f78f72fe80b8b188e1d2d}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Audit\+Log\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a0b0bf62e4f5326598775014e13edc90a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a2915cd9fdd236113a899140e3369613e}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!bulkUpdate@{bulkUpdate}}
+\index{bulkUpdate@{bulkUpdate}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{bulkUpdate()}{bulkUpdate()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a2915cd9fdd236113a899140e3369613e} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::bulk\+Update (\begin{DoxyParamCaption}\item[{array}]{\$ids}{, }\item[{array}]{\$data}{}\end{DoxyParamCaption})}
+
+Bulk update entities
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids \\
+\hline
+{\em array$<$string,mixed$>$} & \$data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of affected entities
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7cb532e33ee430f5f0864582a76aeedd}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a2915cd9fdd236113a899140e3369613e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a12c55797cebc32ae3fa5f664c50c4ff4}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!clearCache@{clearCache}}
+\index{clearCache@{clearCache}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{clearCache()}{clearCache()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a12c55797cebc32ae3fa5f664c50c4ff4} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::clear\+Cache (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Clear all cache entries for this repository Implements cache invalidation strategy
+
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a19387f2d7aba4eaead3867555684c8c2}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_ac312d9bbb1216ede8e2e38a26cf50c35}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!clearCacheMatching@{clearCacheMatching}}
+\index{clearCacheMatching@{clearCacheMatching}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{clearCacheMatching()}{clearCacheMatching()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_ac312d9bbb1216ede8e2e38a26cf50c35} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::clear\+Cache\+Matching (\begin{DoxyParamCaption}\item[{string}]{\$pattern}{}\end{DoxyParamCaption})}
+
+Clear cache matching pattern Used for query/collection cache invalidation (L2 Cache)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7a3f947f6faaee3c421d278b49a15d30}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a60922f1f20d5af3706767cd70eed96df}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!clearEntityCache@{clearEntityCache}}
+\index{clearEntityCache@{clearEntityCache}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{clearEntityCache()}{clearEntityCache()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a60922f1f20d5af3706767cd70eed96df} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::clear\+Entity\+Cache (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Clear cache for specific entity
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a5cd13789842c0c0011116b18af6cd383}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a60922f1f20d5af3706767cd70eed96df_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a5e82383bd41cb1f0e06a2ff68d9a7550}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!count@{count}}
+\index{count@{count}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{count()}{count()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a5e82383bd41cb1f0e06a2ff68d9a7550} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::count (\begin{DoxyParamCaption}\item[{array}]{\$criteria}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Count entities matching criteria
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$criteria \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aa2597946937eebdc003b41f2549f83b8}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a5e82383bd41cb1f0e06a2ff68d9a7550_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a5e82383bd41cb1f0e06a2ff68d9a7550_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a2d6281f5ce5922fac742177fdaafba9a}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!create@{create}}
+\index{create@{create}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a2d6281f5ce5922fac742177fdaafba9a} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::create (\begin{DoxyParamCaption}\item[{array}]{\$data}{}\end{DoxyParamCaption})}
+
+Create new entity
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TEntity 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Validation\+Exception 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab9f96497c1ecd9e6351fbd52f0637fe8}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_ae8f4045f5f755a6b14d803a9bc66ff49}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a2d6281f5ce5922fac742177fdaafba9a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a92a5142db585da1ff4ede0c9cc53f9f1}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!delete@{delete}}
+\index{delete@{delete}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a92a5142db585da1ff4ede0c9cc53f9f1} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::delete (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Soft delete entity (archive)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Not\+Found\+Exception 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a05320f8692cc50b008b8146c9edd4c60}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1AuditLogRepository_a6f2eff4fd5f1d07f7b17946da15be73a}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Audit\+Log\+Repository}}, \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a100e44e2302fc964c6af740b596811e8}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository}}, and \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a096b6264ecd31b4a1fcb570f0fa97b4f}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a92a5142db585da1ff4ede0c9cc53f9f1_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a887505b5d0bbde996c951acf1f67a3df}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!exists@{exists}}
+\index{exists@{exists}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{exists()}{exists()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a887505b5d0bbde996c951acf1f67a3df} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::exists (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Check if entity exists by ID
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a54325f34c023ba2cb28aa72eb8540756}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_ad8b6dc256de0625dab26c9f7c6576dab}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a887505b5d0bbde996c951acf1f67a3df_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_abe63001afccdd5ca53ca4f10ff9caf33}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!findAll@{findAll}}
+\index{findAll@{findAll}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{findAll()}{findAll()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_abe63001afccdd5ca53ca4f10ff9caf33} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::find\+All (\begin{DoxyParamCaption}\item[{array}]{\$criteria}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Find all active entities
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$criteria \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+TEntity$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a6392c164846bcfdea7535ef25088ca96}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_abe63001afccdd5ca53ca4f10ff9caf33_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a2e490227cda650732ae97ea35d3fb4de}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!findBy@{findBy}}
+\index{findBy@{findBy}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{findBy()}{findBy()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a2e490227cda650732ae97ea35d3fb4de} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::find\+By (\begin{DoxyParamCaption}\item[{array}]{\$criteria}{, }\item[{array}]{\$order\+By}{ = {\ttfamily \mbox{[}\mbox{]}}, }\item[{?int}]{\$limit}{ = {\ttfamily null}, }\item[{?int}]{\$offset}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Search entities with complex criteria
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$string,mixed$>$} & \$criteria \\
+\hline
+ & {\em array$<$string,string$>$} & \$order\+By \\
+\hline
+int | null & {\em \$limit} & \\
+\hline
+int | null & {\em \$offset} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+TEntity$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a8a255d7d65553e63fb8a2922541a17d0}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a2e490227cda650732ae97ea35d3fb4de_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a2e490227cda650732ae97ea35d3fb4de_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_ab55087a1e7d22511fb017fa36848f61e}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!findById@{findById}}
+\index{findById@{findById}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{findById()}{findById()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_ab55087a1e7d22511fb017fa36848f61e} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::find\+By\+Id (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Find entity by ID with caching (L1 Cache Strategy)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TEntity\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Runtime\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a38d9ab2d0824b99771271d060f0bff0b}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_ac8fb30087e367581db88f8133924ec6a}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_ab55087a1e7d22511fb017fa36848f61e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_ab55087a1e7d22511fb017fa36848f61e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a67d486276e5c8d49ed7aadfafd4d3323}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!findByIdOrFail@{findByIdOrFail}}
+\index{findByIdOrFail@{findByIdOrFail}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{findByIdOrFail()}{findByIdOrFail()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a67d486276e5c8d49ed7aadfafd4d3323} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::find\+By\+Id\+Or\+Fail (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Find entity by ID or throw exception if not found
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TEntity 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Not\+Found\+Exception 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_af421dab751c5a68df30252bf679f3516}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a7358b5778182e08a99fe5c4f1551341f}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a67d486276e5c8d49ed7aadfafd4d3323_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a67d486276e5c8d49ed7aadfafd4d3323_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_adf79faad8ca4d8e82c2b0f670fa689b4}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!findByIds@{findByIds}}
+\index{findByIds@{findByIds}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{findByIds()}{findByIds()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_adf79faad8ca4d8e82c2b0f670fa689b4} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::find\+By\+Ids (\begin{DoxyParamCaption}\item[{array}]{\$ids}{}\end{DoxyParamCaption})}
+
+Find entities by IDs with batch optimization
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+TEntity$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a2c8eda08ecaa6bb327748944a56867be}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_adf79faad8ca4d8e82c2b0f670fa689b4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_aab37d501c2d40f7ba1188674be9bcad3}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!findOneBy@{findOneBy}}
+\index{findOneBy@{findOneBy}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{findOneBy()}{findOneBy()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_aab37d501c2d40f7ba1188674be9bcad3} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::find\+One\+By (\begin{DoxyParamCaption}\item[{array}]{\$criteria}{}\end{DoxyParamCaption})}
+
+Find single entity by criteria
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$criteria \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TEntity\texorpdfstring{$\vert$}{|}null
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab7547537c32cca6f45eb68bcc00747a8}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_aab37d501c2d40f7ba1188674be9bcad3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_aca8a55f8e2c946de1f2ecdd8bc708a21}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!forceDelete@{forceDelete}}
+\index{forceDelete@{forceDelete}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{forceDelete()}{forceDelete()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_aca8a55f8e2c946de1f2ecdd8bc708a21} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::force\+Delete (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Force delete entity (permanent)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Not\+Found\+Exception 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a9bfa179b899a47d84c188c0d363008dd}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1AuditLogRepository_a0d71482b0a5204041fd9dd18940e4dc9}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Audit\+Log\+Repository}}, and \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a98fe159c084e6dd00a4dd1407b42737e}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_aca8a55f8e2c946de1f2ecdd8bc708a21_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a2f8d098cc461d93a398bb5baea714a5b}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!getCache@{getCache}}
+\index{getCache@{getCache}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{getCache()}{getCache()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a2f8d098cc461d93a398bb5baea714a5b} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::get\+Cache (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get cache service instance (for child classes)
+
+\begin{DoxyReturn}{Returns}
+Cache\+Interface 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a8b047515a48a8c2c16fd94a54e911e4d}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!getCacheStats@{getCacheStats}}
+\index{getCacheStats@{getCacheStats}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{getCacheStats()}{getCacheStats()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a8b047515a48a8c2c16fd94a54e911e4d} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::get\+Cache\+Stats (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get cache statistics for this repository
+
+\begin{DoxyReturn}{Returns}
+array\{ hits\+: int, misses\+: int, memory\+\_\+usage\+: string, keys\+\_\+count\+: int \}
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a3cc8e61331ae9b764856a151c42fdfcf}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_ac514ac26f5336490bf9400066e82fccc}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!getEntityCacheKey@{getEntityCacheKey}}
+\index{getEntityCacheKey@{getEntityCacheKey}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{getEntityCacheKey()}{getEntityCacheKey()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_ac514ac26f5336490bf9400066e82fccc} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::get\+Entity\+Cache\+Key (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Get cache key for entity
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a18c5cbb87c4cbc2dabbf8ec672d82090}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classApp_1_1Repositories_1_1BaseRepository_ac514ac26f5336490bf9400066e82fccc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a37292db90a7b257a805ec46620a4a301}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!getEntityClass@{getEntityClass}}
+\index{getEntityClass@{getEntityClass}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{getEntityClass()}{getEntityClass()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a37292db90a7b257a805ec46620a4a301} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::get\+Entity\+Class (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get entity class name
+
+\begin{DoxyReturn}{Returns}
+class-\/string$<$\+TEntity$>$
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aa726479e16efedb5edfd1892b3c7fe4c}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_ae129f313c21dc4adf01ef9a847a941e0}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!getModel@{getModel}}
+\index{getModel@{getModel}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{getModel()}{getModel()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_ae129f313c21dc4adf01ef9a847a941e0} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::get\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get model instance (for child classes that need direct access)
+
+\begin{DoxyReturn}{Returns}
+Model 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_af6ab15e18af27531d79a69affb141e8b}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!getQueryCacheKey@{getQueryCacheKey}}
+\index{getQueryCacheKey@{getQueryCacheKey}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{getQueryCacheKey()}{getQueryCacheKey()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_af6ab15e18af27531d79a69affb141e8b} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::get\+Query\+Cache\+Key (\begin{DoxyParamCaption}\item[{array}]{\$parameters}{}\end{DoxyParamCaption})}
+
+Get cache key for query/collection
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab0dfe2f4a1d69eb42cbd2f1b8dceacd3}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a98605b58fd8c05506089d0e7bd27100e}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!getTableName@{getTableName}}
+\index{getTableName@{getTableName}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{getTableName()}{getTableName()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a98605b58fd8c05506089d0e7bd27100e} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::get\+Table\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get table name
+
+\begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ad0686bb2a5ff0fbe978cc0c588b85fa1}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a655d213b803de6c4aac3084579d05335}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!paginate@{paginate}}
+\index{paginate@{paginate}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{paginate()}{paginate()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a655d213b803de6c4aac3084579d05335} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::paginate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}}}]{\$query}{, }\item[{array}]{\$filters}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Find entities with pagination support (L2 Cache Strategy)
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxylink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query} & {\em \$query} & \\
+\hline
+ & {\em array$<$string,mixed$>$} & \$filters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{ data\+: array$<$\+TEntity$>$, pagination\+: array\{ total\+: int, per\+\_\+page\+: int, current\+\_\+page\+: int, last\+\_\+page\+: int, from\+: int, to\+: int \} \}
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a4f9af979be97d1dfb78c4c83b80f8c81}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a655d213b803de6c4aac3084579d05335_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a604cce1f4e1efbe8a35293e0ca8b90cf}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!preloadCache@{preloadCache}}
+\index{preloadCache@{preloadCache}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{preloadCache()}{preloadCache()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a604cce1f4e1efbe8a35293e0ca8b90cf} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::preload\+Cache (\begin{DoxyParamCaption}\item[{array}]{\$ids}{}\end{DoxyParamCaption})}
+
+Preload entities into cache (warm cache)
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of entities preloaded
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a1d4ac1952a949defc539ccfbf9ed72f9}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a604cce1f4e1efbe8a35293e0ca8b90cf_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_ab01953a3e928a498cbd0c1d414f8b4cd}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!remember@{remember}}
+\index{remember@{remember}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{remember()}{remember()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_ab01953a3e928a498cbd0c1d414f8b4cd} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::remember (\begin{DoxyParamCaption}\item[{string}]{\$key}{, }\item[{Closure}]{\$callback}{, }\item[{?int}]{\$ttl}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Remember query result with caching (Cache-\/\+Aside Pattern)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & \\
+\hline
+Closure & {\em \$callback} & \\
+\hline
+int | null & {\em \$ttl} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_adc378c28ca82fc47923e01fc48cbd1bc}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_acda177dc48d79f45d2b4f5d049c9661f}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!rememberForever@{rememberForever}}
+\index{rememberForever@{rememberForever}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{rememberForever()}{rememberForever()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_acda177dc48d79f45d2b4f5d049c9661f} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::remember\+Forever (\begin{DoxyParamCaption}\item[{string}]{\$key}{, }\item[{Closure}]{\$callback}{}\end{DoxyParamCaption})}
+
+Remember forever (until manually invalidated)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & \\
+\hline
+Closure & {\em \$callback} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+ 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a60db7afe3e63af917731148a4affd68d}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_ab4a744793ffe64d7452e2bdd53e60906}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!restore@{restore}}
+\index{restore@{restore}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{restore()}{restore()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_ab4a744793ffe64d7452e2bdd53e60906} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::restore (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{}\end{DoxyParamCaption})}
+
+Restore soft-\/deleted entity
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Not\+Found\+Exception 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7a6cbbd15b89500916f79062221ae386}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1AuditLogRepository_a7669904624ea4a13f37a7f9ab0e202a0}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Audit\+Log\+Repository}}, \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1CategoryRepository_a7a3e0c7257b09bb4293afdb91386f78d}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Category\+Repository}}, and \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a0a0ef9e097b91edab69191d668be7d59}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_ab4a744793ffe64d7452e2bdd53e60906_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_ab4a744793ffe64d7452e2bdd53e60906_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a18c67664fc7542832e8570a164c4f792}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!save@{save}}
+\index{save@{save}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a18c67664fc7542832e8570a164c4f792} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::save (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1Entities_1_1BaseEntity}{Base\+Entity}}}]{\$entity}{}\end{DoxyParamCaption})}
+
+Save entity (create or update) Implements Write-\/\+Through caching strategy
+
+
+\begin{DoxyParams}[1]{Parameters}
+TEntity & {\em \$entity} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TEntity 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Validation\+Exception 
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Domain\+Exception 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a152b116281fc8882b2c91b50e9b7eac3}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_a206131fc49fe9765b399d9d9c886b517}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a18c67664fc7542832e8570a164c4f792_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a18c67664fc7542832e8570a164c4f792_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_afa26ca0c396bfeeefa58f8189538b518}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!transaction@{transaction}}
+\index{transaction@{transaction}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{transaction()}{transaction()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_afa26ca0c396bfeeefa58f8189538b518} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::transaction (\begin{DoxyParamCaption}\item[{Closure}]{\$callback}{}\end{DoxyParamCaption})}
+
+Execute within database transaction
+
+
+\begin{DoxyParams}[1]{Parameters}
+Closure & {\em \$callback} & Function to execute within transaction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+Throwable 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aaf24315a2c425d6781c08faf999ed45a}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classApp_1_1Repositories_1_1BaseRepository_afa26ca0c396bfeeefa58f8189538b518_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a6c850af08441fc8937e01b3155de6899}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!update@{update}}
+\index{update@{update}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a6c850af08441fc8937e01b3155de6899} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::update (\begin{DoxyParamCaption}\item[{int\texorpdfstring{$\vert$}{|}string}]{\$id}{, }\item[{array}]{\$data}{}\end{DoxyParamCaption})}
+
+Update existing entity
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+ & {\em array$<$string,mixed$>$} & \$data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TEntity 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Not\+Found\+Exception 
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+App\textbackslash{}\+Exceptions\textbackslash{}\+Validation\+Exception 
+
+Implements \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ac0a633fc9b98c13121ffc7edd1975fa8}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1AuditLogRepository_a60b4641b37329468f58923775c770268}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Audit\+Log\+Repository}}, and \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository_ab143512b6583d176c6ea4f86e4c04e5d}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Product\+Badge\+Repository}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Repositories_1_1BaseRepository_a6c850af08441fc8937e01b3155de6899_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_af99764099972b1f09b799f587f55486e}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\$cache@{\$cache}}
+\index{\$cache@{\$cache}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\$cache}{\$cache}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_af99764099972b1f09b799f587f55486e} 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1CacheInterface}{Cache\+Interface}} App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\$cache\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a0698ac1577a95ab204deab72f2169334}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\$cachePrefix@{\$cachePrefix}}
+\index{\$cachePrefix@{\$cachePrefix}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\$cachePrefix}{\$cachePrefix}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a0698ac1577a95ab204deab72f2169334} 
+string App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\$cache\+Prefix\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a198d50a2ca05949556f84657f75456aa}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\$db@{\$db}}
+\index{\$db@{\$db}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\$db}{\$db}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a198d50a2ca05949556f84657f75456aa} 
+Connection\+Interface App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\$db\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a99ce23fbdc3748948762398d9d48219c}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\$defaultCacheTtl@{\$defaultCacheTtl}}
+\index{\$defaultCacheTtl@{\$defaultCacheTtl}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\$defaultCacheTtl}{\$defaultCacheTtl}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a99ce23fbdc3748948762398d9d48219c} 
+int App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\$default\+Cache\+Ttl = 3600\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a96f26d39004a09f6dc931652f2a093cf}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\$entityClass@{\$entityClass}}
+\index{\$entityClass@{\$entityClass}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\$entityClass}{\$entityClass}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a96f26d39004a09f6dc931652f2a093cf} 
+string App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\$entity\+Class\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a8acc2aca3e481f86ac82a3724b568983}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\$model@{\$model}}
+\index{\$model@{\$model}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\$model}{\$model}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a8acc2aca3e481f86ac82a3724b568983} 
+Model App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\$model\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_ac863b5cd1d3949b8f1abbeae0f9d9793}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\$tableName@{\$tableName}}
+\index{\$tableName@{\$tableName}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\$tableName}{\$tableName}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_ac863b5cd1d3949b8f1abbeae0f9d9793} 
+string App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\$table\+Name\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Repositories_1_1BaseRepository_a5afe77f8560e7a49cb194ee1badc1b3a}\index{App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}!\$useAtomicCache@{\$useAtomicCache}}
+\index{\$useAtomicCache@{\$useAtomicCache}!App\textbackslash{}Repositories\textbackslash{}BaseRepository@{App\textbackslash{}Repositories\textbackslash{}BaseRepository}}
+\doxysubsubsection{\texorpdfstring{\$useAtomicCache}{\$useAtomicCache}}
+{\footnotesize\ttfamily \label{classApp_1_1Repositories_1_1BaseRepository_a5afe77f8560e7a49cb194ee1badc1b3a} 
+bool App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+::\$use\+Atomic\+Cache = true\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Repositories/\mbox{\hyperlink{BaseRepository_8php}{Base\+Repository.\+php}}\end{DoxyCompactItemize}

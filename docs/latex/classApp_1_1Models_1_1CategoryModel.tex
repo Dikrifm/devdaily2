@@ -1,0 +1,835 @@
+\doxysection{App\textbackslash{}Models\textbackslash{}Category\+Model Class Reference}
+\hypertarget{classApp_1_1Models_1_1CategoryModel}{}\label{classApp_1_1Models_1_1CategoryModel}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+
+
+Inheritance diagram for App\textbackslash{}Models\textbackslash{}Category\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{classApp_1_1Models_1_1CategoryModel__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Models\textbackslash{}Category\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{classApp_1_1Models_1_1CategoryModel__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_ae7f86c02215c1987249209b42f376315}{scope\+Active}} (Base\+Builder \$builder)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a6958ce7a09bd560d0873f2cf72ae8073}{scope\+Root}} (Base\+Builder \$builder)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_abd6ced9a11593f86def27a976177187c}{scope\+By\+Parent}} (Base\+Builder \$builder, int \$parent\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a620f3820d4f63e149a053143b768054c}{scope\+Sorted}} (Base\+Builder \$builder)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_af10c30f6af3561973868a3027fa6adf5}{scope\+Has\+Children}} (Base\+Builder \$builder)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_aa56b3fea245a203c533d9ed9b2591959}{scope\+Is\+Leaf}} (Base\+Builder \$builder)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_ac273ff135f5bfad242889241871ba690}{scope\+Max\+Depth}} (Base\+Builder \$builder, int \$max\+Depth=2)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_aa27772145bc12925bc12a04d9d7ab19c}{find\+By\+Slug}} (string \$slug)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a83298549d2d3838910378ea903e101c4}{find\+With\+Parent}} (int \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a4b19bf887ecbcddb3b6d47b0e14780a2}{find\+Root\+Categories}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_ac943286f6624a1d798820f506e65c88a}{find\+Sub\+Categories}} (int \$parent\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a380636259fb5c4d8e8f31fd9338a4c41}{find\+Category\+Tree}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a693b79732da777010c6e5996937e54c7}{find\+With\+Product\+Counts}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a5fcadb73bee670a36b1d017235d3b5a5}{find\+With\+Children\+Counts}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a4cc3eb6bfa1a45b28159690d5ef44c9a}{find\+With\+All\+Counts}} (int \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_ac9cd78c5386dc65c443a19cda5cd6f73}{find\+Descendants}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a2c4325586c00ffb6656454e98ed52687}{find\+Category\+Path}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a60489fe109ae31352b0336496669f9db}{is\+Ancestor\+Of}} (int \$ancestor\+Id, int \$descendant\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_ad888b675f04377bad37cd12a141e1a41}{bulk\+Reparent}} (array \$category\+Ids, int \$new\+Parent\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_ad8474b523eb57b7b17e73c415cebad06}{bulk\+Update\+Sort\+Order}} (array \$sort\+Orders)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a0237a4a491550379f8b077811bb215db}{bulk\+Set\+Active}} (array \$category\+Ids, bool \$active)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a0740753d97a124c4915c6729e521eac9}{slug\+Exists}} (string \$slug, ?int \$exclude\+Id=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a48e7df4c91b0e7d8ee317a78599f3806}{is\+Valid\+Parent}} (int \$parent\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a518e517f80d6c95bfcf4d8d1b4ed46fd}{check\+Deletion\+Preconditions}} (int \$category\+Id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_ae44ba2bcef07ebe93d992f293ad3377d}{get\+Total\+Active\+Count}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_acef5bebaf09a503912b4f9bb7ca8c4af}{get\+Max\+Depth}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_acaafe2b84e5af38fe1dcabe973c6cd4c}{generate\+Slug}} (string \$name, ?int \$exclude\+Id=null)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a8de1407fbc1bed278d7582baf65693c8}{is\+Valid\+Slug\+Format}} (string \$slug)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_ad37ecc0e3f3477a9304ee1624da2f703}{get\+Subtree\+Ids}} (int \$parent\+Id)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel}{App\textbackslash{}\+Models\textbackslash{}\+Base\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a520a32fbcc043cef1d4546c95a39fdd6}{find\+Active\+By\+Id}} (int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a0a8bd9bb1bf591c97e19bd41a698641e}{delete}} (\$id=null, bool \$purge=false)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_adf863f20d1743aae9bd51d6e38d82dbd}{archive}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ae337a05eb88d4d9916e0279a9d974651}{restore}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a4de323dc9982ad34f14b0858f3e4b9af}{update\+If\+Changed}} (int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null \$id=null, array \$data=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a3c72ad44ad5b528ce9efc1bb3ce7fa5c}{bulk\+Update}} (array \$ids, array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_af601ce718f1fdf9132383c1eeca757e3}{count\+Active}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a9557cfc80300e9f9d5022bad0d7ad854}{validate\+Data}} (array \$data)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a91431c33d7fb0f1c81c1889d013a04ff}{\$table}} = \textquotesingle{}categories\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_aaf74a65488bd4b43f09d22c11661c097}{\$primary\+Key}} = \textquotesingle{}id\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_abbc50991995ff15f00289ed52a4e1af3}{\$return\+Type}} = Category\+::class
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a76701a287356a19b1d59a714f66ae432}{\$use\+Soft\+Deletes}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a48425d48990768b9570187802beeffe0}{\$allowed\+Fields}}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a71aac88e3b7156d666dfde8f352b6ce2}{\$validation\+Rules}}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1CategoryModel_a2af983b2c847bbab9085be9eeb4d14cc}{\$validation\+Messages}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel}{App\textbackslash{}\+Models\textbackslash{}\+Base\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a65198a8d2123c142c654ef9f21f57090}{DEFAULT\+\_\+\+CACHE\+\_\+\+TTL}} = 3600
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a8bc39ec7a754e85b5cbe45cea47f9c5d}{\$use\+Soft\+Deletes}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a2b6a956723885b813bdb5c28fa4a91c8}{\$use\+Timestamps}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a76ed9b9cd6c48ea935c0593ba224df49}{\$created\+Field}} = \textquotesingle{}created\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a567094feb29383fe42a4178f3fceab5b}{\$updated\+Field}} = \textquotesingle{}updated\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ae49e9220f67b7fa0acfc28ad8e077bb9}{\$deleted\+Field}} = \textquotesingle{}deleted\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a213de2a8ea7fa54c300c2c1ec0a1f03c}{\$validation\+Rules}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a6a119a1ad59e2739d27843730b7990ee}{\$validation\+Messages}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ab3db9405c68a5a3d595e1a09a7fa9fc4}{\$skip\+Validation}} = false
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_ad888b675f04377bad37cd12a141e1a41}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!bulkReparent@{bulkReparent}}
+\index{bulkReparent@{bulkReparent}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{bulkReparent()}{bulkReparent()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_ad888b675f04377bad37cd12a141e1a41} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::bulk\+Reparent (\begin{DoxyParamCaption}\item[{array}]{\$category\+Ids}{, }\item[{int}]{\$new\+Parent\+Id}{}\end{DoxyParamCaption})}
+
+Bulk update parent ID (for re-\/parenting)
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int$>$} & \$category\+Ids \\
+\hline
+int & {\em \$new\+Parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Affected rows 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_ad888b675f04377bad37cd12a141e1a41_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a0237a4a491550379f8b077811bb215db}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!bulkSetActive@{bulkSetActive}}
+\index{bulkSetActive@{bulkSetActive}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{bulkSetActive()}{bulkSetActive()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a0237a4a491550379f8b077811bb215db} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::bulk\+Set\+Active (\begin{DoxyParamCaption}\item[{array}]{\$category\+Ids}{, }\item[{bool}]{\$active}{}\end{DoxyParamCaption})}
+
+Bulk activate/deactivate categories
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$int$>$} & \$category\+Ids \\
+\hline
+bool & {\em \$active} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Affected rows 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a0237a4a491550379f8b077811bb215db_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_ad8474b523eb57b7b17e73c415cebad06}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!bulkUpdateSortOrder@{bulkUpdateSortOrder}}
+\index{bulkUpdateSortOrder@{bulkUpdateSortOrder}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{bulkUpdateSortOrder()}{bulkUpdateSortOrder()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_ad8474b523eb57b7b17e73c415cebad06} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::bulk\+Update\+Sort\+Order (\begin{DoxyParamCaption}\item[{array}]{\$sort\+Orders}{}\end{DoxyParamCaption})}
+
+Bulk update sort order
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int,int$>$} & \$sort\+Orders Array of \mbox{[}category\+Id =\texorpdfstring{$>$}{>} sort\+Order\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Affected rows 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a518e517f80d6c95bfcf4d8d1b4ed46fd}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!checkDeletionPreconditions@{checkDeletionPreconditions}}
+\index{checkDeletionPreconditions@{checkDeletionPreconditions}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{checkDeletionPreconditions()}{checkDeletionPreconditions()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a518e517f80d6c95bfcf4d8d1b4ed46fd} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::check\+Deletion\+Preconditions (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Check if category can be deleted (no products or children) This is a data check, business logic is in Service layer
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{has\+\_\+products\+: bool, has\+\_\+children\+: bool, can\+\_\+delete\+: bool\} 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_aa27772145bc12925bc12a04d9d7ab19c}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findBySlug@{findBySlug}}
+\index{findBySlug@{findBySlug}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findBySlug()}{findBySlug()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_aa27772145bc12925bc12a04d9d7ab19c} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+By\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$slug}{}\end{DoxyParamCaption})}
+
+Find active category by slug
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a2c4325586c00ffb6656454e98ed52687}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findCategoryPath@{findCategoryPath}}
+\index{findCategoryPath@{findCategoryPath}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findCategoryPath()}{findCategoryPath()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a2c4325586c00ffb6656454e98ed52687} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+Category\+Path (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Get category path (breadcrumb trail)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$ Path from root to category 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a2c4325586c00ffb6656454e98ed52687_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a380636259fb5c4d8e8f31fd9338a4c41}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findCategoryTree@{findCategoryTree}}
+\index{findCategoryTree@{findCategoryTree}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findCategoryTree()}{findCategoryTree()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a380636259fb5c4d8e8f31fd9338a4c41} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+Category\+Tree (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find category tree (all categories with hierarchy)
+
+\begin{DoxyReturn}{Returns}
+array Hierarchical array 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a380636259fb5c4d8e8f31fd9338a4c41_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_ac9cd78c5386dc65c443a19cda5cd6f73}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findDescendants@{findDescendants}}
+\index{findDescendants@{findDescendants}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findDescendants()}{findDescendants()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_ac9cd78c5386dc65c443a19cda5cd6f73} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+Descendants (\begin{DoxyParamCaption}\item[{int}]{\$category\+Id}{}\end{DoxyParamCaption})}
+
+Get all descendants of a category (recursive)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$category\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$ 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_ac9cd78c5386dc65c443a19cda5cd6f73_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a4b19bf887ecbcddb3b6d47b0e14780a2}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findRootCategories@{findRootCategories}}
+\index{findRootCategories@{findRootCategories}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findRootCategories()}{findRootCategories()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a4b19bf887ecbcddb3b6d47b0e14780a2} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+Root\+Categories (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find all root categories
+
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$ 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a4b19bf887ecbcddb3b6d47b0e14780a2_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_ac943286f6624a1d798820f506e65c88a}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findSubCategories@{findSubCategories}}
+\index{findSubCategories@{findSubCategories}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findSubCategories()}{findSubCategories()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_ac943286f6624a1d798820f506e65c88a} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+Sub\+Categories (\begin{DoxyParamCaption}\item[{int}]{\$parent\+Id}{}\end{DoxyParamCaption})}
+
+Find all sub-\/categories for a parent
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$ 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_ac943286f6624a1d798820f506e65c88a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_ac943286f6624a1d798820f506e65c88a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a4cc3eb6bfa1a45b28159690d5ef44c9a}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findWithAllCounts@{findWithAllCounts}}
+\index{findWithAllCounts@{findWithAllCounts}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findWithAllCounts()}{findWithAllCounts()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a4cc3eb6bfa1a45b28159690d5ef44c9a} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+With\+All\+Counts (\begin{DoxyParamCaption}\item[{int}]{\$id}{}\end{DoxyParamCaption})}
+
+Find category by ID with all counts (products and children)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a4cc3eb6bfa1a45b28159690d5ef44c9a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a5fcadb73bee670a36b1d017235d3b5a5}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findWithChildrenCounts@{findWithChildrenCounts}}
+\index{findWithChildrenCounts@{findWithChildrenCounts}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findWithChildrenCounts()}{findWithChildrenCounts()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a5fcadb73bee670a36b1d017235d3b5a5} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+With\+Children\+Counts (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find categories with children counts
+
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$ 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a83298549d2d3838910378ea903e101c4}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findWithParent@{findWithParent}}
+\index{findWithParent@{findWithParent}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findWithParent()}{findWithParent()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a83298549d2d3838910378ea903e101c4} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+With\+Parent (\begin{DoxyParamCaption}\item[{int}]{\$id}{}\end{DoxyParamCaption})}
+
+Find category by ID with parent information
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Category\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a693b79732da777010c6e5996937e54c7}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!findWithProductCounts@{findWithProductCounts}}
+\index{findWithProductCounts@{findWithProductCounts}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{findWithProductCounts()}{findWithProductCounts()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a693b79732da777010c6e5996937e54c7} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::find\+With\+Product\+Counts (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Find categories with product counts
+
+\begin{DoxyReturn}{Returns}
+array$<$\+Category$>$ 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_acaafe2b84e5af38fe1dcabe973c6cd4c}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!generateSlug@{generateSlug}}
+\index{generateSlug@{generateSlug}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{generateSlug()}{generateSlug()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_acaafe2b84e5af38fe1dcabe973c6cd4c} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::generate\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$name}{, }\item[{?int}]{\$exclude\+Id}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Generate unique slug from name
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+int | null & {\em \$exclude\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_acaafe2b84e5af38fe1dcabe973c6cd4c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_acef5bebaf09a503912b4f9bb7ca8c4af}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!getMaxDepth@{getMaxDepth}}
+\index{getMaxDepth@{getMaxDepth}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{getMaxDepth()}{getMaxDepth()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_acef5bebaf09a503912b4f9bb7ca8c4af} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::get\+Max\+Depth (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get maximum depth in category tree
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_ad37ecc0e3f3477a9304ee1624da2f703}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!getSubtreeIds@{getSubtreeIds}}
+\index{getSubtreeIds@{getSubtreeIds}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{getSubtreeIds()}{getSubtreeIds()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_ad37ecc0e3f3477a9304ee1624da2f703} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::get\+Subtree\+Ids (\begin{DoxyParamCaption}\item[{int}]{\$parent\+Id}{}\end{DoxyParamCaption})}
+
+Get all category IDs in a subtree (including parent)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$int$>$ 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_ad37ecc0e3f3477a9304ee1624da2f703_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_ae44ba2bcef07ebe93d992f293ad3377d}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!getTotalActiveCount@{getTotalActiveCount}}
+\index{getTotalActiveCount@{getTotalActiveCount}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{getTotalActiveCount()}{getTotalActiveCount()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_ae44ba2bcef07ebe93d992f293ad3377d} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::get\+Total\+Active\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get total category count (excluding deleted) For enforcing 15 category limit in Service layer
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a60489fe109ae31352b0336496669f9db}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!isAncestorOf@{isAncestorOf}}
+\index{isAncestorOf@{isAncestorOf}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{isAncestorOf()}{isAncestorOf()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a60489fe109ae31352b0336496669f9db} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::is\+Ancestor\+Of (\begin{DoxyParamCaption}\item[{int}]{\$ancestor\+Id}{, }\item[{int}]{\$descendant\+Id}{}\end{DoxyParamCaption})}
+
+Check if category is ancestor of another category
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$ancestor\+Id} & \\
+\hline
+int & {\em \$descendant\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a60489fe109ae31352b0336496669f9db_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a48e7df4c91b0e7d8ee317a78599f3806}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!isValidParent@{isValidParent}}
+\index{isValidParent@{isValidParent}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{isValidParent()}{isValidParent()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a48e7df4c91b0e7d8ee317a78599f3806} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::is\+Valid\+Parent (\begin{DoxyParamCaption}\item[{int}]{\$parent\+Id}{}\end{DoxyParamCaption})}
+
+Check if parent exists and is active
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a48e7df4c91b0e7d8ee317a78599f3806_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a8de1407fbc1bed278d7582baf65693c8}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!isValidSlugFormat@{isValidSlugFormat}}
+\index{isValidSlugFormat@{isValidSlugFormat}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{isValidSlugFormat()}{isValidSlugFormat()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a8de1407fbc1bed278d7582baf65693c8} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::is\+Valid\+Slug\+Format (\begin{DoxyParamCaption}\item[{string}]{\$slug}{}\end{DoxyParamCaption})}
+
+Validate slug format
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_ae7f86c02215c1987249209b42f376315}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!scopeActive@{scopeActive}}
+\index{scopeActive@{scopeActive}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{scopeActive()}{scopeActive()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_ae7f86c02215c1987249209b42f376315} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::scope\+Active (\begin{DoxyParamCaption}\item[{Base\+Builder}]{\$builder}{}\end{DoxyParamCaption})}
+
+Scope\+: Active categories only
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+Builder & {\em \$builder} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Base\+Builder 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_abd6ced9a11593f86def27a976177187c}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!scopeByParent@{scopeByParent}}
+\index{scopeByParent@{scopeByParent}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{scopeByParent()}{scopeByParent()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_abd6ced9a11593f86def27a976177187c} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::scope\+By\+Parent (\begin{DoxyParamCaption}\item[{Base\+Builder}]{\$builder}{, }\item[{int}]{\$parent\+Id}{}\end{DoxyParamCaption})}
+
+Scope\+: Categories by parent ID
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+Builder & {\em \$builder} & \\
+\hline
+int & {\em \$parent\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Base\+Builder 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_abd6ced9a11593f86def27a976177187c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_af10c30f6af3561973868a3027fa6adf5}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!scopeHasChildren@{scopeHasChildren}}
+\index{scopeHasChildren@{scopeHasChildren}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{scopeHasChildren()}{scopeHasChildren()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_af10c30f6af3561973868a3027fa6adf5} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::scope\+Has\+Children (\begin{DoxyParamCaption}\item[{Base\+Builder}]{\$builder}{}\end{DoxyParamCaption})}
+
+Scope\+: Categories with sub-\/categories (has children)
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+Builder & {\em \$builder} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Base\+Builder 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_aa56b3fea245a203c533d9ed9b2591959}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!scopeIsLeaf@{scopeIsLeaf}}
+\index{scopeIsLeaf@{scopeIsLeaf}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{scopeIsLeaf()}{scopeIsLeaf()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_aa56b3fea245a203c533d9ed9b2591959} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::scope\+Is\+Leaf (\begin{DoxyParamCaption}\item[{Base\+Builder}]{\$builder}{}\end{DoxyParamCaption})}
+
+Scope\+: Leaf categories (no children)
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+Builder & {\em \$builder} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Base\+Builder 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_ac273ff135f5bfad242889241871ba690}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!scopeMaxDepth@{scopeMaxDepth}}
+\index{scopeMaxDepth@{scopeMaxDepth}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{scopeMaxDepth()}{scopeMaxDepth()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_ac273ff135f5bfad242889241871ba690} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::scope\+Max\+Depth (\begin{DoxyParamCaption}\item[{Base\+Builder}]{\$builder}{, }\item[{int}]{\$max\+Depth}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+Scope\+: Categories with maximum depth constraint (for 15 categories limit) Note\+: Business logic validation is in Service layer, this is just query helper
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+Builder & {\em \$builder} & \\
+\hline
+int & {\em \$max\+Depth} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Base\+Builder 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a6958ce7a09bd560d0873f2cf72ae8073}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!scopeRoot@{scopeRoot}}
+\index{scopeRoot@{scopeRoot}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{scopeRoot()}{scopeRoot()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a6958ce7a09bd560d0873f2cf72ae8073} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::scope\+Root (\begin{DoxyParamCaption}\item[{Base\+Builder}]{\$builder}{}\end{DoxyParamCaption})}
+
+Scope\+: Root categories (parent\+\_\+id = 0)
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+Builder & {\em \$builder} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Base\+Builder 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a6958ce7a09bd560d0873f2cf72ae8073_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a620f3820d4f63e149a053143b768054c}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!scopeSorted@{scopeSorted}}
+\index{scopeSorted@{scopeSorted}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{scopeSorted()}{scopeSorted()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a620f3820d4f63e149a053143b768054c} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::scope\+Sorted (\begin{DoxyParamCaption}\item[{Base\+Builder}]{\$builder}{}\end{DoxyParamCaption})}
+
+Scope\+: Categories sorted by sort\+\_\+order then name
+
+
+\begin{DoxyParams}[1]{Parameters}
+Base\+Builder & {\em \$builder} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Base\+Builder 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a620f3820d4f63e149a053143b768054c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a0740753d97a124c4915c6729e521eac9}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!slugExists@{slugExists}}
+\index{slugExists@{slugExists}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{slugExists()}{slugExists()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a0740753d97a124c4915c6729e521eac9} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::slug\+Exists (\begin{DoxyParamCaption}\item[{string}]{\$slug}{, }\item[{?int}]{\$exclude\+Id}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+Check if slug already exists (excluding current category)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+int | null & {\em \$exclude\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Models_1_1CategoryModel_a0740753d97a124c4915c6729e521eac9_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a48425d48990768b9570187802beeffe0}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!\$allowedFields@{\$allowedFields}}
+\index{\$allowedFields@{\$allowedFields}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{\$allowedFields}{\$allowedFields}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a48425d48990768b9570187802beeffe0} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::\$allowed\+Fields\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'slug'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'icon'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sort\_order'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'active'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'parent\_id'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'created\_at'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'updated\_at'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'deleted\_at'}}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_aaf74a65488bd4b43f09d22c11661c097}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!\$primaryKey@{\$primaryKey}}
+\index{\$primaryKey@{\$primaryKey}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{\$primaryKey}{\$primaryKey}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_aaf74a65488bd4b43f09d22c11661c097} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::\$primary\+Key = \textquotesingle{}id\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_abbc50991995ff15f00289ed52a4e1af3}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!\$returnType@{\$returnType}}
+\index{\$returnType@{\$returnType}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{\$returnType}{\$returnType}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_abbc50991995ff15f00289ed52a4e1af3} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::\$return\+Type = Category\+::class\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a91431c33d7fb0f1c81c1889d013a04ff}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!\$table@{\$table}}
+\index{\$table@{\$table}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{\$table}{\$table}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a91431c33d7fb0f1c81c1889d013a04ff} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::\$table = \textquotesingle{}categories\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a76701a287356a19b1d59a714f66ae432}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!\$useSoftDeletes@{\$useSoftDeletes}}
+\index{\$useSoftDeletes@{\$useSoftDeletes}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{\$useSoftDeletes}{\$useSoftDeletes}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a76701a287356a19b1d59a714f66ae432} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::\$use\+Soft\+Deletes = true\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a2af983b2c847bbab9085be9eeb4d14cc}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!\$validationMessages@{\$validationMessages}}
+\index{\$validationMessages@{\$validationMessages}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{\$validationMessages}{\$validationMessages}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a2af983b2c847bbab9085be9eeb4d14cc} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::\$validation\+Messages\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{stringliteral}{'Category\ name\ is\ required'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_length'}\ =>\ \textcolor{stringliteral}{'Category\ name\ cannot\ exceed\ 255\ characters'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'slug'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'required'}\ =>\ \textcolor{stringliteral}{'Category\ slug\ is\ required'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_length'}\ =>\ \textcolor{stringliteral}{'Category\ slug\ cannot\ exceed\ 255\ characters'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'regex\_match'}\ =>\ \textcolor{stringliteral}{'Category\ slug\ can\ only\ contain\ lowercase\ letters,\ numbers,\ and\ hyphens'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'icon'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'max\_length'}\ =>\ \textcolor{stringliteral}{'Icon\ class\ cannot\ exceed\ 100\ characters'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sort\_order'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'integer'}\ =>\ \textcolor{stringliteral}{'Sort\ order\ must\ be\ an\ integer'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'active'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'in\_list'}\ =>\ \textcolor{stringliteral}{'Active\ must\ be\ either\ 0\ or\ 1'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'parent\_id'}\ =>\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'integer'}\ =>\ \textcolor{stringliteral}{'Parent\ ID\ must\ be\ an\ integer'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Models_1_1CategoryModel_a71aac88e3b7156d666dfde8f352b6ce2}\index{App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}!\$validationRules@{\$validationRules}}
+\index{\$validationRules@{\$validationRules}!App\textbackslash{}Models\textbackslash{}CategoryModel@{App\textbackslash{}Models\textbackslash{}CategoryModel}}
+\doxysubsubsection{\texorpdfstring{\$validationRules}{\$validationRules}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1CategoryModel_a71aac88e3b7156d666dfde8f352b6ce2} 
+App\textbackslash{}\+Models\textbackslash{}\+Category\+Model\+::\$validation\+Rules\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'}\ =>\ \textcolor{stringliteral}{'required|max\_length[255]'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'slug'}\ =>\ \textcolor{stringliteral}{'required|max\_length[255]|regex\_match[/\string^[a-\/z0-\/9\(\backslash\)-\/]+\$/]'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'icon'}\ =>\ \textcolor{stringliteral}{'permit\_empty|max\_length[100]'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'sort\_order'}\ =>\ \textcolor{stringliteral}{'permit\_empty|integer'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'active'}\ =>\ \textcolor{stringliteral}{'permit\_empty|in\_list[0,1]'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'parent\_id'}\ =>\ \textcolor{stringliteral}{'permit\_empty|integer'},}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Models/\mbox{\hyperlink{CategoryModel_8php}{Category\+Model.\+php}}\end{DoxyCompactItemize}

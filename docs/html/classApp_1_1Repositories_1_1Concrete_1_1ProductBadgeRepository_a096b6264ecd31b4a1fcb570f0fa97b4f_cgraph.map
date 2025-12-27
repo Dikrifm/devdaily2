@@ -1,0 +1,13 @@
+<map id="App\Repositories\Concrete\ProductBadgeRepository\delete" name="App\Repositories\Concrete\ProductBadgeRepository\delete">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,236,123"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository.html#a3cd5686e57020c81de359a44a954a207" title=" " alt="" coords="284,70,477,132"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,98,271,101,265,101,236,104"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1Concrete_1_1ProductBadgeRepository.html#ac3f6156dc8dc6c97900f6fa258213167" title=" " alt="" coords="547,32,740,93"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="477,84,534,78,529,79,478,89"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Repositories_1_1BaseRepository.html#afa26ca0c396bfeeefa58f8189538b518" title=" " alt="" coords="525,117,762,162"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="478,113,512,120,507,120,478,118"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="810,5,1048,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="740,48,798,44,793,44,741,53"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="810,75,1048,119"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="741,71,798,81,793,81,741,77"/>
+</map>

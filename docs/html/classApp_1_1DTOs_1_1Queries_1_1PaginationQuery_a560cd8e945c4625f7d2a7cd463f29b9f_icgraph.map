@@ -1,0 +1,11 @@
+<map id="App\DTOs\Queries\PaginationQuery\getLimit" name="App\DTOs\Queries\PaginationQuery\getLimit">
+<area shape="rect" id="Node000001" title=" " alt="" coords="523,75,734,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1PaginationService.html#a84a41c309c4bb94fb4ef6f9d40a04445" title=" " alt="" coords="250,5,475,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="523,70,451,53,451,48,528,70"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Queries_1_1PaginationQuery.html#ab774bf2585d2b36c31009ce6c0229817" title=" " alt="" coords="257,75,468,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="505,97,468,100,468,94,510,97"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Queries_1_1PaginationQuery.html#a649900f4c9b65799680c9b91d9045961" title=" " alt="" coords="257,144,468,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="528,123,451,146,450,141,523,124"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1AuthorizationService.html#af3b025f504bdb4acff72a05643c6f9e6" title=" " alt="" coords="5,144,202,189"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="238,167,202,169,202,164,244,166"/>
+</map>

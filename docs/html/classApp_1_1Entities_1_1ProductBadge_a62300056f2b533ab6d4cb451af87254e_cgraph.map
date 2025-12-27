@@ -1,0 +1,9 @@
+<map id="App\Entities\ProductBadge\toArray" name="App\Entities\ProductBadge\toArray">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,199,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1ProductBadge.html#a8b1e34524e9ff360b1ef1d4bb1800f32" title=" " alt="" coords="247,5,440,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,72,251,54,246,56,183,77"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1ProductBadge.html#a785023d5ec0bcd4fca0b6e007e17205d" title=" " alt="" coords="247,75,440,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,94,234,96,229,98,199,100"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1ProductBadge.html#a9138ea1a8090d9d35f490cfbd6866a87" title=" " alt="" coords="247,144,440,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="182,117,251,139,246,140,182,123"/>
+</map>

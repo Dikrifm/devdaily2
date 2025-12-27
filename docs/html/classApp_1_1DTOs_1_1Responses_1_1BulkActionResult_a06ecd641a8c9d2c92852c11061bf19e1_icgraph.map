@@ -1,0 +1,9 @@
+<map id="App\DTOs\Responses\BulkActionResult\requiresBackgroundJob" name="App\DTOs\Responses\BulkActionResult\requiresBackgroundJob">
+<area shape="rect" id="Node000001" title=" " alt="" coords="514,44,707,106"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#a1699415be8bee581f83dbb39ca5306f0" title=" " alt="" coords="242,5,466,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="496,58,467,56,467,50,501,58"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#adf926c00a53e2931a5f0865b7e5f1bb5" title=" " alt="" coords="243,91,464,136"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="501,91,465,99,465,94,496,92"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1DTOs_1_1Responses_1_1BulkActionResult.html#afc4bf2801d3e3c0d8261c9d7d9e104d5" title=" " alt="" coords="5,91,194,136"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="225,114,194,116,194,111,230,113"/>
+</map>

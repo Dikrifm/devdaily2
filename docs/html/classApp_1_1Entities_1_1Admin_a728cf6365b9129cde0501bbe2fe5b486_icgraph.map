@@ -1,0 +1,9 @@
+<map id="App\Entities\Admin\setLoginAttempts" name="App\Entities\Admin\setLoginAttempts">
+<area shape="rect" id="Node000001" title=" " alt="" coords="207,75,352,119"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Entities_1_1Admin.html#a034e0f5541e499dc121b89cfa60a6342" title=" " alt="" coords="9,5,155,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,70,148,53,147,48,202,68"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Entities_1_1Admin.html#a001ff2c70ac7b1a84f75362dce60b53e" title=" " alt="" coords="9,75,155,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,98,155,100,154,94,193,96"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Entities_1_1Admin.html#a659845ac6338e02aa6e48f4effe3d70a" title=" " alt="" coords="5,144,159,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="202,124,148,146,147,141,197,126"/>
+</map>

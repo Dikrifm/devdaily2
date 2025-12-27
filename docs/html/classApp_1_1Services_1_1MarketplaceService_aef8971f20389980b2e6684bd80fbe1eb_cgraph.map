@@ -1,0 +1,9 @@
+<map id="App\Services\MarketplaceService\getProductsForMarketplace" name="App\Services\MarketplaceService\getProductsForMarketplace">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,256,50"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a162954e4ebaca73a0555a09b7c5b7793" title=" " alt="" coords="304,5,493,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,25,291,28,285,28,256,30"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a4cecbeaea9ede2f98fd82c89245b6b4d" title=" " alt="" coords="541,5,730,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="493,25,528,28,523,28,493,30"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="778,5,968,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="731,25,765,28,760,28,731,30"/>
+</map>

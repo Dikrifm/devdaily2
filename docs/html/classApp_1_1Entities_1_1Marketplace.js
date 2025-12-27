@@ -1,0 +1,26 @@
+var classApp_1_1Entities_1_1Marketplace =
+[
+    [ "__construct", "classApp_1_1Entities_1_1Marketplace.html#a636981809ce0c94ab0c4bac6f471e00b", null ],
+    [ "activate", "classApp_1_1Entities_1_1Marketplace.html#ad276d2592054a684a5670e5f50fb8e55", null ],
+    [ "archive", "classApp_1_1Entities_1_1Marketplace.html#a074fb80b1348e8db9e52e746b6121ebe", null ],
+    [ "canBeArchived", "classApp_1_1Entities_1_1Marketplace.html#a126452bc60f7a39bee5aba84dc3e69eb", null ],
+    [ "deactivate", "classApp_1_1Entities_1_1Marketplace.html#a5c49ba023f7e82b36e3fe6bb3780ba69", null ],
+    [ "getBackgroundStyle", "classApp_1_1Entities_1_1Marketplace.html#aba426d0996368df135806b6b607eb0db", null ],
+    [ "getColor", "classApp_1_1Entities_1_1Marketplace.html#ae065c880f877799db5f20c168eaf4a70", null ],
+    [ "getColorStyle", "classApp_1_1Entities_1_1Marketplace.html#adc95b1dc5926757cc073a21018b8f6f1", null ],
+    [ "getCssClasses", "classApp_1_1Entities_1_1Marketplace.html#a255c8bd301cbd012c6ee8ce6141195f8", null ],
+    [ "getIcon", "classApp_1_1Entities_1_1Marketplace.html#ab6e2bc7bd9c7f88f5d90186ca1cd8b9e", null ],
+    [ "getName", "classApp_1_1Entities_1_1Marketplace.html#a7cc5728038645466ae37d41b19795a8b", null ],
+    [ "getSlug", "classApp_1_1Entities_1_1Marketplace.html#ad006537064147594d4b9dbeaeb6a45e8", null ],
+    [ "hasIcon", "classApp_1_1Entities_1_1Marketplace.html#abe0afea74db0069d9b260a0f657e820a", null ],
+    [ "isActive", "classApp_1_1Entities_1_1Marketplace.html#ac33a87c8a8b4db76b43a367e5cfd2af3", null ],
+    [ "isInUse", "classApp_1_1Entities_1_1Marketplace.html#a477bd5be3a8159eed3e45ab61a82b72f", null ],
+    [ "restore", "classApp_1_1Entities_1_1Marketplace.html#a3842ca4985284802121fb77264f4ffd0", null ],
+    [ "setActive", "classApp_1_1Entities_1_1Marketplace.html#a18358ee2883dd9ca9d9a8790a4afd57f", null ],
+    [ "setColor", "classApp_1_1Entities_1_1Marketplace.html#ac26dc9008c7f0f1611ba384563432106", null ],
+    [ "setIcon", "classApp_1_1Entities_1_1Marketplace.html#ab8105d9d11553350f0a021f964786741", null ],
+    [ "setName", "classApp_1_1Entities_1_1Marketplace.html#a1bfc21f0050392c1594f63c45ada349d", null ],
+    [ "setSlug", "classApp_1_1Entities_1_1Marketplace.html#a210c017daae013fa187c67d1ee2ebbc5", null ],
+    [ "toArray", "classApp_1_1Entities_1_1Marketplace.html#a17d491feea1d8a29fc4d3627629b8d1d", null ],
+    [ "validate", "classApp_1_1Entities_1_1Marketplace.html#ac415bb0eb93e17af576a925553ab69e8", null ]
+];

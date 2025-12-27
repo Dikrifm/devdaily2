@@ -1,0 +1,23 @@
+<map id="App\Models\BaseModel\updateIfChanged" name="App\Models\BaseModel\updateIfChanged">
+<area shape="rect" id="Node000001" title=" " alt="" coords="510,283,683,327"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Models_1_1AdminModel.html#a232670dde6c372be9764af8fa6d26497" title=" " alt="" coords="262,213,446,258"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="499,278,435,261,435,256,504,278"/>
+<area shape="rect" id="Node000010" href="$classApp_1_1Models_1_1ProductModel.html#a962357f9dedbf08bece6937b767d5b6f" title=" " alt="" coords="248,283,460,327"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="492,305,461,308,460,302,497,305"/>
+<area shape="rect" id="Node000011" href="$classApp_1_1Models_1_1ProductModel.html#a2191e81c3a4c5b0c26537e71d0381671" title=" " alt="" coords="246,352,462,397"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="504,331,435,354,434,349,499,333"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Models_1_1AdminModel.html#abef45b7b767c1d8060ffb93ec996cc88" title=" " alt="" coords="10,5,193,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="327,201,272,133,236,96,196,65,177,53,176,48,199,60,240,92,276,129,332,200"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Models_1_1AdminModel.html#a79abc092fc713ec77aaf44816f80d092" title=" " alt="" coords="10,75,193,119"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="308,204,257,169,196,134,172,122,171,117,199,129,259,165,313,203"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Models_1_1AdminModel.html#a9f1decc7ad80c0fe9b28581227639de5" title=" " alt="" coords="5,144,198,189"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="253,210,186,192,185,187,258,208"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Models_1_1AdminModel.html#a1c5e4a5438702c58e670c0c26d156843" title=" " alt="" coords="10,213,193,258"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="244,237,194,238,193,233,249,234"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Models_1_1AdminModel.html#a6c5a45bc46f6ca9ebff3485012b7ea12" title=" " alt="" coords="10,283,193,327"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="253,264,187,284,184,280,258,261"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1Models_1_1AdminModel.html#a4ea62b42254bc15553070d338d5c5688" title=" " alt="" coords="10,352,193,397"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="250,268,247,272,232,289,224,306,216,324,199,342,181,354,178,349,196,338,211,321,219,304,227,286,244,268,254,264"/>
+<area shape="rect" id="Node000009" href="$classApp_1_1Models_1_1AdminModel.html#ad93b1ae6e97a5bcfa1d43aeb385ccf61" title=" " alt="" coords="10,421,193,466"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="252,265,248,272,234,289,228,305,224,340,220,375,213,393,200,411,184,423,181,418,196,407,209,390,215,374,219,339,222,304,230,286,244,269,248,268"/>
+</map>

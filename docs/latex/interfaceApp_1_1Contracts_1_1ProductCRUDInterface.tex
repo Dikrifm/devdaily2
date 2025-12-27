@@ -1,0 +1,380 @@
+\doxysection{App\textbackslash{}Contracts\textbackslash{}Product\+CRUDInterface Interface Reference}
+\hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface}{}\label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Contracts\textbackslash{}Product\+CRUDInterface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interfaceApp_1_1Contracts_1_1ProductCRUDInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Contracts\textbackslash{}Product\+CRUDInterface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{interfaceApp_1_1Contracts_1_1ProductCRUDInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a37fb05d0f792901c07a1124e876e3738}{create\+Product}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1CreateProductRequest}{Create\+Product\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_acb1aa83dedd9890e45e7a91376e9ec96}{get\+Product}} (int \$product\+Id, bool \$include\+Relations=false, bool \$admin\+Mode=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_aa9c4de86d4cae94417d63253e510a96f}{get\+Product\+By\+Slug}} (string \$slug, bool \$increment\+View\+Count=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_ac28177164372cb99694a0472db999944}{update\+Product}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1UpdateProductRequest}{Update\+Product\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a8c223b06ab4233f99c350a33d0e2b5f4}{delete\+Product}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductDeleteRequest}{Product\+Delete\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a4b74e15f38b1d660ad2b55d6f5cf0b9e}{restore\+Product}} (int \$product\+Id, int \$admin\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_af88d697d4ddff9b3e933a3015781ebeb}{quick\+Edit\+Product}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductQuickEditRequest}{Product\+Quick\+Edit\+Request}} \$request)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a7c14e5f0da560575d990128981f9e986}{can\+Delete\+Product}} (int \$product\+Id, bool \$hard\+Delete=false)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a05628e6898cce29636e914bd1d3c6708}{product\+To\+Response}} (\textbackslash{}\mbox{\hyperlink{classApp_1_1Entities_1_1Product}{App\textbackslash{}\+Entities\textbackslash{}\+Product}} \$product, bool \$admin\+Mode=false, array \$relations=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a4768652220754104bcaa444c7b7157ba}{products\+To\+Responses}} (array \$products, bool \$admin\+Mode=false, array \$relations=\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface}{App\textbackslash{}\+Contracts\textbackslash{}\+Base\+Interface}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a513eec59fe7e9c0e402e46a78f8297d0}{transaction}} (Closure \$operation, ?string \$transaction\+Name=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a0f185075b3351f187e5d3a8254542226}{transaction\+With\+Retry}} (Closure \$operation, int \$max\+Retries=3, int \$retry\+Delay\+Ms=100)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a82b6e384c3fe6c7bfc54ea447281646d}{authorize}} (string \$permission, \$resource=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a873fb3b4fa96531b0e5783f7a99ae5fa}{validate\+DTO}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a91d3c6630411461cb087d01f44a51d78}{validate\+DTOOr\+Fail}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4ab64479468cdd5d2d1ff20e57288eb9}{validate\+Business\+Rules}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1BaseDTO}{Base\+DTO}} \$dto, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a659738ef6a66310bf5d776f0c30d069d}{coordinate\+Repositories}} (array \$repositories, Closure \$operation)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a614962d78135eed382f83ce29869a98e}{get\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$id, bool \$throw\+If\+Not\+Found=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_aed17577b644e1cd393d27d7bb8df0079}{audit}} (string \$action\+Type, string \$entity\+Type, int \$entity\+Id, ?array \$old\+Values=null, ?array \$new\+Values=null, array \$additional\+Context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a2e883260221a98d0a1460e60e9f5471a}{clear\+Cache\+For\+Entity}} (\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{Base\+Repository\+Interface}} \$repository, \$entity\+Id=null, ?string \$pattern=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a44f55353c98e0aaa8b34958b616edf26}{clear\+Service\+Cache}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a4eb6b3a73481036645de2cd9c1b52d0b}{with\+Caching}} (string \$cache\+Key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adca74bf9f67291760288556be736d719}{batch\+Operation}} (array \$items, Closure \$item\+Operation, int \$batch\+Size=100, ?callable \$progress\+Callback=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ab545a2b47b89a7e3024a6f49ec8925d1}{set\+Admin\+Context}} (?int \$admin\+Id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_add7778041b0a400e381071f3ff73c738}{get\+Current\+Admin\+Id}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_adf003d75eba7ca916b60f3060ab99f69}{get\+Service\+Name}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a8217d5efa6e88215cb262bf40f347e0c}{get\+Service\+Cache\+Key}} (string \$operation, array \$parameters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_af738fd9359e1bbbf4aa1f3e7dd3842db}{get\+Initialized\+At}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a86fa6c01142fed51838997cde357ebcc}{is\+Ready}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a3cf8cac523af3644379fa92fea310552}{get\+Health\+Status}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_ac73ccbd402a29fa7d8b0afec6f47ff24}{get\+Performance\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_a572bfd5dd56831a44813c2a5f0d0d4a9}{reset\+Metrics}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Contracts_1_1BaseInterface_abd29e7ea159bb15a299066801bded75e}{validate\+Configuration}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a7c14e5f0da560575d990128981f9e986}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!canDeleteProduct@{canDeleteProduct}}
+\index{canDeleteProduct@{canDeleteProduct}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{canDeleteProduct()}{canDeleteProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a7c14e5f0da560575d990128981f9e986} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::can\+Delete\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{bool}]{\$hard\+Delete}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Check if product can be deleted
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+bool & {\em \$hard\+Delete} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{can\+\_\+delete\+: bool, reasons\+: array$<$string$>$, dependencies\+: array\} 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_a243f2b8d499ff7042c474612e453999a}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a37fb05d0f792901c07a1124e876e3738}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!createProduct@{createProduct}}
+\index{createProduct@{createProduct}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{createProduct()}{createProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a37fb05d0f792901c07a1124e876e3738} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::create\+Product (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1CreateProductRequest}{Create\+Product\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Create new product with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+Create\+Product\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Validation\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_ace67c85f3173f3d7c2a8cd92cf39b632}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a8c223b06ab4233f99c350a33d0e2b5f4}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!deleteProduct@{deleteProduct}}
+\index{deleteProduct@{deleteProduct}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{deleteProduct()}{deleteProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a8c223b06ab4233f99c350a33d0e2b5f4} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::delete\+Product (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductDeleteRequest}{Product\+Delete\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Delete product with business validation
+
+
+\begin{DoxyParams}[1]{Parameters}
+Product\+Delete\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_ab2f9054233c99ad069f3bc90a8731e42}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_acb1aa83dedd9890e45e7a91376e9ec96}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!getProduct@{getProduct}}
+\index{getProduct@{getProduct}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{getProduct()}{getProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_acb1aa83dedd9890e45e7a91376e9ec96} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::get\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{bool}]{\$include\+Relations}{ = {\ttfamily false}, }\item[{bool}]{\$admin\+Mode}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+Get product by ID with full business context
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+bool & {\em \$include\+Relations} & Include category, links, etc. \\
+\hline
+bool & {\em \$admin\+Mode} & Return admin-\/only fields \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Detail\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_a20b80c7d1abcb6a8831684eadb580bd5}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_aa9c4de86d4cae94417d63253e510a96f}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!getProductBySlug@{getProductBySlug}}
+\index{getProductBySlug@{getProductBySlug}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{getProductBySlug()}{getProductBySlug()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_aa9c4de86d4cae94417d63253e510a96f} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::get\+Product\+By\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$slug}{, }\item[{bool}]{\$increment\+View\+Count}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Get product by slug with public context
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & \\
+\hline
+bool & {\em \$increment\+View\+Count} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Detail\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_ac31f98eb121d978b2d9215e573eedf8d}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a4768652220754104bcaa444c7b7157ba}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!productsToResponses@{productsToResponses}}
+\index{productsToResponses@{productsToResponses}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{productsToResponses()}{productsToResponses()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a4768652220754104bcaa444c7b7157ba} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::products\+To\+Responses (\begin{DoxyParamCaption}\item[{array}]{\$products}{, }\item[{bool}]{\$admin\+Mode}{ = {\ttfamily false}, }\item[{array}]{\$relations}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Convert array of Product entities to Response DTOs
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$} & \\
+\hline
+\end{DoxyParams}
+App\textbackslash{}\+Entities\textbackslash{}\+Product\texorpdfstring{$>$}{>} \$products 
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$admin\+Mode} & \\
+\hline
+array & {\em \$relations} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Product\+Response$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_acef9173759eb82722b56d006b52d1590}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a05628e6898cce29636e914bd1d3c6708}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!productToResponse@{productToResponse}}
+\index{productToResponse@{productToResponse}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{productToResponse()}{productToResponse()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a05628e6898cce29636e914bd1d3c6708} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::product\+To\+Response (\begin{DoxyParamCaption}\item[{\textbackslash{}\mbox{\hyperlink{classApp_1_1Entities_1_1Product}{App\textbackslash{}\+Entities\textbackslash{}\+Product}}}]{\$product}{, }\item[{bool}]{\$admin\+Mode}{ = {\ttfamily false}, }\item[{array}]{\$relations}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})}
+
+Convert Product entity to Response DTO
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+App\textbackslash{}\+Entities\textbackslash{}\+Product & {\em \$product} & \\
+\hline
+bool & {\em \$admin\+Mode} & \\
+\hline
+array & {\em \$relations} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response\texorpdfstring{$\vert$}{|}\+Product\+Detail\+Response 
+\end{DoxyReturn}
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_af88d697d4ddff9b3e933a3015781ebeb}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!quickEditProduct@{quickEditProduct}}
+\index{quickEditProduct@{quickEditProduct}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{quickEditProduct()}{quickEditProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_af88d697d4ddff9b3e933a3015781ebeb} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::quick\+Edit\+Product (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductQuickEditRequest}{Product\+Quick\+Edit\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Quick edit product (limited fields)
+
+
+\begin{DoxyParams}[1]{Parameters}
+Product\+Quick\+Edit\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Validation\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_a21e79b5b4b3bdd6965d37a597ea527df}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a4b74e15f38b1d660ad2b55d6f5cf0b9e}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!restoreProduct@{restoreProduct}}
+\index{restoreProduct@{restoreProduct}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{restoreProduct()}{restoreProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_a4b74e15f38b1d660ad2b55d6f5cf0b9e} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::restore\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$admin\+Id}{}\end{DoxyParamCaption})}
+
+Restore soft-\/deleted product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & \\
+\hline
+int & {\em \$admin\+Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_ac07063253de6830fd4c811f4ab316349}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+\Hypertarget{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_ac28177164372cb99694a0472db999944}\index{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}!updateProduct@{updateProduct}}
+\index{updateProduct@{updateProduct}!App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface@{App\textbackslash{}Contracts\textbackslash{}ProductCRUDInterface}}
+\doxysubsubsection{\texorpdfstring{updateProduct()}{updateProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Contracts_1_1ProductCRUDInterface_ac28177164372cb99694a0472db999944} 
+App\textbackslash{}\+Contracts\textbackslash{}\+Product\+CRUDInterface\+::update\+Product (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1DTOs_1_1Requests_1_1Product_1_1UpdateProductRequest}{Update\+Product\+Request}}}]{\$request}{}\end{DoxyParamCaption})}
+
+Update product with comprehensive business rules
+
+
+\begin{DoxyParams}[1]{Parameters}
+Update\+Product\+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Response 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Product\+Not\+Found\+Exception} & \\
+\hline
+{\em Validation\+Exception} & \\
+\hline
+{\em Authorization\+Exception} & \\
+\hline
+{\em Domain\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Services_1_1Product_1_1Concrete_1_1ProductCRUDService_af4e64285ae46c548f812eda6bb604796}{App\textbackslash{}\+Services\textbackslash{}\+Product\textbackslash{}\+Concrete\textbackslash{}\+Product\+CRUDService}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Contracts/\mbox{\hyperlink{ProductCRUDInterface_8php}{Product\+CRUDInterface.\+php}}\end{DoxyCompactItemize}

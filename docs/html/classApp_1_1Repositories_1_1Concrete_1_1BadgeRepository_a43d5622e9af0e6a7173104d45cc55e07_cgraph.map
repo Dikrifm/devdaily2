@@ -1,0 +1,7 @@
+<map id="App\Repositories\Concrete\BadgeRepository\findWithColor" name="App\Repositories\Concrete\BadgeRepository\findWithColor">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,234,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Repositories_1_1BaseRepository.html#af6ab15e18af27531d79a69affb141e8b" title=" " alt="" coords="282,5,519,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,46,269,44,264,45,234,51"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Repositories_1_1BaseRepository.html#ab01953a3e928a498cbd0c1d414f8b4cd" title=" " alt="" coords="282,75,519,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,74,269,80,264,81,234,79"/>
+</map>

@@ -1,0 +1,465 @@
+\doxysection{App\textbackslash{}Models\textbackslash{}Marketplace\+Model Class Reference}
+\hypertarget{classApp_1_1Models_1_1MarketplaceModel}{}\label{classApp_1_1Models_1_1MarketplaceModel}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+
+
+Inheritance diagram for App\textbackslash{}Models\textbackslash{}Marketplace\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classApp_1_1Models_1_1MarketplaceModel__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Models\textbackslash{}Marketplace\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classApp_1_1Models_1_1MarketplaceModel__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_a869ac3547c68a159bf333fe3cbd37ff7}{find\+By\+Slug}} (string \$slug)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_a294ab17f08dd3cdcfb2a905f99ba894f}{find\+By\+Name}} (string \$name)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel}{App\textbackslash{}\+Models\textbackslash{}\+Base\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a520a32fbcc043cef1d4546c95a39fdd6}{find\+Active\+By\+Id}} (int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a0a8bd9bb1bf591c97e19bd41a698641e}{delete}} (\$id=null, bool \$purge=false)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_adf863f20d1743aae9bd51d6e38d82dbd}{archive}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ae337a05eb88d4d9916e0279a9d974651}{restore}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a4de323dc9982ad34f14b0858f3e4b9af}{update\+If\+Changed}} (int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null \$id=null, array \$data=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a3c72ad44ad5b528ce9efc1bb3ce7fa5c}{bulk\+Update}} (array \$ids, array \$data)
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_af601ce718f1fdf9132383c1eeca757e3}{count\+Active}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a9557cfc80300e9f9d5022bad0d7ad854}{validate\+Data}} (array \$data)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_a6ee61ee2eec47bee4665ca3e380f3def}{\$table}} = \textquotesingle{}marketplaces\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_a80e64a17d91368afea31c11709bbb288}{\$primary\+Key}} = \textquotesingle{}id\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_a24f611eaa87d1f715663683656c596b3}{\$return\+Type}} = Marketplace\+::class
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_a3f450c816d057a9bef9b40f6893a572c}{\$allowed\+Fields}}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_afb2b7fc65bc8599accb99a0794a9a0a3}{\$validation\+Rules}}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_a4095f518505993831b593087a18254a1}{\$use\+Timestamps}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_a037b6b0c5151c6de81f602eb2c49f078}{\$use\+Soft\+Deletes}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1MarketplaceModel_aaffe223bd284328e6236131b56568350}{\$date\+Format}} = \textquotesingle{}datetime\textquotesingle{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel}{App\textbackslash{}\+Models\textbackslash{}\+Base\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a65198a8d2123c142c654ef9f21f57090}{DEFAULT\+\_\+\+CACHE\+\_\+\+TTL}} = 3600
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a8bc39ec7a754e85b5cbe45cea47f9c5d}{\$use\+Soft\+Deletes}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a2b6a956723885b813bdb5c28fa4a91c8}{\$use\+Timestamps}} = true
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a76ed9b9cd6c48ea935c0593ba224df49}{\$created\+Field}} = \textquotesingle{}created\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a567094feb29383fe42a4178f3fceab5b}{\$updated\+Field}} = \textquotesingle{}updated\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ae49e9220f67b7fa0acfc28ad8e077bb9}{\$deleted\+Field}} = \textquotesingle{}deleted\+\_\+at\textquotesingle{}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a213de2a8ea7fa54c300c2c1ec0a1f03c}{\$validation\+Rules}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_a6a119a1ad59e2739d27843730b7990ee}{\$validation\+Messages}} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\hyperlink{classApp_1_1Models_1_1BaseModel_ab3db9405c68a5a3d595e1a09a7fa9fc4}{\$skip\+Validation}} = false
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_a294ab17f08dd3cdcfb2a905f99ba894f}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!findByName@{findByName}}
+\index{findByName@{findByName}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{findByName()}{findByName()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_a294ab17f08dd3cdcfb2a905f99ba894f} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::find\+By\+Name (\begin{DoxyParamCaption}\item[{string}]{\$name}{}\end{DoxyParamCaption})}
+
+Find marketplace by name (case-\/insensitive)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Marketplace name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+Find inactive marketplaces
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$order\+Direction} & \textquotesingle{}ASC\textquotesingle{} or \textquotesingle{}DESC\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Find marketplaces with icons
+
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Find marketplaces without icons
+
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Find marketplace by color
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$color} & Hex color code (e.\+g., \#3B82\+F6) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Search marketplaces by name
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$search\+Term} & Search term \\
+\hline
+int & {\em \$limit} & Result limit \\
+\hline
+int & {\em \$offset} & Result offset \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Get all active marketplaces ordered by name
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$order\+Direction} & \textquotesingle{}ASC\textquotesingle{} or \textquotesingle{}DESC\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Get paginated active marketplaces
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$per\+Page} & Items per page \\
+\hline
+int & {\em \$page} & Current page \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{data\+: Marketplace\mbox{[}\mbox{]}, pager\+: \textbackslash{}\+Code\+Igniter\textbackslash{}\+Pager\textbackslash{}\+Pager\}
+\end{DoxyReturn}
+Find marketplaces by IDs (batch lookup)
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids Array of marketplace IDs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Check if slug exists (excluding current ID)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & Slug to check \\
+\hline
+int | string | null & {\em \$exclude\+Id} & ID to exclude (for updates) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+Check if marketplace name exists (excluding current ID)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name to check \\
+\hline
+int | string | null & {\em \$exclude\+Id} & ID to exclude (for updates) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+Get marketplace link statistics Counts how many active links each marketplace has
+
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}array\{marketplace\+: Marketplace, link\+\_\+count\+: int, active\+\_\+links\+: int\}\texorpdfstring{$>$}{>}
+\end{DoxyReturn}
+Find marketplaces with active links
+
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Find marketplaces without any active links Useful for identifying unused marketplaces
+
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Get most used marketplaces (by link count)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$limit} & Limit results \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}array\{marketplace\+: Marketplace, link\+\_\+count\+: int\}\texorpdfstring{$>$}{>}
+\end{DoxyReturn}
+Get paginated marketplaces with optional filters
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array\{} & active?\+: bool\texorpdfstring{$\vert$}{|}null, has\+\_\+icon?\+: bool\texorpdfstring{$\vert$}{|}null, search?\+: string\texorpdfstring{$\vert$}{|}null \} \$filters \\
+\hline
+int & {\em \$per\+Page} & Items per page \\
+\hline
+int & {\em \$page} & Current page \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\{data\+: Marketplace\mbox{[}\mbox{]}, pager\+: \textbackslash{}\+Code\+Igniter\textbackslash{}\+Pager\textbackslash{}\+Pager, total\+: int\}
+\end{DoxyReturn}
+Find marketplaces with Font\+Awesome icons
+
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Find archived (soft-\/deleted) marketplaces
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$order\+Direction} & \textquotesingle{}ASC\textquotesingle{} or \textquotesingle{}DESC\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\mbox{[}\mbox{]}
+\end{DoxyReturn}
+Get marketplace statistics
+
+\begin{DoxyReturn}{Returns}
+array\{ total\+: int, active\+: int, inactive\+: int, archived\+: int, with\+\_\+icon\+: int, without\+\_\+icon\+: int, with\+\_\+links\+: int, without\+\_\+links\+: int \}
+\end{DoxyReturn}
+Get color distribution of marketplaces
+
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$<$}{<}array\{color\+: string, count\+: int\}\texorpdfstring{$>$}{>}
+\end{DoxyReturn}
+Insert data with validation Override to ensure type safety for Marketplace entity
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$\texorpdfstring{$\vert$}{|}object\texorpdfstring{$\vert$}{|}null} & \$data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}false
+\end{DoxyReturn}
+Update data with validation Override to ensure type safety for Marketplace entity
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$\texorpdfstring{$\vert$}{|}int\texorpdfstring{$\vert$}{|}string\texorpdfstring{$\vert$}{|}null} & \$id \\
+\hline
+{\em array$<$string,mixed$>$\texorpdfstring{$\vert$}{|}object\texorpdfstring{$\vert$}{|}null} & \$data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+Physical delete protection Override to enforce soft delete only for marketplaces
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Runtime\+Exception} & Always, since physical deletes are disabled\\
+\hline
+\end{DoxyExceptions}
+Activate marketplace
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & Marketplace ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+Deactivate marketplace
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & Marketplace ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool
+\end{DoxyReturn}
+Bulk archive marketplaces
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids Marketplace IDs to archive \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of archived marketplaces
+\end{DoxyReturn}
+Bulk restore archived marketplaces
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids Marketplace IDs to restore \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of restored marketplaces
+\end{DoxyReturn}
+Bulk activate marketplaces
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids Marketplace IDs to activate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of activated marketplaces
+\end{DoxyReturn}
+Bulk deactivate marketplaces
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$int\texorpdfstring{$\vert$}{|}string$>$} & \$ids Marketplace IDs to deactivate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of deactivated marketplaces
+\end{DoxyReturn}
+Initialize sample marketplaces if they don\textquotesingle{}t exist Useful for database seeding
+
+\begin{DoxyReturn}{Returns}
+array\{created\+: int, existing\+: int\}
+\end{DoxyReturn}
+Create a sample marketplace (for testing/demo)
+
+
+\begin{DoxyParams}{Parameters}
+{\em array$<$string,mixed$>$} & \$overrides Override default values \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_a869ac3547c68a159bf333fe3cbd37ff7}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!findBySlug@{findBySlug}}
+\index{findBySlug@{findBySlug}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{findBySlug()}{findBySlug()}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_a869ac3547c68a159bf333fe3cbd37ff7} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::find\+By\+Slug (\begin{DoxyParamCaption}\item[{string}]{\$slug}{}\end{DoxyParamCaption})}
+
+Find marketplace by slug (case-\/insensitive)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$slug} & Marketplace slug \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Marketplace\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_a3f450c816d057a9bef9b40f6893a572c}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!\$allowedFields@{\$allowedFields}}
+\index{\$allowedFields@{\$allowedFields}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{\$allowedFields}{\$allowedFields}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_a3f450c816d057a9bef9b40f6893a572c} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::\$allowed\+Fields\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'name'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'slug'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'icon'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'color'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'active'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'created\_at'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'updated\_at'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'deleted\_at'}}
+\DoxyCodeLine{\ \ \ \ ]}
+
+\end{DoxyCode}
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_aaffe223bd284328e6236131b56568350}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!\$dateFormat@{\$dateFormat}}
+\index{\$dateFormat@{\$dateFormat}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{\$dateFormat}{\$dateFormat}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_aaffe223bd284328e6236131b56568350} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::\$date\+Format = \textquotesingle{}datetime\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_a80e64a17d91368afea31c11709bbb288}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!\$primaryKey@{\$primaryKey}}
+\index{\$primaryKey@{\$primaryKey}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{\$primaryKey}{\$primaryKey}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_a80e64a17d91368afea31c11709bbb288} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::\$primary\+Key = \textquotesingle{}id\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_a24f611eaa87d1f715663683656c596b3}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!\$returnType@{\$returnType}}
+\index{\$returnType@{\$returnType}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{\$returnType}{\$returnType}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_a24f611eaa87d1f715663683656c596b3} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::\$return\+Type = Marketplace\+::class\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_a6ee61ee2eec47bee4665ca3e380f3def}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!\$table@{\$table}}
+\index{\$table@{\$table}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{\$table}{\$table}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_a6ee61ee2eec47bee4665ca3e380f3def} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::\$table = \textquotesingle{}marketplaces\textquotesingle{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_a037b6b0c5151c6de81f602eb2c49f078}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!\$useSoftDeletes@{\$useSoftDeletes}}
+\index{\$useSoftDeletes@{\$useSoftDeletes}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{\$useSoftDeletes}{\$useSoftDeletes}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_a037b6b0c5151c6de81f602eb2c49f078} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::\$use\+Soft\+Deletes = true\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_a4095f518505993831b593087a18254a1}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!\$useTimestamps@{\$useTimestamps}}
+\index{\$useTimestamps@{\$useTimestamps}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{\$useTimestamps}{\$useTimestamps}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_a4095f518505993831b593087a18254a1} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::\$use\+Timestamps = true\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Models_1_1MarketplaceModel_afb2b7fc65bc8599accb99a0794a9a0a3}\index{App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}!\$validationRules@{\$validationRules}}
+\index{\$validationRules@{\$validationRules}!App\textbackslash{}Models\textbackslash{}MarketplaceModel@{App\textbackslash{}Models\textbackslash{}MarketplaceModel}}
+\doxysubsubsection{\texorpdfstring{\$validationRules}{\$validationRules}}
+{\footnotesize\ttfamily \label{classApp_1_1Models_1_1MarketplaceModel_afb2b7fc65bc8599accb99a0794a9a0a3} 
+App\textbackslash{}\+Models\textbackslash{}\+Marketplace\+Model\+::\$validation\+Rules\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Models/\mbox{\hyperlink{MarketplaceModel_8php}{Marketplace\+Model.\+php}}\end{DoxyCompactItemize}

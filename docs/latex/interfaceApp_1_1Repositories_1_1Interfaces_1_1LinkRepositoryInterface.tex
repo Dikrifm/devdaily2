@@ -1,0 +1,384 @@
+\doxysection{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}Link\+Repository\+Interface Interface Reference}
+\hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface}{}\label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+
+
+Inheritance diagram for App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}Link\+Repository\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}Link\+Repository\+Interface\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ab7f59034801053513cf10a103420ef42}{find}} (\$id, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ae5746bbb4acd7aebf7e908939df0b73e}{find\+Or\+Fail}} (\$id, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a5d66f7e876d5c77cecd6906a374971ba}{find\+All}} (array \$conditions=\mbox{[}$\,$\mbox{]}, ?int \$limit=null, int \$offset=0, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a73edd23a86917e3c6773ca61faced9e5}{save}} (\mbox{\hyperlink{classApp_1_1Entities_1_1Link}{Link}} \$entity)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a7ca001538e64993583a00c8cb80bda17}{first}} (array \$conditions=\mbox{[}$\,$\mbox{]}, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a230692a9aa18b8177cb03177f4f334c4}{find\+Active\+For\+Product}} (int \$product\+Id, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a55ddf368222fbe7bbf31059b220c74bd}{find\+By\+Product\+And\+Marketplace}} (int \$product\+Id, int \$marketplace\+Id, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a0fe050ef643588893392fdb2066ff2cb}{find\+Needing\+Price\+Update}} (int \$marketplace\+Id=0, int \$limit=50, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a20bf37e4f9f368e817519b85a75e5da8}{find\+Needing\+Validation}} (int \$limit=100, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a456d2b5f8d1d4ab85ed955db246f7c21}{find\+Top\+Performing}} (int \$limit=10, float \$min\+Revenue=10000.\+00, bool \$use\+Cache=true)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ab12a5a4e4133f9c6e3221c787103365e}{find\+With\+Badges}} (int \$limit=50, bool \$use\+Cache=true)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface}{App\textbackslash{}\+Repositories\textbackslash{}\+Base\+Repository\+Interface}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a38d9ab2d0824b99771271d060f0bff0b}{find\+By\+Id}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_af421dab751c5a68df30252bf679f3516}{find\+By\+Id\+Or\+Fail}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a6392c164846bcfdea7535ef25088ca96}{find\+All}} (array \$criteria=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a4f9af979be97d1dfb78c4c83b80f8c81}{paginate}} (\mbox{\hyperlink{classApp_1_1DTOs_1_1Queries_1_1PaginationQuery}{Pagination\+Query}} \$query, array \$filters=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a152b116281fc8882b2c91b50e9b7eac3}{save}} (\mbox{\hyperlink{classApp_1_1Entities_1_1BaseEntity}{Base\+Entity}} \$entity)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab9f96497c1ecd9e6351fbd52f0637fe8}{create}} (array \$data)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ac0a633fc9b98c13121ffc7edd1975fa8}{update}} (int\texorpdfstring{$\vert$}{|}string \$id, array \$data)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a05320f8692cc50b008b8146c9edd4c60}{delete}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a9bfa179b899a47d84c188c0d363008dd}{force\+Delete}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7a6cbbd15b89500916f79062221ae386}{restore}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7cb532e33ee430f5f0864582a76aeedd}{bulk\+Update}} (array \$ids, array \$data)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a4026168c05a5e716a3ac25f78fc884ab}{bulk\+Delete}} (array \$ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7658f60502df43b11ba4be34d997a724}{bulk\+Restore}} (array \$ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a54325f34c023ba2cb28aa72eb8540756}{exists}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aa2597946937eebdc003b41f2549f83b8}{count}} (array \$criteria=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aaf24315a2c425d6781c08faf999ed45a}{transaction}} (Closure \$callback)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a19387f2d7aba4eaead3867555684c8c2}{clear\+Cache}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a5cd13789842c0c0011116b18af6cd383}{clear\+Entity\+Cache}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a7a3f947f6faaee3c421d278b49a15d30}{clear\+Cache\+Matching}} (string \$pattern)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a18c5cbb87c4cbc2dabbf8ec672d82090}{get\+Entity\+Cache\+Key}} (int\texorpdfstring{$\vert$}{|}string \$id)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab0dfe2f4a1d69eb42cbd2f1b8dceacd3}{get\+Query\+Cache\+Key}} (array \$parameters)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_adc378c28ca82fc47923e01fc48cbd1bc}{remember}} (string \$key, Closure \$callback, ?int \$ttl=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a60db7afe3e63af917731148a4affd68d}{remember\+Forever}} (string \$key, Closure \$callback)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a2c8eda08ecaa6bb327748944a56867be}{find\+By\+Ids}} (array \$ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a8a255d7d65553e63fb8a2922541a17d0}{find\+By}} (array \$criteria, array \$order\+By=\mbox{[}$\,$\mbox{]}, ?int \$limit=null, ?int \$offset=null)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ab7547537c32cca6f45eb68bcc00747a8}{find\+One\+By}} (array \$criteria)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_aa726479e16efedb5edfd1892b3c7fe4c}{get\+Entity\+Class}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_ad0686bb2a5ff0fbe978cc0c588b85fa1}{get\+Table\+Name}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a3cc8e61331ae9b764856a151c42fdfcf}{get\+Cache\+Stats}} ()
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_a1d4ac1952a949defc539ccfbf9ed72f9}{preload\+Cache}} (array \$ids)
+\item 
+\mbox{\hyperlink{interfaceApp_1_1Repositories_1_1BaseRepositoryInterface_afccd3eac08cda043ea662bd8956749ad}{atomic\+Cache\+Operation}} (string \$cache\+Key, Closure \$data\+Callback, ?Closure \$cache\+Callback=null, ?int \$ttl=null)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Link Repository Interface
+
+Contract for Link data orchestration layer with caching strategy. Follows "{}\+Isolation via Interface"{} principle -\/ all Link repositories must implement this.
+
+@template-\/extends Base\+Repository\+Interface$<$\+Link$>$ 
+
+\label{doc-func-members}
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ab7f59034801053513cf10a103420ef42}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!find@{find}}
+\index{find@{find}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{find()}{find()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ab7f59034801053513cf10a103420ef42} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find (\begin{DoxyParamCaption}\item[{}]{\$id}{, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find Link by ID
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_a6dbc7945bf9e5070bb7b825ee0dd5396}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a230692a9aa18b8177cb03177f4f334c4}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!findActiveForProduct@{findActiveForProduct}}
+\index{findActiveForProduct@{findActiveForProduct}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findActiveForProduct()}{findActiveForProduct()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a230692a9aa18b8177cb03177f4f334c4} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find\+Active\+For\+Product (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find active links for a product
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & Product ID \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Link$>$ Active links for the product 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_a9b6722d3d8e77c25956cfb4e1be5656b}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a5d66f7e876d5c77cecd6906a374971ba}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!findAll@{findAll}}
+\index{findAll@{findAll}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findAll()}{findAll()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a5d66f7e876d5c77cecd6906a374971ba} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find\+All (\begin{DoxyParamCaption}\item[{array}]{\$conditions}{ = {\ttfamily \mbox{[}\mbox{]}}, }\item[{?int}]{\$limit}{ = {\ttfamily null}, }\item[{int}]{\$offset}{ = {\ttfamily 0}, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find all Links with optional conditions
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$string,mixed$>$} & \$conditions Search conditions \mbox{[}field =\texorpdfstring{$>$}{>} value\mbox{]} \\
+\hline
+int | null & {\em \$limit} & Result limit \\
+\hline
+int & {\em \$offset} & Result offset \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Link$>$ 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_a19482e256bcbc4be724c640e58063a6b}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a55ddf368222fbe7bbf31059b220c74bd}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!findByProductAndMarketplace@{findByProductAndMarketplace}}
+\index{findByProductAndMarketplace@{findByProductAndMarketplace}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findByProductAndMarketplace()}{findByProductAndMarketplace()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a55ddf368222fbe7bbf31059b220c74bd} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find\+By\+Product\+And\+Marketplace (\begin{DoxyParamCaption}\item[{int}]{\$product\+Id}{, }\item[{int}]{\$marketplace\+Id}{, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find link by product and marketplace combination
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$product\+Id} & Product ID \\
+\hline
+int & {\em \$marketplace\+Id} & Marketplace ID \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link\texorpdfstring{$\vert$}{|}null Link if exists 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_af47d47ce34683f2c67716db4e7a78e4f}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a0fe050ef643588893392fdb2066ff2cb}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!findNeedingPriceUpdate@{findNeedingPriceUpdate}}
+\index{findNeedingPriceUpdate@{findNeedingPriceUpdate}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findNeedingPriceUpdate()}{findNeedingPriceUpdate()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a0fe050ef643588893392fdb2066ff2cb} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find\+Needing\+Price\+Update (\begin{DoxyParamCaption}\item[{int}]{\$marketplace\+Id}{ = {\ttfamily 0}, }\item[{int}]{\$limit}{ = {\ttfamily 50}, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find links that need price updates (24+ hours old)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$marketplace\+Id} & Specific marketplace (0 for all) \\
+\hline
+int & {\em \$limit} & Maximum results \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Link$>$ Links needing price updates 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_af2133c9e7e4f8bebe82177ef6cd3992f}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a20bf37e4f9f368e817519b85a75e5da8}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!findNeedingValidation@{findNeedingValidation}}
+\index{findNeedingValidation@{findNeedingValidation}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findNeedingValidation()}{findNeedingValidation()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a20bf37e4f9f368e817519b85a75e5da8} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find\+Needing\+Validation (\begin{DoxyParamCaption}\item[{int}]{\$limit}{ = {\ttfamily 100}, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find links that need validation (48+ hours old)
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$limit} & Maximum results \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Link$>$ Links needing validation 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_ad47270f3165f31a26355101bccac69a6}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ae5746bbb4acd7aebf7e908939df0b73e}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!findOrFail@{findOrFail}}
+\index{findOrFail@{findOrFail}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findOrFail()}{findOrFail()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ae5746bbb4acd7aebf7e908939df0b73e} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find\+Or\+Fail (\begin{DoxyParamCaption}\item[{}]{\$id}{, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find Link by ID or throw exception
+
+
+\begin{DoxyParams}[1]{Parameters}
+int | string & {\em \$id} & \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em } & \\
+\hline
+\end{DoxyExceptions}
+Runtime\+Exception If link not found 
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_ac942fa4b447b884d5b6815999e796f18}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a456d2b5f8d1d4ab85ed955db246f7c21}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!findTopPerforming@{findTopPerforming}}
+\index{findTopPerforming@{findTopPerforming}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findTopPerforming()}{findTopPerforming()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a456d2b5f8d1d4ab85ed955db246f7c21} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find\+Top\+Performing (\begin{DoxyParamCaption}\item[{int}]{\$limit}{ = {\ttfamily 10}, }\item[{float}]{\$min\+Revenue}{ = {\ttfamily 10000.00}, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find top performing links by revenue
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$limit} & Maximum results \\
+\hline
+float & {\em \$min\+Revenue} & Minimum revenue threshold \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Link$>$ Top performing links 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_a155f8355a0717b894a19e70a57969169}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ab12a5a4e4133f9c6e3221c787103365e}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!findWithBadges@{findWithBadges}}
+\index{findWithBadges@{findWithBadges}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{findWithBadges()}{findWithBadges()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_ab12a5a4e4133f9c6e3221c787103365e} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::find\+With\+Badges (\begin{DoxyParamCaption}\item[{int}]{\$limit}{ = {\ttfamily 50}, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find links with marketplace badges
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$limit} & Maximum results \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array$<$\+Link$>$ Links with badges 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_a32b739441fbbb374f25d4b6513d4474e}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a7ca001538e64993583a00c8cb80bda17}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!first@{first}}
+\index{first@{first}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{first()}{first()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a7ca001538e64993583a00c8cb80bda17} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::first (\begin{DoxyParamCaption}\item[{array}]{\$conditions}{ = {\ttfamily \mbox{[}\mbox{]}}, }\item[{bool}]{\$use\+Cache}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Find first Link matching conditions
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em array$<$string,mixed$>$} & \$conditions Search conditions \\
+\hline
+bool & {\em \$use\+Cache} & Use cache if available \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_a41d620891af4b0070bbbc218b386a23e}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+\Hypertarget{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a73edd23a86917e3c6773ca61faced9e5}\index{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}!save@{save}}
+\index{save@{save}!App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface@{App\textbackslash{}Repositories\textbackslash{}Interfaces\textbackslash{}LinkRepositoryInterface}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily \label{interfaceApp_1_1Repositories_1_1Interfaces_1_1LinkRepositoryInterface_a73edd23a86917e3c6773ca61faced9e5} 
+App\textbackslash{}\+Repositories\textbackslash{}\+Interfaces\textbackslash{}\+Link\+Repository\+Interface\+::save (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classApp_1_1Entities_1_1Link}{Link}}}]{\$entity}{}\end{DoxyParamCaption})}
+
+Save Link entity
+
+
+\begin{DoxyParams}[1]{Parameters}
+Link & {\em \$entity} & Link entity to save \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True on success 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classApp_1_1Repositories_1_1Concrete_1_1LinkRepository_a3205c12a9e665e6a2e031374481bd977}{App\textbackslash{}\+Repositories\textbackslash{}\+Concrete\textbackslash{}\+Link\+Repository}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Repositories/\+Interfaces/\mbox{\hyperlink{LinkRepositoryInterface_8php}{Link\+Repository\+Interface.\+php}}\end{DoxyCompactItemize}

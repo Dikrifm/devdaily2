@@ -1,0 +1,17 @@
+<map id="App\Services\AuthorizationService\bulkActivateRoles" name="App\Services\AuthorizationService\bulkActivateRoles">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,109,202,154"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1AuthorizationService.html#aaeaac1bb583c9ceb0a142348acf3c85c" title=" " alt="" coords="250,75,446,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,115,237,112,231,114,203,120"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Services_1_1BaseService.html#a71c46cd3d0e617ebf3ede585c3cce503" title=" " alt="" coords="253,144,442,189"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="202,143,240,151,235,151,202,148"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a7ef2f481b5afcf427d56c8e68a66e3b9" title=" " alt="" coords="522,5,712,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="437,71,515,54,510,55,438,77"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1AuthorizationService.html#a8a6ad74fb3378d40479fc5de7ed35107" title=" " alt="" coords="494,75,740,119"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="446,94,481,97,476,97,447,100"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Services_1_1BaseService.html#a0559a52c16f4d6099cafc0386c2c53e9" title=" " alt="" coords="522,144,712,189"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="438,117,515,140,510,140,437,123"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="788,75,978,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="706,48,783,70,777,70,706,53"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="705,141,777,124,783,123,706,146"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="443,164,509,166,504,166,443,169"/>
+</map>

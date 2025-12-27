@@ -1,0 +1,7 @@
+<map id="App\DTOs\Requests\Product\ProductBulkActionRequest\toAuditMessage" name="App\DTOs\Requests\Product\ProductBulkActionRequest\toAuditMessage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,48,208,110"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductBulkActionRequest.html#aabd63332cf0de7344fdb6100425237f0" title=" " alt="" coords="256,5,458,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,59,243,55,238,57,209,64"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1DTOs_1_1Requests_1_1Product_1_1ProductBulkActionRequest.html#a0230af09463485308a87282a0b99f3de" title=" " alt="" coords="256,91,458,152"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,93,243,101,238,102,208,99"/>
+</map>

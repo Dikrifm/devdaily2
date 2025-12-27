@@ -1,0 +1,328 @@
+\doxysection{App\textbackslash{}Services\textbackslash{}Repository\+Service Class Reference}
+\hypertarget{classApp_1_1Services_1_1RepositoryService}{}\label{classApp_1_1Services_1_1RepositoryService}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_ad5f8162087d971e768c503ac2477a36a}{product}} (bool \$fresh=false)
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_aa857ec28d551ca897c33c16ac959f7fd}{register}} (string \$name, string \$class, array \$dependencies, array \$config=\mbox{[}$\,$\mbox{]})
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_a7940d9100af57a866d3c1b015291f340}{get\+Registered\+Repositories}} ()
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_a8d79d97e0402690f0062ef99c1b407be}{get\+Config}} (string \$name)
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_a6ce9232ba593a7e32b607df38dc64543}{has}} (string \$name)
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_ae7cd4b3a573f5020f287f7a5c678f03c}{make}} (string \$name)
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_a9941112f5bab584bcb3d4f6806c5cc85}{clear\+Instances}} ()
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_a4f9235c686feec6eff52bb41fe511dbc}{clear\+Instance}} (string \$name)
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_ab97e047031c01099fe6868c27ad38c98}{get\+Cached\+Instances}} ()
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_a42131fac897db98a8ed9a02c9092581a}{preload}} (array \$repositories=\mbox{[}$\,$\mbox{]})
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_aadbc1e5682a7267360f656b49196c7c0}{health\+Check}} ()
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_a44fefa51974a2dd7bb76b16c0ff9c11f}{get\+Statistics}} ()
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_ace74810e4e100a0089b95cfda08e4d0b}{initialize}} ()
+\item 
+static \mbox{\hyperlink{classApp_1_1Services_1_1RepositoryService_a4dca17180901f6c5f493684096694b99}{\+\_\+\+\_\+call\+Static}} (string \$name, array \$arguments)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_a4dca17180901f6c5f493684096694b99}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!\_\_callStatic@{\_\_callStatic}}
+\index{\_\_callStatic@{\_\_callStatic}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{\_\_callStatic()}{\_\_callStatic()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_a4dca17180901f6c5f493684096694b99} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::\+\_\+\+\_\+call\+Static (\begin{DoxyParamCaption}\item[{string}]{\$name}{, }\item[{array}]{\$arguments}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Magic static method for repository access Example\+: Repository\+Service\+::product()-\/\texorpdfstring{$>$}{>}find(1)
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+array & {\em \$arguments} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1RepositoryService_a4dca17180901f6c5f493684096694b99_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_a4f9235c686feec6eff52bb41fe511dbc}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!clearInstance@{clearInstance}}
+\index{clearInstance@{clearInstance}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{clearInstance()}{clearInstance()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_a4f9235c686feec6eff52bb41fe511dbc} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::clear\+Instance (\begin{DoxyParamCaption}\item[{string}]{\$name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Clear specific repository instance
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Repository name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{classApp_1_1Services_1_1RepositoryService_a9941112f5bab584bcb3d4f6806c5cc85}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!clearInstances@{clearInstances}}
+\index{clearInstances@{clearInstances}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{clearInstances()}{clearInstances()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_a9941112f5bab584bcb3d4f6806c5cc85} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::clear\+Instances (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Clear all cached repository instances
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{classApp_1_1Services_1_1RepositoryService_ab97e047031c01099fe6868c27ad38c98}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!getCachedInstances@{getCachedInstances}}
+\index{getCachedInstances@{getCachedInstances}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{getCachedInstances()}{getCachedInstances()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_ab97e047031c01099fe6868c27ad38c98} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::get\+Cached\+Instances (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get all cached instances
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1RepositoryService_ab97e047031c01099fe6868c27ad38c98_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_a8d79d97e0402690f0062ef99c1b407be}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!getConfig@{getConfig}}
+\index{getConfig@{getConfig}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{getConfig()}{getConfig()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_a8d79d97e0402690f0062ef99c1b407be} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::get\+Config (\begin{DoxyParamCaption}\item[{string}]{\$name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get repository configuration
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Repository name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{classApp_1_1Services_1_1RepositoryService_a7940d9100af57a866d3c1b015291f340}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!getRegisteredRepositories@{getRegisteredRepositories}}
+\index{getRegisteredRepositories@{getRegisteredRepositories}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{getRegisteredRepositories()}{getRegisteredRepositories()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_a7940d9100af57a866d3c1b015291f340} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::get\+Registered\+Repositories (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get all registered repository names
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1RepositoryService_a7940d9100af57a866d3c1b015291f340_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_a44fefa51974a2dd7bb76b16c0ff9c11f}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!getStatistics@{getStatistics}}
+\index{getStatistics@{getStatistics}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{getStatistics()}{getStatistics()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_a44fefa51974a2dd7bb76b16c0ff9c11f} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::get\+Statistics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get repository statistics
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1RepositoryService_a44fefa51974a2dd7bb76b16c0ff9c11f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_a6ce9232ba593a7e32b607df38dc64543}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!has@{has}}
+\index{has@{has}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{has()}{has()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_a6ce9232ba593a7e32b607df38dc64543} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::has (\begin{DoxyParamCaption}\item[{string}]{\$name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Check if repository is registered
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Repository name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{classApp_1_1Services_1_1RepositoryService_aadbc1e5682a7267360f656b49196c7c0}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!healthCheck@{healthCheck}}
+\index{healthCheck@{healthCheck}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{healthCheck()}{healthCheck()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_aadbc1e5682a7267360f656b49196c7c0} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::health\+Check (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Health check for all repositories
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+array \mbox{[}repository\+\_\+name =\texorpdfstring{$>$}{>} status\mbox{]} 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1RepositoryService_aadbc1e5682a7267360f656b49196c7c0_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_ace74810e4e100a0089b95cfda08e4d0b}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!initialize@{initialize}}
+\index{initialize@{initialize}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_ace74810e4e100a0089b95cfda08e4d0b} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::initialize (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Initialize with default repositories
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{classApp_1_1Services_1_1RepositoryService_ae7cd4b3a573f5020f287f7a5c678f03c}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!make@{make}}
+\index{make@{make}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{make()}{make()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_ae7cd4b3a573f5020f287f7a5c678f03c} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::make (\begin{DoxyParamCaption}\item[{string}]{\$name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Create a fresh instance of any registered repository
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Repository name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Runtime\+Exception} & If repository not found or creation fails \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1RepositoryService_ae7cd4b3a573f5020f287f7a5c678f03c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_a42131fac897db98a8ed9a02c9092581a}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!preload@{preload}}
+\index{preload@{preload}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{preload()}{preload()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_a42131fac897db98a8ed9a02c9092581a} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::preload (\begin{DoxyParamCaption}\item[{array}]{\$repositories}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Preload repositories for better performance
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$repositories} & Repository names to preload \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1RepositoryService_a42131fac897db98a8ed9a02c9092581a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_ad5f8162087d971e768c503ac2477a36a}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!product@{product}}
+\index{product@{product}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{product()}{product()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_ad5f8162087d971e768c503ac2477a36a} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::product (\begin{DoxyParamCaption}\item[{bool}]{\$fresh}{ = {\ttfamily false}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get product repository instance
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$fresh} & Create fresh instance (bypass singleton) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Product\+Repository\+Interface 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Services_1_1RepositoryService_ad5f8162087d971e768c503ac2477a36a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Services_1_1RepositoryService_aa857ec28d551ca897c33c16ac959f7fd}\index{App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}!register@{register}}
+\index{register@{register}!App\textbackslash{}Services\textbackslash{}RepositoryService@{App\textbackslash{}Services\textbackslash{}RepositoryService}}
+\doxysubsubsection{\texorpdfstring{register()}{register()}}
+{\footnotesize\ttfamily \label{classApp_1_1Services_1_1RepositoryService_aa857ec28d551ca897c33c16ac959f7fd} 
+App\textbackslash{}\+Services\textbackslash{}\+Repository\+Service\+::register (\begin{DoxyParamCaption}\item[{string}]{\$name}{, }\item[{string}]{\$class}{, }\item[{array}]{\$dependencies}{, }\item[{array}]{\$config}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Register a custom repository
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Repository name \\
+\hline
+string & {\em \$class} & Repository class \\
+\hline
+array & {\em \$dependencies} & Required dependencies \\
+\hline
+array & {\em \$config} & Additional configuration \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Services/\mbox{\hyperlink{RepositoryService_8php}{Repository\+Service.\+php}}\end{DoxyCompactItemize}

@@ -1,0 +1,26 @@
+var interfaceApp_1_1Contracts_1_1ProductBulkInterface =
+[
+    [ "bulkAction", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a79af6cba917c08280e8de70d2e8ae308", null ],
+    [ "bulkArchive", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a083281ad083e8b462a44e6a929ec4846", null ],
+    [ "bulkAssignBadges", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#aa6e728e3b43173e0fea8624b1d80cb76", null ],
+    [ "bulkClone", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#affa4d969322a7682ebe642cb319782bf", null ],
+    [ "bulkDelete", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a3ee30a52fe5b4f4deec6f3c3a469d527", null ],
+    [ "bulkExport", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a50efe557ca3667a7c8c773951c6ae2c0", null ],
+    [ "bulkImport", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a2015afea18561e3adee0c28d87ae3766", null ],
+    [ "bulkMarkLinksChecked", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a7c62ed6676eb5c59d5e79378ba40ec7c", null ],
+    [ "bulkMarkPricesChecked", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a7aa72b94b1caa4c1ec4f734ffc170d30", null ],
+    [ "bulkMerge", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a75d24945a68cf2acf4c7a9b7e7b695f9", null ],
+    [ "bulkPublish", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a55cec66c75a72335fbb18c3ccbcc4f98", null ],
+    [ "bulkRegenerateSlugs", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#afc73680a5d37b9cc62d7ed7cfa0f0184", null ],
+    [ "bulkRemoveBadges", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a07561dbeecdb174231c5930bc96cc5a6", null ],
+    [ "bulkRequestVerification", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a379d8177c61ed9541eb5ec1174cceef5", null ],
+    [ "bulkRestore", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a6830a93c91d290f2cdc82980fc62079d", null ],
+    [ "bulkRevertToDraft", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#acdd7a8afe7dd99f45951085fb207c00e", null ],
+    [ "bulkUpdateCategories", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a76bd5c7ab4b00c52fbebfd0144927542", null ],
+    [ "bulkUpdateData", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#ab9b0537f71267d856ec23459d2588de4", null ],
+    [ "bulkUpdateImages", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#ae8d9dc62dfff14d995827db40d15c233", null ],
+    [ "bulkUpdatePrices", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#ae70db499ff321d95dd6f590725403e0d", null ],
+    [ "bulkUpdateStatus", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#ae0148179376eb6f8ba6560e10fd6108e", null ],
+    [ "bulkVerify", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#af82a5b5d1e7ecdd8f2d00a3af5c615c3", null ],
+    [ "executeBulkWithCallback", "interfaceApp_1_1Contracts_1_1ProductBulkInterface.html#a69fd9ae3bdf9fa330f714410fec4bdee", null ]
+];

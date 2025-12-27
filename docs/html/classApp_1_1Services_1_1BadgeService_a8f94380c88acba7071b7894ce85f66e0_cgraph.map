@@ -1,0 +1,11 @@
+<map id="App\Services\BadgeService\getAllBadges" name="App\Services\BadgeService\getAllBadges">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,204,85"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html#a0dd17606e7db80a4123316e04b9e251a" title=" " alt="" coords="252,5,441,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,45,239,43,234,44,205,51"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Services_1_1BaseService.html#a162954e4ebaca73a0555a09b7c5b7793" title=" " alt="" coords="252,75,441,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,74,239,81,234,81,204,79"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Services_1_1BaseService.html#a4cecbeaea9ede2f98fd82c89245b6b4d" title=" " alt="" coords="489,75,678,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="441,94,476,97,471,97,441,100"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Services_1_1BaseService.html#ae5683c63e89a0d7127abc66d78228cf4" title=" " alt="" coords="726,75,916,119"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="679,94,713,97,708,97,679,100"/>
+</map>

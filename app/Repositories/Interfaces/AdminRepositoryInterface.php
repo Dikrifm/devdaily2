@@ -4,7 +4,6 @@ namespace App\Repositories\Interfaces;
 
 use App\Repositories\BaseRepositoryInterface;
 use App\Entities\Admin;
-use App\Repositories\BaseRepositoryInterface;
 
 /**
  * Admin Repository Interface

@@ -1,0 +1,442 @@
+\doxysection{App\textbackslash{}Controllers\textbackslash{}Base\+Controller Class Reference}
+\hypertarget{classApp_1_1Controllers_1_1BaseController}{}\label{classApp_1_1Controllers_1_1BaseController}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+
+
+Inheritance diagram for App\textbackslash{}Controllers\textbackslash{}Base\+Controller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for App\textbackslash{}Controllers\textbackslash{}Base\+Controller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classApp_1_1Controllers_1_1BaseController__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a6a764a98dede6c0dbd742aa6d37f6926}{\+\_\+\+\_\+construct}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_ac61356917268915c1f13cbb9f563b71c}{init\+Controller}} (Request\+Interface \$request, Response\+Interface \$response, Logger\+Interface \$logger)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a741fbffae3541c814f2d3bcca8e89cab}{extract\+Input}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a8638d6ce9b2b842fa2ebef40fd653deb}{create\+Request\+Dto}} (string \$dto\+Class, array \$context=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a903cbe0bb25e83e97b11a88e36dba08f}{create\+Query\+Dto}} (string \$query\+Dto\+Class, array \$defaults=\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a5c95e009486868b0d0252d5552e4d6d6}{is\+Json\+Request}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a93142432965e9d5b6a3baab23c0d85f4}{get\+Authenticated\+User}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_abcc6bd9510cdcc1448ed5b8539cb2151}{get\+Current\+User\+Id}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a8eaeb170ecb962c369e2ae7b0c1accc7}{get\+Current\+User\+Role}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a7d8b27610835e40db65c1f283302a110}{require\+Authentication}} ()
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a656d8230a429788e0317ac1de7c72d1e}{require\+Role}} (\$roles)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a9dd913a7056bdd324a7c9f0ce57619ad}{\$request}}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a73422004f844d9e422cc97f92c21cf75}{\$response}}
+\item 
+\mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a637c1c4133d1d6196955f2c954f2ddf1}{\$logger}}
+\item 
+string \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseController_a87ffea6bab7d85d531e466199238baef}{\$request\+Id}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a6a764a98dede6c0dbd742aa6d37f6926}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a6a764a98dede6c0dbd742aa6d37f6926} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::\+\_\+\+\_\+construct (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Service hanya di-\/inject di child class yang membutuhkan Contoh\+: Product\+Controller akan inject Product\+Service Constructor -\/ KOSONG (DI via child constructor) 
+
+\label{doc-func-members}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a903cbe0bb25e83e97b11a88e36dba08f}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!createQueryDto@{createQueryDto}}
+\index{createQueryDto@{createQueryDto}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{createQueryDto()}{createQueryDto()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a903cbe0bb25e83e97b11a88e36dba08f} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::create\+Query\+Dto (\begin{DoxyParamCaption}\item[{string}]{\$query\+Dto\+Class}{, }\item[{array}]{\$defaults}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Create Query DTO untuk list operations
+
+@template T of Base\+DTO 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em class-\/string$<$\+T$>$} & \$query\+Dto\+Class \\
+\hline
+array & {\em \$defaults} & Default values \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a8638d6ce9b2b842fa2ebef40fd653deb}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!createRequestDto@{createRequestDto}}
+\index{createRequestDto@{createRequestDto}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{createRequestDto()}{createRequestDto()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a8638d6ce9b2b842fa2ebef40fd653deb} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::create\+Request\+Dto (\begin{DoxyParamCaption}\item[{string}]{\$dto\+Class}{, }\item[{array}]{\$context}{ = {\ttfamily \mbox{[}\mbox{]}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Create DTO dari request input DTO bertanggung jawab untuk validasi format
+
+@template T of Base\+DTO 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em class-\/string$<$\+T$>$} & \$dto\+Class \\
+\hline
+array & {\em \$context} & Additional context data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Validation\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a8638d6ce9b2b842fa2ebef40fd653deb_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a741fbffae3541c814f2d3bcca8e89cab}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!extractInput@{extractInput}}
+\index{extractInput@{extractInput}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{extractInput()}{extractInput()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a741fbffae3541c814f2d3bcca8e89cab} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::extract\+Input (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Extract raw input dari request HANYA mengambil data, TIDAK validasi
+
+\begin{DoxyReturn}{Returns}
+array Raw input data 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a741fbffae3541c814f2d3bcca8e89cab_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a741fbffae3541c814f2d3bcca8e89cab_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a93142432965e9d5b6a3baab23c0d85f4}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!getAuthenticatedUser@{getAuthenticatedUser}}
+\index{getAuthenticatedUser@{getAuthenticatedUser}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{getAuthenticatedUser()}{getAuthenticatedUser()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a93142432965e9d5b6a3baab23c0d85f4} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::get\+Authenticated\+User (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get authenticated user dari Security Pipeline Sinkron dengan Admin\+Auth Filter (\$request-\/\texorpdfstring{$>$}{>}admin)
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+array\texorpdfstring{$\vert$}{|}null 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a93142432965e9d5b6a3baab23c0d85f4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_abcc6bd9510cdcc1448ed5b8539cb2151}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!getCurrentUserId@{getCurrentUserId}}
+\index{getCurrentUserId@{getCurrentUserId}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{getCurrentUserId()}{getCurrentUserId()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_abcc6bd9510cdcc1448ed5b8539cb2151} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::get\+Current\+User\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get current user ID Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_abcc6bd9510cdcc1448ed5b8539cb2151_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_abcc6bd9510cdcc1448ed5b8539cb2151_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a8eaeb170ecb962c369e2ae7b0c1accc7}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!getCurrentUserRole@{getCurrentUserRole}}
+\index{getCurrentUserRole@{getCurrentUserRole}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{getCurrentUserRole()}{getCurrentUserRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a8eaeb170ecb962c369e2ae7b0c1accc7} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::get\+Current\+User\+Role (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Get current user role Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a8eaeb170ecb962c369e2ae7b0c1accc7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a8eaeb170ecb962c369e2ae7b0c1accc7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_ac61356917268915c1f13cbb9f563b71c}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!initController@{initController}}
+\index{initController@{initController}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{initController()}{initController()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_ac61356917268915c1f13cbb9f563b71c} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::init\+Controller (\begin{DoxyParamCaption}\item[{Request\+Interface}]{\$request}{, }\item[{Response\+Interface}]{\$response}{, }\item[{Logger\+Interface}]{\$logger}{}\end{DoxyParamCaption})}
+
+Initialize controller -\/ CI4 lifecycle 
+
+Reimplemented in \mbox{\hyperlink{classApp_1_1Controllers_1_1BaseAdmin_a592ebe4c23694ef11b1034f34cc344c6}{App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Admin}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classApp_1_1Controllers_1_1BaseController_ac61356917268915c1f13cbb9f563b71c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classApp_1_1Controllers_1_1BaseController_ac61356917268915c1f13cbb9f563b71c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a5c95e009486868b0d0252d5552e4d6d6}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!isJsonRequest@{isJsonRequest}}
+\index{isJsonRequest@{isJsonRequest}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{isJsonRequest()}{isJsonRequest()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a5c95e009486868b0d0252d5552e4d6d6} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::is\+Json\+Request (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Check if request is JSON Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a5c95e009486868b0d0252d5552e4d6d6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a7d8b27610835e40db65c1f283302a110}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!requireAuthentication@{requireAuthentication}}
+\index{requireAuthentication@{requireAuthentication}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{requireAuthentication()}{requireAuthentication()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a7d8b27610835e40db65c1f283302a110} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::require\+Authentication (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Require authentication -\/ throw jika tidak authenticated
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a7d8b27610835e40db65c1f283302a110_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a7d8b27610835e40db65c1f283302a110_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a656d8230a429788e0317ac1de7c72d1e}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!requireRole@{requireRole}}
+\index{requireRole@{requireRole}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{requireRole()}{requireRole()}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a656d8230a429788e0317ac1de7c72d1e} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::require\+Role (\begin{DoxyParamCaption}\item[{}]{\$roles}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Require specific role -\/ throw jika tidak authorized
+
+
+\begin{DoxyParams}[1]{Parameters}
+string | array & {\em \$roles} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Authorization\+Exception} & \\
+\hline
+\end{DoxyExceptions}
+Format error response (API Context)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & \\
+\hline
+int & {\em \$code} & \\
+\hline
+array & {\em \$errors} & \\
+\hline
+\end{DoxyParams}
+Format validation error response
+
+
+\begin{DoxyParams}[1]{Parameters}
+Validation\+Exception & {\em \$exception} & \\
+\hline
+\end{DoxyParams}
+Format not found response
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & \\
+\hline
+string | null & {\em \$resource} & \\
+\hline
+\end{DoxyParams}
+Format unauthorized response
+
+
+\begin{DoxyParams}[1]{Parameters}
+Authorization\+Exception & {\em \$exception} & \\
+\hline
+\end{DoxyParams}
+Format forbidden response
+
+
+\begin{DoxyParams}[1]{Parameters}
+Authorization\+Exception & {\em \$exception} & \\
+\hline
+\end{DoxyParams}
+Format created response (201)
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$data} & \\
+\hline
+string | null & {\em \$location} & \\
+\hline
+\end{DoxyParams}
+Format paginated response
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$data} & \\
+\hline
+int & {\em \$total} & \\
+\hline
+int & {\em \$page} & \\
+\hline
+int & {\em \$per\+Page} & \\
+\hline
+\end{DoxyParams}
+Render HTML view (Web Context)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$view} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+\end{DoxyParams}
+Render HTMX partial (HTMX Context)
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$partial} & \\
+\hline
+array & {\em \$data} & \\
+\hline
+\end{DoxyParams}
+Handle exception secara konsisten
+
+
+\begin{DoxyParams}[1]{Parameters}
+\textbackslash{}\+Throwable & {\em \$exception} & \\
+\hline
+\end{DoxyParams}
+Generate unique request ID
+
+Build meta data untuk response
+
+Build pagination links
+
+Log controller initialization
+
+Log exceptionHere is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classApp_1_1Controllers_1_1BaseController_a656d8230a429788e0317ac1de7c72d1e_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a637c1c4133d1d6196955f2c954f2ddf1}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!\$logger@{\$logger}}
+\index{\$logger@{\$logger}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{\$logger}{\$logger}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a637c1c4133d1d6196955f2c954f2ddf1} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::\$logger\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a9dd913a7056bdd324a7c9f0ce57619ad}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!\$request@{\$request}}
+\index{\$request@{\$request}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{\$request}{\$request}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a9dd913a7056bdd324a7c9f0ce57619ad} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::\$request\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classApp_1_1Controllers_1_1BaseController_a87ffea6bab7d85d531e466199238baef}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!\$requestId@{\$requestId}}
+\index{\$requestId@{\$requestId}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{\$requestId}{\$requestId}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a87ffea6bab7d85d531e466199238baef} 
+string App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::\$request\+Id\hspace{0.3cm}{\ttfamily [protected]}}
+
+Request ID untuk tracing \Hypertarget{classApp_1_1Controllers_1_1BaseController_a73422004f844d9e422cc97f92c21cf75}\index{App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}!\$response@{\$response}}
+\index{\$response@{\$response}!App\textbackslash{}Controllers\textbackslash{}BaseController@{App\textbackslash{}Controllers\textbackslash{}BaseController}}
+\doxysubsubsection{\texorpdfstring{\$response}{\$response}}
+{\footnotesize\ttfamily \label{classApp_1_1Controllers_1_1BaseController_a73422004f844d9e422cc97f92c21cf75} 
+App\textbackslash{}\+Controllers\textbackslash{}\+Base\+Controller\+::\$response\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+app/\+Controllers/\mbox{\hyperlink{BaseController_8php}{Base\+Controller.\+php}}\end{DoxyCompactItemize}

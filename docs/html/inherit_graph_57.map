@@ -1,0 +1,19 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,152,146,180"/>
+<area shape="rect" id="Node000001" href="$classApp_1_1Exceptions_1_1CategoryNotFoundException.html" title=" " alt="" coords="210,84,418,129"/>
+<area shape="poly" id="edge166_Node000000_Node000001" title=" " alt="" coords="147,146,224,128,220,131,149,151"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Exceptions_1_1DomainException.html" title=" " alt="" coords="194,152,434,180"/>
+<area shape="poly" id="edge167_Node000000_Node000002" title=" " alt="" coords="161,164,196,165,191,168,162,169"/>
+<area shape="rect" id="Node000008" href="$classApp_1_1Exceptions_1_1LinkNotFoundException.html" title=" " alt="" coords="207,204,421,249"/>
+<area shape="poly" id="edge173_Node000000_Node000008" title=" " alt="" coords="148,182,225,202,220,205,148,187"/>
+<area shape="rect" id="Node000003" href="$classApp_1_1Exceptions_1_1AdminNotFoundException.html" title=" " alt="" coords="482,5,711,50"/>
+<area shape="poly" id="edge168_Node000002_Node000003" title=" " alt="" coords="426,143,432,139,449,121,456,101,463,81,480,60,499,52,503,49,484,64,468,83,461,103,453,124,436,143,429,148"/>
+<area shape="rect" id="Node000004" href="$classApp_1_1Exceptions_1_1AuthorizationException.html" title=" " alt="" coords="490,75,703,119"/>
+<area shape="poly" id="edge169_Node000002_Node000004" title=" " alt="" coords="400,146,433,138,517,119,512,121,435,144,402,151"/>
+<area shape="rect" id="Node000005" href="$classApp_1_1Exceptions_1_1MarketplaceNotFoundException.html" title=" " alt="" coords="494,144,699,189"/>
+<area shape="poly" id="edge170_Node000002_Node000005" title=" " alt="" coords="449,164,496,166,491,167,450,169"/>
+<area shape="rect" id="Node000006" href="$classApp_1_1Exceptions_1_1ProductNotFoundException.html" title=" " alt="" coords="498,213,695,258"/>
+<area shape="poly" id="edge171_Node000002_Node000006" title=" " alt="" coords="401,181,435,189,517,213,512,213,433,194,401,187"/>
+<area shape="rect" id="Node000007" href="$classApp_1_1Exceptions_1_1ValidationException.html" title=" " alt="" coords="502,283,692,327"/>
+<area shape="poly" id="edge172_Node000002_Node000007" title=" " alt="" coords="428,185,436,190,453,209,461,230,468,249,484,268,504,283,498,282,480,272,463,252,456,231,449,212,432,194,427,190"/>
+</map>

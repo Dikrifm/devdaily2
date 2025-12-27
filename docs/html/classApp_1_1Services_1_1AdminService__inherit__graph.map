@@ -1,0 +1,10 @@
+<map id="App\Services\AdminService" name="App\Services\AdminService">
+<area shape="rect" id="Node000001" title=" " alt="" coords="114,157,313,184"/>
+<area shape="rect" id="Node000002" href="$classApp_1_1Services_1_1BaseService.html" title=" " alt="" coords="5,81,195,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,115,196,156,191,157,132,120"/>
+<area shape="rect" id="Node000003" href="$interfaceApp_1_1Contracts_1_1BaseInterface.html" title=" " alt="" coords="110,5,316,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="178,43,122,83,119,78,182,40"/>
+<area shape="rect" id="Node000004" href="$interfaceApp_1_1Contracts_1_1AdminInterface.html" title=" " alt="" coords="218,81,435,109"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="247,39,309,80,304,81,246,44"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="296,117,235,159,232,154,291,118"/>
+</map>
