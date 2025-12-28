@@ -19,8 +19,14 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+           - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v5.0.0 
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Bawaan GitHub (biarkan saja)
-          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}    # Yang kita set di Tahap 2
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.organization=dikrifm
+            -Dsonar.projectKey=dikrifm_devdaily2
+            -Dsonar.branch.name=main
