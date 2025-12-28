@@ -136,38 +136,40 @@ class ProductMaintenanceService extends BaseService implements ProductMaintenanc
      * @param ProductBadgeRepositoryInterface $productBadgeRepository
      * @param TransactionService $transactionService
      */
+        /**
+     * Constructor with Explicit Dependency Injection
+     * (Semua dependency wajib dideklarasikan di sini agar Testable)
+     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         ProductBadgeRepositoryInterface $productBadgeRepository,
-        TransactionService $transactionService
+        TransactionService $transactionService,
+        // Dependency Tambahan (Pindahan dari initializeDependencies)
+        CategoryRepositoryInterface $categoryRepository,
+        LinkRepositoryInterface $linkRepository,
+        MarketplaceRepositoryInterface $marketplaceRepository,
+        AuditLogRepositoryInterface $auditLogRepository,
+        ProductCacheManager $productCacheManager,
+        ProductCacheInvalidator $productCacheInvalidator,
+        ProductCacheKeyGenerator $productCacheKeyGenerator,
+        ProductResponseFactory $productResponseFactory,
+        PaginationService $paginationService
     ) {
-        parent::__construct($transactionService);
+        parent::__construct($transactionService); // Asumsi BaseService butuh transaction service
         
         $this->productRepository = $productRepository;
         $this->productBadgeRepository = $productBadgeRepository;
         
-        // Initialize other dependencies via lazy loading or service container
-        $this->initializeDependencies();
-    }
-
-    /**
-     * Initialize optional dependencies
-     *
-     * @return void
-     */
-    private function initializeDependencies(): void
-    {
-        // These would typically be injected via DI container
-        // For now, we'll use service locator pattern
-        $this->categoryRepository = service('categoryRepository');
-        $this->linkRepository = service('linkRepository');
-        $this->marketplaceRepository = service('marketplaceRepository');
-        $this->auditLogRepository = service('auditLogRepository');
-        $this->productCacheManager = service('productCacheManager');
-        $this->productCacheInvalidator = service('productCacheInvalidator');
-        $this->productCacheKeyGenerator = service('productCacheKeyGenerator');
-        $this->productResponseFactory = service('productResponseFactory');
-        $this->paginationService = service('paginationService');
+        // Assign Dependency Tambahan
+        $this->categoryRepository = $categoryRepository;
+        $this->linkRepository = $linkRepository;
+        $this->marketplaceRepository = $marketplaceRepository;
+        $this->auditLogRepository = $auditLogRepository;
+        $this->productCacheManager = $productCacheManager;
+        $this->productCacheInvalidator = $productCacheInvalidator;
+        $this->productCacheKeyGenerator = $productCacheKeyGenerator;
+        $this->productResponseFactory = $productResponseFactory;
+        $this->paginationService = $paginationService;
     }
 
     /**

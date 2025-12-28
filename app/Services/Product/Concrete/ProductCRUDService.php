@@ -2,8 +2,12 @@
 
 namespace App\Services\Product\Concrete;
 
-use App\Services\BaseService;
 use App\Contracts\ProductCRUDInterface;
+
+use App\Services\BaseService;
+use App\Services\Product\Cache\ProductCacheInvalidator;
+use App\Services\Product\Cache\ProductCacheKeyGenerator;
+
 use App\DTOs\Requests\Product\CreateProductRequest;
 use App\DTOs\Requests\Product\UpdateProductRequest;
 use App\DTOs\Requests\Product\ProductDeleteRequest;
@@ -38,6 +42,8 @@ class ProductCRUDService extends BaseService implements ProductCRUDInterface
     private LinkRepositoryInterface $linkRepository;
     private AuditLogRepositoryInterface $auditLogRepository;
     private ProductValidator $productValidator;
+    private ProductCacheInvalidator $cacheInvalidator;
+    private ProductCacheKeyGenerator $cacheKeyGen;
     
     private array $serviceStats = [
         'crud_operations' => 0,
@@ -52,7 +58,9 @@ class ProductCRUDService extends BaseService implements ProductCRUDInterface
         CategoryRepositoryInterface $categoryRepository,
         LinkRepositoryInterface $linkRepository,
         AuditLogRepositoryInterface $auditLogRepository,
-        ProductValidator $productValidator
+        ProductValidator $productValidator,
+        ProductCacheInvalidator $cacheInvalidator,
+        ProductCacheKeyGenerator $cacheKeyGen
     ) {
         parent::__construct($db, $cache, $auditService);
         
@@ -61,6 +69,7 @@ class ProductCRUDService extends BaseService implements ProductCRUDInterface
         $this->linkRepository = $linkRepository;
         $this->auditLogRepository = $auditLogRepository;
         $this->productValidator = $productValidator;
+        $this->cacheKeyGen = $cacheKeyGen;
     }
     
     // ==================== REQUIRED BY BASE SERVICE ====================
@@ -770,24 +779,23 @@ class ProductCRUDService extends BaseService implements ProductCRUDInterface
         }
     }
     
-    private function invalidateProductCache(int $productId): void
+            private function invalidateProductCache(int $productId): void
     {
         $this->serviceStats['cache_operations']++;
-        
         try {
             $this->productRepository->clearEntityCache($productId);
             
-            // Clear related caches
             $patterns = [
-                $this->getServiceCacheKey('get_product:*' . $productId . '*'),
-                "product_service:*{$productId}*",
+                $this->cacheKeyGen->patternForProduct($productId), // Pengganti 'product_service:*{$productId}*'
+                $this->cacheKeyGen->patternForLists(),             // Clear list cache juga
             ];
             
             foreach ($patterns as $pattern) {
                 $this->cache->deleteMatching($pattern);
             }
         } catch (\Throwable $e) {
-            log_message('error', "Failed to clear cache for product {$productId}: " . $e->getMessage());
+            log_message('error', "Failed to clear cache: " . $e->getMessage());
         }
     }
+
 }

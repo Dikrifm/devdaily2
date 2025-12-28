@@ -17,6 +17,8 @@ use App\Contracts\ProductCRUDInterface;
 use App\Contracts\ProductMaintenanceInterface;
 use App\Contracts\ProductQueryInterface;
 use App\Contracts\ProductWorkflowInterface;
+use App\Contracts\Product\ProductOrchestratorInterface;
+
 use App\Repositories\Interfaces\AdminRepositoryInterface;
 use App\Repositories\Interfaces\AuditLogRepositoryInterface;
 use App\Repositories\Interfaces\BadgeRepositoryInterface;
@@ -26,6 +28,7 @@ use App\Repositories\Interfaces\MarketplaceBadgeRepositoryInterface;
 use App\Repositories\Interfaces\MarketplaceRepositoryInterface;
 use App\Repositories\Interfaces\ProductBadgeRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+
 use App\Services\AdminService;
 use App\Services\AuditLogService;
 use App\Services\AuthService;
@@ -392,25 +395,6 @@ class Services extends BaseService
     // PRODUCT SPECIALIZED SERVICES
     // ====================================================
     
-    /**
-     * Product CRUD Service
-     */
-    public static function productCRUDService(bool $getShared = true): ProductCRUDInterface
-    {
-        if ($getShared) {
-            return static::getSharedInstance(__FUNCTION__);
-        }
-        
-        return new ProductCRUDService(
-            self::productRepository(),
-            self::categoryRepository(),
-            self::linkRepository(),
-            self::auditLogRepository(),
-            self::transactionService(),
-            self::productValidator(),
-            self::imageService()
-        );
-    }
     
     /**
      * Product Query Service
@@ -564,20 +548,45 @@ class Services extends BaseService
     /**
      * Product Orchestrator
      */
-    public static function productOrchestrator(bool $getShared = true): ProductOrchestrator
-    {
-        if ($getShared) {
-            return static::getSharedInstance(__FUNCTION__);
-        }
-        
-        return new ProductOrchestrator(
-            self::productCRUDService(),
-            self::productQueryService(),
-            self::productWorkflowService(),
-            self::productBulkService(),
-            self::productMaintenanceService()
-        );
+    // Di dalam class Services
+/**
+ * Product Orchestrator
+ */
+public static function productOrchestrator(bool $getShared = true): ProductOrchestratorInterface
+{
+    if ($getShared) {
+        return static::getSharedInstance(__FUNCTION__);
     }
+    
+    return new ProductOrchestrator(
+        self::productCRUDService(false),
+        self::productWorkflowService(false),
+        self::productQueryService(false),
+        self::productBulkService(false)
+    );
+}
+
+/**
+ * Product CRUD Service
+ */
+public static function productCRUDService(bool $getShared = true): ProductCRUDInterface
+{
+    if ($getShared) {
+        return static::getSharedInstance(__FUNCTION__);
+    }
+    
+    return new ProductCRUDService(
+        self::productRepository(),
+        self::categoryRepository(),
+        self::linkRepository(),
+        self::auditLogRepository(),
+        self::productValidator(),
+        self::productCacheInvalidator(),
+        self::productCacheKeyGenerator()
+    );
+}
+
+// Buat yang sama untuk workflow, query, bulk
     
     // ====================================================
     // INFRASTRUCTURE SERVICES

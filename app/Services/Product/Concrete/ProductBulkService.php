@@ -207,6 +207,8 @@ class ProductBulkService extends BaseService implements ProductBulkInterface
         $this->authorize('product.bulk.action');
         
         $startTime = microtime(true);
+        
+        // 1. Validation Phase (No Transaction needed yet)
         $validationResult = $this->validateBulkAction(
             $request->getProductIds(),
             $request->getAction(),
@@ -220,118 +222,147 @@ class ProductBulkService extends BaseService implements ProductBulkInterface
                 $validationResult
             );
         }
+
+        // 2. Setup Context
+        $validIds = $validationResult['valid_ids'];
+        $action = $request->getAction();
+        $adminId = $request->getUserId();
+        $parameters = $request->getParameters();
         
-        return $this->transaction(function() use ($request, $validationResult, $startTime) {
-            $validIds = $validationResult['valid_ids'];
-            $action = $request->getAction();
-            $adminId = $request->getUserId();
-            $parameters = $request->getParameters();
-            
-            $results = [
-                'success' => [],
-                'failed' => [],
-                'skipped' => []
-            ];
-            
-            // Calculate optimal batch size
-            $batchSize = $this->calculateOptimalBatchSize(
-                $action->value,
-                count($validIds),
-                ['max_memory_mb' => 128]
-            )['recommended_batch_size'];
-            
-            $this->bulkStats['max_batch_size_used'] = max(
-                $this->bulkStats['max_batch_size_used'],
-                $batchSize
-            );
-            
-            // Execute based on action type
-            switch ($action) {
-                case ProductBulkActionType::PUBLISH:
-                    foreach (array_chunk($validIds, $batchSize) as $chunk) {
-                        $chunkResult = $this->processBulkPublishChunk($chunk, $adminId, $parameters);
-                        $this->mergeResults($results, $chunkResult);
-                    }
-                    break;
+        $results = [
+            'success' => [],
+            'failed' => [],
+            'skipped' => []
+        ];
+
+        // 3. Calculate Batch Size
+        $batchSize = $this->calculateOptimalBatchSize(
+            $action->value,
+            count($validIds),
+            ['max_memory_mb' => 128]
+        )['recommended_batch_size'];
+
+        $this->bulkStats['max_batch_size_used'] = max(
+            $this->bulkStats['max_batch_size_used'],
+            $batchSize
+        );
+
+        // 4. Execution Phase (Optimized Chunking)
+        // Kita membagi strategi berdasarkan Tipe Action
+        switch ($action) {
+            case ProductBulkActionType::PUBLISH:
+            case ProductBulkActionType::DELETE:
+                // Strategi A: Manual Chunking dengan Transaksi per Batch
+                // Cocok untuk operasi yang memanggil helper 'processBulk...Chunk'
+                
+                $chunks = array_chunk($validIds, $batchSize);
+                
+                foreach ($chunks as $chunkIndex => $chunkIds) {
+                    // Start Transaction PER CHUNK (Bukan global)
+                    $chunkResult = $this->transaction(function() use ($action, $chunkIds, $adminId, $parameters) {
+                        if ($action === ProductBulkActionType::PUBLISH) {
+                            return $this->processBulkPublishChunk($chunkIds, $adminId, $parameters);
+                        } else {
+                            return $this->processBulkDeleteChunk($chunkIds, $adminId, $parameters);
+                        }
+                    }, 'bulk_chunk_' . $chunkIndex);
+
+                    // Merge result immediately
+                    $this->mergeResults($results, $chunkResult);
                     
-                case ProductBulkActionType::ARCHIVE:
-                    $results['success'] = $this->bulkArchive(
-                        $validIds,
-                        $adminId,
-                        $parameters['reason'] ?? null,
-                        $parameters
-                    );
-                    break;
-                    
-                case ProductBulkActionType::DELETE:
-                    foreach (array_chunk($validIds, $batchSize) as $chunk) {
-                        $chunkResult = $this->processBulkDeleteChunk($chunk, $adminId, $parameters);
-                        $this->mergeResults($results, $chunkResult);
-                    }
-                    break;
-                    
-                case ProductBulkActionType::UPDATE_STATUS:
-                    if (!isset($parameters['status'])) {
-                        throw new \InvalidArgumentException('Status parameter required');
-                    }
-                    $status = ProductStatus::from($parameters['status']);
-                    $results['success'] = $this->bulkUpdateStatus(
-                        $validIds,
-                        $status,
-                        $adminId,
-                        $parameters
-                    );
-                    break;
-                    
-                default:
-                    throw new DomainException(
-                        "Unsupported bulk action: {$action->value}",
-                        'UNSUPPORTED_BULK_ACTION',
-                        400
-                    );
-            }
-            
-            $duration = round((microtime(true) - $startTime) * 1000, 2);
-            $this->bulkStats['total_duration_ms'] += $duration;
-            
-            // Queue cache invalidation
-            $this->queueCacheOperation(function() use ($validIds) {
-                $this->bulkClearCaches($validIds, [
-                    'clear_related' => true,
-                    'async' => true
-                ]);
+                    // 🛡️ IMPORTANT: Beri jeda 10ms-50ms agar DB tidak terkunci terus menerus
+                    // Ini sangat vital untuk SQLite/Termux environment
+                    usleep(20000); 
+                }
+                break;
+
+            case ProductBulkActionType::ARCHIVE:
+                // Strategi B: Delegated Execution
+                [span_0](start_span)// Method bulkArchive sudah menghandle chunking via executeBulkWithCallback[span_0](end_span)
+                // Jadi JANGAN dibungkus transaksi lagi agar tidak double-transaction overhead.
+                $results['success'] = $this->bulkArchive(
+                    $validIds,
+                    $adminId,
+                    $parameters['reason'] ?? null,
+                    $parameters
+                );
+                // Note: Failed items handling tergantung implementasi bulkArchive, 
+                // jika dia return array success saja, failed count diambil dari total - success
+                break;
+
+            case ProductBulkActionType::UPDATE_STATUS:
+                // Strategi B: Delegated Execution
+                if (!isset($parameters['status'])) {
+                    throw new \InvalidArgumentException('Status parameter required');
+                }
+                $status = ProductStatus::from($parameters['status']);
+                
+                // Method ini juga sudah aman (self-managed)
+                $results['success'] = $this->bulkUpdateStatus(
+                    $validIds,
+                    $status,
+                    $adminId,
+                    $parameters
+                );
+                break;
+
+            default:
+                throw new DomainException(
+                    "Unsupported bulk action: {$action->value}",
+                    'UNSUPPORTED_BULK_ACTION',
+                    400
+                );
+        }
+
+        // 5. Finalization
+        $duration = round((microtime(true) - $startTime) * 1000, 2);
+        $this->bulkStats['total_duration_ms'] += $duration;
+
+        // Queue cache invalidation (Async/Deferred)
+        // Kita lakukan di akhir agar tidak spamming cache server per chunk
+        if (!empty($results['success'])) {
+            $this->queueCacheOperation(function() use ($results) {
+                // Hanya clear cache untuk ID yang sukses
+                $successIds = is_array($results['success']) ? $results['success'] : [];
+                if (!empty($successIds)) {
+                    $this->bulkClearCaches($successIds, [
+                        'clear_related' => true,
+                        'async' => true
+                    ]);
+                }
             });
-            
-            // Bulk audit log
-            $this->audit(
-                'BULK_ACTION',
-                'PRODUCT',
-                0,
-                null,
-                null,
-                [
-                    'action' => $action->value,
-                    'admin_id' => $adminId,
-                    'total_ids' => count($request->getProductIds()),
-                    'valid_ids' => count($validIds),
-                    'success_count' => count($results['success']),
-                    'failed_count' => count($results['failed']),
-                    'duration_ms' => $duration,
-                    'batch_size' => $batchSize,
-                    'parameters' => $parameters
-                ]
-            );
-            
-            return new BulkActionResult(
-                $action,
-                count($results['success']),
-                count($results['failed']),
-                count($validationResult['invalid_ids']),
-                $duration,
-                $results
-            );
-        }, 'bulk_action_' . $request->getAction()->value);
+        }
+
+        // 6. Global Audit Log
+        $this->audit(
+            'BULK_ACTION',
+            'PRODUCT',
+            0,
+            null,
+            null,
+            [
+                'action' => $action->value,
+                'admin_id' => $adminId,
+                'total_ids' => count($request->getProductIds()),
+                'valid_ids' => count($validIds),
+                'success_count' => count($results['success']),
+                'failed_count' => count($results['failed']),
+                'duration_ms' => $duration,
+                'batch_size' => $batchSize,
+                'parameters' => $parameters
+            ]
+        );
+
+        return new BulkActionResult(
+            $action,
+            count($results['success']),
+            count($results['failed']),
+            count($validationResult['invalid_ids']),
+            $duration,
+            $results
+        );
     }
+
 
     /**
      * {@inheritDoc}
