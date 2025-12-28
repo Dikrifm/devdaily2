@@ -21,11 +21,10 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v5.0.0 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Kita masukkan token mentah Anda di sini
           SONAR_TOKEN: ce1a948911037839a6aac7bb122b2d0d18222422
         with:
           projectBaseDir: .
           args: >
             -Dsonar.organization=dikrifm
-            -Dsonar.projectKey=dikrifm_devdaily2
+            -Dsonar.projectKey=Dikrifm_devdaily2
             -Dsonar.branch.name=main
