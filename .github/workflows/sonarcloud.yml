@@ -23,4 +23,4 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Bawaan GitHub (biarkan saja)
-          SONAR_TOKEN: ${{ce1a948911037839a6aac7bb122b2d0d18222422}}    # Yang kita set di Tahap 2
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}    # Yang kita set di Tahap 2
