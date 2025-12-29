@@ -8,6 +8,10 @@ parameters:
     excludePaths:
         - app/Views/*
         - app/ThirdParty/*
+    
+    # INI KUNCINYA: Jangan protes kalau ignore pattern tidak terpakai
+    reportUnmatchedIgnoredErrors: false
+    
     ignoreErrors:
         - '#Access to an undefined property CodeIgniter\.*#'
         - '#Call to an undefined method CodeIgniter\.*#'
