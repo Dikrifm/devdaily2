@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: 'Target Folder (contoh: app/Entities)'
+        description: 'Target Folder'
         required: true
         default: 'app'
       level:
@@ -15,20 +15,39 @@ on:
 jobs:
   remote-scan:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # UPDATE: Menggunakan PHP 8.4 agar cocok dengan composer.lock Anda
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4' 
+          php-version: '8.4'
           extensions: mbstring, intl, gd, xml, dom
+          coverage: none
+          tools: composer:v2
+
+      # --- ⚡ FITUR CACHE DIMULAI ⚡ ---
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          # Key cache unik berdasarkan hash file composer.lock
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      # --- ⚡ FITUR CACHE SELESAI ⚡ ---
 
       - name: Install Dependencies
         run: |
-          composer install --prefer-dist --no-progress
+          # Install dependensi (akan pakai cache jika tersedia)
+          composer install --prefer-dist --no-progress --no-interaction
+          
+          # Pastikan PHPStan ada (cepat karena dicache juga)
           composer require --dev phpstan/phpstan --no-interaction
 
       - name: 🚀 RUN PHPSTAN
