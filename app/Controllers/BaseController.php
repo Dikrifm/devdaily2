@@ -8,8 +8,6 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use App\Services\ResponseFormatter;
-use Config\Services;
 
 /**
  * Class BaseController
@@ -35,27 +33,18 @@ abstract class BaseController extends Controller
      * class instantiation. These helpers will be available
      * to all other controllers that extend BaseController.
      *
-     * @var list<string>
+     * @var array
      */
-    protected $helpers = ['form', 'url', 'text', 'number'];
-
-    /**
-     * Standard Response Formatter Service
-     * * Digunakan untuk menstandarisasi output JSON/API
-     * dan error handling responses.
-     *
-     * @var ResponseFormatter
-     */
-    protected ResponseFormatter $formatter;
+    protected $helpers = ['form', 'url', 'text', 'number', 'filesystem'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
      * The creation of dynamic property is deprecated in PHP 8.2.
      */
-    // protected $session;
+    protected $session;
 
     /**
-     * @return void
+     * Constructor.
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -65,9 +54,6 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
-        
-        // Load ResponseFormatter dari Service Container (Layer 0)
-        // Ini memastikan konsistensi format respon di seluruh aplikasi (API & Web)
-        $this->formatter = Services::responseFormatter();
+        $this->session = \Config\Services::session();
     }
 }

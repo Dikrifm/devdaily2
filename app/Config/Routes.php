@@ -25,7 +25,7 @@ $routes->setAutoRoute(false);
  */
 
 // ====================================================================
-// 1. WEB ROUTES (Public Storefront)[span_0](end_span)
+// 1. WEB ROUTES (Public Storefront)
 // Namespace: App\Controllers\Web
 // ====================================================================
 $routes->group('/', ['namespace' => 'App\Controllers\Web'], function ($routes) {
@@ -38,57 +38,57 @@ $routes->group('/', ['namespace' => 'App\Controllers\Web'], function ($routes) {
     // Product Discovery
     $routes->get('search', 'SearchController::index');
     $routes->get('products', 'SearchController::index'); // Alias
-    $routes->get('product/(:segment)', 'ProductController::detail/$1');
+    $routes->get('p/(:segment)', 'ProductController::detail/$1'); // Short URL
+    $routes->get('product/(:segment)', 'ProductController::detail/$1'); // Canonical
 
     // Category Navigation
     $routes->get('category/(:segment)', 'CategoryController::detail/$1');
 });
 
-
 // ====================================================================
-// 2. ADMIN ROUTES (Backoffice)[span_1](end_span)[span_2](end_span)
+// 2. ADMIN ROUTES (Backoffice)
 // Namespace: App\Controllers\Admin
 // ====================================================================
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
 
     // --- Guest Routes (Login/Auth) ---
-    // Note: Filter AdminAuth memiliki logika 'guestOnlyRoutes' internal
-    // tapi kita pisahkan grupnya agar lebih bersih.
     $routes->group('', function($routes) {
-        $routes->get('login', 'Auth::loginView');
-        $routes->post('auth/login', 'Auth::loginAction');
+        $routes->get('login', 'Auth::index'); // Method index menampilkan login view
+        $routes->post('auth/login', 'Auth::login'); // Method login memproses POST
         $routes->get('logout', 'Auth::logout');
-        
-        // 2FA Routes (Login Step 2)
-        $routes->get('auth/2fa', 'Auth::twoFactorView');
-        $routes->post('auth/2fa', 'Auth::twoFactorVerify');
+        $routes->get('forgot-password', 'Auth::forgotPassword');
     });
 
     // --- Protected Routes (The Fortress) ---
     // Filter: admin-pipeline (AdminAuth + AdminSessionCheck)
     $routes->group('', ['filter' => 'admin-pipeline'], function ($routes) {
+        
         // Dashboard
-        $routes->get('', 'Dashboard::index'); // Redirect /admin -> /admin/dashboard
+        $routes->get('', 'Dashboard::index');
         $routes->get('dashboard', 'Dashboard::index');
 
         // Product Management
         $routes->group('products', function($routes) {
             $routes->get('', 'AdminProduct::index');
-            $routes->get('new', 'AdminProduct::new');
-            $routes->post('', 'AdminProduct::create');
+            // FIX: Mengarah ke create() untuk form, store() untuk simpan
+            $routes->get('new', 'AdminProduct::create'); 
+            $routes->post('', 'AdminProduct::store');
+            
             $routes->get('(:num)/edit', 'AdminProduct::edit/$1');
             $routes->post('(:num)', 'AdminProduct::update/$1');
-            $routes->post('(:num)/delete', 'AdminProduct::delete/$1');
-            // Sub-resources
-            $routes->get('(:num)/prices', 'AdminProduct::prices/$1');
+            $routes->post('(:num)/delete', 'AdminProduct::delete/$1'); // Delete biasanya POST/DELETE method
+            
+            // Sub-resources (Prices & Links)
+            $routes->get('(:num)/prices', 'AdminProduct::prices/$1'); // Jika ada method ini di controller
             $routes->post('(:num)/verify', 'AdminProduct::verify/$1');
         });
 
         // Category Management
         $routes->group('categories', function($routes) {
             $routes->get('', 'AdminCategory::index');
-            $routes->post('', 'AdminCategory::create'); // Modal form usually
-            $routes->get('(:num)/edit', 'AdminCategory::edit/$1'); // Or fetch JSON for modal
+            // FIX: POST ke store(), bukan create()
+            $routes->post('', 'AdminCategory::store'); 
+            $routes->get('(:num)/edit', 'AdminCategory::edit/$1'); 
             $routes->post('(:num)', 'AdminCategory::update/$1');
             $routes->post('(:num)/delete', 'AdminCategory::delete/$1');
         });
@@ -96,33 +96,87 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
         // Link Management
         $routes->group('links', function($routes) {
             $routes->get('', 'AdminLink::index');
-            $routes->post('', 'AdminLink::create');
+            // FIX: POST ke store(), bukan create()
+            $routes->post('', 'AdminLink::store');
             $routes->post('(:num)/update', 'AdminLink::update/$1');
+            $routes->get('(:num)/validate', 'AdminLink::validateUrl/$1'); // Tambahan fitur validasi
             $routes->post('(:num)/delete', 'AdminLink::delete/$1');
-            $routes->post('extract-bulk', 'AdminLink::extractBulk'); // Fitur khusus
         });
 
         // User/Team Management
         $routes->group('users', function($routes) {
             $routes->get('', 'AdminUser::index');
-            $routes->get('new', 'AdminUser::new');
-            $routes->post('', 'AdminUser::create');
+            $routes->get('new', 'AdminUser::new'); // AdminUser punya method new()
+            $routes->post('', 'AdminUser::create'); // AdminUser pakai create() untuk simpan (unik)
             $routes->get('(:num)/edit', 'AdminUser::edit/$1');
             $routes->post('(:num)', 'AdminUser::update/$1');
-            $routes->post('(:num)/password', 'AdminUser::changePassword/$1'); // Reset by admin
+            $routes->post('(:num)/password', 'AdminUser::changePassword/$1');
             $routes->post('(:num)/delete', 'AdminUser::delete/$1');
         });
 
         // My Profile
         $routes->get('profile', 'AdminProfile::index');
         $routes->post('profile/update', 'AdminProfile::update');
-        $routes->post('profile/password', 'AdminProfile::changePassword');
+        $routes->post('profile/change-password', 'AdminProfile::changePassword'); // Sesuaikan nama method view
+
+        // ----------------------------------------------------------------
+        // ENTERPRISE MODULES ROUTES
+        // ----------------------------------------------------------------
+
+        // 1. Audit Logs (Keamanan & Monitoring)
+        $routes->group('audit-logs', function($routes) {
+            $routes->get('', 'AdminAuditLog::index');
+            $routes->get('export', 'AdminAuditLog::export');
+            $routes->get('(:num)', 'AdminAuditLog::show/$1'); // Detail Log
+        });
+
+        // 2. Authorization (Role & Permissions)
+        $routes->group('authorization', function($routes) {
+            $routes->get('', 'AdminAuthorization::index');
+            // Role Management
+            $routes->post('roles', 'AdminAuthorization::storeRole'); 
+            $routes->post('roles/(:num)/delete', 'AdminAuthorization::deleteRole/$1');
+            // Permission Management
+            $routes->get('permissions/(:num)', 'AdminAuthorization::editPermissions/$1');
+            $routes->get('roles/(:num)/permissions', 'AdminAuthorization::editPermissions/$1');
+            $routes->post('roles/(:num)/permissions', 'AdminAuthorization::updatePermissions/$1');
+        });
+
+        // 3. Product Badges (Label: Hot, New, Sale)
+        $routes->group('badges', function($routes) {
+            $routes->get('', 'AdminBadge::index');
+            $routes->get('new', 'AdminBadge::create');
+            $routes->post('', 'AdminBadge::store');
+            $routes->get('(:num)/edit', 'AdminBadge::edit/$1');
+            $routes->post('(:num)', 'AdminBadge::update/$1');
+            $routes->post('(:num)/delete', 'AdminBadge::delete/$1');
+        });
+
+        // 4. Marketplaces (Tokopedia, Shopee, dll)
+        $routes->group('marketplaces', function($routes) {
+            $routes->get('', 'AdminMarketplace::index');
+            $routes->get('new', 'AdminMarketplace::create');
+            $routes->post('', 'AdminMarketplace::store');
+            $routes->get('(:num)/edit', 'AdminMarketplace::edit/$1');
+            $routes->post('(:num)', 'AdminMarketplace::update/$1');
+            $routes->post('(:num)/delete', 'AdminMarketplace::delete/$1');
+            $routes->post('(:num)/toggle-status', 'AdminMarketplace::toggleStatus/$1');
+        });
+
+        // 5. Marketplace Badges (Official Store, Star Seller)
+        $routes->group('marketplace-badges', function($routes) {
+            $routes->get('', 'AdminMarketplaceBadge::index');
+            $routes->post('', 'AdminMarketplaceBadge::store'); // Create via modal/inline
+            $routes->get('(:num)/edit', 'AdminMarketplaceBadge::edit/$1');
+            $routes->post('(:num)', 'AdminMarketplaceBadge::update/$1');
+            $routes->post('(:num)/delete', 'AdminMarketplaceBadge::delete/$1');
+        });
     });
 });
 
 
 // ====================================================================
-// 3. API ROUTES (Mobile/External)[span_3](end_span)
+// 3. API ROUTES (Mobile/External)
 // Namespace: App\Controllers\Api
 // ====================================================================
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
@@ -138,7 +192,6 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 
     // --- Protected API ---
     // Menggunakan admin-pipeline karena filter ini support Token Inspection
-    // lihat AdminAuth.php baris 88 (Header Authorization)
     $routes->group('', ['filter' => 'admin-pipeline'], function($routes) {
         $routes->post('auth/logout', 'ApiAuth::logout');
         $routes->get('auth/me', 'ApiAuth::me');
@@ -153,8 +206,6 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
 // 4. HTMX ROUTES (Interactive Fragments)
 // Namespace: App\Controllers\Htmx
 // ====================================================================
-// Note: Biasanya diproteksi session admin, tapi validasi URL bisa public
-// tergantung kebutuhan. Kita proteksi demi keamanan resources.
 $routes->group('htmx', ['namespace' => 'App\Controllers\Htmx', 'filter' => 'admin-pipeline'], function ($routes) {
     
     // Link Validation (Realtime)
@@ -169,11 +220,6 @@ $routes->group('htmx', ['namespace' => 'App\Controllers\Htmx', 'filter' => 'admi
  * --------------------------------------------------------------------
  * Additional Routing
  * --------------------------------------------------------------------
- *
- * There will often be times that you need additional routing and you
- * need it to be able to override any defaults in this file. Environment
- * based routes is one such time. require() additional route files here
- * to make that happen.
  */
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';

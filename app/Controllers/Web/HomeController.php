@@ -37,7 +37,7 @@ class HomeController extends BaseController
     public function index()
     {
         // 1. Ambil Kategori Utama (Root Categories)
-        [span_4](start_span)// Parameter true = hanya yang statusnya Active[span_4](end_span)
+        // Parameter true = hanya yang statusnya Active[span_4](end_span)
         // Service ini sudah memiliki caching internal (L2 Cache), jadi aman dipanggil berulang kali
         $rootCategories = $this->categoryService->getRootCategories(true);
 

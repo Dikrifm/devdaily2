@@ -1,0 +1,38 @@
+name: Manual PHPStan Scan
+
+# Trigger hanya jika dipanggil manual (via Web atau CLI)
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Folder/File target (contoh: app/Entities)'
+        required: true
+        default: 'app'
+      level:
+        description: 'Level Analisa (0-9)'
+        required: true
+        default: '1'
+
+jobs:
+  remote-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, intl, gd, xml, dom
+
+      - name: Install Dependencies
+        run: |
+          composer install --prefer-dist --no-progress
+          composer require --dev phpstan/phpstan --no-interaction
+
+      - name: 🚀 RUN PHPSTAN (Remote)
+        run: |
+          echo "Scanning target: ${{ inputs.target }}"
+          echo "Strictness Level: ${{ inputs.level }}"
+          vendor/bin/phpstan analyse ${{ inputs.target }} --level=${{ inputs.level }}

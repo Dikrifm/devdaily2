@@ -16,12 +16,19 @@ use CodeIgniter\Exceptions\FrameworkException;
  */
 
 Events::on('pre_system', function () {
-    if (ENVIRONMENT !== 'testing') {
-        if (ini_get('zlib.output_compression')) {
-            throw FrameworkException::forEnabledZlibOutputCompression();
-        }
+    // Inisialisasi Bugsnag satu kali untuk seluruh siklus aplikasi
+    $apiKey = env('bugsnag.apiKey');
+    
+    if (!empty($apiKey)) {
+        $bugsnag = \Bugsnag\Client::make($apiKey);
+        
+        // Daftarkan Handler Otomatis (Menangkap Exception & Fatal Error)
+        \Bugsnag\Handler::register($bugsnag);
+        
+        $bugsnag->setReleaseStage(env('CI_ENVIRONMENT'));
     }
 });
+
 
 /*
  * --------------------------------------------------------------------

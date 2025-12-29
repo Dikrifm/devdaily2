@@ -87,8 +87,8 @@ class ProductModel extends BaseModel
         'market_price' => 'required|decimal',
         'view_count' => 'permit_empty|integer',
         'image_path' => 'permit_empty|max_length[255]',
-        'image_source_type' => 'required|in_list[' . ImageSourceType::valuesString() . ']',
-        'status' => 'required|in_list[' . ProductStatus::valuesString() . ']',
+        //'image_source_type' => 'required|in_list[' . ImageSourceType::valuesString() . ']',
+        //'status' => 'required|in_list[' . ProductStatus::valuesString() . ']',
         'published_at' => 'permit_empty|valid_date',
         'verified_at' => 'permit_empty|valid_date',
         'verified_by' => 'permit_empty|integer',
@@ -130,7 +130,7 @@ class ProductModel extends BaseModel
         ],
         'image_path' => [
             'max_length' => 'Image path cannot exceed 255 characters',
-        ],
+        ],/*
         'image_source_type' => [
             'required' => 'Image source type is required',
             'in_list' => 'Image source type must be one of: ' . ImageSourceType::valuesString(),
@@ -138,7 +138,7 @@ class ProductModel extends BaseModel
         'status' => [
             'required' => 'Product status is required',
             'in_list' => 'Product status must be one of: ' . ProductStatus::valuesString(),
-        ],
+        ],*/
         'published_at' => [
             'valid_date' => 'Published at must be a valid date',
         ],
@@ -155,19 +155,39 @@ class ProductModel extends BaseModel
             'valid_date' => 'Last link check must be a valid date',
         ],
     ];
+    
+     /**
+     * Constructor
+     * Digunakan untuk menginisialisasi rule validasi yang dinamis
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // 1. Set Validation Rules Dinamis
+        $this->validationRules['image_source_type'] = 'required|in_list[' . ImageSourceType::valuesString() . ']';
+        $this->validationRules['status']            = 'required|in_list[' . ProductStatus::valuesString() . ']';
+
+        // 2. Set Validation Messages Dinamis
+        $this->validationMessages['image_source_type'] = [
+            'required' => 'Image source type is required',
+            'in_list'  => 'Image source type must be one of: ' . ImageSourceType::valuesString(),
+        ];
+        
+        $this->validationMessages['status'] = [
+            'required' => 'Product status is required',
+            'in_list'  => 'Product status must be one of: ' . ProductStatus::valuesString(),
+        ];
+    }
 
     /**
      * Custom validation rule for strict URL validation
-     * 
-     * @param string $str
-     * @return bool
      */
     public function valid_url_strict(string $str): bool
     {
         if (empty($str)) {
             return true;
         }
-        
         return filter_var($str, FILTER_VALIDATE_URL) !== false;
     }
 
@@ -655,13 +675,12 @@ class ProductModel extends BaseModel
         return $this->update($productId, $data);
     }
 
-    /**
+/**
      * Archive product (soft delete via status change)
-     * 
-     * @param int $productId
+     * * @param int|string $productId  <-- PERBAIKAN: Ubah tipe data jadi int|string
      * @return bool
      */
-    public function archive(int $productId): bool
+    public function archive(int|string $productId): bool
     {
         $data = [
             'status' => ProductStatus::ARCHIVED->value,
@@ -670,7 +689,7 @@ class ProductModel extends BaseModel
 
         return $this->update($productId, $data);
     }
-
+    
     /**
      * Request verification (move from DRAFT to PENDING_VERIFICATION)
      * 

@@ -231,7 +231,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         
         $product->archive();
         $success = $this->save($product);
-        
         // Invalidate all product caches
         if ($success) {
             $this->deleteMatching('*');
@@ -243,12 +242,15 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     /**
      * {@inheritDoc}
      */
-    public function restore(int $productId, ?int $restoredBy = null): bool
+    public function restore(int|string $id, ?int $restoredBy = null): bool
     {
         /** @var ProductModel $model */
         $model = $this->model;
         
-        $success = $model->restore($productId);
+        // Logika tambahan jika ingin mencatat siapa yang merestore (Opsional)
+        // if ($restoredBy) { ... logic audit trail ... }
+
+        $success = $model->restore($id);
         
         // Invalidate caches
         if ($success) {

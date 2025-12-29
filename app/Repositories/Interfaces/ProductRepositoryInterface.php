@@ -109,7 +109,8 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
      * @param int|null $restoredBy Admin ID yang merestore
      * @return bool
      */
-    public function restore(int $productId, ?int $restoredBy = null): bool;
+     
+    public function restore(int|string $id, ?int $restoredBy = null): bool;
 
     /**
      * Update status produk

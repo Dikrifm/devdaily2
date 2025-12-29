@@ -36,8 +36,7 @@ enum ImageSourceType: string
     }
 
 
-    // Method baru untuk validator
-    public static function valuesAsString(): string
+public static function valuesString(): string
     {
         return implode(', ', array_map(
             fn ($case) => $case->value,
