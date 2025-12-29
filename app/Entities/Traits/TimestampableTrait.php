@@ -17,12 +17,12 @@ trait TimestampableTrait
     /**
      * Creation timestamp
      */
-    private ?DateTimeImmutable $created_at = null;
+    protected ?DateTimeImmutable $created_at = null;
 
     /**
      * Last update timestamp
      */
-    private ?DateTimeImmutable $updated_at = null;
+    protected ?DateTimeImmutable $updated_at = null;
 
     /**
      * Get creation timestamp
